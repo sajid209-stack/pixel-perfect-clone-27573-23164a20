@@ -22,9 +22,9 @@ export function TopBar() {
       animate={{ opacity: 1 }}
       className="sticky top-0 z-50 h-8 flex items-center px-6 text-[11px] tracking-wide"
       style={{
-        background: "rgba(7,9,10,0.85)",
+        background: "rgb(var(--surface-rgb) / 0.85)",
         color: "var(--text-secondary)",
-        borderBottom: "1px solid rgba(255,255,255,0.04)",
+        borderBottom: "1px solid rgb(var(--ov) / 0.04)",
         backdropFilter: "blur(20px)",
       }}
     >

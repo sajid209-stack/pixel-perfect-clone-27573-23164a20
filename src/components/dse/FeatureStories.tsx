@@ -77,7 +77,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
             }`}
             style={{
               color: "transparent",
-              WebkitTextStroke: "1px rgba(255,255,255,0.15)",
+              WebkitTextStroke: "1px rgb(var(--ov) / 0.15)",
               fontFamily: "var(--font-heading)",
             }}
           >
@@ -87,7 +87,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
           <div
             className="relative overflow-hidden rounded-[28px] aspect-[5/6] lg:aspect-[5/4]"
             style={{
-              boxShadow: "0 40px 100px -30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)",
+              boxShadow: "0 40px 100px -30px rgb(var(--ov-inv) / 0.8), 0 0 0 1px rgb(var(--ov) / 0.06)",
             }}
           >
             <motion.img
@@ -103,7 +103,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(180deg, transparent 30%, rgba(7,9,10,0.7) 100%)",
+                  "linear-gradient(180deg, transparent 30%, rgb(var(--surface-rgb) / 0.7) 100%)",
               }}
             />
             {/* floating stat badge */}
@@ -114,9 +114,9 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
               transition={{ delay: 0.4 }}
               className="absolute bottom-6 left-6 right-6 grid grid-cols-3 gap-3 p-4 rounded-2xl"
               style={{
-                background: "rgba(7,9,10,0.65)",
+                background: "rgb(var(--surface-rgb) / 0.65)",
                 backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                border: "1px solid rgb(var(--ov) / 0.08)",
               }}
             >
               {story.stats.map((s) => (
@@ -190,7 +190,7 @@ export function FeatureStories() {
     <section className="py-32 md:py-40 px-6 relative overflow-hidden">
       {/* ambient grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
-        backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(rgb(var(--ov) / 1) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--ov) / 1) 1px, transparent 1px)",
         backgroundSize: "64px 64px",
         maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
         WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",

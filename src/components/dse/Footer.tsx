@@ -9,7 +9,7 @@ const cols = [
 
 export function Footer() {
   return (
-    <footer style={{ background: "rgba(0,0,0,0.4)", color: "#fff", borderTop: "1px solid var(--border)", backdropFilter: "blur(14px)" }}>
+    <footer style={{ background: "rgb(var(--ov-inv) / 0.4)", color: "#fff", borderTop: "1px solid var(--border)", backdropFilter: "blur(14px)" }}>
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-3">

@@ -58,7 +58,7 @@ export function Announcements() {
               </div>
             </div>
             <a className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium border transition hover:translate-x-0.5 cursor-pointer"
-              style={{ borderColor: "rgba(255,255,255,0.12)", color: "var(--text-primary)" }}>
+              style={{ borderColor: "rgb(var(--ov) / 0.12)", color: "var(--text-primary)" }}>
               All filings
               <ArrowUpRight className="w-4 h-4" />
             </a>
@@ -67,7 +67,7 @@ export function Announcements() {
 
         {/* filter pills with animated active indicator */}
         <div className="flex flex-wrap gap-1 mb-10 p-1 rounded-full w-fit"
-          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+          style={{ background: "rgb(var(--ov) / 0.03)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
           {filters.map((f) => (
             <button
               key={f}
@@ -98,7 +98,7 @@ export function Announcements() {
               viewport={{ once: true }}
               className="relative p-8 md:p-10 rounded-3xl overflow-hidden group cursor-pointer"
               style={{
-                background: "linear-gradient(135deg, rgba(16,240,160,0.06), rgba(255,255,255,0.02))",
+                background: "linear-gradient(135deg, rgba(16,240,160,0.06), rgb(var(--ov) / 0.02))",
                 border: "1px solid rgba(16,240,160,0.18)",
               }}
             >
@@ -146,9 +146,9 @@ export function Announcements() {
                     onMouseLeave={() => setHovered(null)}
                     className="relative grid grid-cols-[auto_60px_1fr_auto] gap-4 items-center px-5 py-5 rounded-2xl cursor-pointer transition"
                     style={{
-                      background: isHovered ? "rgba(255,255,255,0.03)" : "transparent",
+                      background: isHovered ? "rgb(var(--ov) / 0.03)" : "transparent",
                       border: "1px solid",
-                      borderColor: isHovered ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.04)",
+                      borderColor: isHovered ? "rgb(var(--ov) / 0.08)" : "rgb(var(--ov) / 0.04)",
                     }}
                   >
                     <div className="flex items-center justify-center w-10 h-10 rounded-xl"
@@ -198,7 +198,7 @@ export function Announcements() {
 
             <div className="relative">
               {/* timeline line */}
-              <div className="absolute left-[15px] top-2 bottom-2 w-px" style={{ background: "linear-gradient(180deg, rgba(16,240,160,0.4), rgba(255,255,255,0.05))" }} />
+              <div className="absolute left-[15px] top-2 bottom-2 w-px" style={{ background: "linear-gradient(180deg, rgba(16,240,160,0.4), rgb(var(--ov) / 0.05))" }} />
 
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -228,7 +228,7 @@ export function Announcements() {
                     <span style={{ color: "var(--text-muted)" }}>Subscribed</span>
                     <span className="tnum font-semibold" style={{ color: "var(--green-up)" }}>73%</span>
                   </div>
-                  <div className="h-1.5 w-full rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+                  <div className="h-1.5 w-full rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.06)" }}>
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: "73%" }}
@@ -251,7 +251,7 @@ export function Announcements() {
                 <div className="absolute left-[7px] top-2 w-4 h-4 rounded-full border-2"
                   style={{ background: "var(--bg-primary)", borderColor: "var(--amber)" }} />
                 <div className="p-5 rounded-2xl"
-                  style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                  style={{ background: "rgb(var(--ov) / 0.02)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
                   <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: "var(--amber)" }}>
                     Upcoming · Jun 18
                   </div>
@@ -270,9 +270,9 @@ export function Announcements() {
                 className="relative pl-12"
               >
                 <div className="absolute left-[7px] top-2 w-4 h-4 rounded-full border-2"
-                  style={{ background: "var(--bg-primary)", borderColor: "rgba(255,255,255,0.2)" }} />
+                  style={{ background: "var(--bg-primary)", borderColor: "rgb(var(--ov) / 0.2)" }} />
                 <div className="p-5 rounded-2xl group cursor-pointer"
-                  style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)" }}>
+                  style={{ background: "rgb(var(--ov) / 0.02)", border: "1px dashed rgb(var(--ov) / 0.1)" }}>
                   <div className="flex items-start gap-3">
                     <Bell className="w-4 h-4 mt-0.5" style={{ color: "var(--text-muted)" }} />
                     <div>

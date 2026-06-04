@@ -22,7 +22,7 @@ function SectorRow({ s, i }: { s: typeof sectors[number]; i: number }) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: i * 0.04, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
       className="group grid grid-cols-[140px_1fr_70px] items-center gap-6 py-4 border-t"
-      style={{ borderColor: "rgba(255,255,255,0.05)" }}
+      style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
     >
       <div className="text-[14px]" style={{ color: "var(--text-primary)" }}>
         {s.name}
@@ -85,7 +85,7 @@ function SectorPanel() {
         {sectors.map((s, i) => (
           <SectorRow key={s.name} s={s} i={i} />
         ))}
-        <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.05)" }} />
+        <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
       </div>
     </div>
   );
@@ -151,7 +151,7 @@ function MoversPanel() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.06 }}
                 className="group relative grid grid-cols-[1fr_100px_90px_28px] items-center gap-5 py-5 border-t cursor-pointer"
-                style={{ borderColor: "rgba(255,255,255,0.05)" }}
+                style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
               >
                 <div className="flex items-baseline gap-3 min-w-0">
                   <span
@@ -224,7 +224,7 @@ function MoversPanel() {
               </motion.div>
             );
           })}
-          <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.05)" }} />
+          <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
         </motion.div>
       </AnimatePresence>
     </div>

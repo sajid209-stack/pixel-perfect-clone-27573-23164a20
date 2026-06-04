@@ -43,7 +43,7 @@ function ReportsPanel() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ delay: i * 0.06, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
             className="group grid grid-cols-[80px_1fr_auto] items-center gap-6 py-6 border-t cursor-pointer relative"
-            style={{ borderColor: "rgba(255,255,255,0.05)" }}
+            style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
           >
             <div
               className="text-[12px] tnum uppercase tracking-wider"
@@ -80,7 +80,7 @@ function ReportsPanel() {
             />
           </motion.a>
         ))}
-        <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.05)" }} />
+        <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
       </div>
     </div>
   );
@@ -98,7 +98,7 @@ function CalendarTile() {
       className="relative rounded-2xl overflow-hidden p-8"
       style={{
         background:
-          "linear-gradient(160deg, rgba(127,217,176,0.06) 0%, rgba(255,255,255,0.01) 100%)",
+          "linear-gradient(160deg, rgba(127,217,176,0.06) 0%, rgb(var(--ov) / 0.01) 100%)",
       }}
     >
       <div
@@ -133,7 +133,7 @@ function CalendarTile() {
         </div>
       </div>
 
-      <div className="relative mt-8 pt-6 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+      <div className="relative mt-8 pt-6 border-t" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
         <div className="flex items-baseline justify-between">
           <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
             Closed for
@@ -190,7 +190,7 @@ function ToolsTile() {
           <a
             key={t.label}
             className="group flex items-center justify-between py-4 border-t cursor-pointer"
-            style={{ borderColor: "rgba(255,255,255,0.05)" }}
+            style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
           >
             <div className="flex items-center gap-3">
               <t.Icon
@@ -210,7 +210,7 @@ function ToolsTile() {
             />
           </a>
         ))}
-        <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.05)" }} />
+        <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
       </div>
     </motion.div>
   );
@@ -224,7 +224,7 @@ function HelplineTile() {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
       className="flex items-center justify-between gap-4 pt-6 border-t"
-      style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
     >
       <div>
         <div
