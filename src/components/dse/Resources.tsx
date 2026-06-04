@@ -17,7 +17,7 @@ function IconBox({ children, color = "var(--green-up)" }: { children: React.Reac
 
 export function Resources() {
   return (
-    <section className="py-10 px-6">
+    <section className="py-10 px-6 relative" style={{ background: "radial-gradient(700px 400px at 50% 100%, rgba(16,240,160,0.04), transparent 65%), linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)" }}>
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-4">
         <Card>
           <IconBox><FileDown className="w-5 h-5" /></IconBox>

@@ -135,7 +135,7 @@ function MoversPanel() {
 
 export function MarketOverview() {
   return (
-    <section className="py-12 px-6">
+    <section className="py-12 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 0%, rgba(16,240,160,0.05), transparent 65%), linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 100%)" }}>
       <div className="max-w-7xl mx-auto">
         <div className="flex items-end justify-between mb-6 flex-wrap gap-2">
           <h2 className="text-[20px] font-bold" style={{ color: "var(--text-primary)" }}>Today's market overview</h2>

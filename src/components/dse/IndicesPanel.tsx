@@ -17,7 +17,7 @@ const periods = ["1D", "1W", "1M", "3M"];
 export function IndicesPanel() {
   const [period, setPeriod] = useState("1M");
   return (
-    <section className="py-12 px-6">
+    <section className="py-12 px-6 relative" style={{ background: "radial-gradient(800px 500px at 0% 50%, rgba(52,255,184,0.05), transparent 65%), linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 100%)" }}>
       <div className="max-w-7xl mx-auto">
         <div className="flex items-end justify-between mb-6 flex-wrap gap-3">
           <h2 className="text-[20px] font-bold" style={{ color: "var(--text-primary)" }}>Index performance</h2>

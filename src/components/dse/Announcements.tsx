@@ -29,7 +29,7 @@ function ProgressBar({ pct }: { pct: number }) {
 export function Announcements() {
   const [filter, setFilter] = useState("All");
   return (
-    <section className="py-12 px-6">
+    <section className="py-12 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 100%, rgba(16,240,160,0.05), transparent 65%), linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.2) 100%)" }}>
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[60fr_40fr] gap-6">
         <div>
           <div className="flex items-center justify-between mb-3">
