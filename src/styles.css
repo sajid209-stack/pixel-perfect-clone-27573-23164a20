@@ -93,12 +93,13 @@
 }
 
 @utility glass {
+  position: relative;
   background:
-    radial-gradient(120% 80% at 0% 0%, rgba(127,217,176,0.035) 0%, transparent 55%),
-    linear-gradient(135deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.01) 100%);
+    radial-gradient(70% 60% at 100% 0%, rgba(127,217,176,0.10) 0%, transparent 70%),
+    linear-gradient(160deg, rgba(127,217,176,0.06) 0%, rgba(255,255,255,0.01) 100%);
   border: none;
-  backdrop-filter: blur(24px) saturate(110%);
-  border-radius: var(--radius);
+  backdrop-filter: blur(20px) saturate(110%);
+  border-radius: 1rem;
   box-shadow:
     0 1px 0 rgba(255,255,255,0.04) inset,
     0 24px 60px -30px rgba(0,0,0,0.5);
