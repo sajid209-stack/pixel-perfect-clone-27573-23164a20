@@ -112,7 +112,7 @@ export function Nav() {
 
         {/* Search trigger (command bar style) */}
         <button
-          className="hidden md:flex items-center gap-2.5 h-9 pl-3 pr-2 rounded-full text-[13px] transition hover:bg-white/[0.06] group"
+          className="hidden md:flex items-center gap-2.5 h-9 pl-3 pr-2 rounded-full text-[13px] transition group"
           style={{
             background: "rgb(var(--ov) / 0.03)",
             border: "1px solid rgb(var(--ov) / 0.06)",
