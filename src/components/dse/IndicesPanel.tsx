@@ -17,11 +17,11 @@ const periods = ["1D", "1W", "1M", "3M"];
 export function IndicesPanel() {
   const [period, setPeriod] = useState("1M");
   return (
-    <section className="py-32 px-6 relative" style={{ background: "radial-gradient(800px 500px at 0% 50%, rgba(52,255,184,0.05), transparent 65%)" }}>
+    <section className="py-40 px-6 relative" style={{ background: "radial-gradient(800px 500px at 0% 50%, rgba(52,255,184,0.04), transparent 65%)" }}>
       <div className="max-w-7xl mx-auto">
-        <div className="mb-14">
-          <div className="text-[12px] uppercase tracking-[0.18em] mb-3" style={{ color: "var(--text-muted)" }}>Performance</div>
-          <h2 className="text-[36px] md:text-[44px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Index performance</h2>
+        <div className="mb-20">
+          <div className="text-[12px] uppercase tracking-[0.18em] mb-4" style={{ color: "var(--text-muted)" }}>Performance</div>
+          <h2 className="text-[36px] md:text-[44px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>Index performance</h2>
         </div>
         <div className="flex items-end justify-between mb-8 flex-wrap gap-3">
           <span className="text-sm" style={{ color: "var(--text-muted)" }}>Select period</span>
@@ -43,7 +43,7 @@ export function IndicesPanel() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-10">
           {indices.map((idx, i) => (
             <motion.div
               key={idx.name}
@@ -51,7 +51,7 @@ export function IndicesPanel() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="glass p-7"
+              className="glass p-8"
             >
               <div className="flex items-end justify-between">
                 <div>
@@ -91,13 +91,13 @@ export function IndicesPanel() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass p-8"
+          className="glass p-10"
         >
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold" style={{ color: "var(--text-primary)" }}>DSEX · {period}</h3>
             <span className="text-xs" style={{ color: "var(--text-muted)" }}>Previous close: 6,222.90</span>
           </div>
-          <div className="h-[280px]">
+          <div className="h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={longSeries}>
                 <defs>
