@@ -35,17 +35,17 @@ const stories: Story[] = [
 
 export function FeatureStories() {
   return (
-    <section className="py-32 px-6 relative">
-      <div className="max-w-7xl mx-auto mb-20">
-        <div className="text-[12px] uppercase tracking-[0.18em] mb-3" style={{ color: "var(--text-muted)" }}>
+    <section className="py-40 px-6 relative">
+      <div className="max-w-7xl mx-auto mb-24">
+        <div className="text-[12px] uppercase tracking-[0.18em] mb-4" style={{ color: "var(--text-muted)" }}>
           Insights
         </div>
-        <h2 className="text-[36px] md:text-[44px] font-bold tracking-tight max-w-[24ch]" style={{ color: "var(--text-primary)" }}>
+        <h2 className="text-[36px] md:text-[44px] font-semibold tracking-tight max-w-[24ch]" style={{ color: "var(--text-primary)" }}>
           Stories from Bangladesh's market.
         </h2>
       </div>
 
-      <div className="max-w-7xl mx-auto space-y-28">
+      <div className="max-w-7xl mx-auto space-y-36">
         {stories.map((s, i) => (
           <motion.article
             key={s.title}
