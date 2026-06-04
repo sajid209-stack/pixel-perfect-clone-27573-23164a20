@@ -11,7 +11,7 @@ export const dsexData = [
 
 export const sparkData = Array.from({ length: 30 }, (_, i) => ({
   i,
-  v: 6190 + Math.round(Math.sin(i / 3) * 12 + i * 1.7 + Math.random() * 6),
+  v: 6190 + Math.round(Math.sin(i / 3) * 12 + i * 1.7 + Math.cos(i / 1.7) * 4),
 }));
 
 export const tickerStocks = [
@@ -46,7 +46,7 @@ export const sectors = [
 ] as const;
 
 const mkSpark = (up: boolean) =>
-  Array.from({ length: 6 }, (_, i) => ({ i, v: up ? 10 + i + Math.random() * 3 : 20 - i + Math.random() * 3 }));
+  Array.from({ length: 6 }, (_, i) => ({ i, v: up ? 10 + i + Math.sin(i) * 1.5 : 20 - i + Math.cos(i) * 1.5 }));
 
 export const topGainers = [
   { code: "ANWARGALV", name: "Anwar Galvanising", price: 109.7, change: 9.92, spark: mkSpark(true) },
@@ -82,5 +82,5 @@ export const announcements = [
 
 export const longSeries = Array.from({ length: 60 }, (_, i) => ({
   date: `D${i + 1}`,
-  value: 6100 + Math.round(Math.sin(i / 4) * 40 + i * 2.4 + Math.random() * 18),
+  value: 6100 + Math.round(Math.sin(i / 4) * 40 + i * 2.4 + Math.cos(i / 2.3) * 9),
 }));
