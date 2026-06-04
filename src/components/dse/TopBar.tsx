@@ -55,11 +55,13 @@ export function TopBar() {
         </span>
         <span className="opacity-20">·</span>
         <button
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition hover:bg-white/5"
+          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition"
           style={{ color: "var(--text-secondary)" }}
         >
           EN <span className="opacity-40">/</span> <span className="bengali">বাং</span>
         </button>
+        <span className="opacity-20">·</span>
+        <ThemeToggle />
       </div>
     </motion.div>
   );
