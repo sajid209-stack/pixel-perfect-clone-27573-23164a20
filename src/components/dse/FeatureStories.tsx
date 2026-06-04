@@ -87,7 +87,7 @@ export function FeatureStories() {
                 {s.eyebrow}
               </div>
               <h3
-                className="text-[32px] md:text-[40px] font-bold leading-[1.1] tracking-tight max-w-[18ch]"
+                className="text-[32px] md:text-[40px] font-semibold leading-[1.15] tracking-tight max-w-[18ch]"
                 style={{ color: "var(--text-primary)" }}
               >
                 {s.title}
