@@ -3,33 +3,27 @@ import { tickerStocks } from "./data";
 export function Ticker() {
   const items = [...tickerStocks, ...tickerStocks];
   return (
-    <div
-      className="h-10 flex items-center overflow-hidden relative"
-      style={{
-        background: "rgba(255,255,255,0.04)",
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-        backdropFilter: "blur(14px)",
-      }}
-    >
+    <div className="h-12 flex items-center overflow-hidden relative">
       <div
-        className="flex-shrink-0 px-3 h-full flex items-center text-[11px] font-semibold uppercase tracking-wider z-10"
-        style={{ background: "rgba(127,217,176,0.10)", color: "var(--green-up)" }}
+        className="flex-shrink-0 px-4 h-full flex items-center text-[12px] font-semibold uppercase tracking-wider z-10"
+        style={{ color: "var(--green-up)" }}
       >
         ● Live
       </div>
       <div
         className="flex-1 overflow-hidden"
         style={{
-          maskImage: "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
+          maskImage:
+            "linear-gradient(to right, transparent 0, black 240px, black calc(100% - 240px), transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0, black 240px, black calc(100% - 240px), transparent 100%)",
         }}
       >
         <div className="ticker-track inline-flex whitespace-nowrap">
           {items.map((s, i) => {
             const up = s.change >= 0;
             return (
-              <span key={i} className="px-5 text-[13px] tnum inline-flex items-center gap-2">
+              <span key={i} className="px-6 text-[15px] tnum inline-flex items-center gap-2.5">
                 <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{s.code}</span>
                 <span style={{ color: "var(--text-secondary)" }}>{s.price}</span>
                 <span style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}>
