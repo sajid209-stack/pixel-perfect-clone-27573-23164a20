@@ -60,6 +60,7 @@ export function Resources() {
             <span>24/7 helpline: <span className="font-semibold tnum" style={{ color: "var(--text-primary)" }}>+880 9612-345678</span></span>
           </div>
         </Card>
+        </div>
       </div>
     </section>
   );
