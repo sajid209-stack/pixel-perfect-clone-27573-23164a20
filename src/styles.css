@@ -34,8 +34,48 @@
   --font-bengali: "Noto Sans Bengali", system-ui, sans-serif;
 }
 
+/* LIGHT THEME (default) */
 :root {
-  /* Calmer dark mint — softer on the eyes */
+  --navy-deep: #FFFFFF;
+  --navy-mid: #16A974;
+  --navy-light: #2DBF8A;
+  --sky-50: rgba(0,0,0,0.04);
+  --sky-100: #475569;
+  --green-up: #16A974;
+  --green-up-light: rgba(22,169,116,0.10);
+  --red-down: #D9415E;
+  --red-down-light: rgba(217,65,94,0.10);
+  --amber: #C2913B;
+  --amber-light: rgba(194,145,59,0.10);
+  --surface: transparent;
+  --border: rgba(0,0,0,0.08);
+  --text-primary: #0E1513;
+  --text-secondary: #4A555B;
+  --text-muted: #8A949A;
+
+  --background: #F7F8F7;
+  --foreground: #0E1513;
+  --card: rgba(0,0,0,0.025);
+  --card-foreground: #0E1513;
+  --primary: #16A974;
+  --primary-foreground: #FFFFFF;
+  --muted: rgba(0,0,0,0.03);
+  --muted-foreground: #4A555B;
+  --radius: 1rem;
+
+  /* Theme-aware overlay primitives (space-separated for rgb() syntax) */
+  --ov: 0 0 0;
+  --ov-inv: 255 255 255;
+  --surface-rgb: 247 248 247;
+
+  --body-bg-img:
+    radial-gradient(1200px 800px at 80% -10%, rgba(22,169,116,0.07), transparent 65%),
+    radial-gradient(1000px 700px at -10% 50%, rgba(22,169,116,0.04), transparent 65%),
+    linear-gradient(180deg, #F7F8F7 0%, #EEF1EF 60%, #F7F8F7 100%);
+}
+
+/* DARK THEME */
+.dark {
   --navy-deep: #0B0E10;
   --navy-mid: #7FD9B0;
   --navy-light: #A8E6C9;
@@ -47,7 +87,6 @@
   --red-down-light: rgba(232,136,154,0.10);
   --amber: #E8C28A;
   --amber-light: rgba(232,194,138,0.10);
-  --surface: transparent;
   --border: rgba(255,255,255,0.07);
   --text-primary: #D6DBD8;
   --text-secondary: #8E969E;
@@ -61,12 +100,15 @@
   --primary-foreground: #0B0E10;
   --muted: rgba(255,255,255,0.03);
   --muted-foreground: #8E969E;
-  --radius: 1rem;
-}
 
-.dark {
-  --background: #0B0E10;
-  --foreground: #D6DBD8;
+  --ov: 255 255 255;
+  --ov-inv: 0 0 0;
+  --surface-rgb: 7 9 10;
+
+  --body-bg-img:
+    radial-gradient(1200px 800px at 80% -10%, rgba(127,217,176,0.04), transparent 65%),
+    radial-gradient(1000px 700px at -10% 50%, rgba(127,217,176,0.025), transparent 65%),
+    linear-gradient(180deg, #0B0E10 0%, #0C1011 60%, #0B0E10 100%);
 }
 
 @layer base {
@@ -76,11 +118,8 @@
   html, body {
     font-family: var(--font-sans);
     color: var(--color-foreground);
-    background-color: #0B0E10;
-    background-image:
-      radial-gradient(1200px 800px at 80% -10%, rgba(127,217,176,0.04), transparent 65%),
-      radial-gradient(1000px 700px at -10% 50%, rgba(127,217,176,0.025), transparent 65%),
-      linear-gradient(180deg, #0B0E10 0%, #0C1011 60%, #0B0E10 100%);
+    background-color: var(--background);
+    background-image: var(--body-bg-img);
     background-attachment: fixed;
     line-height: 1.7;
   }

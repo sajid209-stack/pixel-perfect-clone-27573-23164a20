@@ -59,9 +59,9 @@ export function Nav() {
       onMouseLeave={() => setOpenMenu(null)}
       className="sticky top-8 z-40 transition-all"
       style={{
-        background: scrolled ? "rgba(7,9,10,0.75)" : "rgba(7,9,10,0.4)",
+        background: scrolled ? "rgb(var(--surface-rgb) / 0.75)" : "rgb(var(--surface-rgb) / 0.4)",
         backdropFilter: "blur(24px) saturate(180%)",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+        borderBottom: scrolled ? "1px solid rgb(var(--ov) / 0.06)" : "1px solid transparent",
       }}
     >
       <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8">
@@ -112,10 +112,10 @@ export function Nav() {
 
         {/* Search trigger (command bar style) */}
         <button
-          className="hidden md:flex items-center gap-2.5 h-9 pl-3 pr-2 rounded-full text-[13px] transition hover:bg-white/[0.06] group"
+          className="hidden md:flex items-center gap-2.5 h-9 pl-3 pr-2 rounded-full text-[13px] transition group"
           style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            background: "rgb(var(--ov) / 0.03)",
+            border: "1px solid rgb(var(--ov) / 0.06)",
             color: "var(--text-muted)",
           }}
         >
@@ -124,7 +124,7 @@ export function Nav() {
           <kbd
             className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] tnum font-medium"
             style={{
-              background: "rgba(255,255,255,0.06)",
+              background: "rgb(var(--ov) / 0.06)",
               color: "var(--text-secondary)",
             }}
           >
@@ -148,7 +148,7 @@ export function Nav() {
         {/* Mobile toggle */}
         <button
           className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg"
-          style={{ color: "var(--text-primary)", background: "rgba(255,255,255,0.04)" }}
+          style={{ color: "var(--text-primary)", background: "rgb(var(--ov) / 0.04)" }}
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Menu"
         >
@@ -166,9 +166,9 @@ export function Nav() {
             transition={{ duration: 0.15 }}
             className="absolute left-0 right-0 top-full"
             style={{
-              background: "rgba(7,9,10,0.92)",
+              background: "rgb(var(--surface-rgb) / 0.92)",
               backdropFilter: "blur(28px) saturate(180%)",
-              borderBottom: "1px solid rgba(255,255,255,0.06)",
+              borderBottom: "1px solid rgb(var(--ov) / 0.06)",
             }}
           >
             <div className="max-w-[1440px] mx-auto px-6 py-8 grid md:grid-cols-3 gap-2">
@@ -178,8 +178,8 @@ export function Nav() {
                   className="group block p-4 rounded-xl transition cursor-pointer"
                   style={{ border: "1px solid transparent" }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
+                    e.currentTarget.style.background = "rgb(var(--ov) / 0.03)";
+                    e.currentTarget.style.borderColor = "rgb(var(--ov) / 0.06)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "transparent";
@@ -213,7 +213,7 @@ export function Nav() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden overflow-hidden"
-            style={{ background: "rgba(7,9,10,0.95)", backdropFilter: "blur(20px)" }}
+            style={{ background: "rgb(var(--surface-rgb) / 0.95)", backdropFilter: "blur(20px)" }}
           >
             <div className="px-6 py-4 flex flex-col gap-1">
               {links.map((l) => (

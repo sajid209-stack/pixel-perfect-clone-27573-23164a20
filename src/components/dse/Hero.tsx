@@ -182,7 +182,7 @@ export function Hero() {
           {/* Inline index strip */}
           <div
             className="mt-12 pt-8 border-t grid grid-cols-3 gap-8"
-            style={{ borderColor: "rgba(255,255,255,0.06)" }}
+            style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
           >
             {indices.map((idx, i) => (
               <motion.div

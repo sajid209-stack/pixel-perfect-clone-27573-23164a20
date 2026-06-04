@@ -59,8 +59,8 @@ function IndexCard({
       className="group relative text-left p-7 rounded-2xl overflow-hidden transition-colors"
       style={{
         background: active
-          ? "linear-gradient(160deg, rgba(127,217,176,0.07) 0%, rgba(255,255,255,0.01) 100%)"
-          : "linear-gradient(160deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.005) 100%)",
+          ? "linear-gradient(160deg, rgba(127,217,176,0.07) 0%, rgb(var(--ov) / 0.01) 100%)"
+          : "linear-gradient(160deg, rgb(var(--ov) / 0.025) 0%, rgb(var(--ov) / 0.005) 100%)",
       }}
     >
       {active && (
@@ -252,7 +252,7 @@ export function IndicesPanel() {
             {/* Period pills */}
             <div
               className="flex gap-1 p-1 rounded-full"
-              style={{ background: "rgba(255,255,255,0.03)" }}
+              style={{ background: "rgb(var(--ov) / 0.03)" }}
             >
               {periods.map((p) => {
                 const isActive = p === period;
@@ -282,7 +282,7 @@ export function IndicesPanel() {
           </div>
 
           {/* Stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{ borderColor: "rgb(var(--ov) / 0.05)" }}>
             <StatCol label="Open" value="6,225.10" />
             <StatCol label="High" value={high.toLocaleString()} accent="var(--green-up)" />
             <StatCol label="Low" value={low.toLocaleString()} accent="var(--red-down)" />
@@ -324,7 +324,7 @@ export function IndicesPanel() {
                     width={48}
                   />
                   <Tooltip
-                    cursor={{ stroke: "rgba(255,255,255,0.12)", strokeDasharray: "3 3" }}
+                    cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
                     contentStyle={{
                       borderRadius: 10,
                       border: "none",
@@ -332,7 +332,7 @@ export function IndicesPanel() {
                       backdropFilter: "blur(12px)",
                       color: "var(--text-primary)",
                       fontSize: 12,
-                      boxShadow: "0 20px 50px -20px rgba(0,0,0,0.6)",
+                      boxShadow: "0 20px 50px -20px rgb(var(--ov-inv) / 0.6)",
                     }}
                   />
                   <ReferenceLine

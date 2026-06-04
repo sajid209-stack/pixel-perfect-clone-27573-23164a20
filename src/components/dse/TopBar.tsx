@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function TopBar() {
   const [time, setTime] = useState("");
@@ -22,9 +23,9 @@ export function TopBar() {
       animate={{ opacity: 1 }}
       className="sticky top-0 z-50 h-8 flex items-center px-6 text-[11px] tracking-wide"
       style={{
-        background: "rgba(7,9,10,0.85)",
+        background: "rgb(var(--surface-rgb) / 0.85)",
         color: "var(--text-secondary)",
-        borderBottom: "1px solid rgba(255,255,255,0.04)",
+        borderBottom: "1px solid rgb(var(--ov) / 0.04)",
         backdropFilter: "blur(20px)",
       }}
     >
@@ -54,11 +55,13 @@ export function TopBar() {
         </span>
         <span className="opacity-20">·</span>
         <button
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition hover:bg-white/5"
+          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition"
           style={{ color: "var(--text-secondary)" }}
         >
           EN <span className="opacity-40">/</span> <span className="bengali">বাং</span>
         </button>
+        <span className="opacity-20">·</span>
+        <ThemeToggle />
       </div>
     </motion.div>
   );

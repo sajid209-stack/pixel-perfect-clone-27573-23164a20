@@ -68,7 +68,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
       <div className="relative rounded-2xl overflow-hidden p-10 lg:p-12 h-full flex flex-col"
         style={{
           background:
-            "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)",
+            "linear-gradient(160deg, rgb(var(--ov) / 0.04) 0%, rgb(var(--ov) / 0.01) 100%)",
           backdropFilter: "blur(20px)",
         }}
       >
@@ -140,7 +140,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             <div
               key={t.label}
               className="flex items-center justify-between py-4 border-t group/row"
-              style={{ borderColor: "rgba(255,255,255,0.06)" }}
+              style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
             >
               <div className="flex items-center gap-4">
                 <span
