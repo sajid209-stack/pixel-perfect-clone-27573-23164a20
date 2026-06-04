@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <div className="min-h-screen" style={{ background: "var(--background)" }}>
+    <div className="min-h-screen">
       <TopBar />
       <Nav />
       <Hero />
