@@ -11,7 +11,7 @@ export const dsexData = [
 
 export const sparkData = Array.from({ length: 30 }, (_, i) => ({
   i,
-  v: 6190 + Math.round(Math.sin(i / 3) * 12 + i * 1.7 + Math.random() * 6),
+  v: 6190 + Math.round(Math.sin(i / 3) * 12 + i * 1.7 + Math.cos(i / 1.7) * 4),
 }));
 
 export const tickerStocks = [
