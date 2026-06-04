@@ -23,7 +23,7 @@ export function Hero() {
         <div className="absolute -bottom-40 -left-32 w-[380px] h-[380px] rounded-full" style={{ background: "rgba(52,255,184,0.05)", filter: "blur(80px)" }} />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 pt-28 pb-32">
+      <div className="relative max-w-7xl mx-auto px-6 pt-36 pb-44">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -44,7 +44,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, ease: [0.16, 1, 0.3, 1], duration: 0.8 }}
-          className="mt-8 text-[56px] md:text-[88px] font-bold leading-[0.98] tracking-[-0.02em] max-w-[14ch]"
+          className="mt-10 text-[48px] md:text-[76px] font-semibold leading-[1.05] tracking-[-0.02em] max-w-[14ch]"
           style={{ color: "var(--text-primary)" }}
         >
           Bangladesh's<br />
@@ -56,7 +56,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mt-8 text-[18px] max-w-[52ch] leading-relaxed"
+          className="mt-10 text-[18px] max-w-[52ch] leading-[1.8]"
           style={{ color: "var(--text-secondary)" }}
         >
           Real-time prices, company disclosures, and market intelligence from the Dhaka Stock Exchange — built for investors who want clarity, not clutter.
@@ -66,14 +66,14 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
-          className="mt-20 grid lg:grid-cols-[1fr_auto] gap-10 items-end max-w-5xl"
+          className="mt-24 grid lg:grid-cols-[1fr_auto] gap-12 items-end max-w-5xl"
         >
           <div>
             <div className="text-[12px] uppercase tracking-[0.18em]" style={{ color: "var(--text-muted)" }}>
               DSEX · Composite Index
             </div>
             <div className="mt-3 flex items-baseline gap-5 flex-wrap">
-              <span className="text-[64px] md:text-[80px] font-bold leading-none tracking-tight" style={{ color: "var(--text-primary)" }}>
+              <span className="text-[56px] md:text-[72px] font-semibold leading-none tracking-tight" style={{ color: "var(--text-primary)" }}>
                 <CountUp from={6200} to={6241.3} />
               </span>
               <span className="text-base tnum" style={{ color: "var(--green-up)" }}>▲ 18.40 · +0.30%</span>
