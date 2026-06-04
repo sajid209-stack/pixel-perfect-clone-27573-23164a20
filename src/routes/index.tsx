@@ -7,6 +7,7 @@ import { DualAudience } from "@/components/dse/DualAudience";
 import { MarketOverview } from "@/components/dse/MarketOverview";
 import { IndicesPanel } from "@/components/dse/IndicesPanel";
 import { Announcements } from "@/components/dse/Announcements";
+import { FeatureStories } from "@/components/dse/FeatureStories";
 import { Resources } from "@/components/dse/Resources";
 import { Footer } from "@/components/dse/Footer";
 
@@ -33,6 +34,7 @@ function Home() {
       <MarketOverview />
       <IndicesPanel />
       <Announcements />
+      <FeatureStories />
       <Resources />
       <Footer />
     </div>

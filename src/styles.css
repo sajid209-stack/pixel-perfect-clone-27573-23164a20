@@ -29,7 +29,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-heading: "Poppins", system-ui, sans-serif;
   --font-bengali: "Noto Sans Bengali", system-ui, sans-serif;
 }
 
@@ -82,6 +83,10 @@
       radial-gradient(700px 500px at 50% 110%, rgba(16,240,160,0.10), transparent 60%),
       linear-gradient(180deg, #07090A 0%, #0A0F0D 50%, #07090A 100%);
     background-attachment: fixed;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
   }
   .tnum { font-variant-numeric: tabular-nums; }
   .bengali { font-family: var(--font-bengali); }
