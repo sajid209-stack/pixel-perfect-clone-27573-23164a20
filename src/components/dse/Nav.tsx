@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ChevronDown, Command, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import dseLogo from "@/assets/dse-logo.png.asset.json";
 
 type LinkItem = { label: string; menu?: { title: string; desc: string }[] };
 
