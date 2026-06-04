@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
+import dseLogo from "@/assets/dse-logo.png.asset.json";
 
 const cols = [
   { title: "Markets", items: ["Equities", "Bonds", "Mutual Funds", "SME Board", "Indices", "Historical data"] },
