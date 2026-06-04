@@ -29,9 +29,9 @@ export function Hero() {
     <section
       className="relative overflow-hidden text-white"
       style={{
-        minHeight: 480,
+        minHeight: 520,
         background:
-          "radial-gradient(1200px 600px at 85% 20%, rgba(55,138,221,0.45), transparent 60%), radial-gradient(900px 500px at 10% 90%, rgba(12,68,124,0.7), transparent 60%), linear-gradient(135deg, #061B36 0%, #0C2340 45%, #0C447C 100%)",
+          "radial-gradient(900px 500px at 80% 15%, rgba(16,185,129,0.18), transparent 65%), radial-gradient(700px 400px at 10% 90%, rgba(52,211,153,0.10), transparent 60%), linear-gradient(180deg, #07090A 0%, #0A0F0D 60%, #0E1311 100%)",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
