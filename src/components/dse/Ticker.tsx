@@ -5,18 +5,12 @@ export function Ticker() {
   return (
     <div className="h-12 flex items-center overflow-hidden relative">
       <div
-        className="flex-shrink-0 px-4 h-full flex items-center text-[12px] font-semibold uppercase tracking-wider z-10"
-        style={{ color: "var(--green-up)" }}
-      >
-        ● Live
-      </div>
-      <div
         className="flex-1 overflow-hidden"
         style={{
           maskImage:
-            "linear-gradient(to right, transparent 0, black 240px, black calc(100% - 240px), transparent 100%)",
+            "linear-gradient(to right, transparent 0, black 400px, black calc(100% - 400px), transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to right, transparent 0, black 240px, black calc(100% - 240px), transparent 100%)",
+            "linear-gradient(to right, transparent 0, black 400px, black calc(100% - 400px), transparent 100%)",
         }}
       >
         <div className="ticker-track inline-flex whitespace-nowrap">
