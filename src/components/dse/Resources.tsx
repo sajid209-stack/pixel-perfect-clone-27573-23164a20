@@ -17,13 +17,13 @@ function IconBox({ children, color = "var(--green-up)" }: { children: React.Reac
 
 export function Resources() {
   return (
-    <section className="py-32 px-6 relative" style={{ background: "radial-gradient(700px 400px at 50% 100%, rgba(16,240,160,0.04), transparent 65%)" }}>
+    <section className="py-40 px-6 relative" style={{ background: "radial-gradient(700px 400px at 50% 100%, rgba(16,240,160,0.03), transparent 65%)" }}>
       <div className="max-w-7xl mx-auto">
-        <div className="mb-14">
-          <div className="text-[12px] uppercase tracking-[0.18em] mb-3" style={{ color: "var(--text-muted)" }}>Resources</div>
-          <h2 className="text-[36px] md:text-[44px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Tools & reports</h2>
+        <div className="mb-20">
+          <div className="text-[12px] uppercase tracking-[0.18em] mb-4" style={{ color: "var(--text-muted)" }}>Resources</div>
+          <h2 className="text-[36px] md:text-[44px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>Tools & reports</h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
         <Card>
           <IconBox><FileDown className="w-5 h-5" /></IconBox>
           <h3 className="font-semibold" style={{ color: "var(--text-primary)" }}>Market reports</h3>

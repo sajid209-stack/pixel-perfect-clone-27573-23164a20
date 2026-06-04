@@ -29,17 +29,17 @@ function ProgressBar({ pct }: { pct: number }) {
 export function Announcements() {
   const [filter, setFilter] = useState("All");
   return (
-    <section className="py-32 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 100%, rgba(16,240,160,0.05), transparent 65%)" }}>
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-[60fr_40fr] gap-10">
+    <section className="py-40 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 100%, rgba(16,240,160,0.04), transparent 65%)" }}>
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-[60fr_40fr] gap-14">
         <div>
           <div className="mb-8">
             <div className="flex items-center justify-between mb-3">
               <div className="text-[12px] uppercase tracking-[0.18em]" style={{ color: "var(--text-muted)" }}>Disclosures</div>
               <a className="text-sm font-medium" style={{ color: "var(--green-up)" }}>View all →</a>
             </div>
-            <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Latest announcements</h2>
+            <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>Latest announcements</h2>
           </div>
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-6">
             {filters.map((f) => (
               <button
                 key={f}
@@ -55,7 +55,7 @@ export function Announcements() {
               </button>
             ))}
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {announcements.slice(0, 5).map((a, i) => {
               const s = typeStyle[a.type] ?? typeStyle.Regulatory;
               return (
@@ -66,7 +66,7 @@ export function Announcements() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
                   whileHover={{ x: 2 }}
-                  className="glass p-5 flex gap-4 items-start"
+                  className="glass p-6 flex gap-4 items-start"
                 >
                   <div className="px-2 py-1 rounded-md text-[11px] tnum" style={{ background: "rgba(255,255,255,0.05)", color: "var(--text-secondary)" }}>
                     {a.date}
@@ -93,14 +93,14 @@ export function Announcements() {
               <div className="text-[12px] uppercase tracking-[0.18em]" style={{ color: "var(--text-muted)" }}>Capital raising</div>
               <a className="text-sm font-medium" style={{ color: "var(--green-up)" }}>Full schedule →</a>
             </div>
-            <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>IPO pipeline</h2>
+            <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>IPO pipeline</h2>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-5">
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-strong p-5"
+              className="glass-strong p-7"
             >
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-1 rounded-full text-[11px] font-medium" style={{ background: "var(--green-up-light)", color: "var(--green-up)" }}>
@@ -121,7 +121,7 @@ export function Announcements() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="glass p-5"
+              className="glass p-7"
             >
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-1 rounded-full text-[11px] font-medium" style={{ background: "var(--amber-light)", color: "var(--amber)" }}>
@@ -135,7 +135,7 @@ export function Announcements() {
               </div>
             </motion.div>
 
-            <div className="glass p-4">
+            <div className="glass p-6">
               <div className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>New to IPOs?</div>
               <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
                 Understand the subscription process, eligibility, and how allotment works.
