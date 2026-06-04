@@ -18,7 +18,13 @@ export function Ticker() {
       >
         ● Live
       </div>
-      <div className="flex-1 overflow-hidden">
+      <div
+        className="flex-1 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
+        }}
+      >
         <div className="ticker-track inline-flex whitespace-nowrap">
           {items.map((s, i) => {
             const up = s.change >= 0;
