@@ -10,13 +10,11 @@ export function TopBar() {
     >
       <div className="flex items-center gap-4 flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <motion.span
-            className="w-2 h-2 rounded-full"
-            style={{ background: "#22c55e", boxShadow: "0 0 8px #22c55e" }}
-            animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
-            transition={{ duration: 1.6, repeat: Infinity }}
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: "var(--green-up)" }}
           />
-          <span className="opacity-90">Market Open</span>
+          <span className="opacity-70">Market Open</span>
         </div>
         <span className="hidden sm:inline opacity-40">|</span>
         <div className="flex items-center gap-2 tnum">

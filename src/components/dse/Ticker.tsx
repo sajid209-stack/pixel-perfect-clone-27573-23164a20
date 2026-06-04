@@ -14,7 +14,7 @@ export function Ticker() {
     >
       <div
         className="flex-shrink-0 px-3 h-full flex items-center text-[11px] font-semibold uppercase tracking-wider z-10"
-        style={{ background: "var(--green-up)", color: "#07090A", boxShadow: "0 0 18px rgba(16,240,160,0.5)" }}
+        style={{ background: "rgba(127,217,176,0.10)", color: "var(--green-up)" }}
       >
         ● Live
       </div>
