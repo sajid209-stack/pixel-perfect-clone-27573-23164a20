@@ -95,8 +95,19 @@ function CalendarTile() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="glass relative overflow-hidden p-8"
+      className="relative rounded-2xl overflow-hidden p-8"
+      style={{
+        background:
+          "linear-gradient(160deg, rgba(127,217,176,0.06) 0%, rgba(255,255,255,0.01) 100%)",
+      }}
     >
+      <div
+        className="absolute inset-0 pointer-events-none opacity-50"
+        style={{
+          background:
+            "radial-gradient(60% 60% at 100% 0%, rgba(127,217,176,0.10), transparent 70%)",
+        }}
+      />
       <div className="relative flex items-start justify-between">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
