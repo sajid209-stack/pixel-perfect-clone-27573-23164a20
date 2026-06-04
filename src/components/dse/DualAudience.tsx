@@ -28,8 +28,7 @@ export function DualAudience() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
-          className="glass p-6 border-l-4"
-          style={{ borderLeftColor: "rgba(255,255,255,0.6)" }}
+          className="glass p-6"
         >
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.08)" }}>
@@ -54,8 +53,7 @@ export function DualAudience() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
-          className="glass-strong p-6 border-l-4"
-          style={{ borderLeftColor: "var(--green-up)" }}
+          className="glass-strong p-6"
         >
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(16,240,160,0.18)", boxShadow: "0 0 20px rgba(16,240,160,0.35)" }}>

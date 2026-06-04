@@ -63,8 +63,7 @@ export function Announcements() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
                   whileHover={{ x: 2 }}
-                  className="glass border-l-4 p-4 flex gap-4 items-start"
-                  style={{ borderLeftColor: s.border }}
+                  className="glass p-4 flex gap-4 items-start"
                 >
                   <div className="px-2 py-1 rounded-md text-[11px] tnum" style={{ background: "rgba(255,255,255,0.05)", color: "var(--text-secondary)" }}>
                     {a.date}
@@ -95,8 +94,7 @@ export function Announcements() {
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-strong p-5 border-l-4"
-              style={{ borderLeftColor: "var(--green-up)" }}
+              className="glass-strong p-5"
             >
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-1 rounded-full text-[11px] font-medium" style={{ background: "var(--green-up-light)", color: "var(--green-up)" }}>
@@ -117,8 +115,7 @@ export function Announcements() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="glass p-5 border-l-4"
-              style={{ borderLeftColor: "var(--amber)" }}
+              className="glass p-5"
             >
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-1 rounded-full text-[11px] font-medium" style={{ background: "var(--amber-light)", color: "var(--amber)" }}>
