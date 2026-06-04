@@ -30,11 +30,8 @@ export function Hero() {
       className="relative overflow-hidden text-white"
       style={{
         minHeight: 480,
-        backgroundImage:
-          "linear-gradient(135deg, #0C2340 0%, #185FA5 100%), url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600)",
-        backgroundBlendMode: "overlay",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        background:
+          "radial-gradient(1200px 600px at 85% 20%, rgba(55,138,221,0.45), transparent 60%), radial-gradient(900px 500px at 10% 90%, rgba(12,68,124,0.7), transparent 60%), linear-gradient(135deg, #061B36 0%, #0C2340 45%, #0C447C 100%)",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
