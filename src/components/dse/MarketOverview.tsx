@@ -76,7 +76,7 @@ function MoversPanel() {
   const [tab, setTab] = useState<TabKey>("Top gainers");
   const rows = tabs[tab];
   return (
-    <div className="glass p-5">
+    <div className="glass p-8">
       <div className="flex gap-5 border-b mb-3" style={{ borderColor: "var(--border)" }}>
         {(Object.keys(tabs) as TabKey[]).map((t) => (
           <button
@@ -135,14 +135,17 @@ function MoversPanel() {
 
 export function MarketOverview() {
   return (
-    <section className="py-12 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 0%, rgba(16,240,160,0.05), transparent 65%), linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 100%)" }}>
+    <section className="py-32 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 0%, rgba(16,240,160,0.05), transparent 65%)" }}>
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-end justify-between mb-6 flex-wrap gap-2">
-          <h2 className="text-[20px] font-bold" style={{ color: "var(--text-primary)" }}>Today's market overview</h2>
-          <span className="text-xs" style={{ color: "var(--text-muted)" }}>Jun 5, 2026 · Session closes 14:30 BST</span>
+        <div className="mb-14 flex items-end justify-between flex-wrap gap-3">
+          <div>
+            <div className="text-[12px] uppercase tracking-[0.18em] mb-3" style={{ color: "var(--text-muted)" }}>Today's market</div>
+            <h2 className="text-[36px] md:text-[44px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Sectors & movers</h2>
+          </div>
+          <span className="text-sm" style={{ color: "var(--text-muted)" }}>Jun 5, 2026 · Session closes 14:30 BST</span>
         </div>
-        <div className="grid lg:grid-cols-[55fr_45fr] gap-6">
-          <div className="glass p-5">
+        <div className="grid lg:grid-cols-[55fr_45fr] gap-8">
+          <div className="glass p-8">
             <Heatmap />
           </div>
           <MoversPanel />

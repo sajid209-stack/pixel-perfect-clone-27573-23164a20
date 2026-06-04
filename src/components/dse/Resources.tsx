@@ -1,7 +1,7 @@
 import { FileDown, CalendarDays, Calculator, FileText, Phone } from "lucide-react";
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <div className="glass p-5">{children}</div>;
+  return <div className="glass p-8">{children}</div>;
 }
 
 function IconBox({ children, color = "var(--green-up)" }: { children: React.ReactNode; color?: string }) {
@@ -17,8 +17,13 @@ function IconBox({ children, color = "var(--green-up)" }: { children: React.Reac
 
 export function Resources() {
   return (
-    <section className="py-10 px-6 relative" style={{ background: "radial-gradient(700px 400px at 50% 100%, rgba(16,240,160,0.04), transparent 65%), linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)" }}>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-4">
+    <section className="py-32 px-6 relative" style={{ background: "radial-gradient(700px 400px at 50% 100%, rgba(16,240,160,0.04), transparent 65%)" }}>
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-14">
+          <div className="text-[12px] uppercase tracking-[0.18em] mb-3" style={{ color: "var(--text-muted)" }}>Resources</div>
+          <h2 className="text-[36px] md:text-[44px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Tools & reports</h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
         <Card>
           <IconBox><FileDown className="w-5 h-5" /></IconBox>
           <h3 className="font-semibold" style={{ color: "var(--text-primary)" }}>Market reports</h3>
@@ -55,6 +60,7 @@ export function Resources() {
             <span>24/7 helpline: <span className="font-semibold tnum" style={{ color: "var(--text-primary)" }}>+880 9612-345678</span></span>
           </div>
         </Card>
+        </div>
       </div>
     </section>
   );

@@ -29,12 +29,15 @@ function ProgressBar({ pct }: { pct: number }) {
 export function Announcements() {
   const [filter, setFilter] = useState("All");
   return (
-    <section className="py-12 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 100%, rgba(16,240,160,0.05), transparent 65%), linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.2) 100%)" }}>
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-[60fr_40fr] gap-6">
+    <section className="py-32 px-6 relative" style={{ background: "radial-gradient(900px 500px at 100% 100%, rgba(16,240,160,0.05), transparent 65%)" }}>
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-[60fr_40fr] gap-10">
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-[20px] font-bold" style={{ color: "var(--text-primary)" }}>Latest announcements</h2>
-            <a className="text-sm font-medium" style={{ color: "var(--green-up)" }}>View all →</a>
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-[12px] uppercase tracking-[0.18em]" style={{ color: "var(--text-muted)" }}>Disclosures</div>
+              <a className="text-sm font-medium" style={{ color: "var(--green-up)" }}>View all →</a>
+            </div>
+            <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Latest announcements</h2>
           </div>
           <div className="flex flex-wrap gap-2 mb-4">
             {filters.map((f) => (
@@ -52,8 +55,8 @@ export function Announcements() {
               </button>
             ))}
           </div>
-          <div className="space-y-2.5">
-            {announcements.map((a, i) => {
+          <div className="space-y-3">
+            {announcements.slice(0, 5).map((a, i) => {
               const s = typeStyle[a.type] ?? typeStyle.Regulatory;
               return (
                 <motion.div
@@ -63,7 +66,7 @@ export function Announcements() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
                   whileHover={{ x: 2 }}
-                  className="glass p-4 flex gap-4 items-start"
+                  className="glass p-5 flex gap-4 items-start"
                 >
                   <div className="px-2 py-1 rounded-md text-[11px] tnum" style={{ background: "rgba(255,255,255,0.05)", color: "var(--text-secondary)" }}>
                     {a.date}
@@ -85,11 +88,14 @@ export function Announcements() {
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-[20px] font-bold" style={{ color: "var(--text-primary)" }}>IPO pipeline</h2>
-            <a className="text-sm font-medium" style={{ color: "var(--green-up)" }}>Full schedule →</a>
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-[12px] uppercase tracking-[0.18em]" style={{ color: "var(--text-muted)" }}>Capital raising</div>
+              <a className="text-sm font-medium" style={{ color: "var(--green-up)" }}>Full schedule →</a>
+            </div>
+            <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>IPO pipeline</h2>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4">
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}

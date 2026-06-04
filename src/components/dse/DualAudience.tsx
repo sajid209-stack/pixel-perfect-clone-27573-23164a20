@@ -18,17 +18,20 @@ function Pill({ children }: { children: React.ReactNode }) {
 
 export function DualAudience() {
   return (
-    <section className="py-16 px-6 relative" style={{ background: "radial-gradient(800px 400px at 50% 0%, rgba(16,240,160,0.04), transparent 70%), linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 100%)" }}>
-      <h2 className="text-center text-[22px] font-bold mb-8" style={{ color: "var(--text-primary)" }}>
-        Where would you like to start?
-      </h2>
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-4">
+    <section className="py-32 px-6 relative" style={{ background: "radial-gradient(800px 400px at 50% 0%, rgba(16,240,160,0.04), transparent 70%)" }}>
+      <div className="max-w-6xl mx-auto mb-16">
+        <div className="text-[12px] uppercase tracking-[0.18em] mb-4" style={{ color: "var(--text-muted)" }}>Get started</div>
+        <h2 className="text-[36px] md:text-[44px] font-bold tracking-tight max-w-[20ch]" style={{ color: "var(--text-primary)" }}>
+          Where would you like to begin?
+        </h2>
+      </div>
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
-          className="glass p-6"
+          className="glass p-10"
         >
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.08)" }}>
@@ -53,7 +56,7 @@ export function DualAudience() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
-          className="glass-strong p-6"
+          className="glass-strong p-10"
         >
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(16,240,160,0.18)", boxShadow: "0 0 20px rgba(16,240,160,0.35)" }}>
