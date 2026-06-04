@@ -56,11 +56,9 @@ function IndexCard({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: i * 0.08, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
       whileHover={{ y: -2 }}
-      className="group relative text-left p-7 rounded-2xl overflow-hidden transition-colors"
+      className="glass group relative text-left p-7 overflow-hidden transition-all"
       style={{
-        background: active
-          ? "linear-gradient(160deg, rgba(127,217,176,0.07) 0%, rgba(255,255,255,0.01) 100%)"
-          : "linear-gradient(160deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.005) 100%)",
+        opacity: active ? 1 : 0.78,
       }}
     >
       {active && (
