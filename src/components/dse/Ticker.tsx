@@ -3,10 +3,18 @@ import { tickerStocks } from "./data";
 export function Ticker() {
   const items = [...tickerStocks, ...tickerStocks];
   return (
-    <div className="h-10 flex items-center overflow-hidden border-y relative" style={{ background: "var(--sky-50)", borderColor: "var(--border)" }}>
+    <div
+      className="h-10 flex items-center overflow-hidden relative"
+      style={{
+        background: "rgba(255,255,255,0.04)",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
+        backdropFilter: "blur(14px)",
+      }}
+    >
       <div
         className="flex-shrink-0 px-3 h-full flex items-center text-[11px] font-semibold uppercase tracking-wider z-10"
-        style={{ background: "var(--navy-deep)", color: "#fff" }}
+        style={{ background: "var(--green-up)", color: "#07090A", boxShadow: "0 0 18px rgba(16,240,160,0.5)" }}
       >
         ● Live
       </div>
@@ -16,7 +24,7 @@ export function Ticker() {
             const up = s.change >= 0;
             return (
               <span key={i} className="px-5 text-[13px] tnum inline-flex items-center gap-2">
-                <span className="font-semibold" style={{ color: "var(--navy-deep)" }}>{s.code}</span>
+                <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{s.code}</span>
                 <span style={{ color: "var(--text-secondary)" }}>{s.price}</span>
                 <span style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}>
                   {up ? "▲" : "▼"}{Math.abs(s.change)}%

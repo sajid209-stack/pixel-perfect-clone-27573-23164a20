@@ -28,15 +28,11 @@ export function Hero() {
   return (
     <section
       className="relative overflow-hidden text-white"
-      style={{
-        minHeight: 520,
-        background:
-          "radial-gradient(900px 500px at 80% 15%, rgba(16,185,129,0.18), transparent 65%), radial-gradient(700px 400px at 10% 90%, rgba(52,211,153,0.10), transparent 60%), linear-gradient(180deg, #07090A 0%, #0A0F0D 60%, #0E1311 100%)",
-      }}
+      style={{ minHeight: 520 }}
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-[300px] h-[300px] rounded-full bg-white/5" />
-        <div className="absolute -bottom-32 -left-24 w-[260px] h-[260px] rounded-full bg-white/5" />
+        <div className="absolute -top-20 -right-20 w-[300px] h-[300px] rounded-full" style={{ background: "rgba(16,240,160,0.08)", filter: "blur(40px)" }} />
+        <div className="absolute -bottom-32 -left-24 w-[260px] h-[260px] rounded-full" style={{ background: "rgba(52,255,184,0.06)", filter: "blur(40px)" }} />
         <svg className="absolute inset-0 w-full h-full opacity-[0.06]">
           <defs>
             <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
