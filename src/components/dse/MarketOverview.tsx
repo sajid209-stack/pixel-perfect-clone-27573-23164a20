@@ -22,10 +22,10 @@ function Heatmap() {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="font-semibold" style={{ color: "var(--navy-deep)" }}>Sector performance</h3>
+        <h3 className="font-semibold" style={{ color: "var(--text-primary)" }}>Sector performance</h3>
         <div className="flex items-center gap-3 text-[11px]" style={{ color: "var(--text-secondary)" }}>
-          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: "#1D9E75" }} /> Gaining</span>
-          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: "#D85A30" }} /> Declining</span>
+          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: "var(--green-up)" }} /> Gaining</span>
+          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: "var(--red-down)" }} /> Declining</span>
         </div>
       </div>
       <div className="grid grid-cols-6 grid-rows-4 gap-1.5 h-[360px]">
@@ -52,8 +52,8 @@ function Heatmap() {
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full bg-white shadow-lg rounded-lg px-3 py-2 text-[11px] whitespace-nowrap z-20 border"
-                  style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
+                  className="glass-strong absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full px-3 py-2 text-[11px] whitespace-nowrap z-20"
+                  style={{ color: "var(--text-primary)" }}
                 >
                   <div className="font-semibold">{s.name}</div>
                   <div className="tnum" style={{ color: s.change >= 0 ? "var(--green-up)" : "var(--red-down)" }}>
@@ -76,17 +76,17 @@ function MoversPanel() {
   const [tab, setTab] = useState<TabKey>("Top gainers");
   const rows = tabs[tab];
   return (
-    <div className="bg-white rounded-xl border p-5" style={{ borderColor: "var(--border)" }}>
+    <div className="glass p-5">
       <div className="flex gap-5 border-b mb-3" style={{ borderColor: "var(--border)" }}>
         {(Object.keys(tabs) as TabKey[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className="pb-2 text-sm transition relative"
-            style={{ color: tab === t ? "var(--navy-mid)" : "var(--text-secondary)", fontWeight: tab === t ? 600 : 400 }}
+            style={{ color: tab === t ? "var(--green-up)" : "var(--text-secondary)", fontWeight: tab === t ? 600 : 400 }}
           >
             {t}
-            {tab === t && <motion.div layoutId="moverTab" className="absolute bottom-0 left-0 right-0 h-0.5" style={{ background: "var(--navy-mid)" }} />}
+            {tab === t && <motion.div layoutId="moverTab" className="absolute bottom-0 left-0 right-0 h-0.5" style={{ background: "var(--green-up)", boxShadow: "0 0 8px var(--green-up)" }} />}
           </button>
         ))}
       </div>
@@ -100,11 +100,11 @@ function MoversPanel() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center gap-3 py-2.5 border-b last:border-0 hover:bg-[var(--surface)] px-2 rounded transition"
+                className="flex items-center gap-3 py-2.5 border-b last:border-0 hover:bg-white/5 px-2 rounded transition"
                 style={{ borderColor: "var(--border)" }}
               >
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-semibold" style={{ color: "var(--navy-deep)" }}>{r.code}</div>
+                  <div className="text-[13px] font-semibold" style={{ color: "var(--text-primary)" }}>{r.code}</div>
                   <div className="text-[11px] truncate" style={{ color: "var(--text-muted)" }}>{r.name}</div>
                 </div>
                 <div className="w-[60px] h-6">
@@ -135,14 +135,14 @@ function MoversPanel() {
 
 export function MarketOverview() {
   return (
-    <section className="py-12 px-6" style={{ background: "var(--surface)" }}>
+    <section className="py-12 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-end justify-between mb-6 flex-wrap gap-2">
-          <h2 className="text-[20px] font-bold" style={{ color: "var(--navy-deep)" }}>Today's market overview</h2>
+          <h2 className="text-[20px] font-bold" style={{ color: "var(--text-primary)" }}>Today's market overview</h2>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>Jun 5, 2026 · Session closes 14:30 BST</span>
         </div>
         <div className="grid lg:grid-cols-[55fr_45fr] gap-6">
-          <div className="bg-white rounded-xl border p-5" style={{ borderColor: "var(--border)" }}>
+          <div className="glass p-5">
             <Heatmap />
           </div>
           <MoversPanel />

@@ -34,47 +34,38 @@
 }
 
 :root {
-  /* Modern minimal: near-black + emerald accent */
-  --navy-deep: #0A0F0D;      /* near-black brand */
-  --navy-mid: #10B981;        /* emerald accent (CTA/highlights) */
-  --navy-light: #34D399;      /* light emerald */
-  --sky-50: #F4F7F6;          /* light surface tint */
-  --sky-100: #94A3B8;         /* muted text on dark bg */
-  --green-up: #10B981;
-  --green-up-light: #ECFDF5;
-  --red-down: #EF4444;
-  --red-down-light: #FEF2F2;
-  --amber: #D97706;
-  --amber-light: #FFFBEB;
-  --surface: #FAFAFA;
-  --border: #ECEEF1;
-  --text-primary: #0A0F0D;
-  --text-secondary: #525B66;
-  --text-muted: #9AA3AF;
+  /* Dark neon: near-black + electric emerald */
+  --navy-deep: #07090A;
+  --navy-mid: #10F0A0;        /* neon emerald accent */
+  --navy-light: #34FFB8;
+  --sky-50: rgba(255,255,255,0.06);
+  --sky-100: #94A3B8;
+  --green-up: #10F0A0;
+  --green-up-light: rgba(16,240,160,0.12);
+  --red-down: #FF5577;
+  --red-down-light: rgba(255,85,119,0.12);
+  --amber: #FFB547;
+  --amber-light: rgba(255,181,71,0.12);
+  --surface: transparent;
+  --border: rgba(255,255,255,0.10);
+  --text-primary: #E8ECEA;
+  --text-secondary: #A8B0BA;
+  --text-muted: #6E7782;
 
-  --background: #FFFFFF;
-  --foreground: #0A0F0D;
-  --card: #FFFFFF;
-  --card-foreground: #0A0F0D;
-  --primary: #0A0F0D;
-  --primary-foreground: #FFFFFF;
-  --muted: #FAFAFA;
-  --muted-foreground: #525B66;
-  --radius: 0.75rem;
+  --background: #07090A;
+  --foreground: #E8ECEA;
+  --card: rgba(255,255,255,0.04);
+  --card-foreground: #E8ECEA;
+  --primary: #10F0A0;
+  --primary-foreground: #07090A;
+  --muted: rgba(255,255,255,0.04);
+  --muted-foreground: #A8B0BA;
+  --radius: 0.875rem;
 }
 
 .dark {
   --background: #07090A;
   --foreground: #E8ECEA;
-  --card: #0E1311;
-  --card-foreground: #E8ECEA;
-  --surface: #0E1311;
-  --border: #1A1F1D;
-  --text-primary: #E8ECEA;
-  --text-secondary: #94A3B8;
-  --text-muted: #525B66;
-  --muted: #0E1311;
-  --muted-foreground: #94A3B8;
 }
 
 @layer base {
@@ -83,11 +74,33 @@
   }
   html, body {
     font-family: var(--font-sans);
-    background-color: var(--color-background);
     color: var(--color-foreground);
+    background-color: #07090A;
+    background-image:
+      radial-gradient(900px 600px at 80% -10%, rgba(16,240,160,0.14), transparent 60%),
+      radial-gradient(800px 500px at -10% 30%, rgba(52,255,184,0.08), transparent 60%),
+      radial-gradient(700px 500px at 50% 110%, rgba(16,240,160,0.10), transparent 60%),
+      linear-gradient(180deg, #07090A 0%, #0A0F0D 50%, #07090A 100%);
+    background-attachment: fixed;
   }
   .tnum { font-variant-numeric: tabular-nums; }
   .bengali { font-family: var(--font-bengali); }
+}
+
+@utility glass {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+@utility glass-strong {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(16,240,160,0.18);
+  backdrop-filter: blur(22px) saturate(160%);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(16,240,160,0.08), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 @keyframes ticker-scroll {

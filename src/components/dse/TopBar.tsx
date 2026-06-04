@@ -5,8 +5,8 @@ export function TopBar() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="sticky top-0 z-50 h-9 flex items-center px-4 text-xs"
-      style={{ background: "var(--navy-deep)", color: "#fff" }}
+      className="sticky top-0 z-50 h-9 flex items-center px-4 text-xs border-b"
+      style={{ background: "rgba(0,0,0,0.6)", color: "#fff", borderColor: "var(--border)", backdropFilter: "blur(14px)" }}
     >
       <div className="flex items-center gap-4 flex-1 min-w-0">
         <div className="flex items-center gap-2">
