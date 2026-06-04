@@ -1,33 +1,63 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function TopBar() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const update = () => {
+      const d = new Date();
+      setTime(
+        d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false }) + " BST"
+      );
+    };
+    update();
+    const id = setInterval(update, 30_000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="sticky top-0 z-50 h-9 flex items-center px-4 text-xs border-b"
-      style={{ background: "rgba(0,0,0,0.6)", color: "#fff", borderColor: "var(--border)", backdropFilter: "blur(14px)" }}
+      className="sticky top-0 z-50 h-8 flex items-center px-6 text-[11px] tracking-wide"
+      style={{
+        background: "rgba(7,9,10,0.85)",
+        color: "var(--text-secondary)",
+        borderBottom: "1px solid rgba(255,255,255,0.04)",
+        backdropFilter: "blur(20px)",
+      }}
     >
-      <div className="flex items-center gap-4 flex-1 min-w-0">
+      <div className="flex items-center gap-5 flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ background: "var(--green-up)" }}
-          />
-          <span className="opacity-70">Market Open</span>
+          <span className="relative flex h-1.5 w-1.5">
+            <span
+              className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
+              style={{ background: "var(--green-up)" }}
+            />
+            <span
+              className="relative inline-flex rounded-full h-1.5 w-1.5"
+              style={{ background: "var(--green-up)" }}
+            />
+          </span>
+          <span style={{ color: "var(--text-primary)" }}>Market open</span>
+          <span style={{ color: "var(--text-muted)" }}>· closes 14:30</span>
         </div>
-        <span className="hidden sm:inline opacity-40">|</span>
-        <div className="flex items-center gap-2 tnum">
-          <span className="opacity-80">DSEX</span>
-          <span className="font-semibold">6,241.30</span>
-          <span style={{ color: "#4ade80" }}>▲ 18.40 (+0.30%)</span>
-        </div>
+        <span className="hidden sm:inline tnum" style={{ color: "var(--text-muted)" }}>{time}</span>
       </div>
-      <div className="hidden md:flex items-center gap-4 tnum">
-        <span style={{ color: "var(--sky-100)" }}>DS30 2,118.4 ▲0.18%</span>
-        <span style={{ color: "#fca5a5" }}>DSES 1,340.2 ▼0.05%</span>
-        <button className="px-2.5 py-0.5 rounded-full border border-white/30 hover:bg-white/10 transition text-[11px]">
-          EN | <span className="bengali">বাং</span>
+
+      <div className="hidden md:flex items-center gap-5 tnum">
+        <span className="inline-flex items-center gap-1.5">
+          <span style={{ color: "var(--text-muted)" }}>DSEX</span>
+          <span style={{ color: "var(--text-primary)" }}>6,241.30</span>
+          <span style={{ color: "var(--green-up)" }}>+0.30%</span>
+        </span>
+        <span className="opacity-20">·</span>
+        <button
+          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition hover:bg-white/5"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          EN <span className="opacity-40">/</span> <span className="bengali">বাং</span>
         </button>
       </div>
     </motion.div>
