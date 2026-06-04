@@ -19,8 +19,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 -right-32 w-[460px] h-[460px] rounded-full" style={{ background: "rgba(16,240,160,0.08)", filter: "blur(80px)" }} />
-        <div className="absolute -bottom-40 -left-32 w-[380px] h-[380px] rounded-full" style={{ background: "rgba(52,255,184,0.05)", filter: "blur(80px)" }} />
+        <div className="absolute -top-32 -right-32 w-[460px] h-[460px] rounded-full" style={{ background: "rgba(127,217,176,0.04)", filter: "blur(100px)" }} />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 pt-36 pb-44">
@@ -29,13 +28,11 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] tracking-wide uppercase"
-          style={{ background: "rgba(16,240,160,0.08)", color: "var(--green-up)" }}
+          style={{ background: "rgba(127,217,176,0.06)", color: "var(--green-up)" }}
         >
-          <motion.span
+          <span
             className="w-1.5 h-1.5 rounded-full"
-            style={{ background: "var(--green-up)", boxShadow: "0 0 8px var(--green-up)" }}
-            animate={{ opacity: [1, 0.4, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity }}
+            style={{ background: "var(--green-up)" }}
           />
           Market open · Live
         </motion.div>

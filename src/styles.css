@@ -35,38 +35,38 @@
 }
 
 :root {
-  /* Dark neon: near-black + electric emerald */
-  --navy-deep: #07090A;
-  --navy-mid: #10F0A0;        /* neon emerald accent */
-  --navy-light: #34FFB8;
-  --sky-50: rgba(255,255,255,0.06);
+  /* Calmer dark mint — softer on the eyes */
+  --navy-deep: #0B0E10;
+  --navy-mid: #7FD9B0;
+  --navy-light: #A8E6C9;
+  --sky-50: rgba(255,255,255,0.05);
   --sky-100: #94A3B8;
-  --green-up: #10F0A0;
-  --green-up-light: rgba(16,240,160,0.12);
-  --red-down: #FF5577;
-  --red-down-light: rgba(255,85,119,0.12);
-  --amber: #FFB547;
-  --amber-light: rgba(255,181,71,0.12);
+  --green-up: #7FD9B0;
+  --green-up-light: rgba(127,217,176,0.10);
+  --red-down: #E8889A;
+  --red-down-light: rgba(232,136,154,0.10);
+  --amber: #E8C28A;
+  --amber-light: rgba(232,194,138,0.10);
   --surface: transparent;
-  --border: rgba(255,255,255,0.10);
-  --text-primary: #E8ECEA;
-  --text-secondary: #A8B0BA;
-  --text-muted: #6E7782;
+  --border: rgba(255,255,255,0.07);
+  --text-primary: #D6DBD8;
+  --text-secondary: #8E969E;
+  --text-muted: #5C656D;
 
-  --background: #07090A;
-  --foreground: #E8ECEA;
-  --card: rgba(255,255,255,0.04);
-  --card-foreground: #E8ECEA;
-  --primary: #10F0A0;
-  --primary-foreground: #07090A;
-  --muted: rgba(255,255,255,0.04);
-  --muted-foreground: #A8B0BA;
-  --radius: 0.875rem;
+  --background: #0B0E10;
+  --foreground: #D6DBD8;
+  --card: rgba(255,255,255,0.03);
+  --card-foreground: #D6DBD8;
+  --primary: #7FD9B0;
+  --primary-foreground: #0B0E10;
+  --muted: rgba(255,255,255,0.03);
+  --muted-foreground: #8E969E;
+  --radius: 1rem;
 }
 
 .dark {
-  --background: #07090A;
-  --foreground: #E8ECEA;
+  --background: #0B0E10;
+  --foreground: #D6DBD8;
 }
 
 @layer base {
@@ -76,14 +76,13 @@
   html, body {
     font-family: var(--font-sans);
     color: var(--color-foreground);
-    background-color: #07090A;
+    background-color: #0B0E10;
     background-image:
-      radial-gradient(1100px 700px at 85% -10%, rgba(16,240,160,0.07), transparent 65%),
-      radial-gradient(900px 600px at -10% 40%, rgba(52,255,184,0.04), transparent 65%),
-      radial-gradient(800px 600px at 50% 120%, rgba(16,240,160,0.05), transparent 65%),
-      linear-gradient(180deg, #07090A 0%, #0A0D0C 50%, #07090A 100%);
+      radial-gradient(1200px 800px at 80% -10%, rgba(127,217,176,0.04), transparent 65%),
+      radial-gradient(1000px 700px at -10% 50%, rgba(127,217,176,0.025), transparent 65%),
+      linear-gradient(180deg, #0B0E10 0%, #0C1011 60%, #0B0E10 100%);
     background-attachment: fixed;
-    line-height: 1.6;
+    line-height: 1.7;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
@@ -95,29 +94,26 @@
 
 @utility glass {
   background:
-    radial-gradient(120% 80% at 0% 0%, rgba(16,240,160,0.06) 0%, transparent 50%),
-    radial-gradient(100% 80% at 100% 100%, rgba(52,255,184,0.04) 0%, transparent 55%),
-    linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%);
+    radial-gradient(120% 80% at 0% 0%, rgba(127,217,176,0.035) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.01) 100%);
   border: none;
-  backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(110%);
   border-radius: var(--radius);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.06) inset,
-    0 20px 50px -20px rgba(0,0,0,0.6);
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 24px 60px -30px rgba(0,0,0,0.5);
 }
 
 @utility glass-strong {
   background:
-    radial-gradient(120% 90% at 0% 0%, rgba(16,240,160,0.14) 0%, transparent 55%),
-    radial-gradient(100% 80% at 100% 100%, rgba(52,255,184,0.08) 0%, transparent 60%),
-    linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    radial-gradient(120% 90% at 0% 0%, rgba(127,217,176,0.07) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%);
   border: none;
-  backdrop-filter: blur(28px) saturate(160%);
+  backdrop-filter: blur(28px) saturate(120%);
   border-radius: var(--radius);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.08) inset,
-    0 20px 60px -20px rgba(0,0,0,0.65),
-    0 0 40px -10px rgba(16,240,160,0.18);
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 24px 70px -30px rgba(0,0,0,0.55);
 }
 
 
@@ -127,5 +123,5 @@
   100% { transform: translateX(-50%); }
 }
 .ticker-track {
-  animation: ticker-scroll 60s linear infinite;
+  animation: ticker-scroll 120s linear infinite;
 }
