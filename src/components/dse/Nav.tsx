@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ChevronDown, Command, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import dseLogo from "@/assets/dse-logo.png.asset.json";
 
 type LinkItem = { label: string; menu?: { title: string; desc: string }[] };
 
@@ -66,16 +67,12 @@ export function Nav() {
       <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8">
         {/* Logo */}
         <a className="flex items-center gap-2.5 cursor-pointer group shrink-0">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[12px] transition group-hover:scale-105"
-            style={{
-              background: "var(--green-up)",
-              color: "#07090A",
-              boxShadow: "0 0 14px rgba(16,240,160,0.35)",
-            }}
-          >
-            DSE
-          </div>
+          <img
+            src={dseLogo.url}
+            alt="Dhaka Stock Exchange"
+            className="w-9 h-9 object-contain transition group-hover:scale-105"
+            style={{ filter: "drop-shadow(0 0 10px rgba(16,240,160,0.25))" }}
+          />
           <div className="hidden md:block leading-tight">
             <div className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--text-primary)" }}>
               Dhaka Stock Exchange
