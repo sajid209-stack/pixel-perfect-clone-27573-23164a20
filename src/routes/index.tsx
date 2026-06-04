@@ -1,29 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { TopBar } from "@/components/dse/TopBar";
+import { Nav } from "@/components/dse/Nav";
+import { Hero } from "@/components/dse/Hero";
+import { Ticker } from "@/components/dse/Ticker";
+import { DualAudience } from "@/components/dse/DualAudience";
+import { MarketOverview } from "@/components/dse/MarketOverview";
+import { IndicesPanel } from "@/components/dse/IndicesPanel";
+import { Announcements } from "@/components/dse/Announcements";
+import { Resources } from "@/components/dse/Resources";
+import { Footer } from "@/components/dse/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Dhaka Stock Exchange — Bangladesh's Capital Market" },
+      { name: "description", content: "Real-time DSEX data, company disclosures, IPO pipeline, and market intelligence from Bangladesh's premier stock exchange." },
+      { property: "og:title", content: "Dhaka Stock Exchange — Bangladesh's Capital Market" },
+      { property: "og:description", content: "Real-time DSEX data, disclosures, and market intelligence." },
     ],
   }),
-  component: Index,
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen" style={{ background: "var(--background)" }}>
+      <TopBar />
+      <Nav />
+      <Hero />
+      <Ticker />
+      <DualAudience />
+      <MarketOverview />
+      <IndicesPanel />
+      <Announcements />
+      <Resources />
+      <Footer />
     </div>
   );
 }
