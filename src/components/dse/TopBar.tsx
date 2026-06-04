@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function TopBar() {
   const [time, setTime] = useState("");
