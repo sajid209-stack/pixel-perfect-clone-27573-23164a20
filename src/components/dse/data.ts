@@ -82,5 +82,5 @@ export const announcements = [
 
 export const longSeries = Array.from({ length: 60 }, (_, i) => ({
   date: `D${i + 1}`,
-  value: 6100 + Math.round(Math.sin(i / 4) * 40 + i * 2.4 + Math.random() * 18),
+  value: 6100 + Math.round(Math.sin(i / 4) * 40 + i * 2.4 + Math.cos(i / 2.3) * 9),
 }));
