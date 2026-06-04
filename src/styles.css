@@ -94,29 +94,26 @@
 
 @utility glass {
   background:
-    radial-gradient(120% 80% at 0% 0%, rgba(16,240,160,0.06) 0%, transparent 50%),
-    radial-gradient(100% 80% at 100% 100%, rgba(52,255,184,0.04) 0%, transparent 55%),
-    linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%);
+    radial-gradient(120% 80% at 0% 0%, rgba(127,217,176,0.035) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.01) 100%);
   border: none;
-  backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(110%);
   border-radius: var(--radius);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.06) inset,
-    0 20px 50px -20px rgba(0,0,0,0.6);
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 24px 60px -30px rgba(0,0,0,0.5);
 }
 
 @utility glass-strong {
   background:
-    radial-gradient(120% 90% at 0% 0%, rgba(16,240,160,0.14) 0%, transparent 55%),
-    radial-gradient(100% 80% at 100% 100%, rgba(52,255,184,0.08) 0%, transparent 60%),
-    linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    radial-gradient(120% 90% at 0% 0%, rgba(127,217,176,0.07) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%);
   border: none;
-  backdrop-filter: blur(28px) saturate(160%);
+  backdrop-filter: blur(28px) saturate(120%);
   border-radius: var(--radius);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.08) inset,
-    0 20px 60px -20px rgba(0,0,0,0.65),
-    0 0 40px -10px rgba(16,240,160,0.18);
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 24px 70px -30px rgba(0,0,0,0.55);
 }
 
 
