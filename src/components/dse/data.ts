@@ -46,7 +46,7 @@ export const sectors = [
 ] as const;
 
 const mkSpark = (up: boolean) =>
-  Array.from({ length: 6 }, (_, i) => ({ i, v: up ? 10 + i + Math.random() * 3 : 20 - i + Math.random() * 3 }));
+  Array.from({ length: 6 }, (_, i) => ({ i, v: up ? 10 + i + Math.sin(i) * 1.5 : 20 - i + Math.cos(i) * 1.5 }));
 
 export const topGainers = [
   { code: "ANWARGALV", name: "Anwar Galvanising", price: 109.7, change: 9.92, spark: mkSpark(true) },
