@@ -18,7 +18,7 @@ function Pill({ children }: { children: React.ReactNode }) {
 
 export function DualAudience() {
   return (
-    <section className="py-16 px-6">
+    <section className="py-16 px-6 relative" style={{ background: "radial-gradient(800px 400px at 50% 0%, rgba(16,240,160,0.04), transparent 70%), linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 100%)" }}>
       <h2 className="text-center text-[22px] font-bold mb-8" style={{ color: "var(--text-primary)" }}>
         Where would you like to start?
       </h2>
