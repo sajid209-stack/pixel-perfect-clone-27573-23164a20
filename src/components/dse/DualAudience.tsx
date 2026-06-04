@@ -24,15 +24,15 @@ export function DualAudience() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
-          className="rounded-xl p-6 border-l-4 border"
-          style={{ background: "var(--sky-50)", borderLeftColor: "var(--navy-mid)", borderColor: "var(--border)" }}
+          className="rounded-2xl p-6 border-l-4 border"
+          style={{ background: "#FAFAFA", borderLeftColor: "#0A0F0D", borderColor: "var(--border)" }}
         >
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "var(--sky-100)" }}>
-              <Sprout className="w-5 h-5" style={{ color: "var(--navy-mid)" }} />
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "#0A0F0D" }}>
+              <Sprout className="w-5 h-5" style={{ color: "#fff" }} />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-base" style={{ color: "var(--navy-mid)" }}>New to investing?</h3>
+              <h3 className="font-semibold text-base" style={{ color: "#0A0F0D" }}>New to investing?</h3>
               <p className="text-sm mt-1.5" style={{ color: "var(--text-secondary)" }}>
                 Learn how the stock market works, how to open a BO account, and make your first investment with confidence.
               </p>
