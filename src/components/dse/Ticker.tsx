@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { tickerStocks } from "./data";
 
 export function Ticker() {
@@ -18,14 +19,19 @@ export function Ticker() {
             {items.map((s, i) => {
               const up = s.change >= 0;
               return (
-                <span key={i} className="px-6 text-[15px] tnum inline-flex items-center gap-2.5">
+                <Link
+                  key={i}
+                  to="/company/$ticker"
+                  params={{ ticker: s.code }}
+                  className="px-6 text-[15px] tnum inline-flex items-center gap-2.5 hover:opacity-100 opacity-90 transition"
+                >
                   <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{s.code}</span>
                   <span style={{ color: "var(--text-secondary)" }}>{s.price}</span>
                   <span style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}>
                     {up ? "▲" : "▼"}{Math.abs(s.change)}%
                   </span>
                   <span style={{ color: "var(--text-muted)" }}>·</span>
-                </span>
+                </Link>
               );
             })}
           </div>
