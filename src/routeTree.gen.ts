@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as MembersRouteImport } from './routes/members'
+import { Route as ListingRouteImport } from './routes/listing'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IpoRouteImport } from './routes/ipo'
 import { Route as IndicesRouteImport } from './routes/indices'
 import { Route as FundsRouteImport } from './routes/funds'
+import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as BondsRouteImport } from './routes/bonds'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 
@@ -34,6 +37,11 @@ const NewsRoute = NewsRouteImport.update({
 const MembersRoute = MembersRouteImport.update({
   id: '/members',
   path: '/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingRoute = ListingRouteImport.update({
+  id: '/listing',
+  path: '/listing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearnRoute = LearnRouteImport.update({
@@ -56,6 +64,11 @@ const FundsRoute = FundsRouteImport.update({
   path: '/funds',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComplaintsRoute = ComplaintsRouteImport.update({
+  id: '/complaints',
+  path: '/complaints',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompaniesRoute = CompaniesRouteImport.update({
   id: '/companies',
   path: '/companies',
@@ -64,6 +77,11 @@ const CompaniesRoute = CompaniesRouteImport.update({
 const BondsRoute = BondsRouteImport.update({
   id: '/bonds',
   path: '/bonds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -79,12 +97,15 @@ const CompanyTickerRoute = CompanyTickerRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bonds': typeof BondsRoute
   '/companies': typeof CompaniesRoute
+  '/complaints': typeof ComplaintsRoute
   '/funds': typeof FundsRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
+  '/listing': typeof ListingRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
   '/reports': typeof ReportsRoute
@@ -92,12 +113,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bonds': typeof BondsRoute
   '/companies': typeof CompaniesRoute
+  '/complaints': typeof ComplaintsRoute
   '/funds': typeof FundsRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
+  '/listing': typeof ListingRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
   '/reports': typeof ReportsRoute
@@ -106,12 +130,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bonds': typeof BondsRoute
   '/companies': typeof CompaniesRoute
+  '/complaints': typeof ComplaintsRoute
   '/funds': typeof FundsRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
+  '/listing': typeof ListingRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
   '/reports': typeof ReportsRoute
@@ -121,12 +148,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/bonds'
     | '/companies'
+    | '/complaints'
     | '/funds'
     | '/indices'
     | '/ipo'
     | '/learn'
+    | '/listing'
     | '/members'
     | '/news'
     | '/reports'
@@ -134,12 +164,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/bonds'
     | '/companies'
+    | '/complaints'
     | '/funds'
     | '/indices'
     | '/ipo'
     | '/learn'
+    | '/listing'
     | '/members'
     | '/news'
     | '/reports'
@@ -147,12 +180,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/bonds'
     | '/companies'
+    | '/complaints'
     | '/funds'
     | '/indices'
     | '/ipo'
     | '/learn'
+    | '/listing'
     | '/members'
     | '/news'
     | '/reports'
@@ -161,12 +197,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BondsRoute: typeof BondsRoute
   CompaniesRoute: typeof CompaniesRoute
+  ComplaintsRoute: typeof ComplaintsRoute
   FundsRoute: typeof FundsRoute
   IndicesRoute: typeof IndicesRoute
   IpoRoute: typeof IpoRoute
   LearnRoute: typeof LearnRoute
+  ListingRoute: typeof ListingRoute
   MembersRoute: typeof MembersRoute
   NewsRoute: typeof NewsRoute
   ReportsRoute: typeof ReportsRoute
@@ -194,6 +233,13 @@ declare module '@tanstack/react-router' {
       path: '/members'
       fullPath: '/members'
       preLoaderRoute: typeof MembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listing': {
+      id: '/listing'
+      path: '/listing'
+      fullPath: '/listing'
+      preLoaderRoute: typeof ListingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn': {
@@ -224,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FundsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/complaints': {
+      id: '/complaints'
+      path: '/complaints'
+      fullPath: '/complaints'
+      preLoaderRoute: typeof ComplaintsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/companies': {
       id: '/companies'
       path: '/companies'
@@ -236,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/bonds'
       fullPath: '/bonds'
       preLoaderRoute: typeof BondsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -257,12 +317,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BondsRoute: BondsRoute,
   CompaniesRoute: CompaniesRoute,
+  ComplaintsRoute: ComplaintsRoute,
   FundsRoute: FundsRoute,
   IndicesRoute: IndicesRoute,
   IpoRoute: IpoRoute,
   LearnRoute: LearnRoute,
+  ListingRoute: ListingRoute,
   MembersRoute: MembersRoute,
   NewsRoute: NewsRoute,
   ReportsRoute: ReportsRoute,

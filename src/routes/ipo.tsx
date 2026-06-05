@@ -219,6 +219,9 @@ function IpoPage() {
           <div className="text-[11px] uppercase tracking-[0.24em] mb-3" style={{ color: "var(--text-muted)" }}>
             Markets · IPO Center
           </div>
+          <div className="text-[11px] mb-4" style={{ color: "var(--text-secondary)" }}>
+            Sample data for demonstration — live data will connect to the DSE API
+          </div>
           <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
             <div>
               <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
@@ -551,12 +554,17 @@ function IpoCard({ ipo, i }: { ipo: Ipo; i: number }) {
         </button>
 
         {ipo.status === "open" ? (
-          <button
-            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-semibold transition hover:scale-[1.02]"
-            style={{ background: "var(--green-up)", color: "#07090A" }}
+          <Link
+            to="/members"
+            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-medium transition"
+            style={{
+              background: "transparent",
+              border: "1px solid rgb(var(--ov) / 0.15)",
+              color: "var(--text-primary)",
+            }}
           >
-            Apply now <ArrowUpRight className="w-3.5 h-3.5" />
-          </button>
+            Apply via your broker <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
         ) : ipo.status === "upcoming" ? (
           <button
             className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-medium"
