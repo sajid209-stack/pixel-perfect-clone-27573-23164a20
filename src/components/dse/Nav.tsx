@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   Menu,
   X,
+  ChevronRight,
   AlertCircle,
   Coins,
   Users,
