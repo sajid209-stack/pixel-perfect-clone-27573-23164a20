@@ -975,7 +975,7 @@ function DirectorsTab({ co }: { co: Company }) {
           <ul className="divide-y" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
             {executives.map((e) => (
               <li key={e.name} className="py-3 flex items-center gap-3">
-                <Avatar name={e.name} category="Executive" size={36} />
+                <Avatar name={e.name} category="Executive" size={52} />
                 <div className="flex-1 min-w-0">
                   <div className="text-[14px] font-medium truncate" style={{ color: "var(--text-primary)" }}>
                     {e.name}
