@@ -20,6 +20,7 @@ type Path = {
   title: string;
   body: string;
   cta: string;
+  ctaTo: string;
   Icon: typeof Sprout;
   data: { v: number }[];
   topics: { label: string; sub: string }[];
@@ -32,6 +33,7 @@ const paths: Path[] = [
     title: "Begin with the basics.",
     body: "Understand how the stock market works, open a BO account, and place your first thoughtful trade.",
     cta: "Start the guide",
+    ctaTo: "/learn",
     Icon: Sprout,
     data: beginnerData,
     topics: [
@@ -44,17 +46,19 @@ const paths: Path[] = [
     index: "02",
     eyebrow: "For active traders",
     title: "Go deeper into the data.",
-    body: "Live order books, sector heatmaps, circuit-breaker lists, and detailed company financials — all in one place.",
-    cta: "Open the terminal",
+    body: "Sector heatmaps, index analytics, full equities screener, and detailed company financials — all in one place.",
+    cta: "Open the markets",
+    ctaTo: "/companies",
     Icon: CandlestickChart,
     data: proData,
     topics: [
-      { label: "Live market data", sub: "Realtime feed" },
+      { label: "Equities screener", sub: "All listed companies" },
       { label: "Sector heatmap", sub: "Updated daily" },
-      { label: "Circuit breakers", sub: "Watchlist" },
+      { label: "Index analytics", sub: "DSEX · DS30 · DSES" },
     ],
   },
 ];
+
 
 function PathCard({ path, i }: { path: Path; i: number }) {
   const { Icon } = path;
