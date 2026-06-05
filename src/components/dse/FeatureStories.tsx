@@ -187,7 +187,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
 
 export function FeatureStories() {
   return (
-    <section className="py-32 md:py-40 px-6 relative overflow-hidden">
+    <section className="py-32 md:py-20 px-6 relative overflow-hidden">
       {/* ambient grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
         backgroundImage: "linear-gradient(rgb(var(--ov) / 1) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--ov) / 1) 1px, transparent 1px)",
@@ -196,7 +196,7 @@ export function FeatureStories() {
         WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
       }} />
 
-      <div className="max-w-7xl mx-auto mb-28 relative">
+      <div className="max-w-7xl mx-auto mb-12 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

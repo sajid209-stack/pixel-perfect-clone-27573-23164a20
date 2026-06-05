@@ -25,7 +25,7 @@ export function Announcements() {
   const FeatIcon = featConfig.icon;
 
   return (
-    <section className="py-32 md:py-40 px-6 relative overflow-hidden">
+    <section className="py-16 md:py-20 px-6 relative overflow-hidden">
       {/* ambient */}
       <div className="absolute inset-0 pointer-events-none" style={{
         background: "radial-gradient(900px 500px at 80% 20%, rgba(16,240,160,0.04), transparent 65%), radial-gradient(700px 400px at 10% 90%, rgba(245,180,80,0.03), transparent 65%)"
