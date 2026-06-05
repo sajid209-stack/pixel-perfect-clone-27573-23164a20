@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndicesRouteImport } from './routes/indices'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 
+const IndicesRoute = IndicesRouteImport.update({
+  id: '/indices',
+  path: '/indices',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompaniesRoute = CompaniesRouteImport.update({
   id: '/companies',
   path: '/companies',
@@ -32,35 +38,46 @@ const CompanyTickerRoute = CompanyTickerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/companies': typeof CompaniesRoute
+  '/indices': typeof IndicesRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/companies': typeof CompaniesRoute
+  '/indices': typeof IndicesRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/companies': typeof CompaniesRoute
+  '/indices': typeof IndicesRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/companies' | '/company/$ticker'
+  fullPaths: '/' | '/companies' | '/indices' | '/company/$ticker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/companies' | '/company/$ticker'
-  id: '__root__' | '/' | '/companies' | '/company/$ticker'
+  to: '/' | '/companies' | '/indices' | '/company/$ticker'
+  id: '__root__' | '/' | '/companies' | '/indices' | '/company/$ticker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompaniesRoute: typeof CompaniesRoute
+  IndicesRoute: typeof IndicesRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/indices': {
+      id: '/indices'
+      path: '/indices'
+      fullPath: '/indices'
+      preLoaderRoute: typeof IndicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/companies': {
       id: '/companies'
       path: '/companies'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompaniesRoute: CompaniesRoute,
+  IndicesRoute: IndicesRoute,
   CompanyTickerRoute: CompanyTickerRoute,
 }
 export const routeTree = rootRouteImport
