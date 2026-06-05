@@ -13,6 +13,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
+import { ThemeToggle } from "./ThemeToggle";
 import { companyIndex } from "./data";
 
 type NavItem = {
