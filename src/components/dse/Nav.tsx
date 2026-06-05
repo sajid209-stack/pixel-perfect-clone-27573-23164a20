@@ -1,58 +1,465 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, ChevronDown, Command, ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import {
+  Search,
+  Command,
+  ArrowUpRight,
+  Menu,
+  X,
+  AlertCircle,
+  Coins,
+  Users,
+  Landmark,
+} from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
 import { companyIndex } from "./data";
 
-type MenuItem = { title: string; desc: string; to?: string };
-type LinkItem = { label: string; to?: string; menu?: MenuItem[] };
+type NavItem = {
+  label: string;
+  to?: string;
+  href?: string;
+  mega?: keyof typeof megaPanels;
+  activePaths?: string[];
+};
 
-const links: LinkItem[] = [
-  {
-    label: "Markets",
-    menu: [
-      { title: "Overview", desc: "Today's snapshot of the exchange", to: "/" },
-      { title: "Equities", desc: "Listed company shares", to: "/companies" },
-      { title: "Bonds", desc: "Government & corporate debt", to: "/bonds" },
-      { title: "Mutual Funds", desc: "Open & closed-end funds", to: "/funds" },
-      { title: "Statistics & Reports", desc: "Historical data and downloads", to: "/reports" },
-      { title: "SME Board", desc: "Small & medium enterprises" },
-    ],
-  },
-  {
-    label: "Companies",
-    to: "/companies",
-    menu: [
-      { title: "All listings", desc: "Browse every listed company", to: "/companies" },
-      { title: "Disclosures", desc: "Latest filings & announcements" },
-      { title: "Financials", desc: "Reports, ratios & history" },
-    ],
-  },
-  { label: "Indices", to: "/indices" },
-  {
-    label: "IPO",
-    to: "/ipo",
-    menu: [
-      { title: "Subscription open", desc: "Currently raising capital", to: "/ipo" },
-      { title: "Upcoming", desc: "Approved & scheduled offerings", to: "/ipo" },
-      { title: "How to apply", desc: "Eligibility & process guide", to: "/ipo" },
-    ],
-  },
-  { label: "News", to: "/news" },
-  { label: "Learn", to: "/learn" },
-  { label: "Members", to: "/members" },
+const links: NavItem[] = [
+  { label: "Markets", to: "/", mega: "markets", activePaths: ["/"] },
+  { label: "Companies", to: "/companies", mega: "companies", activePaths: ["/companies", "/company"] },
+  { label: "Indices", to: "/indices", mega: "indices", activePaths: ["/indices"] },
+  { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
+  { label: "News", to: "/news", mega: "news", activePaths: ["/news"] },
+  { label: "Learn", to: "/learn", mega: "learn", activePaths: ["/learn"] },
+  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/complaints", "/members"] },
+  { label: "Contact", href: "#footer" },
 ];
 
+/* ─────────────── shared dropdown atoms ─────────────── */
+
+type Item = { title: string; desc: string; to?: string; hash?: string; soon?: boolean };
+
+function SoonBadge() {
+  return (
+    <span
+      className="ml-1.5 inline-flex items-center px-1.5 py-px rounded-full text-[9px] font-semibold uppercase tracking-wider"
+      style={{ background: "#FEF3C7", color: "#92400E" }}
+    >
+      soon
+    </span>
+  );
+}
+
+function MenuLink({ item, onClick }: { item: Item; onClick?: () => void }) {
+  const content = (
+    <>
+      <div className="flex items-center mb-0.5">
+        <span className="text-[13px] font-semibold" style={{ color: "#0F172A" }}>
+          {item.title}
+        </span>
+        {item.soon && <SoonBadge />}
+      </div>
+      <div className="text-[11.5px] leading-snug" style={{ color: "#64748B" }}>
+        {item.desc}
+      </div>
+    </>
+  );
+  const cls = "block py-2 px-2.5 -mx-2.5 rounded-md transition cursor-pointer hover:bg-slate-50";
+  const style = { opacity: item.soon ? 0.55 : 1 } as React.CSSProperties;
+  return item.to ? (
+    <Link to={item.to} hash={item.hash} onClick={onClick} className={cls} style={style}>
+      {content}
+    </Link>
+  ) : (
+    <a className={cls} style={style} onClick={onClick}>
+      {content}
+    </a>
+  );
+}
+
+function ColHeader({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="text-[10px] font-semibold uppercase tracking-[0.14em] mb-2.5"
+      style={{ color: "#94A3B8" }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ─────────────── individual mega panels ─────────────── */
+
+function MarketsPanel({ close }: { close: () => void }) {
+  const col1: Item[] = [
+    { title: "Market overview", desc: "DSEX live, sector heatmap, top movers", to: "/" },
+    { title: "Sector heatmap", desc: "All 10 sectors, daily % change", to: "/", hash: "heatmap" },
+    { title: "Market reports", desc: "Daily, weekly, monthly PDFs", to: "/reports" },
+    { title: "Trading calendar", desc: "Sessions, holidays, market hours", to: "/reports", hash: "calendar" },
+  ];
+  const col2: Item[] = [
+    { title: "Equities", desc: "All 356 listed companies", to: "/companies" },
+    { title: "Bonds & sukuk", desc: "Corporate bonds, green bonds", to: "/companies", soon: true },
+    { title: "Mutual funds", desc: "NAV table, fund directory", to: "/companies", soon: true },
+    { title: "SME board", desc: "Small & medium enterprises", to: "/companies", soon: true },
+  ];
+  const col3: Item[] = [
+    { title: "Circuit breaker list", desc: "Today's upper/lower limits", to: "/reports", soon: true },
+    { title: "Historical data", desc: "OHLV archives, downloadable", to: "/reports" },
+  ];
+  return (
+    <div style={{ width: 560 }}>
+      <div className="grid grid-cols-3 gap-5">
+        <div>
+          <ColHeader>Overview</ColHeader>
+          {col1.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+        </div>
+        <div>
+          <ColHeader>Instruments</ColHeader>
+          {col2.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+        </div>
+        <div>
+          <ColHeader>Tools</ColHeader>
+          {col3.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+        </div>
+      </div>
+      <div className="mt-4 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid #E2E8F0" }}>
+        <div className="flex items-baseline gap-2">
+          <span className="text-[11px]" style={{ color: "#94A3B8" }}>DSEX</span>
+          <span className="text-[16px] font-semibold tnum" style={{ color: "#0F172A" }}>6,241.30</span>
+          <span className="text-[12px] font-semibold" style={{ color: "#16A34A" }}>▲ 0.30%</span>
+        </div>
+        <span className="text-[10px] italic" style={{ color: "#94A3B8" }}>Sample data</span>
+      </div>
+    </div>
+  );
+}
+
+function CompaniesPanel({ close }: { close: () => void }) {
+  const [q, setQ] = useState("");
+  const navigate = useNavigate();
+  const results = q.trim()
+    ? companyIndex
+        .filter((c) =>
+          c.code.toLowerCase().includes(q.toLowerCase()) ||
+          c.name.toLowerCase().includes(q.toLowerCase())
+        )
+        .slice(0, 6)
+    : [];
+  const quick = ["BATBC", "GRAMEENS", "WALTONHIL", "SQPHARMA", "RENATA"];
+
+  const col1: Item[] = [
+    { title: "All companies", desc: "Filter by sector, board, performance", to: "/companies" },
+    { title: "By sector", desc: "Banking · Pharma · Telecom · +7 more", to: "/companies" },
+    { title: "Top by market cap", desc: "DSE's 20 largest by market cap", to: "/companies" },
+  ];
+  const col2: Item[] = [
+    { title: "Top gainers", desc: "Best performers today", to: "/companies" },
+    { title: "Top losers", desc: "Biggest declines today", to: "/companies" },
+    { title: "Most active", desc: "Highest volume", to: "/companies" },
+  ];
+
+  return (
+    <div style={{ width: 480 }} className="flex gap-5">
+      <div className="flex-1 grid grid-cols-2 gap-5">
+        <div>
+          <ColHeader>Browse</ColHeader>
+          {col1.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+        </div>
+        <div>
+          <ColHeader>Today</ColHeader>
+          {col2.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+        </div>
+      </div>
+      <div style={{ width: 160, borderLeft: "1px solid #E2E8F0" }} className="pl-4 relative">
+        <ColHeader>Quick search</ColHeader>
+        <input
+          autoFocus={false}
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Ticker or name…"
+          className="w-full h-8 px-2 rounded-md text-[12px] outline-none"
+          style={{ border: "1px solid #E2E8F0", color: "#0F172A" }}
+        />
+        {results.length > 0 ? (
+          <div
+            className="absolute left-4 right-0 mt-1 rounded-md overflow-hidden z-10"
+            style={{ background: "#fff", border: "1px solid #E2E8F0", boxShadow: "0 8px 20px rgba(0,0,0,0.08)" }}
+          >
+            {results.map((r) => (
+              <button
+                key={r.code}
+                onClick={() => {
+                  close();
+                  setQ("");
+                  navigate({ to: "/company/$ticker", params: { ticker: r.code } });
+                }}
+                className="w-full text-left px-2.5 py-1.5 text-[11.5px] hover:bg-slate-50"
+                style={{ color: "#0F172A" }}
+              >
+                <span className="font-semibold">{r.code}</span>
+                <span className="ml-1.5" style={{ color: "#64748B" }}>{r.name}</span>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <ul className="mt-3 space-y-1.5">
+            {quick.map((code) => (
+              <li key={code}>
+                <Link
+                  to="/company/$ticker"
+                  params={{ ticker: code }}
+                  onClick={close}
+                  className="text-[12px] font-semibold hover:underline"
+                  style={{ color: "#0F172A" }}
+                >
+                  {code}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function IndicesPanel({ close }: { close: () => void }) {
+  const cards = [
+    { name: "DSEX", value: "6,241.30", change: 0.30, desc: "Broad market · 286 stocks" },
+    { name: "DS30", value: "2,118.40", change: 0.18, desc: "Blue chips · 30 stocks" },
+    { name: "DSES", value: "1,340.20", change: -0.05, desc: "Shariah · 78 stocks" },
+  ];
+  return (
+    <div style={{ width: 400 }}>
+      <div className="grid grid-cols-3 gap-2.5">
+        {cards.map((c) => {
+          const up = c.change >= 0;
+          return (
+            <div
+              key={c.name}
+              className="p-2.5 rounded-lg"
+              style={{ border: "1px solid #E2E8F0", background: "#F8FAFC" }}
+            >
+              <div className="text-[13px] font-medium" style={{ color: "#0F172A" }}>{c.name}</div>
+              <div className="text-[22px] font-semibold tnum mt-0.5" style={{ color: "#0F172A" }}>
+                {c.value}
+              </div>
+              <span
+                className="inline-flex items-center mt-1 px-1.5 py-0.5 rounded text-[10px] font-semibold"
+                style={{
+                  background: up ? "#DCFCE7" : "#FEE2E2",
+                  color: up ? "#15803D" : "#B91C1C",
+                }}
+              >
+                {up ? "▲" : "▼"} {Math.abs(c.change).toFixed(2)}%
+              </span>
+              <div className="text-[11px] mt-1.5 leading-snug" style={{ color: "#64748B" }}>{c.desc}</div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-3 flex items-center justify-between">
+        <Link
+          to="/indices"
+          onClick={close}
+          className="text-[12px] font-semibold"
+          style={{ color: "#0F172A" }}
+        >
+          View full index analytics →
+        </Link>
+        <span className="text-[10px] italic" style={{ color: "#94A3B8" }}>Sample data</span>
+      </div>
+    </div>
+  );
+}
+
+function IpoPanel({ close }: { close: () => void }) {
+  const col1: Item[] = [
+    { title: "Open subscriptions", desc: "Live IPOs open for application", to: "/ipo" },
+    { title: "Upcoming IPOs", desc: "SEC approved & filed", to: "/ipo", hash: "pipeline" },
+    { title: "Prospectus library", desc: "All IPO documents archived", to: "/ipo", soon: true },
+  ];
+  const col2: Item[] = [
+    { title: "Recent listings", desc: "Listing price & day-1 return", to: "/ipo", hash: "results" },
+    { title: "How to apply", desc: "5-step broker application guide", to: "/ipo", hash: "guide" },
+    { title: "IPO FAQ", desc: "Eligibility, allotment, refunds", to: "/ipo", soon: true },
+  ];
+  return (
+    <div style={{ width: 480 }} className="flex gap-5">
+      <div className="flex-1 grid grid-cols-2 gap-5">
+        <div>
+          <ColHeader>Current</ColHeader>
+          {col1.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+        </div>
+        <div>
+          <ColHeader>Results & guide</ColHeader>
+          {col2.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+        </div>
+      </div>
+      <div style={{ width: 150, borderLeft: "1px solid #E2E8F0" }} className="pl-4">
+        <ColHeader>Live now</ColHeader>
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#16A34A", boxShadow: "0 0 6px #16A34A" }} />
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#16A34A" }}>Open</span>
+        </div>
+        <div className="text-[12px] font-medium mt-1.5" style={{ color: "#0F172A" }}>NRBC Bank PLC</div>
+        <div className="text-[10px] mt-0.5" style={{ color: "#64748B" }}>৳ 30/share · Closes Jun 10</div>
+        <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: "#E2E8F0" }}>
+          <div style={{ width: "73%", height: "100%", background: "#3B6D11" }} />
+        </div>
+        <div className="text-[10px] mt-1 font-semibold" style={{ color: "#16A34A" }}>73% subscribed</div>
+        <Link to="/ipo" onClick={close} className="block text-[10px] mt-2 font-semibold" style={{ color: "#0F172A" }}>
+          Apply via your broker →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function NewsPanel({ close }: { close: () => void }) {
+  const types = [
+    { icon: AlertCircle, label: "Price sensitive", count: 10, color: "#2563EB", bg: "#DBEAFE", q: "price-sensitive" },
+    { icon: Coins, label: "Dividends", count: 11, color: "#16A34A", bg: "#DCFCE7", q: "dividends" },
+    { icon: Users, label: "AGM / EGM", count: 8, color: "#D97706", bg: "#FEF3C7", q: "agm-egm" },
+    { icon: Landmark, label: "Regulatory", count: 2, color: "#DC2626", bg: "#FEE2E2", q: "regulatory" },
+  ];
+  return (
+    <div style={{ width: 440 }}>
+      <div className="grid grid-cols-2 gap-2">
+        {types.map((t) => {
+          const Icon = t.icon;
+          return (
+            <Link
+              key={t.label}
+              to="/news"
+              onClick={close}
+              className="flex items-center gap-2.5 p-2.5 rounded-lg transition hover:bg-slate-50"
+              style={{ border: "1px solid #E2E8F0" }}
+            >
+
+              <div
+                className="w-9 h-9 rounded-md flex items-center justify-center shrink-0"
+                style={{ background: t.bg, color: t.color }}
+              >
+                <Icon className="w-5 h-5" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-[12px] font-semibold truncate" style={{ color: "#0F172A" }}>{t.label}</div>
+                <div className="text-[10px]" style={{ color: "#64748B" }}>
+                  <span className="font-semibold" style={{ color: t.color }}>{t.count}</span> today
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+      <div className="mt-3 pt-3" style={{ borderTop: "1px solid #E2E8F0" }}>
+        <div className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#94A3B8" }}>
+          Latest filing
+        </div>
+        <div className="text-[12px] font-bold mt-1" style={{ color: "#0F172A" }}>
+          ACMELAB · ACME Laboratories
+        </div>
+        <div className="text-[12px] truncate" style={{ color: "#334155" }}>
+          Transmission of shares following death of Managing Director
+        </div>
+        <div className="text-[10px] mt-0.5" style={{ color: "#94A3B8" }}>Jun 04 · 14:22</div>
+        <Link to="/news" onClick={close} className="inline-block mt-2 text-[12px] font-semibold" style={{ color: "#0F172A" }}>
+          All disclosures →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function LearnPanel({ close }: { close: () => void }) {
+  const col1: Item[] = [
+    { title: "Getting started", desc: "Open a BO account, first trade", to: "/learn" },
+    { title: "Investor glossary", desc: "80 terms A–Z", to: "/learn", hash: "glossary" },
+    { title: "Investor rights", desc: "Protection fund, complaint routes", to: "/learn", hash: "rights" },
+  ];
+  const col2: Item[] = [
+    { title: "Reading financials", desc: "Income statement, balance sheet", to: "/learn", hash: "financials" },
+    { title: "How IPOs work", desc: "Prospectus to listing day", to: "/learn", hash: "ipo" },
+    { title: "BICM courses", desc: "Professional certification", to: "/about", hash: "bicm", soon: true },
+  ];
+  return (
+    <div style={{ width: 400 }} className="grid grid-cols-2 gap-5">
+      <div>
+        <ColHeader>Start here</ColHeader>
+        {col1.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+      </div>
+      <div>
+        <ColHeader>Go deeper</ColHeader>
+        {col2.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+      </div>
+    </div>
+  );
+}
+
+function AboutPanel({ close }: { close: () => void }) {
+  const col1: Item[] = [
+    { title: "About DSE", desc: "History, Nasdaq technology", to: "/about" },
+    { title: "Board of directors", desc: "Independent & shareholder directors", to: "/about", hash: "board" },
+    { title: "Press releases", desc: "Official DSE announcements", to: "/about", hash: "press" },
+  ];
+  const col2: Item[] = [
+    { title: "List on DSE", desc: "Main board, SME, bonds", to: "/listing" },
+    { title: "Listing regulations", desc: "Full rulebook PDF downloads", to: "/listing", hash: "documents" },
+    { title: "Broker directory", desc: "TREC licensed members", to: "/members" },
+  ];
+  const col3: Item[] = [
+    { title: "Market reports", desc: "Daily, weekly, monthly PDFs", to: "/reports" },
+    { title: "Sustainability & ESG", desc: "UN SSE signatory", to: "/about", hash: "sustainability" },
+    { title: "Complaints portal", desc: "Investor protection process", to: "/complaints" },
+  ];
+  return (
+    <div style={{ width: 520 }} className="grid grid-cols-3 gap-5">
+      <div>
+        <ColHeader>The exchange</ColHeader>
+        {col1.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+      </div>
+      <div>
+        <ColHeader>For companies</ColHeader>
+        {col2.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+      </div>
+      <div>
+        <ColHeader>Resources</ColHeader>
+        {col3.map((i) => <MenuLink key={i.title} item={i} onClick={close} />)}
+      </div>
+    </div>
+  );
+}
+
+const megaPanels = {
+  markets: MarketsPanel,
+  companies: CompaniesPanel,
+  indices: IndicesPanel,
+  ipo: IpoPanel,
+  news: NewsPanel,
+  learn: LearnPanel,
+  about: AboutPanel,
+};
+
+/* ─────────────── main Nav ─────────────── */
+
 export function Nav() {
-  const [active, setActive] = useState("Markets");
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const activeLabel = useMemo(() => {
+    const match = links.find((l) =>
+      l.activePaths?.some((p) => (p === "/" ? pathname === "/" : pathname.startsWith(p)))
+    );
+    return match?.label ?? null;
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -82,6 +489,15 @@ export function Nav() {
     };
   }, []);
 
+  const openWith = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenMenu(label);
+  };
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 150);
+  };
+
   const q = query.trim().toLowerCase();
   const results = q
     ? companyIndex
@@ -94,7 +510,6 @@ export function Nav() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.1 }}
-      onMouseLeave={() => setOpenMenu(null)}
       className="sticky top-8 z-40 transition-all"
       style={{
         background: scrolled ? "rgb(var(--surface-rgb) / 0.75)" : "rgb(var(--surface-rgb) / 0.4)",
@@ -102,8 +517,7 @@ export function Nav() {
         borderBottom: scrolled ? "1px solid rgb(var(--ov) / 0.06)" : "1px solid transparent",
       }}
     >
-      <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8">
-        {/* Logo */}
+      <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8 relative">
         <Link to="/" className="flex items-center gap-2.5 cursor-pointer group shrink-0">
           <img
             src={dseLogo}
@@ -118,14 +532,13 @@ export function Nav() {
           </div>
         </Link>
 
-        {/* Primary nav — animated underline */}
         <nav className="hidden lg:flex items-center gap-1 ml-2 relative">
           {links.map((l) => {
+            const isActive = activeLabel === l.label;
             const inner = (
               <>
                 {l.label}
-                {l.menu && <ChevronDown className="w-3 h-3 opacity-50" />}
-                {active === l.label && (
+                {isActive && (
                   <motion.span
                     layoutId="navActive"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -135,39 +548,56 @@ export function Nav() {
                 )}
               </>
             );
-            const sharedClass =
-              "relative px-3 py-2 text-[13.5px] font-medium transition flex items-center gap-1";
-            const sharedStyle = {
-              color: active === l.label ? "var(--text-primary)" : "var(--text-secondary)",
-            };
+            const sharedClass = "relative px-3 py-2 text-[13.5px] font-medium transition flex items-center gap-1";
+            const sharedStyle = { color: isActive ? "var(--text-primary)" : "var(--text-secondary)" };
+            const Panel = l.mega ? megaPanels[l.mega] : null;
             return (
               <div
                 key={l.label}
-                onMouseEnter={() => l.menu && setOpenMenu(l.label)}
+                onMouseEnter={() => l.mega && openWith(l.label)}
+                onMouseLeave={() => l.mega && scheduleClose()}
                 className="relative"
               >
-                {l.to ? (
-                  <Link
-                    to={l.to}
-                    onClick={() => setActive(l.label)}
-                    className={sharedClass}
-                    style={sharedStyle}
-                  >
+                {l.href ? (
+                  <a href={l.href} className={sharedClass} style={sharedStyle}>
+                    {inner}
+                  </a>
+                ) : l.to ? (
+                  <Link to={l.to} className={sharedClass} style={sharedStyle}>
                     {inner}
                   </Link>
                 ) : (
-                  <button
-                    onClick={() => setActive(l.label)}
-                    className={sharedClass}
-                    style={sharedStyle}
-                  >
-                    {inner}
-                  </button>
+                  <button className={sharedClass} style={sharedStyle}>{inner}</button>
                 )}
+                <AnimatePresence>
+                  {Panel && openMenu === l.label && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full pt-1 z-50"
+                    >
+                      <div
+                        style={{
+                          background: "#FFFFFF",
+                          border: "0.5px solid #E2E8F0",
+                          borderRadius: 12,
+                          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                          padding: 20,
+                          marginTop: 4,
+                        }}
+                      >
+                        <Panel close={() => setOpenMenu(null)} />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
         </nav>
+
 
         <div className="flex-1" />
 
@@ -216,8 +646,7 @@ export function Nav() {
                   boxShadow: "0 24px 60px -20px rgba(0,0,0,0.4)",
                 }}
               >
-                <div className="px-4 pt-3 pb-2 text-[10px] uppercase tracking-[0.22em]"
-                  style={{ color: "var(--text-muted)" }}>
+                <div className="px-4 pt-3 pb-2 text-[10px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
                   {q ? `Results · ${results.length}` : "Trending"}
                 </div>
                 {results.length === 0 ? (
@@ -241,9 +670,7 @@ export function Nav() {
                         >
                           <div className="min-w-0">
                             <div className="text-[13.5px] font-semibold truncate">{c.code}</div>
-                            <div className="text-[11px] truncate" style={{ color: "var(--text-muted)" }}>
-                              {c.name}
-                            </div>
+                            <div className="text-[11px] truncate" style={{ color: "var(--text-muted)" }}>{c.name}</div>
                           </div>
                           <div className="text-[13px] tnum" style={{ color: "var(--text-secondary)" }}>
                             ৳ {c.price.toLocaleString()}
@@ -253,8 +680,10 @@ export function Nav() {
                     ))}
                   </ul>
                 )}
-                <div className="px-4 py-2 text-[10px] flex justify-between"
-                  style={{ color: "var(--text-muted)", borderTop: "1px solid rgb(var(--ov) / 0.06)" }}>
+                <div
+                  className="px-4 py-2 text-[10px] flex justify-between"
+                  style={{ color: "var(--text-muted)", borderTop: "1px solid rgb(var(--ov) / 0.06)" }}
+                >
                   <span>Esc to close</span>
                   <span>↵ to open</span>
                 </div>
@@ -263,7 +692,6 @@ export function Nav() {
           </AnimatePresence>
         </div>
 
-        {/* Contact link (footer anchor) */}
         <a
           href="#footer"
           className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[13px] font-semibold transition cursor-pointer hover:scale-[1.02]"
@@ -277,8 +705,6 @@ export function Nav() {
           <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
 
-
-        {/* Mobile toggle */}
         <button
           className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg"
           style={{ color: "var(--text-primary)", background: "rgb(var(--ov) / 0.04)" }}
@@ -289,76 +715,7 @@ export function Nav() {
         </button>
       </div>
 
-      {/* Mega menu */}
-      <AnimatePresence>
-        {openMenu && links.find((l) => l.label === openMenu)?.menu && (
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.15 }}
-            className="absolute left-0 right-0 top-full"
-            style={{
-              background: "rgb(var(--surface-rgb) / 0.92)",
-              backdropFilter: "blur(28px) saturate(180%)",
-              borderBottom: "1px solid rgb(var(--ov) / 0.06)",
-            }}
-          >
-            <div className="max-w-[1440px] mx-auto px-6 py-8 grid md:grid-cols-3 gap-2">
-              {links.find((l) => l.label === openMenu)?.menu!.map((item) => {
-                const inner = (
-                  <>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[14px] font-semibold" style={{ color: "var(--text-primary)" }}>
-                        {item.title}
-                      </span>
-                      <ArrowUpRight
-                        className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition"
-                        style={{ color: "var(--green-up)" }}
-                      />
-                    </div>
-                    <div className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-                      {item.desc}
-                    </div>
-                  </>
-                );
-                const className = "group block p-4 rounded-xl transition cursor-pointer";
-                const onEnter = (e: React.MouseEvent<HTMLElement>) => {
-                  e.currentTarget.style.background = "rgb(var(--ov) / 0.03)";
-                  e.currentTarget.style.borderColor = "rgb(var(--ov) / 0.06)";
-                };
-                const onLeave = (e: React.MouseEvent<HTMLElement>) => {
-                  e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.borderColor = "transparent";
-                };
-                return item.to ? (
-                  <Link
-                    key={item.title}
-                    to={item.to}
-                    onClick={() => setOpenMenu(null)}
-                    className={className}
-                    style={{ border: "1px solid transparent" }}
-                    onMouseEnter={onEnter}
-                    onMouseLeave={onLeave}
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.title}
-                    className={className}
-                    style={{ border: "1px solid transparent" }}
-                    onMouseEnter={onEnter}
-                    onMouseLeave={onLeave}
-                  >
-                    {inner}
-                  </a>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* Mobile drawer */}
       <AnimatePresence>
@@ -371,19 +728,29 @@ export function Nav() {
             style={{ background: "rgb(var(--surface-rgb) / 0.95)", backdropFilter: "blur(20px)" }}
           >
             <div className="px-6 py-4 flex flex-col gap-1">
-              {links.map((l) => (
-                <button
-                  key={l.label}
-                  className="text-left px-3 py-3 text-[15px] font-medium rounded-lg"
-                  style={{ color: "var(--text-primary)" }}
-                  onClick={() => {
-                    setActive(l.label);
-                    setMobileOpen(false);
-                  }}
-                >
-                  {l.label}
-                </button>
-              ))}
+              {links.map((l) =>
+                l.href ? (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-left px-3 py-3 text-[15px] font-medium rounded-lg"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    {l.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={l.label}
+                    to={l.to!}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-left px-3 py-3 text-[15px] font-medium rounded-lg"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    {l.label}
+                  </Link>
+                )
+              )}
               <a
                 href="#footer"
                 onClick={() => setMobileOpen(false)}
@@ -392,7 +759,6 @@ export function Nav() {
               >
                 Contact <ArrowUpRight className="w-4 h-4" />
               </a>
-
             </div>
           </motion.div>
         )}
@@ -400,3 +766,5 @@ export function Nav() {
     </motion.header>
   );
 }
+
+
