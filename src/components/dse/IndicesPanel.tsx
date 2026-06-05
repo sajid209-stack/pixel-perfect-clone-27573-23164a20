@@ -176,10 +176,10 @@ export function IndicesPanel() {
   const low = Math.min(...longSeries.map((d) => d.value));
 
   return (
-    <section className="py-40 px-6 relative">
+    <section className="py-20 px-6 relative">
       <div className="max-w-7xl mx-auto">
         {/* Editorial header */}
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-24 items-end">
+        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
           <div>
             <div
               className="text-[12px] uppercase tracking-[0.22em] mb-5"
