@@ -10,7 +10,7 @@ import {
   YAxis,
   ReferenceLine,
 } from "recharts";
-import { longSeries } from "./data";
+import { indexData } from "./data";
 
 const indices = [
   { key: "DSEX", name: "DSEX", sub: "Broad market", value: 6241.3, change: 0.30, prev: 6222.9 },
@@ -172,8 +172,9 @@ export function IndicesPanel() {
   const active = indices.find((i) => i.key === activeKey)!;
   const up = active.change >= 0;
 
-  const high = Math.max(...longSeries.map((d) => d.value));
-  const low = Math.min(...longSeries.map((d) => d.value));
+  const series = indexData[period];
+  const high = Math.max(...series.map((d) => d.v));
+  const low = Math.min(...series.map((d) => d.v));
 
   return (
     <section className="py-20 px-6 relative">
@@ -300,7 +301,7 @@ export function IndicesPanel() {
               className="h-[380px] -mx-2"
             >
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={longSeries} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="mainArea" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="var(--green-up)" stopOpacity={0.30} />
@@ -308,11 +309,10 @@ export function IndicesPanel() {
                     </linearGradient>
                   </defs>
                   <XAxis
-                    dataKey="date"
+                    dataKey="t"
                     tick={{ fontSize: 10, fill: "var(--text-muted)" }}
                     axisLine={false}
                     tickLine={false}
-                    interval={Math.floor(longSeries.length / 8)}
                   />
                   <YAxis
                     tick={{ fontSize: 10, fill: "var(--text-muted)" }}
@@ -349,12 +349,12 @@ export function IndicesPanel() {
                   />
                   <Area
                     type="monotone"
-                    dataKey="value"
+                    dataKey="v"
                     stroke="var(--green-up)"
                     strokeWidth={1.8}
                     fill="url(#mainArea)"
                     isAnimationActive
-                    animationDuration={1200}
+                    animationDuration={900}
                   />
                 </ComposedChart>
               </ResponsiveContainer>
