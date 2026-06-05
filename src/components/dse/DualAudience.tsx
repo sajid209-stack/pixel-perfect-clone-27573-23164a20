@@ -172,12 +172,15 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           ))}
         </div>
 
-        <div className="relative mt-10 inline-flex items-center gap-2 text-sm font-semibold group/cta w-fit"
+        <Link
+          to={path.ctaTo}
+          className="relative mt-10 inline-flex items-center gap-2 text-sm font-semibold group/cta w-fit"
           style={{ color: "var(--green-up)" }}
         >
           {path.cta}
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </div>
+        </Link>
+
       </div>
     </motion.div>
   );
