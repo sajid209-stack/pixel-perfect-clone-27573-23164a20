@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, ChevronDown, Command, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import dseLogo from "@/assets/dse-logo.png.asset.json";
+import dseLogo from "@/assets/dse-logo.png";
 import { companyIndex } from "./data";
 
 type MenuItem = { title: string; desc: string; to?: string };
