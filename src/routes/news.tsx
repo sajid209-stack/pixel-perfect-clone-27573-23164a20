@@ -131,6 +131,11 @@ function NewsPage() {
   const [type, setType] = useState<(typeof types)[number]>("All");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string>(all[0]?.id ?? "");
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 400);
+    return () => clearTimeout(t);
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
