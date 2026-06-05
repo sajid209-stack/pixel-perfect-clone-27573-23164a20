@@ -550,6 +550,7 @@ export function Nav() {
             );
             const sharedClass = "relative px-3 py-2 text-[13.5px] font-medium transition flex items-center gap-1";
             const sharedStyle = { color: isActive ? "var(--text-primary)" : "var(--text-secondary)" };
+            const Panel = l.mega ? megaPanels[l.mega] : null;
             return (
               <div
                 key={l.label}
@@ -568,10 +569,35 @@ export function Nav() {
                 ) : (
                   <button className={sharedClass} style={sharedStyle}>{inner}</button>
                 )}
+                <AnimatePresence>
+                  {Panel && openMenu === l.label && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full pt-1 z-50"
+                    >
+                      <div
+                        style={{
+                          background: "#FFFFFF",
+                          border: "0.5px solid #E2E8F0",
+                          borderRadius: 12,
+                          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                          padding: 20,
+                          marginTop: 4,
+                        }}
+                      >
+                        <Panel close={() => setOpenMenu(null)} />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
         </nav>
+
 
         <div className="flex-1" />
 
