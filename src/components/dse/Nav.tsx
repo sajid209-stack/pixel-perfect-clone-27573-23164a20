@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, ChevronDown, Command, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import dseLogo from "@/assets/dse-logo.png.asset.json";
+import dseLogo from "@/assets/dse-logo.png";
 import { companyIndex } from "./data";
 
 type MenuItem = { title: string; desc: string; to?: string };
@@ -106,7 +106,7 @@ export function Nav() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 cursor-pointer group shrink-0">
           <img
-            src={dseLogo.url}
+            src={dseLogo}
             alt="Dhaka Stock Exchange"
             className="w-9 h-9 object-contain transition group-hover:scale-105"
             style={{ filter: "drop-shadow(0 0 10px rgba(16,240,160,0.25))" }}

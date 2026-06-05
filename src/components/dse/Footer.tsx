@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import dseLogo from "@/assets/dse-logo.png.asset.json";
+import dseLogo from "@/assets/dse-logo.png";
 
 type FooterLink = { label: string; to: string; hash?: string; soon?: boolean };
 
@@ -71,7 +71,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-3">
-            <img src={dseLogo.url} alt="Dhaka Stock Exchange" className="w-12 h-12 object-contain bg-white rounded-lg p-1" />
+            <img src={dseLogo} alt="Dhaka Stock Exchange" className="w-12 h-12 object-contain bg-white rounded-lg p-1" />
             <div className="font-semibold">Dhaka Stock Exchange</div>
           </div>
           <p className="text-sm mt-3" style={{ color: "var(--text-secondary)" }}>Bangladesh's Premier Capital Market</p>
