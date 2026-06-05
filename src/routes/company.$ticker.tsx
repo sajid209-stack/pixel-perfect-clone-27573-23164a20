@@ -1044,7 +1044,7 @@ function Avatar({ name, category, size = 40 }: { name: string; category: Directo
   const initials = name.split(" ").filter((w) => /^[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
   const color = categoryColor(category);
   const seed = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
-  const [failed, setFailed] = React.useState(false);
+  const [failed, setFailed] = useState(false);
   const photoUrl = `https://i.pravatar.cc/240?u=${seed}`;
   return (
     <div
