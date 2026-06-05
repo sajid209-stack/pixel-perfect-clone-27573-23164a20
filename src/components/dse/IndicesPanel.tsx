@@ -56,7 +56,7 @@ function IndexCard({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: i * 0.08, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
       whileHover={{ y: -2 }}
-      className="group relative text-left p-7 rounded-2xl overflow-hidden transition-colors"
+      className="index-card group relative text-left p-7 rounded-2xl overflow-hidden transition-colors"
       style={{
         background: active
           ? "linear-gradient(160deg, rgba(127,217,176,0.07) 0%, rgb(var(--ov) / 0.01) 100%)"
