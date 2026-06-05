@@ -752,6 +752,15 @@ export function Nav() {
                   </Link>
                 )
               )}
+              <div
+                className="mt-3 flex items-center justify-between px-3 py-3 rounded-lg"
+                style={{ background: "rgb(var(--ov) / 0.04)" }}
+              >
+                <span className="text-[14px] font-medium" style={{ color: "var(--text-primary)" }}>
+                  Theme
+                </span>
+                <ThemeToggle />
+              </div>
               <a
                 href="#footer"
                 onClick={() => setMobileOpen(false)}
