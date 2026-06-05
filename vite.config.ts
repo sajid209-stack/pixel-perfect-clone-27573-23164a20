@@ -9,10 +9,11 @@ export default defineConfig({
   },
   nitro: {
     preset: "vercel",
-    // Vercel uses the Build Output API — emit to .vercel/output, not dist/.
+    // Vercel uses the Build Output API — emit to .vercel/output, matching the
+    // Nitro vercel preset's own defaults (the Lovable wrapper otherwise forces dist/).
     output: {
       dir: ".vercel/output",
-      serverDir: ".vercel/output/functions/__nitro.func",
+      serverDir: ".vercel/output/functions/__server.func",
       publicDir: ".vercel/output/static",
     },
   },
