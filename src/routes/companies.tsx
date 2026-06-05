@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, ArrowUp, ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
 
@@ -59,6 +59,11 @@ function ScreenerPage() {
     key: "marketCap",
     dir: "desc",
   });
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(t);
+  }, []);
 
   const filtered: Company[] = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -241,6 +246,27 @@ function ScreenerPage() {
                 </tr>
               </thead>
               <tbody>
+                {loading ? (
+                  Array.from({ length: 8 }).map((_, i) => (
+                    <tr key={`sk-${i}`} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                      <td className="px-4 py-3.5">
+                        <div className="flex items-center gap-3">
+                          <div className="skeleton w-9 h-9 rounded-lg" />
+                          <div className="flex-1 space-y-2">
+                            <div className="skeleton h-3 w-20" />
+                            <div className="skeleton h-2.5 w-40" />
+                          </div>
+                        </div>
+                      </td>
+                      {Array.from({ length: 6 }).map((_, j) => (
+                        <td key={j} className="px-4 py-3.5">
+                          <div className="skeleton h-3 w-16 ml-auto" />
+                        </td>
+                      ))}
+                      <td />
+                    </tr>
+                  ))
+                ) : (
                 <AnimatePresence initial={false}>
                   {filtered.map((c, idx) => {
                     const up = c.changePct >= 0;
@@ -324,6 +350,7 @@ function ScreenerPage() {
                     );
                   })}
                 </AnimatePresence>
+                )}
               </tbody>
             </table>
           </div>

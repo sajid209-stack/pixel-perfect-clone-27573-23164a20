@@ -54,6 +54,13 @@ function SectorCell({ s, i }: { s: (typeof sectors)[number]; i: number }) {
           </div>
         </div>
 
+        {s.size === "lg" && (
+          <div className="text-[10.5px] tnum opacity-85" style={{ color: "#fff" }}>
+            Turnover · {s.turnover}
+          </div>
+        )}
+
+
         <div className="h-5 -mx-1 opacity-90">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={s.spark}>
@@ -117,8 +124,12 @@ function SectorPanel() {
       </div>
 
       <div
-        className="grid grid-cols-4 gap-2"
-        style={{ gridAutoRows: "76px", gridAutoFlow: "dense" }}
+        className="grid gap-2"
+        style={{
+          gridTemplateColumns: "repeat(6, 1fr)",
+          gridAutoRows: "76px",
+          gridAutoFlow: "dense",
+        }}
       >
         {sectors.map((s, i) => (
           <SectorCell key={s.name} s={s} i={i} />

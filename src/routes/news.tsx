@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, FileText, Filter, Search, X } from "lucide-react";
 
@@ -131,6 +131,11 @@ function NewsPage() {
   const [type, setType] = useState<(typeof types)[number]>("All");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string>(all[0]?.id ?? "");
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 400);
+    return () => clearTimeout(t);
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -262,6 +267,25 @@ function NewsPage() {
           }}
         >
           <ul className="max-h-[760px] overflow-auto">
+            {loading ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <li
+                  key={`sk-${i}`}
+                  className="px-5 py-4 flex gap-4"
+                  style={{ borderBottom: "1px solid rgb(var(--ov) / 0.05)" }}
+                >
+                  <div className="skeleton w-10 h-10 rounded-lg shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="skeleton h-3 w-20" />
+                      <div className="skeleton h-2.5 w-32" />
+                    </div>
+                    <div className="skeleton h-3 w-full" />
+                    <div className="skeleton h-3 w-3/4" />
+                  </div>
+                </li>
+              ))
+            ) : (
             <AnimatePresence initial={false}>
               {filtered.map((d, i) => {
                 const active = selected?.id === d.id;
@@ -323,6 +347,7 @@ function NewsPage() {
                 );
               })}
             </AnimatePresence>
+            )}
           </ul>
 
           {filtered.length === 0 && (
