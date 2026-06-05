@@ -38,7 +38,7 @@ const links: LinkItem[] = [
       { title: "How to apply", desc: "Eligibility & process guide", to: "/ipo" },
     ],
   },
-  { label: "News" },
+  { label: "News", to: "/news" },
   { label: "Learn" },
   { label: "Members" },
 ];
