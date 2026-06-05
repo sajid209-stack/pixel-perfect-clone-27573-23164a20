@@ -117,8 +117,12 @@ function SectorPanel() {
       </div>
 
       <div
-        className="grid grid-cols-4 gap-2"
-        style={{ gridAutoRows: "76px", gridAutoFlow: "dense" }}
+        className="grid gap-2"
+        style={{
+          gridTemplateColumns: "repeat(6, 1fr)",
+          gridAutoRows: "76px",
+          gridAutoFlow: "dense",
+        }}
       >
         {sectors.map((s, i) => (
           <SectorCell key={s.name} s={s} i={i} />
