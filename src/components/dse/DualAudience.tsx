@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Sprout, CandlestickChart } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
+import { Link } from "@tanstack/react-router";
+
 
 const beginnerData = [
   { v: 100 }, { v: 102 }, { v: 101 }, { v: 105 }, { v: 108 },
