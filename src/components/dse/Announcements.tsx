@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Bell, FileText, TrendingUp, AlertCircle, Calendar } from "lucide-react";
 import { announcements } from "./data";
 
@@ -114,9 +115,14 @@ export function Announcements() {
                   <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>{featured.date} · 14:22 BST</span>
                 </div>
                 <div className="flex items-baseline gap-4 mb-4">
-                  <span className="text-[44px] font-bold leading-none tracking-tight" style={{ color: "var(--text-primary)" }}>
+                  <Link
+                    to="/company/$ticker"
+                    params={{ ticker: featured.code }}
+                    className="text-[44px] font-bold leading-none tracking-tight hover:underline"
+                    style={{ color: "var(--text-primary)" }}
+                  >
                     {featured.code}
-                  </span>
+                  </Link>
                   <span className="text-sm" style={{ color: "var(--text-muted)" }}>{featured.name}</span>
                 </div>
                 <p className="text-[18px] leading-snug max-w-[40ch]" style={{ color: "var(--text-secondary)" }}>
@@ -160,7 +166,14 @@ export function Announcements() {
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 mb-0.5">
-                        <span className="font-semibold text-[15px]" style={{ color: "var(--text-primary)" }}>{a.code}</span>
+                        <Link
+                          to="/company/$ticker"
+                          params={{ ticker: a.code }}
+                          className="font-semibold text-[15px] hover:underline"
+                          style={{ color: "var(--text-primary)" }}
+                        >
+                          {a.code}
+                        </Link>
                         <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>· {a.name}</span>
                       </div>
                       <div className="text-[13px] truncate" style={{ color: "var(--text-secondary)" }}>{a.summary}</div>
