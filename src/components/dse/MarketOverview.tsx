@@ -54,6 +54,13 @@ function SectorCell({ s, i }: { s: (typeof sectors)[number]; i: number }) {
           </div>
         </div>
 
+        {s.size === "lg" && (
+          <div className="text-[10.5px] tnum opacity-85" style={{ color: "#fff" }}>
+            Turnover · {s.turnover}
+          </div>
+        )}
+
+
         <div className="h-5 -mx-1 opacity-90">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={s.spark}>
