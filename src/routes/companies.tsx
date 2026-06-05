@@ -350,6 +350,7 @@ function ScreenerPage() {
                     );
                   })}
                 </AnimatePresence>
+                )}
               </tbody>
             </table>
           </div>
