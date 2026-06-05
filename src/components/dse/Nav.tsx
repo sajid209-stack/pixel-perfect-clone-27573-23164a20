@@ -28,7 +28,7 @@ const links: LinkItem[] = [
       { title: "Financials", desc: "Reports, ratios & history" },
     ],
   },
-  { label: "Indices" },
+  { label: "Indices", to: "/indices" },
   {
     label: "IPO",
     menu: [
