@@ -679,6 +679,414 @@ function SimilarTab({ co }: { co: Company }) {
   );
 }
 
+/* ----------------- Directors / Board ----------------- */
+
+type Director = {
+  name: string;
+  role: string;
+  category: "Chairman" | "Executive" | "Non-Executive" | "Independent" | "Nominee";
+  since: number;
+  shareholding?: number;
+  bio?: string;
+  committees?: string[];
+};
+
+type Executive = { name: string; role: string };
+
+function buildBoard(co: Company): {
+  directors: Director[];
+  executives: Executive[];
+  committees: { name: string; chair: string; members: string[]; mandate: string }[];
+} {
+  // Deterministic per-company first names so it looks unique but stable.
+  const firstPool = [
+    "Md. Anisur", "Tahmina", "Rashed", "Farzana", "Kazi Imran", "Salma",
+    "A.K.M. Nurul", "Shahidul", "Nasreen", "Tanvir", "Rubina", "Mahbub",
+  ];
+  const lastPool = ["Rahman", "Hossain", "Chowdhury", "Ahmed", "Karim", "Islam", "Haque", "Siddique"];
+  const seed = co.code.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const pick = (arr: string[], i: number) => arr[(seed + i * 7) % arr.length];
+  const nm = (i: number) => `${pick(firstPool, i)} ${pick(lastPool, i + 3)}`;
+
+  const sponsorShare = co.shareholders?.find((s) => /sponsor|director|family|telenor|tobacco|brac|marico|grameen/i.test(s.name))?.pct ?? 50;
+
+  const directors: Director[] = [
+    {
+      name: nm(0),
+      role: "Chairman",
+      category: "Chairman",
+      since: 2014,
+      shareholding: Math.round(sponsorShare * 0.18 * 100) / 100,
+      bio: `Founding sponsor with over 30 years of leadership in ${co.sector.toLowerCase()}. Oversees corporate strategy and stakeholder relations.`,
+      committees: ["Nomination & Remuneration"],
+    },
+    {
+      name: nm(1),
+      role: "Vice Chairman",
+      category: "Non-Executive",
+      since: 2016,
+      shareholding: Math.round(sponsorShare * 0.09 * 100) / 100,
+      bio: "Represents sponsor group on the board. Brings 22 years of cross-sector experience.",
+    },
+    {
+      name: nm(2),
+      role: "Managing Director & CEO",
+      category: "Executive",
+      since: 2019,
+      shareholding: 0.42,
+      bio: `Joined ${co.code} in 2008 and elevated to MD in 2019. Holds an MBA from IBA Dhaka.`,
+      committees: ["Risk Management"],
+    },
+    {
+      name: nm(3),
+      role: "Director",
+      category: "Non-Executive",
+      since: 2017,
+      shareholding: Math.round(sponsorShare * 0.06 * 100) / 100,
+      bio: "Sponsor-nominated director. Chairs the group's CSR initiatives.",
+    },
+    {
+      name: nm(4),
+      role: "Nominee Director",
+      category: "Nominee",
+      since: 2021,
+      bio: "Nominated by Investment Corporation of Bangladesh (ICB).",
+    },
+    {
+      name: nm(5),
+      role: "Independent Director",
+      category: "Independent",
+      since: 2022,
+      bio: "Former central bank executive. Brings governance and audit expertise.",
+      committees: ["Audit", "Nomination & Remuneration"],
+    },
+    {
+      name: nm(6),
+      role: "Independent Director",
+      category: "Independent",
+      since: 2023,
+      bio: "Chartered Accountant with 25+ years in corporate finance and reporting.",
+      committees: ["Audit", "Risk Management"],
+    },
+  ];
+
+  const executives: Executive[] = [
+    { name: nm(7), role: "Chief Financial Officer" },
+    { name: nm(8), role: "Chief Operating Officer" },
+    { name: nm(9), role: "Company Secretary" },
+    { name: nm(10), role: "Head of Internal Audit" },
+    { name: nm(11), role: "Head of Investor Relations" },
+  ];
+
+  const committees = [
+    {
+      name: "Audit Committee",
+      chair: directors[5].name,
+      members: [directors[5].name, directors[6].name, directors[3].name],
+      mandate: "Reviews financial reporting, internal controls, and external auditor performance.",
+    },
+    {
+      name: "Nomination & Remuneration Committee",
+      chair: directors[0].name,
+      members: [directors[0].name, directors[5].name, directors[1].name],
+      mandate: "Oversees board composition, succession planning, and executive compensation.",
+    },
+    {
+      name: "Risk Management Committee",
+      chair: directors[2].name,
+      members: [directors[2].name, directors[6].name, directors[4].name],
+      mandate: "Identifies and monitors enterprise, operational, and financial risks.",
+    },
+  ];
+
+  return { directors, executives, committees };
+}
+
+function DirectorsTab({ co }: { co: Company }) {
+  const { directors, executives, committees } = useMemo(() => buildBoard(co), [co]);
+  const [active, setActive] = useState<string>(directors[0].name);
+  const selected = directors.find((d) => d.name === active) ?? directors[0];
+
+  const counts = {
+    total: directors.length,
+    independent: directors.filter((d) => d.category === "Independent").length,
+    executive: directors.filter((d) => d.category === "Executive").length,
+    nominee: directors.filter((d) => d.category === "Nominee").length,
+  };
+
+  return (
+    <div className="space-y-10">
+      {/* Summary strip */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <BoardStat label="Total directors" value={String(counts.total)} />
+        <BoardStat label="Independent" value={String(counts.independent)} accent="var(--green-up)" />
+        <BoardStat label="Executive" value={String(counts.executive)} />
+        <BoardStat label="Sponsor nominee" value={String(counts.nominee)} />
+      </div>
+
+      {/* Org tree */}
+      <section
+        className="rounded-2xl p-6 md:p-8"
+        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+      >
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
+              Governance structure
+            </div>
+            <h2 className="mt-1 text-[22px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
+              Board of Directors
+            </h2>
+          </div>
+          <div className="flex items-center gap-3 text-[11px]" style={{ color: "var(--text-muted)" }}>
+            <LegendDot color="var(--green-up)" label="Independent" />
+            <LegendDot color="#4FD1C5" label="Executive" />
+            <LegendDot color="#7FD9B0" label="Non-Executive" />
+            <LegendDot color="#C6A969" label="Nominee" />
+          </div>
+        </div>
+
+        {/* Chairman */}
+        <div className="flex justify-center">
+          <DirectorNode d={directors[0]} active={active === directors[0].name} onClick={() => setActive(directors[0].name)} size="lg" />
+        </div>
+
+        {/* Connector */}
+        <div className="mx-auto w-px h-8" style={{ background: "rgb(var(--ov) / 0.18)" }} />
+
+        {/* Tier 2 — Vice chair + MD */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          {[directors[1], directors[2]].map((d) => (
+            <DirectorNode key={d.name} d={d} active={active === d.name} onClick={() => setActive(d.name)} />
+          ))}
+        </div>
+
+        <div className="mx-auto w-px h-8 mt-4" style={{ background: "rgb(var(--ov) / 0.18)" }} />
+
+        {/* Tier 3 — remaining directors */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {directors.slice(3).map((d) => (
+            <DirectorNode key={d.name} d={d} active={active === d.name} onClick={() => setActive(d.name)} />
+          ))}
+        </div>
+
+        {/* Selected director detail */}
+        <div
+          className="mt-8 p-6 rounded-xl"
+          style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 items-start">
+            <Avatar name={selected.name} category={selected.category} size={64} />
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
+                {selected.role}
+              </div>
+              <div className="mt-1 text-[20px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
+                {selected.name}
+              </div>
+              <p className="mt-3 text-[14px] leading-relaxed max-w-2xl" style={{ color: "var(--text-secondary)" }}>
+                {selected.bio}
+              </p>
+              {selected.committees && selected.committees.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {selected.committees.map((c) => (
+                    <span
+                      key={c}
+                      className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px]"
+                      style={{
+                        background: "rgb(var(--ov) / 0.06)",
+                        color: "var(--text-secondary)",
+                        border: "1px solid rgb(var(--ov) / 0.08)",
+                      }}
+                    >
+                      {c} Committee
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="text-right space-y-3 min-w-[140px]">
+              <Meta label="On board since" value={String(selected.since)} />
+              {selected.shareholding !== undefined && (
+                <Meta label="Shareholding" value={`${selected.shareholding.toFixed(2)}%`} />
+              )}
+              <Meta label="Tenure" value={`${new Date().getFullYear() - selected.since} yrs`} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Committees + Key Management */}
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
+        <section
+          className="rounded-2xl p-6 md:p-8"
+          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <div className="text-[11px] uppercase tracking-[0.22em] mb-1" style={{ color: "var(--text-muted)" }}>
+            Board committees
+          </div>
+          <h3 className="text-[18px] font-semibold mb-5" style={{ color: "var(--text-primary)" }}>
+            Standing committees
+          </h3>
+          <div className="space-y-4">
+            {committees.map((c) => (
+              <div
+                key={c.name}
+                className="p-5 rounded-xl"
+                style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+              >
+                <div className="flex items-baseline justify-between gap-3 flex-wrap">
+                  <div className="text-[15px] font-semibold" style={{ color: "var(--text-primary)" }}>
+                    {c.name}
+                  </div>
+                  <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+                    Chair · {c.chair}
+                  </div>
+                </div>
+                <p className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                  {c.mandate}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {c.members.map((m) => (
+                    <span
+                      key={m}
+                      className="inline-flex items-center px-2 py-1 rounded-full text-[11px]"
+                      style={{ background: "rgb(var(--ov) / 0.05)", color: "var(--text-secondary)" }}
+                    >
+                      {m}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="rounded-2xl p-6 md:p-8"
+          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <div className="text-[11px] uppercase tracking-[0.22em] mb-1" style={{ color: "var(--text-muted)" }}>
+            Operating leadership
+          </div>
+          <h3 className="text-[18px] font-semibold mb-5" style={{ color: "var(--text-primary)" }}>
+            Key management
+          </h3>
+          <ul className="divide-y" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
+            {executives.map((e) => (
+              <li key={e.name} className="py-3 flex items-center gap-3">
+                <Avatar name={e.name} category="Executive" size={36} />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[14px] font-medium truncate" style={{ color: "var(--text-primary)" }}>
+                    {e.name}
+                  </div>
+                  <div className="text-[12px]" style={{ color: "var(--text-muted)" }}>
+                    {e.role}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function categoryColor(c: Director["category"]) {
+  switch (c) {
+    case "Chairman": return "var(--green-up)";
+    case "Independent": return "var(--green-up)";
+    case "Executive": return "#4FD1C5";
+    case "Non-Executive": return "#7FD9B0";
+    case "Nominee": return "#C6A969";
+  }
+}
+
+function DirectorNode({
+  d, active, onClick, size = "md",
+}: {
+  d: Director; active: boolean; onClick: () => void; size?: "md" | "lg";
+}) {
+  const color = categoryColor(d.category);
+  const isLg = size === "lg";
+  return (
+    <button
+      onClick={onClick}
+      className="text-left rounded-xl p-4 transition w-full"
+      style={{
+        background: active ? "rgb(var(--ov) / 0.06)" : "rgb(var(--ov) / 0.025)",
+        border: `1px solid ${active ? color : "rgb(var(--ov) / 0.06)"}`,
+        boxShadow: active ? `0 0 0 3px ${color}22` : "none",
+        minWidth: isLg ? 280 : undefined,
+      }}
+    >
+      <div className="flex items-center gap-3">
+        <Avatar name={d.name} category={d.category} size={isLg ? 48 : 40} />
+        <div className="min-w-0 flex-1">
+          <div className="text-[10px] uppercase tracking-wider truncate" style={{ color }}>
+            {d.role}
+          </div>
+          <div className={`mt-0.5 font-semibold truncate ${isLg ? "text-[16px]" : "text-[14px]"}`}
+            style={{ color: "var(--text-primary)" }}>
+            {d.name}
+          </div>
+          <div className="mt-0.5 text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+            Since {d.since}{d.shareholding ? ` · ${d.shareholding.toFixed(2)}%` : ""}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+function Avatar({ name, category, size = 40 }: { name: string; category: Director["category"]; size?: number }) {
+  const initials = name.split(" ").filter((w) => /^[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  const color = categoryColor(category);
+  return (
+    <div
+      className="flex items-center justify-center font-semibold flex-shrink-0"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: "50%",
+        background: `${color}22`,
+        color,
+        border: `1px solid ${color}44`,
+        fontSize: size * 0.36,
+      }}
+    >
+      {initials}
+    </div>
+  );
+}
+
+function LegendDot({ color, label }: { color: string; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span className="w-2 h-2 rounded-full" style={{ background: color }} />
+      {label}
+    </span>
+  );
+}
+
+function BoardStat({ label, value, accent }: { label: string; value: string; accent?: string }) {
+  return (
+    <div
+      className="p-5 rounded-xl"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+        {label}
+      </div>
+      <div className="mt-2 text-[24px] font-semibold tnum tracking-tight"
+        style={{ color: accent ?? "var(--text-primary)" }}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
 function Placeholder({ title }: { title: string }) {
   return (
     <div
