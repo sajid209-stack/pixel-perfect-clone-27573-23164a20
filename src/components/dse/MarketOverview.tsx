@@ -124,7 +124,7 @@ function SectorPanel() {
       </div>
 
       <div
-        className="grid gap-2"
+        className="heatmap-grid grid gap-2"
         style={{
           gridTemplateColumns: "repeat(6, 1fr)",
           gridAutoRows: "76px",
@@ -134,6 +134,9 @@ function SectorPanel() {
         {sectors.map((s, i) => (
           <SectorCell key={s.name} s={s} i={i} />
         ))}
+      </div>
+      <div className="mobile-swipe-hint mt-2 text-[11px] text-center hidden" style={{ color: "var(--text-muted)" }}>
+        ← swipe →
       </div>
     </div>
   );
