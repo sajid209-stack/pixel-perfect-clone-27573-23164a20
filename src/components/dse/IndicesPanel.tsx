@@ -56,7 +56,7 @@ function IndexCard({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: i * 0.08, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
       whileHover={{ y: -2 }}
-      className="group relative text-left p-7 rounded-2xl overflow-hidden transition-colors"
+      className="index-card group relative text-left p-7 rounded-2xl overflow-hidden transition-colors"
       style={{
         background: active
           ? "linear-gradient(160deg, rgba(127,217,176,0.07) 0%, rgb(var(--ov) / 0.01) 100%)"
@@ -205,7 +205,7 @@ export function IndicesPanel() {
         </div>
 
         {/* Index selector — 3 large interactive cards */}
-        <div className="grid md:grid-cols-3 gap-5 mb-14">
+        <div className="index-cards-row grid md:grid-cols-3 gap-5 mb-14">
           {indices.map((idx, i) => (
             <IndexCard
               key={idx.key}
@@ -261,7 +261,7 @@ export function IndicesPanel() {
                   <button
                     key={p}
                     onClick={() => setPeriod(p)}
-                    className="relative px-4 py-1.5 text-[12px] tnum rounded-full transition-colors"
+                    className={`period-tab ${p === "3M" ? "period-3m" : ""} relative px-4 py-1.5 text-[12px] tnum rounded-full transition-colors`}
                     style={{
                       color: isActive ? "var(--navy-deep)" : "var(--text-secondary)",
                       fontWeight: isActive ? 600 : 400,
@@ -298,7 +298,7 @@ export function IndicesPanel() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="h-[380px] -mx-2"
+              className="indices-chart h-[380px] -mx-2"
             >
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>

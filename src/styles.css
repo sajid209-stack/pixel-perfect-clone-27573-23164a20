@@ -240,5 +240,60 @@
   /* IPO pipeline: stack */
   .ipo-pipeline-grid { max-height: none !important; }
   .ipo-progress { height: 8px !important; }
+
+  /* Hero stat pills — horizontal scroll strip */
+  .hero-stat-pills {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px !important;
+    scrollbar-width: none;
+  }
+  .hero-stat-pills::-webkit-scrollbar { display: none; }
+  .hero-stat-pills > div {
+    flex-shrink: 0;
+    min-width: 150px;
+    scroll-snap-align: start;
+  }
+
+  /* Indices: horizontal scroll cards */
+  .index-cards-row {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 10px !important;
+    grid-template-columns: none !important;
+    scrollbar-width: none;
+    margin-bottom: 24px !important;
+  }
+  .index-cards-row::-webkit-scrollbar { display: none; }
+  .index-card {
+    flex-shrink: 0 !important;
+    min-width: 200px !important;
+    scroll-snap-align: start;
+    padding: 18px !important;
+  }
+  .indices-chart { height: 180px !important; }
+  .period-3m { display: none !important; }
+
+  /* DualAudience: compact cards, hide bg chart */
+  .dual-card { padding: 20px !important; }
+  .dual-bg-chart { display: none !important; }
+  .dual-audience-grid { gap: 12px !important; }
+
+  /* Resources: hide file size meta */
+  .report-meta { display: none !important; }
+
+  /* Announcements row: simpler grid */
+  .announcement-row {
+    grid-template-columns: auto 1fr !important;
+    padding: 14px !important;
+  }
+  .announcement-row > *:nth-child(2) { display: none; } /* date col */
+  .announcement-row > *:nth-child(4) { display: none; } /* hover arrow */
 }
+
 

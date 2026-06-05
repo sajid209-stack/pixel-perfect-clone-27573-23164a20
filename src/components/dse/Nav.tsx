@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   Menu,
   X,
+  ChevronRight,
   AlertCircle,
   Coins,
   Users,
@@ -728,30 +729,56 @@ export function Nav() {
             className="lg:hidden overflow-hidden"
             style={{ background: "rgb(var(--surface-rgb) / 0.95)", backdropFilter: "blur(20px)" }}
           >
-            <div className="px-6 py-4 flex flex-col gap-1">
-              {links.map((l) =>
-                l.href ? (
-                  <a
+            <div className="px-4 py-3 flex flex-col">
+              {/* Live DSEX pill */}
+              <div
+                className="mb-3 flex items-center justify-between px-3 py-2 rounded-lg"
+                style={{ background: "rgb(var(--ov) / 0.04)" }}
+              >
+                <span className="text-[12px] font-semibold tracking-wider" style={{ color: "var(--text-muted)" }}>
+                  DSEX
+                </span>
+                <span className="text-[13px] tnum" style={{ color: "var(--text-primary)" }}>
+                  6,241.30 <span style={{ color: "var(--green-up)" }}>▲ 0.30%</span>
+                </span>
+              </div>
+
+              {links.map((l) => {
+                const subs = mobileSubLinks[l.label];
+                if (l.href || !subs) {
+                  return l.href ? (
+                    <a
+                      key={l.label}
+                      href={l.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between px-3 py-3 text-[16px] font-medium rounded-lg"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      {l.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={l.label}
+                      to={l.to!}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between px-3 py-3 text-[16px] font-medium rounded-lg"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      {l.label}
+                    </Link>
+                  );
+                }
+                return (
+                  <MobileNavItem
                     key={l.label}
-                    href={l.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-left px-3 py-3 text-[15px] font-medium rounded-lg"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    {l.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={l.label}
+                    label={l.label}
                     to={l.to!}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-left px-3 py-3 text-[15px] font-medium rounded-lg"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    {l.label}
-                  </Link>
-                )
-              )}
+                    subs={subs}
+                    onNavigate={() => setMobileOpen(false)}
+                  />
+                );
+              })}
+
               <div
                 className="mt-3 flex items-center justify-between px-3 py-3 rounded-lg"
                 style={{ background: "rgb(var(--ov) / 0.04)" }}
@@ -774,6 +801,109 @@ export function Nav() {
         )}
       </AnimatePresence>
     </motion.header>
+  );
+}
+
+const mobileSubLinks: Record<string, { label: string; to: string; hash?: string }[]> = {
+  Markets: [
+    { label: "Market overview", to: "/" },
+    { label: "Equities screener", to: "/companies" },
+    { label: "Market reports", to: "/reports" },
+  ],
+  Companies: [
+    { label: "All companies", to: "/companies" },
+    { label: "Top gainers", to: "/companies" },
+    { label: "Most active", to: "/companies" },
+  ],
+  Indices: [
+    { label: "DSEX", to: "/indices" },
+    { label: "DS30", to: "/indices" },
+    { label: "DSES", to: "/indices" },
+  ],
+  IPO: [
+    { label: "Open subscriptions", to: "/ipo" },
+    { label: "Upcoming IPOs", to: "/ipo" },
+    { label: "How to apply", to: "/ipo" },
+  ],
+  News: [
+    { label: "All filings", to: "/news" },
+    { label: "Price sensitive", to: "/news" },
+    { label: "Dividends", to: "/news" },
+  ],
+  Learn: [
+    { label: "Getting started", to: "/learn" },
+    { label: "Investor glossary", to: "/learn" },
+    { label: "How IPOs work", to: "/learn" },
+  ],
+  "About DSE": [
+    { label: "About us", to: "/about" },
+    { label: "Broker directory", to: "/members" },
+    { label: "List on DSE", to: "/listing" },
+  ],
+};
+
+function MobileNavItem({
+  label,
+  to,
+  subs,
+  onNavigate,
+}: {
+  label: string;
+  to: string;
+  subs: { label: string; to: string; hash?: string }[];
+  onNavigate: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <div className="flex items-stretch">
+        <Link
+          to={to}
+          onClick={onNavigate}
+          className="flex-1 px-3 py-3 text-[16px] font-medium rounded-lg"
+          style={{ color: "var(--text-primary)" }}
+        >
+          {label}
+        </Link>
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="px-3 flex items-center"
+          style={{ color: "var(--text-secondary)" }}
+          aria-label={`Expand ${label}`}
+          aria-expanded={open}
+        >
+          <motion.span animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.18 }}>
+            <ChevronRight className="w-4 h-4" />
+          </motion.span>
+        </button>
+      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="overflow-hidden"
+          >
+            <div className="pl-6 pb-2">
+              {subs.map((s) => (
+                <Link
+                  key={s.label}
+                  to={s.to}
+                  hash={s.hash}
+                  onClick={onNavigate}
+                  className="block py-2 text-[14px]"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
