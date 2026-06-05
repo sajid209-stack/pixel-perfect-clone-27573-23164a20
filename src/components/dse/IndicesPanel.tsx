@@ -205,7 +205,7 @@ export function IndicesPanel() {
         </div>
 
         {/* Index selector — 3 large interactive cards */}
-        <div className="grid md:grid-cols-3 gap-5 mb-14">
+        <div className="index-cards-row grid md:grid-cols-3 gap-5 mb-14">
           {indices.map((idx, i) => (
             <IndexCard
               key={idx.key}
