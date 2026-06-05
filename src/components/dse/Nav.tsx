@@ -40,7 +40,7 @@ const links: LinkItem[] = [
   },
   { label: "News", to: "/news" },
   { label: "Learn", to: "/learn" },
-  { label: "Members" },
+  { label: "Members", to: "/members" },
 ];
 
 export function Nav() {
