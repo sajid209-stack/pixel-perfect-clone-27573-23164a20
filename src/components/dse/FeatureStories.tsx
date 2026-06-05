@@ -1,8 +1,10 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import innovationImg from "@/assets/feature-innovation.jpg";
 import trustImg from "@/assets/feature-trust.jpg";
+
 
 type Story = {
   num: string;
