@@ -175,3 +175,70 @@
   animation: shimmer 1.4s ease-in-out infinite;
   border-radius: 4px;
 }
+
+/* ─── Mobile optimisation (<768px) ─── */
+@media (max-width: 767px) {
+  section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+  h1 { font-size: 28px !important; line-height: 1.15 !important; }
+  h2 { font-size: 22px !important; line-height: 1.2 !important; }
+  h3 { font-size: 18px !important; line-height: 1.25 !important; }
+
+  h1 br, h2 br, h3 br { display: none; }
+
+  .max-w-7xl, .max-w-\[1440px\] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  p { line-height: 1.65 !important; }
+
+  /* Heatmap: horizontal scroll */
+  .heatmap-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px !important;
+    padding-bottom: 8px;
+    grid-template-columns: none !important;
+    grid-auto-rows: auto !important;
+    scrollbar-width: none;
+  }
+  .heatmap-grid::-webkit-scrollbar { display: none; }
+  .heatmap-cell {
+    flex-shrink: 0 !important;
+    width: 110px !important;
+    height: 96px !important;
+    scroll-snap-align: start;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+  .mobile-swipe-hint { display: block !important; }
+
+  /* Movers above heatmap */
+  .market-overview-grid .movers-section { order: -1; }
+  .market-overview-grid .heatmap-section { order: 1; }
+
+  /* Filter tabs scroll */
+  .filter-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    max-width: 100%;
+  }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+
+  /* Hide featured badge label on mobile */
+  .featured-badge { display: none !important; }
+
+  /* IPO pipeline: stack */
+  .ipo-pipeline-grid { max-height: none !important; }
+  .ipo-progress { height: 8px !important; }
+}
+
