@@ -767,18 +767,4 @@ export function Nav() {
   );
 }
 
-/* Approximate horizontal offset of each nav trigger so the dropdown
-   aligns roughly to its left edge. Logo + spacing = ~ 290px before nav. */
-function estimateLeftOffset(label: string): number {
-  const widths: Record<string, number> = {
-    Markets: 0,
-    Companies: 72,
-    Indices: 162,
-    Indi: 162,
-    IPO: 232,
-    News: 280,
-    Learn: 332,
-    "About DSE": 388,
-  };
-  return widths[label] ?? 0;
-}
+
