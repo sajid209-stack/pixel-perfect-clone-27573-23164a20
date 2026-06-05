@@ -278,34 +278,56 @@ export function Nav() {
             }}
           >
             <div className="max-w-[1440px] mx-auto px-6 py-8 grid md:grid-cols-3 gap-2">
-              {links.find((l) => l.label === openMenu)?.menu!.map((item) => (
-                <a
-                  key={item.title}
-                  className="group block p-4 rounded-xl transition cursor-pointer"
-                  style={{ border: "1px solid transparent" }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgb(var(--ov) / 0.03)";
-                    e.currentTarget.style.borderColor = "rgb(var(--ov) / 0.06)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.borderColor = "transparent";
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[14px] font-semibold" style={{ color: "var(--text-primary)" }}>
-                      {item.title}
-                    </span>
-                    <ArrowUpRight
-                      className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition"
-                      style={{ color: "var(--green-up)" }}
-                    />
-                  </div>
-                  <div className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-                    {item.desc}
-                  </div>
-                </a>
-              ))}
+              {links.find((l) => l.label === openMenu)?.menu!.map((item) => {
+                const inner = (
+                  <>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[14px] font-semibold" style={{ color: "var(--text-primary)" }}>
+                        {item.title}
+                      </span>
+                      <ArrowUpRight
+                        className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition"
+                        style={{ color: "var(--green-up)" }}
+                      />
+                    </div>
+                    <div className="text-[12px]" style={{ color: "var(--text-muted)" }}>
+                      {item.desc}
+                    </div>
+                  </>
+                );
+                const className = "group block p-4 rounded-xl transition cursor-pointer";
+                const onEnter = (e: React.MouseEvent<HTMLElement>) => {
+                  e.currentTarget.style.background = "rgb(var(--ov) / 0.03)";
+                  e.currentTarget.style.borderColor = "rgb(var(--ov) / 0.06)";
+                };
+                const onLeave = (e: React.MouseEvent<HTMLElement>) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "transparent";
+                };
+                return item.to ? (
+                  <Link
+                    key={item.title}
+                    to={item.to}
+                    onClick={() => setOpenMenu(null)}
+                    className={className}
+                    style={{ border: "1px solid transparent" }}
+                    onMouseEnter={onEnter}
+                    onMouseLeave={onLeave}
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.title}
+                    className={className}
+                    style={{ border: "1px solid transparent" }}
+                    onMouseEnter={onEnter}
+                    onMouseLeave={onLeave}
+                  >
+                    {inner}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}
