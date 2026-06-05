@@ -234,7 +234,7 @@ function CompanyPage() {
             )}
             {tab === "financials" && <FinancialsTab co={co} />}
             {tab === "announcements" && <AnnouncementsTab co={co} />}
-            {tab === "directors" && <Placeholder title="Board & directors" />}
+            {tab === "directors" && <DirectorsTab co={co} />}
             {tab === "similar" && <SimilarTab co={co} />}
           </motion.div>
         </AnimatePresence>
