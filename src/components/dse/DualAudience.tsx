@@ -214,7 +214,7 @@ export function DualAudience() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+        <div className="dual-audience-grid grid lg:grid-cols-2 gap-6 lg:gap-8">
           {paths.map((p, i) => (
             <PathCard key={p.index} path={p} i={i} />
           ))}
