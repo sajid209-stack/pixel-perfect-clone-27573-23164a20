@@ -16,6 +16,7 @@ const links: LinkItem[] = [
       { title: "Equities", desc: "Listed company shares", to: "/companies" },
       { title: "Bonds", desc: "Government & corporate debt", to: "/bonds" },
       { title: "Mutual Funds", desc: "Open & closed-end funds", to: "/funds" },
+      { title: "Statistics & Reports", desc: "Historical data and downloads", to: "/reports" },
       { title: "SME Board", desc: "Small & medium enterprises" },
     ],
   },
