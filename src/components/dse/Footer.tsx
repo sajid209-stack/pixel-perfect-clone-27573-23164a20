@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import dseLogo from "@/assets/dse-logo.png.asset.json";
+import dseLogo from "@/assets/dse-logo.png";
 
 type FooterLink = { label: string; to: string; hash?: string; soon?: boolean };
 
