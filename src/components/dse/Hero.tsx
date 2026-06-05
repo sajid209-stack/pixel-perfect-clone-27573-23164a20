@@ -159,7 +159,8 @@ export function Hero() {
                     <p className="mt-4 text-[14.5px] md:text-[15.5px] leading-[1.65] text-white/70">
                       {story.desc}
                     </p>
-                    <button
+                    <Link
+                      to={story.ctaTo}
                       className="mt-7 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13.5px] font-semibold transition hover:scale-[1.02]"
                       style={{
                         background: story.accent,
@@ -169,7 +170,8 @@ export function Hero() {
                     >
                       {story.cta}
                       <ArrowUpRight className="w-4 h-4" />
-                    </button>
+                    </Link>
+
                   </motion.div>
                 </AnimatePresence>
               </div>
