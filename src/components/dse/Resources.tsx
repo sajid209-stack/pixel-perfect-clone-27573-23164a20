@@ -71,7 +71,7 @@ function ReportsPanel() {
                 >
                   {r.tag}
                 </span>
-                <span>{r.meta}</span>
+                <span className="report-meta">{r.meta}</span>
               </div>
             </div>
             <ArrowUpRight
