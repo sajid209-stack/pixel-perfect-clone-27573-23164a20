@@ -19,11 +19,11 @@ function intensity(c: number) {
 
 function SectorCell({ s, i }: { s: (typeof sectors)[number]; i: number }) {
   const up = s.change >= 0;
-  const alpha = 0.10 + intensity(s.change) * 0.35;
+  const alpha = 0.60 + intensity(s.change) * 0.35;
   const bg = up
-    ? `rgba(16,240,160,${alpha})`
-    : `rgba(232,90,90,${alpha})`;
-  const stroke = up ? "var(--green-up)" : "var(--red-down)";
+    ? `rgba(22,169,116,${alpha})`
+    : `rgba(217,65,94,${alpha})`;
+  const stroke = "#ffffff";
 
   return (
     <motion.div
@@ -35,7 +35,7 @@ function SectorCell({ s, i }: { s: (typeof sectors)[number]; i: number }) {
       className={`group relative rounded-xl overflow-hidden cursor-pointer transition-shadow ${spanClasses(s.size)}`}
       style={{
         background: bg,
-        border: `1px solid ${up ? "rgba(16,240,160,0.25)" : "rgba(232,90,90,0.22)"}`,
+        border: `1px solid ${up ? "rgba(22,169,116,0.7)" : "rgba(217,65,94,0.7)"}`,
       }}
     >
       <div className="absolute inset-0 p-3 md:p-4 flex flex-col justify-between">
@@ -105,7 +105,7 @@ function SectorPanel() {
   const declining = sectors.length - advancing;
 
   return (
-    <div className="relative">
+    <div className="relative scroll-mt-32" id="heatmap">
       <div className="flex items-baseline justify-between mb-6">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
