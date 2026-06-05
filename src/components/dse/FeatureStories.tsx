@@ -170,7 +170,8 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
         </p>
 
         <div className="mt-10 flex items-center gap-4">
-          <a
+          <Link
+            to={story.ctaTo}
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition group cursor-pointer"
             style={{
               background: "var(--green-up)",
@@ -180,12 +181,9 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
           >
             {story.cta}
             <ArrowUpRight className="w-4 h-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
-          <a className="text-sm font-medium border-b border-transparent hover:border-current transition cursor-pointer"
-            style={{ color: "var(--text-secondary)" }}>
-            Watch the film →
-          </a>
+          </Link>
         </div>
+
       </div>
     </motion.article>
   );
