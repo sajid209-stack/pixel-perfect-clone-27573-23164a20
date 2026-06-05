@@ -261,7 +261,7 @@ export function IndicesPanel() {
                   <button
                     key={p}
                     onClick={() => setPeriod(p)}
-                    className="relative px-4 py-1.5 text-[12px] tnum rounded-full transition-colors"
+                    className={`period-tab ${p === "3M" ? "period-3m" : ""} relative px-4 py-1.5 text-[12px] tnum rounded-full transition-colors`}
                     style={{
                       color: isActive ? "var(--navy-deep)" : "var(--text-secondary)",
                       fontWeight: isActive ? 600 : 400,
