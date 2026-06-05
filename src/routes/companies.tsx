@@ -123,6 +123,9 @@ function ScreenerPage() {
           <div className="text-[11px] uppercase tracking-[0.24em] mb-3" style={{ color: "var(--text-muted)" }}>
             Companies · Screener
           </div>
+          <div className="text-[11px] mb-4" style={{ color: "var(--text-secondary)" }}>
+            Sample data for demonstration — live data will connect to the DSE API
+          </div>
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div>
               <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">

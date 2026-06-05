@@ -114,6 +114,9 @@ function CompanyPage() {
           <span>/</span>
           <span style={{ color: "var(--text-primary)" }}>{co.code}</span>
         </div>
+        <div className="text-[11px] mt-2" style={{ color: "var(--text-secondary)" }}>
+          Sample data for demonstration — live data will connect to the DSE API
+        </div>
       </div>
 
       {/* Header */}

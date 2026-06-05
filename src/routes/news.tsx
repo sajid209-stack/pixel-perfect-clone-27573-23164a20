@@ -167,26 +167,17 @@ function NewsPage() {
           <div className="text-[11px] uppercase tracking-[0.24em] mb-3" style={{ color: "var(--text-muted)" }}>
             News · Disclosures
           </div>
-          <div className="flex items-end justify-between gap-6 flex-wrap">
-            <div>
-              <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
-                The newsroom<br />of the exchange.
-              </h1>
-              <p className="mt-4 text-[15px] max-w-[560px]" style={{ color: "var(--text-secondary)" }}>
-                Every price-sensitive disclosure, dividend declaration, AGM notice and regulatory
-                filing from listed companies — as it arrives at the exchange.
-              </p>
-            </div>
-            <button
-              className="inline-flex items-center gap-2 h-10 px-4 rounded-full text-[13px] font-semibold"
-              style={{
-                background: "rgb(var(--ov) / 0.04)",
-                border: "1px solid rgb(var(--ov) / 0.08)",
-                color: "var(--text-primary)",
-              }}
-            >
-              <Bell className="w-3.5 h-3.5" /> Subscribe to alerts
-            </button>
+          <div className="text-[11px] mb-4" style={{ color: "var(--text-secondary)" }}>
+            Sample data for demonstration — live data will connect to the DSE API
+          </div>
+          <div>
+            <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
+              The newsroom<br />of the exchange.
+            </h1>
+            <p className="mt-4 text-[15px] max-w-[560px]" style={{ color: "var(--text-secondary)" }}>
+              Every price-sensitive disclosure, dividend declaration, AGM notice and regulatory
+              filing from listed companies — as it arrives at the exchange.
+            </p>
           </div>
         </div>
       </section>

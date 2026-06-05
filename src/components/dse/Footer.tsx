@@ -1,11 +1,60 @@
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png.asset.json";
 
-const cols = [
-  { title: "Markets", items: ["Equities", "Bonds", "Mutual Funds", "SME Board", "Indices", "Historical data"] },
-  { title: "About DSE", items: ["About us", "Board of directors", "Press releases", "Careers", "Sustainability", "Annual reports"] },
-  { title: "Services", items: ["Broker directory", "Listing requirements", "BICM", "Investor education", "Complaints portal", "Data API"] },
+type FooterLink = { label: string; to: string; hash?: string; soon?: boolean };
+
+const marketsLinks: FooterLink[] = [
+  { label: "Equities", to: "/companies" },
+  { label: "Bonds", to: "/bonds" },
+  { label: "Mutual Funds", to: "/funds" },
+  { label: "SME Board", to: "/companies" },
+  { label: "Indices", to: "/indices" },
+  { label: "Historical data", to: "/reports" },
 ];
+
+const aboutLinks: FooterLink[] = [
+  { label: "About us", to: "/about" },
+  { label: "Board of directors", to: "/about", hash: "board" },
+  { label: "Press releases", to: "/about", hash: "press" },
+  { label: "Careers", to: "/about", hash: "careers", soon: true },
+  { label: "Sustainability", to: "/about", hash: "sustainability", soon: true },
+  { label: "Annual reports", to: "/reports" },
+];
+
+const servicesLinks: FooterLink[] = [
+  { label: "Broker directory", to: "/members" },
+  { label: "Listing requirements", to: "/listing" },
+  { label: "BICM", to: "/about", hash: "bicm" },
+  { label: "Investor education", to: "/learn" },
+  { label: "Complaints portal", to: "/complaints", soon: true },
+  { label: "Data API", to: "/about", hash: "api", soon: true },
+];
+
+const cols: { title: string; items: FooterLink[] }[] = [
+  { title: "Markets", items: marketsLinks },
+  { title: "About DSE", items: aboutLinks },
+  { title: "Services", items: servicesLinks },
+];
+
+function FooterLinkItem({ item }: { item: FooterLink }) {
+  return (
+    <li>
+      <Link
+        to={item.to}
+        hash={item.hash}
+        className="transition hover:opacity-100 opacity-80 cursor-pointer inline-flex items-baseline gap-1.5"
+      >
+        <span>{item.label}</span>
+        {item.soon && (
+          <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+            (coming soon)
+          </span>
+        )}
+      </Link>
+    </li>
+  );
+}
 
 export function Footer() {
   return (
@@ -46,7 +95,7 @@ export function Footer() {
             <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>{c.title}</div>
             <ul className="space-y-2 text-sm" style={{ color: "var(--text-secondary)" }}>
               {c.items.map((i) => (
-                <li key={i}><a className="transition hover:opacity-100 opacity-80 cursor-pointer">{i}</a></li>
+                <FooterLinkItem key={i.label} item={i} />
               ))}
             </ul>
           </div>
