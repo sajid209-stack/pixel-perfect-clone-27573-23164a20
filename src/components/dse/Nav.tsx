@@ -332,11 +332,11 @@ function NewsPanel({ close }: { close: () => void }) {
             <Link
               key={t.label}
               to="/news"
-              search={{ type: t.q } as never}
               onClick={close}
               className="flex items-center gap-2.5 p-2.5 rounded-lg transition hover:bg-slate-50"
               style={{ border: "1px solid #E2E8F0" }}
             >
+
               <div
                 className="w-9 h-9 rounded-md flex items-center justify-center shrink-0"
                 style={{ background: t.bg, color: t.color }}
