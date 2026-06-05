@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as LearnRouteImport } from './routes/learn'
@@ -20,6 +21,11 @@ import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewsRoute = NewsRouteImport.update({
   id: '/news',
   path: '/news',
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/learn': typeof LearnRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
+  '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/learn': typeof LearnRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
+  '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/learn': typeof LearnRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
+  '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/members'
     | '/news'
+    | '/reports'
     | '/company/$ticker'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/members'
     | '/news'
+    | '/reports'
     | '/company/$ticker'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/members'
     | '/news'
+    | '/reports'
     | '/company/$ticker'
   fileRoutesById: FileRoutesById
 }
@@ -157,11 +169,19 @@ export interface RootRouteChildren {
   LearnRoute: typeof LearnRoute
   MembersRoute: typeof MembersRoute
   NewsRoute: typeof NewsRoute
+  ReportsRoute: typeof ReportsRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/news': {
       id: '/news'
       path: '/news'
@@ -245,8 +265,19 @@ const rootRouteChildren: RootRouteChildren = {
   LearnRoute: LearnRoute,
   MembersRoute: MembersRoute,
   NewsRoute: NewsRoute,
+  ReportsRoute: ReportsRoute,
   CompanyTickerRoute: CompanyTickerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
