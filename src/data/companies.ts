@@ -526,10 +526,9 @@ export function buildSeries(co: Company, period: "1D" | "1W" | "1M" | "3M" | "1Y
 }
 
 export function formatBDT(n: number): string {
-  if (n >= 1_000_000_000_00) return `৳ ${(n / 1_000_000_000_00).toFixed(2)} Lakh Cr`;
-  if (n >= 100_000_000_00) return `৳ ${Math.round(n / 100_000_000_00)} ,${Math.round((n / 100_000_000_00 % 100))} Cr`;
-  if (n >= 10_000_000) return `৳ ${Math.round(n / 10_000_000).toLocaleString()} Cr`;
-  if (n >= 100_000) return `৳ ${(n / 100_000).toFixed(1)} Lakh`;
+  const cr = n / 10_000_000; // 1 crore = 10 million
+  if (cr >= 100_000) return `৳ ${(cr / 100_000).toFixed(2)} Lakh Cr`;
+  if (cr >= 1) return `৳ ${cr.toLocaleString(undefined, { maximumFractionDigits: 0 })} Cr`;
   return `৳ ${n.toLocaleString()}`;
 }
 
