@@ -5,14 +5,15 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png.asset.json";
 import { companyIndex } from "./data";
 
-type LinkItem = { label: string; menu?: { title: string; desc: string }[] };
+type MenuItem = { title: string; desc: string; to?: string };
+type LinkItem = { label: string; to?: string; menu?: MenuItem[] };
 
 const links: LinkItem[] = [
   {
     label: "Markets",
     menu: [
-      { title: "Overview", desc: "Today's snapshot of the exchange" },
-      { title: "Equities", desc: "Listed company shares" },
+      { title: "Overview", desc: "Today's snapshot of the exchange", to: "/" },
+      { title: "Equities", desc: "Listed company shares", to: "/companies" },
       { title: "Bonds", desc: "Government & corporate debt" },
       { title: "Mutual Funds", desc: "Open & closed-end funds" },
       { title: "SME Board", desc: "Small & medium enterprises" },
@@ -20,8 +21,9 @@ const links: LinkItem[] = [
   },
   {
     label: "Companies",
+    to: "/companies",
     menu: [
-      { title: "All listings", desc: "Browse 352 listed companies" },
+      { title: "All listings", desc: "Browse every listed company", to: "/companies" },
       { title: "Disclosures", desc: "Latest filings & announcements" },
       { title: "Financials", desc: "Reports, ratios & history" },
     ],
