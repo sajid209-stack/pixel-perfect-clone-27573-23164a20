@@ -32,7 +32,7 @@ function SectorCell({ s, i }: { s: (typeof sectors)[number]; i: number }) {
       viewport={{ once: true, margin: "-40px" }}
       transition={{ delay: i * 0.04, ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
       whileHover={{ scale: 1.04, zIndex: 10 }}
-      className={`group relative rounded-xl overflow-hidden cursor-pointer transition-shadow ${spanClasses(s.size)}`}
+      className={`heatmap-cell group relative rounded-xl overflow-hidden cursor-pointer transition-shadow ${spanClasses(s.size)}`}
       style={{
         background: bg,
         border: `1px solid ${up ? "rgba(22,169,116,0.7)" : "rgba(217,65,94,0.7)"}`,
