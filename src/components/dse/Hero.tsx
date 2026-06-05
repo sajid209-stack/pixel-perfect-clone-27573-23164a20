@@ -241,6 +241,38 @@ export function Hero() {
             })}
           </div>
         </div>
+
+        {/* Stat pills */}
+        <div className="hero-stat-pills mt-6 grid grid-cols-3 gap-3">
+          {[
+            { label: "Listed companies", value: "352" },
+            { label: "Market cap", value: "৳6.8T" },
+            { label: "Avg daily volume", value: "312M" },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="px-4 py-3 rounded-xl"
+              style={{
+                background: "rgb(var(--surface-rgb) / 0.55)",
+                border: "1px solid rgb(var(--ov) / 0.08)",
+                backdropFilter: "blur(18px) saturate(150%)",
+              }}
+            >
+              <div
+                className="text-[10px] uppercase tracking-[0.18em]"
+                style={{ color: "var(--text-muted)" }}
+              >
+                {s.label}
+              </div>
+              <div
+                className="mt-1 text-[18px] md:text-[20px] font-semibold tnum tracking-tight"
+                style={{ color: "var(--text-primary)" }}
+              >
+                {s.value}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
