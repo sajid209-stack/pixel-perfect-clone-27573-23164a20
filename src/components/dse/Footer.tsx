@@ -1,5 +1,7 @@
-import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Youtube, ChevronDown } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import dseLogo from "@/assets/dse-logo.png";
 
 type FooterLink = { label: string; to: string; hash?: string; soon?: boolean };
@@ -56,6 +58,49 @@ function FooterLinkItem({ item }: { item: FooterLink }) {
   );
 }
 
+function FooterColumn({ col, defaultOpen }: { col: typeof cols[number]; defaultOpen: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="footer-col">
+      {/* Desktop: always-visible heading + list */}
+      <div className="hidden md:block">
+        <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>{col.title}</div>
+        <ul className="space-y-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+          {col.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
+        </ul>
+      </div>
+      {/* Mobile: accordion */}
+      <div className="md:hidden border-t" style={{ borderColor: "rgb(var(--ov) / 0.08)" }}>
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="w-full flex items-center justify-between py-4 text-sm font-semibold"
+          style={{ color: "var(--text-primary)" }}
+          aria-expanded={open}
+        >
+          <span>{col.title}</span>
+          <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+            <ChevronDown className="w-4 h-4" />
+          </motion.span>
+        </button>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.ul
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden space-y-2 text-sm pb-4"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              {col.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
 export function Footer() {
   return (
     <footer
@@ -67,7 +112,6 @@ export function Footer() {
         backdropFilter: "blur(14px)",
       }}
     >
-
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-3">
@@ -90,15 +134,8 @@ export function Footer() {
             ))}
           </div>
         </div>
-        {cols.map((c) => (
-          <div key={c.title}>
-            <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>{c.title}</div>
-            <ul className="space-y-2 text-sm" style={{ color: "var(--text-secondary)" }}>
-              {c.items.map((i) => (
-                <FooterLinkItem key={i.label} item={i} />
-              ))}
-            </ul>
-          </div>
+        {cols.map((c, idx) => (
+          <FooterColumn key={c.title} col={c} defaultOpen={idx === 0} />
         ))}
       </div>
       <div style={{ borderTop: "1px solid rgb(var(--ov) / 0.08)" }}>
