@@ -105,7 +105,7 @@ function SectorPanel() {
   const declining = sectors.length - advancing;
 
   return (
-    <div className="relative">
+    <div className="relative scroll-mt-32" id="heatmap">
       <div className="flex items-baseline justify-between mb-6">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
