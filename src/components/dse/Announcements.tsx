@@ -293,9 +293,10 @@ export function Announcements() {
                       <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                         Learn the subscription process, eligibility, and how allotment works.
                       </p>
-                      <div className="mt-3 text-xs font-medium inline-flex items-center gap-1" style={{ color: "var(--green-up)" }}>
+                      <Link to="/learn" className="mt-3 text-xs font-medium inline-flex items-center gap-1" style={{ color: "var(--green-up)" }}>
                         Start guide <ArrowUpRight className="w-3 h-3 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </div>
+                      </Link>
+
                     </div>
                   </div>
                 </div>

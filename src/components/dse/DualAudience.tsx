@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Sprout, CandlestickChart } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
+import { Link } from "@tanstack/react-router";
+
 
 const beginnerData = [
   { v: 100 }, { v: 102 }, { v: 101 }, { v: 105 }, { v: 108 },
@@ -18,6 +20,7 @@ type Path = {
   title: string;
   body: string;
   cta: string;
+  ctaTo: string;
   Icon: typeof Sprout;
   data: { v: number }[];
   topics: { label: string; sub: string }[];
@@ -30,6 +33,7 @@ const paths: Path[] = [
     title: "Begin with the basics.",
     body: "Understand how the stock market works, open a BO account, and place your first thoughtful trade.",
     cta: "Start the guide",
+    ctaTo: "/learn",
     Icon: Sprout,
     data: beginnerData,
     topics: [
@@ -42,17 +46,19 @@ const paths: Path[] = [
     index: "02",
     eyebrow: "For active traders",
     title: "Go deeper into the data.",
-    body: "Live order books, sector heatmaps, circuit-breaker lists, and detailed company financials — all in one place.",
-    cta: "Open the terminal",
+    body: "Sector heatmaps, index analytics, full equities screener, and detailed company financials — all in one place.",
+    cta: "Open the markets",
+    ctaTo: "/companies",
     Icon: CandlestickChart,
     data: proData,
     topics: [
-      { label: "Live market data", sub: "Realtime feed" },
+      { label: "Equities screener", sub: "All listed companies" },
       { label: "Sector heatmap", sub: "Updated daily" },
-      { label: "Circuit breakers", sub: "Watchlist" },
+      { label: "Index analytics", sub: "DSEX · DS30 · DSES" },
     ],
   },
 ];
+
 
 function PathCard({ path, i }: { path: Path; i: number }) {
   const { Icon } = path;
@@ -166,12 +172,15 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           ))}
         </div>
 
-        <div className="relative mt-10 inline-flex items-center gap-2 text-sm font-semibold group/cta w-fit"
+        <Link
+          to={path.ctaTo}
+          className="relative mt-10 inline-flex items-center gap-2 text-sm font-semibold group/cta w-fit"
           style={{ color: "var(--green-up)" }}
         >
           {path.cta}
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </div>
+        </Link>
+
       </div>
     </motion.div>
   );

@@ -263,8 +263,9 @@ export function Nav() {
           </AnimatePresence>
         </div>
 
-        {/* CTA */}
+        {/* Contact link (footer anchor) */}
         <a
+          href="#footer"
           className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[13px] font-semibold transition cursor-pointer hover:scale-[1.02]"
           style={{
             background: "var(--green-up)",
@@ -272,9 +273,10 @@ export function Nav() {
             boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
           }}
         >
-          Open account
+          Contact
           <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
+
 
         {/* Mobile toggle */}
         <button
@@ -383,11 +385,14 @@ export function Nav() {
                 </button>
               ))}
               <a
+                href="#footer"
+                onClick={() => setMobileOpen(false)}
                 className="mt-3 inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-sm font-semibold"
                 style={{ background: "var(--green-up)", color: "#07090A" }}
               >
-                Open account <ArrowUpRight className="w-4 h-4" />
+                Contact <ArrowUpRight className="w-4 h-4" />
               </a>
+
             </div>
           </motion.div>
         )}

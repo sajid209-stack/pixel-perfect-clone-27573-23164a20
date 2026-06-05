@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 type Story = {
@@ -7,6 +8,7 @@ type Story = {
   title: string;
   desc: string;
   cta: string;
+  ctaTo: string;
   image: string;
   accent: string; // hex tint for the gradient
 };
@@ -16,7 +18,8 @@ const stories: Story[] = [
     eyebrow: "Listing",
     title: "Walton Hi-Tech debuts new bond on DSE Mainboard",
     desc: "Bangladesh's homegrown electronics leader raises BDT 8.5B through a sustainability-linked bond — the largest of its kind on the exchange.",
-    cta: "Find out more",
+    cta: "View company",
+    ctaTo: "/company/WALTONHIL",
     image:
       "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=2000&q=80",
     accent: "#10F0A0",
@@ -26,6 +29,7 @@ const stories: Story[] = [
     title: "DSEX FTSE South Asia Index futures open for trading",
     desc: "A new benchmark instrument designed to give regional and institutional investors transparent exposure to Bangladesh's blue-chip equities.",
     cta: "Explore the index",
+    ctaTo: "/indices",
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=2000&q=80",
     accent: "#7FD9B0",
@@ -34,12 +38,14 @@ const stories: Story[] = [
     eyebrow: "Investor education",
     title: "Unlocking shareholder value for listed companies",
     desc: "A new DSE programme helping issuers improve disclosure quality, investor relations, and long-term capital formation.",
-    cta: "Read the report",
+    cta: "Browse market reports",
+    ctaTo: "/reports",
     image:
       "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=2000&q=80",
     accent: "#4FD1C5",
   },
 ];
+
 
 export function Hero() {
   const [active, setActive] = useState(0);
@@ -153,7 +159,8 @@ export function Hero() {
                     <p className="mt-4 text-[14.5px] md:text-[15.5px] leading-[1.65] text-white/70">
                       {story.desc}
                     </p>
-                    <button
+                    <Link
+                      to={story.ctaTo}
                       className="mt-7 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13.5px] font-semibold transition hover:scale-[1.02]"
                       style={{
                         background: story.accent,
@@ -163,7 +170,8 @@ export function Hero() {
                     >
                       {story.cta}
                       <ArrowUpRight className="w-4 h-4" />
-                    </button>
+                    </Link>
+
                   </motion.div>
                 </AnimatePresence>
               </div>
