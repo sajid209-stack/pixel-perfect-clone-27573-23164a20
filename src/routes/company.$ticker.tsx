@@ -1022,7 +1022,7 @@ function DirectorNode({
       }}
     >
       <div className="flex items-center gap-3">
-        <Avatar name={d.name} category={d.category} size={isLg ? 48 : 40} />
+        <Avatar name={d.name} category={d.category} size={isLg ? 80 : 64} />
         <div className="min-w-0 flex-1">
           <div className="text-[10px] uppercase tracking-wider truncate" style={{ color }}>
             {d.role}
