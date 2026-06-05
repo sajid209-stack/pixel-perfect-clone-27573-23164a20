@@ -715,43 +715,7 @@ export function Nav() {
         </button>
       </div>
 
-      {/* Mega menu — white card panel */}
-      <AnimatePresence>
-        {openMenu &&
-          (() => {
-            const item = links.find((l) => l.label === openMenu);
-            if (!item?.mega) return null;
-            const Panel = megaPanels[item.mega];
-            return (
-              <motion.div
-                key={openMenu}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.15 }}
-                onMouseEnter={() => openWith(openMenu)}
-                onMouseLeave={scheduleClose}
-                className="absolute left-0 right-0 top-full mt-1 pointer-events-none"
-              >
-                <div className="max-w-[1440px] mx-auto px-6 flex justify-center lg:justify-start">
-                  <div
-                    className="pointer-events-auto"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "0.5px solid #E2E8F0",
-                      borderRadius: 12,
-                      boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-                      padding: 20,
-                      marginLeft: estimateLeftOffset(openMenu),
-                    }}
-                  >
-                    <Panel close={() => setOpenMenu(null)} />
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })()}
-      </AnimatePresence>
+
 
       {/* Mobile drawer */}
       <AnimatePresence>
