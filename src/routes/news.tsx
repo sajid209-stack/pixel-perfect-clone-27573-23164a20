@@ -347,6 +347,7 @@ function NewsPage() {
                 );
               })}
             </AnimatePresence>
+            )}
           </ul>
 
           {filtered.length === 0 && (
