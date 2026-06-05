@@ -118,17 +118,9 @@ export function Nav() {
 
         {/* Primary nav — animated underline */}
         <nav className="hidden lg:flex items-center gap-1 ml-2 relative">
-          {links.map((l) => (
-            <div
-              key={l.label}
-              onMouseEnter={() => l.menu && setOpenMenu(l.label)}
-              className="relative"
-            >
-              <button
-                onClick={() => setActive(l.label)}
-                className="relative px-3 py-2 text-[13.5px] font-medium transition flex items-center gap-1"
-                style={{ color: active === l.label ? "var(--text-primary)" : "var(--text-secondary)" }}
-              >
+          {links.map((l) => {
+            const inner = (
+              <>
                 {l.label}
                 {l.menu && <ChevronDown className="w-3 h-3 opacity-50" />}
                 {active === l.label && (
@@ -139,9 +131,40 @@ export function Nav() {
                     style={{ background: "var(--green-up)", boxShadow: "0 0 8px var(--green-up)" }}
                   />
                 )}
-              </button>
-            </div>
-          ))}
+              </>
+            );
+            const sharedClass =
+              "relative px-3 py-2 text-[13.5px] font-medium transition flex items-center gap-1";
+            const sharedStyle = {
+              color: active === l.label ? "var(--text-primary)" : "var(--text-secondary)",
+            };
+            return (
+              <div
+                key={l.label}
+                onMouseEnter={() => l.menu && setOpenMenu(l.label)}
+                className="relative"
+              >
+                {l.to ? (
+                  <Link
+                    to={l.to}
+                    onClick={() => setActive(l.label)}
+                    className={sharedClass}
+                    style={sharedStyle}
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => setActive(l.label)}
+                    className={sharedClass}
+                    style={sharedStyle}
+                  >
+                    {inner}
+                  </button>
+                )}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="flex-1" />
