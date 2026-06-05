@@ -876,7 +876,7 @@ function DirectorsTab({ co }: { co: Company }) {
           style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)" }}
         >
           <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 items-start">
-            <Avatar name={selected.name} category={selected.category} size={64} />
+            <Avatar name={selected.name} category={selected.category} size={112} />
             <div>
               <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
                 {selected.role}
@@ -975,7 +975,7 @@ function DirectorsTab({ co }: { co: Company }) {
           <ul className="divide-y" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
             {executives.map((e) => (
               <li key={e.name} className="py-3 flex items-center gap-3">
-                <Avatar name={e.name} category="Executive" size={36} />
+                <Avatar name={e.name} category="Executive" size={52} />
                 <div className="flex-1 min-w-0">
                   <div className="text-[14px] font-medium truncate" style={{ color: "var(--text-primary)" }}>
                     {e.name}
@@ -1022,7 +1022,7 @@ function DirectorNode({
       }}
     >
       <div className="flex items-center gap-3">
-        <Avatar name={d.name} category={d.category} size={isLg ? 48 : 40} />
+        <Avatar name={d.name} category={d.category} size={isLg ? 80 : 64} />
         <div className="min-w-0 flex-1">
           <div className="text-[10px] uppercase tracking-wider truncate" style={{ color }}>
             {d.role}
@@ -1043,36 +1043,52 @@ function DirectorNode({
 function Avatar({ name, category, size = 40 }: { name: string; category: Director["category"]; size?: number }) {
   const initials = name.split(" ").filter((w) => /^[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
   const color = categoryColor(category);
-  const seed = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
-  const [failed, setFailed] = useState(false);
-  const photoUrl = `https://i.pravatar.cc/240?u=${seed}`;
   return (
     <div
-      className="relative flex items-center justify-center font-semibold flex-shrink-0 overflow-hidden"
+      className="relative flex items-end justify-center font-semibold flex-shrink-0 overflow-hidden"
       style={{
         width: size,
         height: size,
         borderRadius: "50%",
-        background: `${color}22`,
+        background: `linear-gradient(160deg, ${color}33 0%, ${color}11 60%, rgb(var(--ov) / 0.04) 100%)`,
         color,
         border: `1px solid ${color}55`,
-        fontSize: size * 0.36,
         boxShadow: `0 0 0 2px rgb(var(--bg)), 0 0 0 3px ${color}33`,
       }}
+      aria-label={name}
     >
-      {!failed ? (
-        <img
-          src={photoUrl}
-          alt={name}
-          width={size}
-          height={size}
-          loading="lazy"
-          onError={() => setFailed(true)}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      {/* silhouette placeholder */}
+      <svg
+        viewBox="0 0 64 64"
+        width={size}
+        height={size}
+        style={{ position: "absolute", inset: 0, opacity: 0.55 }}
+        aria-hidden
+      >
+        <circle cx="32" cy="24" r="11" fill={color} opacity="0.55" />
+        <path
+          d="M8 60c2-12 12-18 24-18s22 6 24 18v6H8v-6z"
+          fill={color}
+          opacity="0.55"
         />
-      ) : (
-        <span>{initials}</span>
-      )}
+      </svg>
+      {/* initials chip */}
+      <span
+        style={{
+          position: "absolute",
+          bottom: size * 0.06,
+          right: size * 0.06,
+          fontSize: Math.max(9, size * 0.2),
+          padding: `${size * 0.04}px ${size * 0.1}px`,
+          borderRadius: 999,
+          background: "rgb(var(--bg))",
+          color,
+          border: `1px solid ${color}55`,
+          lineHeight: 1,
+        }}
+      >
+        {initials}
+      </span>
     </div>
   );
 }
