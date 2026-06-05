@@ -89,9 +89,9 @@ export function Announcements() {
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
+        <div className="grid grid-cols-1 gap-8">
           {/* FEATURED + LIST */}
-          <div className="space-y-5">
+          <div className="space-y-5 announcements-list">
             {/* Featured card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -106,8 +106,8 @@ export function Announcements() {
               <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-30 blur-3xl"
                 style={{ background: "var(--green-up)" }} />
               <div className="relative">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider"
+                <div className="flex items-center gap-3 mb-6 featured-badge-row">
+                  <div className="featured-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider"
                     style={{ background: featConfig.bg, color: featConfig.color, border: `1px solid ${featConfig.color}40` }}>
                     <FeatIcon className="w-3 h-3" />
                     Featured · {featured.type}
@@ -150,7 +150,7 @@ export function Announcements() {
                     transition={{ delay: i * 0.05 }}
                     onMouseEnter={() => setHovered(i)}
                     onMouseLeave={() => setHovered(null)}
-                    className="relative grid grid-cols-[auto_60px_1fr_auto] gap-4 items-center px-5 py-5 rounded-2xl cursor-pointer transition"
+                    className="announcement-row relative grid grid-cols-[auto_60px_1fr_auto] gap-4 items-center px-5 py-5 rounded-2xl cursor-pointer transition"
                     style={{
                       background: isHovered ? "rgb(var(--ov) / 0.03)" : "transparent",
                       border: "1px solid",
@@ -196,115 +196,9 @@ export function Announcements() {
               })}
             </div>
           </div>
-
-          {/* IPO PIPELINE — vertical timeline */}
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <div className="text-[11px] uppercase tracking-[0.18em] mb-1" style={{ color: "var(--text-muted)" }}>Capital raising</div>
-                <h3 className="text-[24px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>IPO Pipeline</h3>
-              </div>
-              <a className="text-xs font-medium flex items-center gap-1 cursor-pointer" style={{ color: "var(--green-up)" }}>
-                All <ArrowUpRight className="w-3 h-3" />
-              </a>
-            </div>
-
-            <div className="relative">
-              {/* timeline line */}
-              <div className="absolute left-[15px] top-2 bottom-2 w-px" style={{ background: "linear-gradient(180deg, rgba(16,240,160,0.4), rgb(var(--ov) / 0.05))" }} />
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="relative pl-12 pb-6"
-              >
-                <div className="absolute left-0 top-1 w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ background: "var(--green-up)", boxShadow: "0 0 20px rgba(16,240,160,0.5)" }}>
-                  <span className="text-[10px] font-bold" style={{ color: "#07090A" }}>LIVE</span>
-                </div>
-                <div className="p-6 rounded-2xl"
-                  style={{ background: "rgba(16,240,160,0.04)", border: "1px solid rgba(16,240,160,0.2)" }}>
-                  <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: "var(--green-up)" }}>
-                    Subscription open
-                  </div>
-                  <div className="font-semibold text-[17px] mb-1" style={{ color: "var(--text-primary)" }}>
-                    Sample Bangladesh Co.
-                  </div>
-                  <div className="flex items-baseline justify-between mb-4">
-                    <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                      ৳ <span className="tnum font-semibold text-[18px]" style={{ color: "var(--text-primary)" }}>10</span>/share
-                    </span>
-                    <span className="text-xs tnum" style={{ color: "var(--text-muted)" }}>Closes Jun 10</span>
-                  </div>
-                  <div className="flex items-center justify-between text-[11px] mb-2">
-                    <span style={{ color: "var(--text-muted)" }}>Subscribed</span>
-                    <span className="tnum font-semibold" style={{ color: "var(--green-up)" }}>73%</span>
-                  </div>
-                  <div className="h-1.5 w-full rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.06)" }}>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "73%" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="h-full rounded-full"
-                      style={{ background: "linear-gradient(90deg, var(--green-up), #10f0a0)", boxShadow: "0 0 12px var(--green-up)" }}
-                    />
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="relative pl-12 pb-6"
-              >
-                <div className="absolute left-[7px] top-2 w-4 h-4 rounded-full border-2"
-                  style={{ background: "var(--bg-primary)", borderColor: "var(--amber)" }} />
-                <div className="p-5 rounded-2xl"
-                  style={{ background: "rgb(var(--ov) / 0.02)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
-                  <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: "var(--amber)" }}>
-                    Upcoming · Jun 18
-                  </div>
-                  <div className="font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Another Sample Co.</div>
-                  <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                    ৳ <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>15</span>/share
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="relative pl-12"
-              >
-                <div className="absolute left-[7px] top-2 w-4 h-4 rounded-full border-2"
-                  style={{ background: "var(--bg-primary)", borderColor: "rgb(var(--ov) / 0.2)" }} />
-                <div className="p-5 rounded-2xl group cursor-pointer"
-                  style={{ background: "rgb(var(--ov) / 0.02)", border: "1px dashed rgb(var(--ov) / 0.1)" }}>
-                  <div className="flex items-start gap-3">
-                    <Bell className="w-4 h-4 mt-0.5" style={{ color: "var(--text-muted)" }} />
-                    <div>
-                      <div className="font-semibold text-sm mb-1" style={{ color: "var(--text-primary)" }}>New to IPOs?</div>
-                      <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                        Learn the subscription process, eligibility, and how allotment works.
-                      </p>
-                      <Link to="/learn" className="mt-3 text-xs font-medium inline-flex items-center gap-1" style={{ color: "var(--green-up)" }}>
-                        Start guide <ArrowUpRight className="w-3 h-3 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </Link>
-
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
   );
 }
+
