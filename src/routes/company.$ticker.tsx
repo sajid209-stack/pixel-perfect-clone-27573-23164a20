@@ -17,6 +17,7 @@ import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import {
   buildSeries,
+  companies,
   findCompany,
   formatBDT,
   formatVolume,
@@ -641,8 +642,6 @@ function AnnouncementsTab({ co }: { co: Company }) {
 }
 
 function SimilarTab({ co }: { co: Company }) {
-  // import lazily to avoid cycles
-  const { companies } = require("@/data/companies") as typeof import("@/data/companies");
   const similar = companies.filter((c) => c.sector === co.sector && c.code !== co.code).slice(0, 6);
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
