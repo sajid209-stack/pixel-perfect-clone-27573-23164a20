@@ -321,9 +321,9 @@ export function MarketOverview() {
           </div>
         </div>
 
-        <div className="market-overview-grid grid lg:grid-cols-[5fr_7fr] gap-x-20 gap-y-24">
-          <div className="heatmap-section contents lg:block"><SectorPanel /></div>
-          <div className="movers-section contents lg:block"><MoversPanel /></div>
+        <div className="market-overview-grid flex flex-col lg:grid lg:grid-cols-[5fr_7fr] gap-x-20 gap-y-12 lg:gap-y-24">
+          <div className="heatmap-section"><SectorPanel /></div>
+          <div className="movers-section"><MoversPanel /></div>
         </div>
       </div>
     </section>
