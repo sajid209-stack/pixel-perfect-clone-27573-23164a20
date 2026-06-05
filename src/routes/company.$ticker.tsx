@@ -403,16 +403,41 @@ function PriceCard({
         </motion.div>
       </AnimatePresence>
 
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-6 mt-8 pt-6 border-t"
-        style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
-        <Stat label="Open" value={`৳ ${co.open}`} />
-        <Stat label="High" value={`৳ ${co.high}`} accent="var(--green-up)" />
-        <Stat label="Low" value={`৳ ${co.low}`} accent="var(--red-down)" />
-        <Stat label="Volume" value={formatVolume(co.volume)} />
-        <Stat label="52W High" value={`৳ ${co.weekHigh52}`} />
-        <Stat label="52W Low" value={`৳ ${co.weekLow52}`} />
-      </div>
+      <PriceStatsRow co={co} />
     </section>
+  );
+}
+
+function PriceStatsRow({ co }: { co: Company }) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 400);
+    return () => clearTimeout(t);
+  }, [co.code]);
+
+  return (
+    <div
+      className="grid grid-cols-2 md:grid-cols-6 gap-6 mt-8 pt-6 border-t"
+      style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
+    >
+      {loading ? (
+        Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="space-y-2">
+            <div className="skeleton h-3 w-16" />
+            <div className="skeleton h-5 w-20" />
+          </div>
+        ))
+      ) : (
+        <>
+          <Stat label="Open" value={`৳ ${co.open}`} />
+          <Stat label="High" value={`৳ ${co.high}`} accent="var(--green-up)" />
+          <Stat label="Low" value={`৳ ${co.low}`} accent="var(--red-down)" />
+          <Stat label="Volume" value={formatVolume(co.volume)} />
+          <Stat label="52W High" value={`৳ ${co.weekHigh52}`} />
+          <Stat label="52W Low" value={`৳ ${co.weekLow52}`} />
+        </>
+      )}
+    </div>
   );
 }
 
