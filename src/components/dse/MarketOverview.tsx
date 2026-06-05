@@ -1,58 +1,93 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { ArrowUpRight } from "lucide-react";
 import { sectors, topGainers, topLosers, mostActive } from "./data";
 
-/* ---------- Sector strip (editorial, not a treemap) ---------- */
+/* ---------- Sector heatmap (variable-size bento cells) ---------- */
 
-function intensity(c: number) {
-  // map -2..+2 to 0..1
-  const t = Math.min(1, Math.abs(c) / 2);
-  return t;
+function spanClasses(size: "lg" | "md" | "sm") {
+  if (size === "lg") return "col-span-2 row-span-2";
+  if (size === "md") return "col-span-2 row-span-1";
+  return "col-span-1 row-span-1";
 }
 
-function SectorRow({ s, i }: { s: typeof sectors[number]; i: number }) {
+function intensity(c: number) {
+  return Math.min(1, Math.abs(c) / 2);
+}
+
+function SectorCell({ s, i }: { s: (typeof sectors)[number]; i: number }) {
   const up = s.change >= 0;
-  const w = 8 + intensity(s.change) * 52; // 8% – 60%
+  const alpha = 0.10 + intensity(s.change) * 0.35;
+  const bg = up
+    ? `rgba(16,240,160,${alpha})`
+    : `rgba(232,90,90,${alpha})`;
+  const stroke = up ? "var(--green-up)" : "var(--red-down)";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ delay: i * 0.04, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
-      className="group grid grid-cols-[140px_1fr_70px] items-center gap-6 py-4 border-t"
-      style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
+      initial={{ opacity: 0, scale: 0.96 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay: i * 0.04, ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
+      whileHover={{ scale: 1.04, zIndex: 10 }}
+      className={`group relative rounded-xl overflow-hidden cursor-pointer transition-shadow ${spanClasses(s.size)}`}
+      style={{
+        background: bg,
+        border: `1px solid ${up ? "rgba(16,240,160,0.25)" : "rgba(232,90,90,0.22)"}`,
+      }}
     >
-      <div className="text-[14px]" style={{ color: "var(--text-primary)" }}>
-        {s.name}
+      <div className="absolute inset-0 p-3 md:p-4 flex flex-col justify-between">
+        <div className="flex items-start justify-between gap-2">
+          <div
+            className="text-[11px] font-medium leading-tight"
+            style={{ color: "#fff" }}
+          >
+            {s.name}
+          </div>
+          <div
+            className="text-[14px] font-bold tnum"
+            style={{ color: "#fff" }}
+          >
+            {up ? "+" : ""}{s.change.toFixed(1)}%
+          </div>
+        </div>
+
+        <div className="h-5 -mx-1 opacity-90">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={s.spark}>
+              <defs>
+                <linearGradient id={`sec-${s.name.replace(/\s/g, "")}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#fff" stopOpacity={0.4} />
+                  <stop offset="100%" stopColor="#fff" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <Area
+                type="monotone"
+                dataKey="v"
+                stroke={stroke}
+                strokeWidth={1.4}
+                fill={`url(#sec-${s.name.replace(/\s/g, "")})`}
+                isAnimationActive={false}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-      <div className="relative h-[2px] w-full overflow-visible">
-        <div
-          className="absolute left-1/2 top-0 h-px w-px"
-          style={{ background: "var(--text-muted)" }}
-        />
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: i * 0.04 + 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute top-1/2 -translate-y-1/2 h-[2px] origin-center"
-          style={{
-            left: up ? "50%" : `calc(50% - ${w / 2}%)`,
-            width: `${w / 2}%`,
-            background: up ? "var(--green-up)" : "var(--red-down)",
-            boxShadow: `0 0 12px ${up ? "rgba(127,217,176,0.4)" : "rgba(232,136,154,0.35)"}`,
-            transformOrigin: up ? "left center" : "right center",
-          }}
-        />
-      </div>
+
+      {/* Tooltip */}
       <div
-        className="text-[14px] tnum text-right"
-        style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}
+        className="pointer-events-none absolute left-1/2 -translate-x-1/2 -top-2 -translate-y-full opacity-0 group-hover:opacity-100 transition px-3 py-2 rounded-lg text-[11px] whitespace-nowrap z-20"
+        style={{
+          background: "rgba(11,14,16,0.95)",
+          color: "#fff",
+          border: "1px solid rgb(var(--ov) / 0.2)",
+          boxShadow: "0 12px 30px -10px rgba(0,0,0,0.5)",
+        }}
       >
-        {up ? "+" : ""}
-        {s.change.toFixed(1)}%
+        <div className="font-semibold">{s.name}</div>
+        <div className="opacity-70">Turnover · <span className="tnum">{s.turnover}</span></div>
       </div>
     </motion.div>
   );
@@ -64,12 +99,12 @@ function SectorPanel() {
 
   return (
     <div className="relative">
-      <div className="flex items-baseline justify-between mb-2">
+      <div className="flex items-baseline justify-between mb-6">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
           style={{ color: "var(--text-muted)" }}
         >
-          Sector pulse
+          Sector heatmap
         </div>
         <div className="flex items-center gap-5 text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
           <span>
@@ -81,17 +116,19 @@ function SectorPanel() {
         </div>
       </div>
 
-      <div className="mt-6">
+      <div
+        className="grid grid-cols-4 gap-2"
+        style={{ gridAutoRows: "76px", gridAutoFlow: "dense" }}
+      >
         {sectors.map((s, i) => (
-          <SectorRow key={s.name} s={s} i={i} />
+          <SectorCell key={s.name} s={s} i={i} />
         ))}
-        <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
       </div>
     </div>
   );
 }
 
-/* ---------- Movers (large, editorial cards stacked) ---------- */
+/* ---------- Movers ---------- */
 
 const tabs = {
   "Top gainers": topGainers,
@@ -103,6 +140,7 @@ type TabKey = keyof typeof tabs;
 function MoversPanel() {
   const [tab, setTab] = useState<TabKey>("Top gainers");
   const rows = tabs[tab];
+  const showVolume = tab === "Most active";
 
   return (
     <div className="relative">
@@ -150,77 +188,76 @@ function MoversPanel() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.06 }}
-                className="group relative grid grid-cols-[1fr_100px_90px_28px] items-center gap-5 py-5 border-t cursor-pointer"
-                style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
               >
-                <div className="flex items-baseline gap-3 min-w-0">
-                  <span
-                    className="text-[11px] tnum"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="min-w-0">
-                    <div
-                      className="text-[17px] font-medium tracking-tight"
-                      style={{ color: "var(--text-primary)" }}
-                    >
-                      {r.code}
-                    </div>
-                    <div
-                      className="text-[12px] truncate mt-0.5"
+                <Link
+                  to="/company/$ticker"
+                  params={{ ticker: r.code }}
+                  className="group relative grid grid-cols-[1fr_100px_100px_28px] items-center gap-5 py-5 border-t cursor-pointer"
+                  style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
+                >
+                  <div className="flex items-baseline gap-3 min-w-0">
+                    <span
+                      className="text-[11px] tnum"
                       style={{ color: "var(--text-muted)" }}
                     >
-                      {r.name}
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="min-w-0">
+                      <div
+                        className="text-[17px] font-medium tracking-tight"
+                        style={{ color: "var(--text-primary)" }}
+                      >
+                        {r.code}
+                      </div>
+                      <div
+                        className="text-[12px] truncate mt-0.5"
+                        style={{ color: "var(--text-muted)" }}
+                      >
+                        {r.name}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="h-8 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={r.spark}>
-                      <defs>
-                        <linearGradient id={`mv-${r.code}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop
-                            offset="0%"
-                            stopColor={up ? "var(--green-up)" : "var(--red-down)"}
-                            stopOpacity={0.35}
-                          />
-                          <stop
-                            offset="100%"
-                            stopColor={up ? "var(--green-up)" : "var(--red-down)"}
-                            stopOpacity={0}
-                          />
-                        </linearGradient>
-                      </defs>
-                      <Area
-                        type="monotone"
-                        dataKey="v"
-                        stroke={up ? "var(--green-up)" : "var(--red-down)"}
-                        strokeWidth={1.4}
-                        fill={`url(#mv-${r.code})`}
-                        isAnimationActive={false}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="text-right">
-                  <div
-                    className="text-[15px] tnum"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    {r.price.toLocaleString()}
+                  <div className="h-8 opacity-70 group-hover:opacity-100 transition-opacity">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={r.spark}>
+                        <defs>
+                          <linearGradient id={`mv-${r.code}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={up ? "var(--green-up)" : "var(--red-down)"} stopOpacity={0.35} />
+                            <stop offset="100%" stopColor={up ? "var(--green-up)" : "var(--red-down)"} stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <Area
+                          type="monotone"
+                          dataKey="v"
+                          stroke={up ? "var(--green-up)" : "var(--red-down)"}
+                          strokeWidth={1.4}
+                          fill={`url(#mv-${r.code})`}
+                          isAnimationActive={false}
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
-                  <div
-                    className="text-[12px] tnum mt-0.5"
-                    style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}
-                  >
-                    {up ? "▲" : "▼"} {Math.abs(r.change).toFixed(2)}%
+                  <div className="text-right">
+                    <div
+                      className="text-[15px] tnum"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      {showVolume && "volume" in r
+                        ? (r as { volume: string }).volume
+                        : r.price.toLocaleString()}
+                    </div>
+                    <div
+                      className="text-[12px] tnum mt-0.5"
+                      style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}
+                    >
+                      {up ? "▲" : "▼"} {Math.abs(r.change).toFixed(2)}%
+                    </div>
                   </div>
-                </div>
-                <ArrowUpRight
-                  className="w-4 h-4 transition-all opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  style={{ color: "var(--text-muted)" }}
-                />
+                  <ArrowUpRight
+                    className="w-4 h-4 transition-all opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    style={{ color: "var(--text-muted)" }}
+                  />
+                </Link>
               </motion.div>
             );
           })}
@@ -237,7 +274,6 @@ export function MarketOverview() {
   return (
     <section className="py-20 px-6 relative">
       <div className="max-w-7xl mx-auto">
-        {/* Editorial header */}
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
           <div>
             <div
@@ -271,7 +307,6 @@ export function MarketOverview() {
           </div>
         </div>
 
-        {/* Asymmetric content split */}
         <div className="grid lg:grid-cols-[5fr_7fr] gap-x-20 gap-y-24">
           <SectorPanel />
           <MoversPanel />
