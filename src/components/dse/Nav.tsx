@@ -39,7 +39,7 @@ const links: LinkItem[] = [
     ],
   },
   { label: "News", to: "/news" },
-  { label: "Learn" },
+  { label: "Learn", to: "/learn" },
   { label: "Members" },
 ];
 
