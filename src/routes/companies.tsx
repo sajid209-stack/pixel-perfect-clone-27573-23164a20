@@ -59,6 +59,11 @@ function ScreenerPage() {
     key: "marketCap",
     dir: "desc",
   });
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(t);
+  }, []);
 
   const filtered: Company[] = useMemo(() => {
     const q = query.trim().toLowerCase();
