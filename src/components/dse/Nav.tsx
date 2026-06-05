@@ -38,7 +38,7 @@ const links: LinkItem[] = [
       { title: "How to apply", desc: "Eligibility & process guide", to: "/ipo" },
     ],
   },
-  { label: "News" },
+  { label: "News", to: "/news" },
   { label: "Learn" },
   { label: "Members" },
 ];
@@ -103,7 +103,7 @@ export function Nav() {
     >
       <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8">
         {/* Logo */}
-        <a className="flex items-center gap-2.5 cursor-pointer group shrink-0">
+        <Link to="/" className="flex items-center gap-2.5 cursor-pointer group shrink-0">
           <img
             src={dseLogo.url}
             alt="Dhaka Stock Exchange"
@@ -115,7 +115,7 @@ export function Nav() {
               Dhaka Stock Exchange
             </div>
           </div>
-        </a>
+        </Link>
 
         {/* Primary nav — animated underline */}
         <nav className="hidden lg:flex items-center gap-1 ml-2 relative">
