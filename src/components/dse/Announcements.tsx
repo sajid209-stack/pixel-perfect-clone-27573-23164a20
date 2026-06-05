@@ -67,7 +67,7 @@ export function Announcements() {
         </div>
 
         {/* filter pills with animated active indicator */}
-        <div className="flex flex-wrap gap-1 mb-10 p-1 rounded-full w-fit"
+        <div className="filter-tabs flex flex-wrap gap-1 mb-10 p-1 rounded-full w-fit"
           style={{ background: "rgb(var(--ov) / 0.03)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
           {filters.map((f) => (
             <button
