@@ -13,6 +13,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
+import { ThemeToggle } from "./ThemeToggle";
 import { companyIndex } from "./data";
 
 type NavItem = {
@@ -751,6 +752,15 @@ export function Nav() {
                   </Link>
                 )
               )}
+              <div
+                className="mt-3 flex items-center justify-between px-3 py-3 rounded-lg"
+                style={{ background: "rgb(var(--ov) / 0.04)" }}
+              >
+                <span className="text-[14px] font-medium" style={{ color: "var(--text-primary)" }}>
+                  Theme
+                </span>
+                <ThemeToggle />
+              </div>
               <a
                 href="#footer"
                 onClick={() => setMobileOpen(false)}
