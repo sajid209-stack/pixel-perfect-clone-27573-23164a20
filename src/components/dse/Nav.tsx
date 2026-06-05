@@ -31,10 +31,11 @@ const links: LinkItem[] = [
   { label: "Indices", to: "/indices" },
   {
     label: "IPO",
+    to: "/ipo",
     menu: [
-      { title: "Subscription open", desc: "Currently raising capital" },
-      { title: "Upcoming", desc: "Approved & scheduled offerings" },
-      { title: "How to apply", desc: "Eligibility & process guide" },
+      { title: "Subscription open", desc: "Currently raising capital", to: "/ipo" },
+      { title: "Upcoming", desc: "Approved & scheduled offerings", to: "/ipo" },
+      { title: "How to apply", desc: "Eligibility & process guide", to: "/ipo" },
     ],
   },
   { label: "News" },
