@@ -1043,20 +1043,36 @@ function DirectorNode({
 function Avatar({ name, category, size = 40 }: { name: string; category: Director["category"]; size?: number }) {
   const initials = name.split(" ").filter((w) => /^[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
   const color = categoryColor(category);
+  const seed = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
+  const [failed, setFailed] = useState(false);
+  const photoUrl = `https://i.pravatar.cc/240?u=${seed}`;
   return (
     <div
-      className="flex items-center justify-center font-semibold flex-shrink-0"
+      className="relative flex items-center justify-center font-semibold flex-shrink-0 overflow-hidden"
       style={{
         width: size,
         height: size,
         borderRadius: "50%",
         background: `${color}22`,
         color,
-        border: `1px solid ${color}44`,
+        border: `1px solid ${color}55`,
         fontSize: size * 0.36,
+        boxShadow: `0 0 0 2px rgb(var(--bg)), 0 0 0 3px ${color}33`,
       }}
     >
-      {initials}
+      {!failed ? (
+        <img
+          src={photoUrl}
+          alt={name}
+          width={size}
+          height={size}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      ) : (
+        <span>{initials}</span>
+      )}
     </div>
   );
 }
