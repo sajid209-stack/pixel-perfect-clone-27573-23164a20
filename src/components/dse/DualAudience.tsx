@@ -71,7 +71,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
       whileHover={{ y: -4 }}
       className="group relative cursor-pointer"
     >
-      <div className="relative rounded-2xl overflow-hidden p-10 lg:p-12 h-full flex flex-col"
+      <div className="dual-card relative rounded-2xl overflow-hidden p-10 lg:p-12 h-full flex flex-col"
         style={{
           background:
             "linear-gradient(160deg, rgb(var(--ov) / 0.04) 0%, rgb(var(--ov) / 0.01) 100%)",
@@ -79,7 +79,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
         }}
       >
         {/* Ambient chart in background */}
-        <div className="absolute inset-x-0 bottom-0 h-[55%] opacity-60 pointer-events-none">
+        <div className="dual-bg-chart absolute inset-x-0 bottom-0 h-[55%] opacity-60 pointer-events-none">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={path.data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <defs>
