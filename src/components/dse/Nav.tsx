@@ -385,11 +385,14 @@ export function Nav() {
                 </button>
               ))}
               <a
+                href="#footer"
+                onClick={() => setMobileOpen(false)}
                 className="mt-3 inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-sm font-semibold"
                 style={{ background: "var(--green-up)", color: "#07090A" }}
               >
-                Open account <ArrowUpRight className="w-4 h-4" />
+                Contact <ArrowUpRight className="w-4 h-4" />
               </a>
+
             </div>
           </motion.div>
         )}
