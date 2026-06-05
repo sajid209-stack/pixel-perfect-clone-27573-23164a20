@@ -876,7 +876,7 @@ function DirectorsTab({ co }: { co: Company }) {
           style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)" }}
         >
           <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 items-start">
-            <Avatar name={selected.name} category={selected.category} size={64} />
+            <Avatar name={selected.name} category={selected.category} size={112} />
             <div>
               <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
                 {selected.role}
