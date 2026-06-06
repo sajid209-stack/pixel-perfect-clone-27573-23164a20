@@ -6,6 +6,7 @@ import { Ticker } from "@/components/dse/Ticker";
 import { DualAudience } from "@/components/dse/DualAudience";
 import { CompactMarketGrid } from "@/components/dse/CompactMarketGrid";
 import { Resources } from "@/components/dse/Resources";
+import { NewsScroll } from "@/components/dse/NewsScroll";
 import { Footer } from "@/components/dse/Footer";
 
 export const Route = createFileRoute("/")({
@@ -27,9 +28,10 @@ function Home() {
       <Nav />
       <Ticker />
       <Hero />
-      <DualAudience />
       <CompactMarketGrid />
+      <DualAudience />
       <Resources />
+      <NewsScroll />
       <Footer />
     </div>
   );
