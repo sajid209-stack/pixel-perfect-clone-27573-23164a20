@@ -35,7 +35,7 @@ const news: NewsItem[] = [
 
 export function NewsScroll() {
   return (
-    <section className="relative" style={{ paddingTop: 48, paddingBottom: 48 }}>
+    <section className="home-section relative">
       <div className="max-w-7xl mx-auto px-6 mb-8 flex items-end justify-between gap-6">
         <div>
           <div
