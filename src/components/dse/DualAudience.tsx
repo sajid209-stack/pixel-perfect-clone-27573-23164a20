@@ -111,44 +111,38 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           }}
         />
 
-        <div className="relative flex items-start justify-between mb-10">
+        <div className="relative flex items-start justify-between mb-4">
           <span
-            className="text-[13px] tracking-[0.22em] uppercase tnum"
+            className="text-[11px] tracking-[0.22em] uppercase tnum"
             style={{ color: "var(--text-muted)" }}
           >
             {path.index} — {path.eyebrow}
           </span>
           <div
-            className="w-10 h-10 rounded-full flex items-center justify-center"
+            className="w-8 h-8 rounded-full flex items-center justify-center"
             style={{ background: "rgba(127,217,176,0.08)" }}
           >
-            <Icon className="w-4.5 h-4.5" style={{ color: "var(--green-up)", width: 18, height: 18 }} />
+            <Icon style={{ color: "var(--green-up)", width: 16, height: 16 }} />
           </div>
         </div>
 
         <div className="relative">
           <h3
-            className="text-[34px] md:text-[42px] font-semibold leading-[1.1] tracking-tight max-w-[14ch]"
+            className="text-[20px] md:text-[24px] font-semibold leading-[1.2] tracking-tight max-w-[18ch]"
             style={{ color: "var(--text-primary)" }}
           >
             {path.title}
           </h3>
-          <p
-            className="mt-6 text-[16px] leading-[1.75] max-w-[42ch]"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            {path.body}
-          </p>
         </div>
 
-        <div className="relative mt-12 space-y-px">
+        <div className="relative mt-4 space-y-px">
           {path.topics.map((t, idx) => (
             <div
               key={t.label}
-              className="flex items-center justify-between py-4 border-t group/row"
+              className="flex items-center justify-between py-2.5 border-t group/row"
               style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <span
                   className="text-[11px] tnum w-6"
                   style={{ color: "var(--text-muted)" }}
@@ -156,10 +150,10 @@ function PathCard({ path, i }: { path: Path; i: number }) {
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <div className="text-[15px]" style={{ color: "var(--text-primary)" }}>
+                  <div className="text-[13px]" style={{ color: "var(--text-primary)" }}>
                     {t.label}
                   </div>
-                  <div className="text-[12px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+                  <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
                     {t.sub}
                   </div>
                 </div>
@@ -174,7 +168,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 
         <Link
           to={path.ctaTo}
-          className="relative mt-10 inline-flex items-center gap-2 text-sm font-semibold group/cta w-fit"
+          className="relative mt-4 inline-flex items-center gap-2 text-[13px] font-semibold group/cta w-fit"
           style={{ color: "var(--green-up)" }}
         >
           {path.cta}
