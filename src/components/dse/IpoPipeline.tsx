@@ -4,31 +4,27 @@ import { ArrowUpRight } from "lucide-react";
 
 export function IpoPipeline() {
   return (
-    <section className="py-10 md:py-12 px-6 relative">
+    <section className="px-6 relative" style={{ paddingTop: 24, paddingBottom: 24 }}>
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-baseline justify-between mb-5">
-          <div>
-            <div
-              className="text-[11px] uppercase tracking-[0.22em] mb-1"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Capital raising
-            </div>
-            <h3
-              className="text-[22px] md:text-[26px] font-semibold tracking-tight"
-              style={{ color: "var(--text-primary)" }}
-            >
-              IPO pipeline
-            </h3>
+        <div
+          className="flex items-center justify-between gap-4 mb-5 pb-3 border-b"
+          style={{ borderColor: "rgb(var(--ov) / 0.08)", maxHeight: 40 }}
+        >
+          <div
+            className="text-[11px] font-medium uppercase"
+            style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
+          >
+            IPO pipeline
           </div>
           <Link
             to="/ipo"
-            className="text-[12px] font-medium inline-flex items-center gap-1"
+            className="text-[11px] font-medium inline-flex items-center gap-1"
             style={{ color: "var(--green-up)" }}
           >
-            View all <ArrowUpRight className="w-3 h-3" />
+            View all → <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
+
 
         <div className="ipo-pipeline-grid grid md:grid-cols-2 gap-4" style={{ maxHeight: 240 }}>
           {/* Active subscription */}
