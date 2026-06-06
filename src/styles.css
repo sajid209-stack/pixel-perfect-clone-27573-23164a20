@@ -297,3 +297,73 @@
 }
 
 
+
+/* ========= Compact market grid ========= */
+.compact-market-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "a b c"
+    "d e c";
+}
+.compact-market-grid .cell-a { grid-area: a; }
+.compact-market-grid .cell-b { grid-area: b; }
+.compact-market-grid .cell-c { grid-area: c; }
+.compact-market-grid .cell-d { grid-area: d; }
+.compact-market-grid .cell-e { grid-area: e; }
+.compact-market-grid > div > .compact-cell { height: 100%; }
+
+@media (max-width: 1024px) {
+  .compact-market-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "a b"
+      "c c"
+      "d e";
+  }
+}
+@media (max-width: 768px) {
+  .compact-market-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "d"
+      "b"
+      "a"
+      "c"
+      "e";
+    gap: 8px;
+  }
+  .compact-cell { padding: 12px !important; border-radius: 10px !important; }
+  .mobile-swipe-hint { display: block !important; }
+
+  /* Heatmap → horizontal scroll on mobile */
+  .compact-market-grid .heatmap-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .compact-market-grid .heatmap-grid::-webkit-scrollbar { display: none; }
+  .compact-market-grid .heatmap-cell {
+    flex-shrink: 0 !important;
+    width: 88px !important;
+    height: 80px !important;
+    scroll-snap-align: start;
+  }
+
+  /* Movers: hide long name detail to keep row tight */
+  .mover-name { max-width: 110px; }
+
+  /* DSEX stats 2x2 on mobile */
+  .dsex-stats { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+  .dsex-stats .dsex-stat { border-left: none !important; }
+  .dsex-chart { height: 120px !important; }
+}
