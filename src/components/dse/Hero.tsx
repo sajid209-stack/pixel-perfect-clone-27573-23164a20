@@ -247,8 +247,30 @@ export function Hero() {
                 style={{ color: "var(--text-primary)" }}
               >
                 {s.value}
-              </div>
+        </div>
+
+        {/* Secondary IPO pills row */}
+        <div className="hero-mini-pills mt-3 flex flex-wrap justify-center gap-2">
+          {[
+            { label: "IPOs in 2026", value: "14" },
+            { label: "Capital raised", value: "৳1,820 Cr" },
+            { label: "Pipeline", value: "23 listings" },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px]"
+              style={{
+                background: "rgb(var(--surface-rgb) / 0.5)",
+                border: "1px solid rgb(var(--ov) / 0.08)",
+                color: "var(--text-secondary)",
+              }}
+            >
+              <span style={{ color: "var(--text-muted)" }}>{s.label}:</span>
+              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>{s.value}</span>
             </div>
+          ))}
+        </div>
+      </div>
           ))}
         </div>
       </div>
