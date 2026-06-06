@@ -220,17 +220,25 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Stat pills — 2 rows of 3 */}
-        <div className="hero-stat-pills">
-          <div className="pill-row">
-            <span className="stat-pill">Listed companies: <strong>352</strong></span>
-            <span className="stat-pill">Market cap: <strong>৳6.8T</strong></span>
-            <span className="stat-pill">Avg daily volume: <strong>312M</strong></span>
-          </div>
-          <div className="pill-row">
-            <span className="stat-pill">IPOs in 2026: <strong>14</strong></span>
-            <span className="stat-pill">Capital raised: <strong>৳1,820 Cr</strong></span>
-            <span className="stat-pill">Pipeline: <strong>23 listings</strong></span>
+          {/* Stat pills — inside hero on dark background */}
+          <div
+            className="hero-stat-pills px-6 md:px-12 py-5"
+            style={{
+              background: "rgba(7, 9, 10, 0.85)",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+              color: "rgba(255, 255, 255, 0.85)",
+            }}
+          >
+            <div className="pill-row">
+              <span className="stat-pill">Listed companies: <strong>352</strong></span>
+              <span className="stat-pill">Market cap: <strong>৳6.8T</strong></span>
+              <span className="stat-pill">Avg daily volume: <strong>312M</strong></span>
+            </div>
+            <div className="pill-row">
+              <span className="stat-pill">IPOs in 2026: <strong>14</strong></span>
+              <span className="stat-pill">Capital raised: <strong>৳1,820 Cr</strong></span>
+              <span className="stat-pill">Pipeline: <strong>23 listings</strong></span>
+            </div>
           </div>
         </div>
       </div>
