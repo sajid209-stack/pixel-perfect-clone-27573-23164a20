@@ -4,10 +4,7 @@ import { Nav } from "@/components/dse/Nav";
 import { Hero } from "@/components/dse/Hero";
 import { Ticker } from "@/components/dse/Ticker";
 import { DualAudience } from "@/components/dse/DualAudience";
-import { MarketOverview } from "@/components/dse/MarketOverview";
-import { IndicesPanel } from "@/components/dse/IndicesPanel";
-import { Announcements } from "@/components/dse/Announcements";
-import { IpoPipeline } from "@/components/dse/IpoPipeline";
+import { CompactMarketGrid } from "@/components/dse/CompactMarketGrid";
 import { Resources } from "@/components/dse/Resources";
 import { Footer } from "@/components/dse/Footer";
 
@@ -31,10 +28,7 @@ function Home() {
       <Hero />
       <Ticker />
       <DualAudience />
-      <MarketOverview />
-      <IndicesPanel />
-      <Announcements />
-      <IpoPipeline />
+      <CompactMarketGrid />
       <Resources />
       <Footer />
     </div>
