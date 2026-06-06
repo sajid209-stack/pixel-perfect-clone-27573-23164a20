@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import {
   ArrowUpRight,
   CalendarDays,
@@ -13,8 +14,8 @@ const reports = [
   { date: "Jun 04", title: "Daily market summary", meta: "PDF · 1.2 MB", tag: "Daily" },
   { date: "May 30", title: "Weekly bulletin · Wk 22", meta: "PDF · 3.8 MB", tag: "Weekly" },
   { date: "May 31", title: "Monthly digest · May 2026", meta: "PDF · 6.4 MB", tag: "Monthly" },
-  { date: "May 25", title: "Sector outlook · Q2 review", meta: "PDF · 4.1 MB", tag: "Research" },
 ];
+
 
 function ReportsPanel() {
   return (
