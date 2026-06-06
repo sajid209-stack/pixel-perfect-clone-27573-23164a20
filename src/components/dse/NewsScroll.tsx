@@ -140,7 +140,6 @@ export function NewsScroll() {
           }
         }
       `}</style>
-      </div>
     </section>
   );
 }
