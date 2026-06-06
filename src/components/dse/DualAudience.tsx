@@ -182,7 +182,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 
 export function DualAudience() {
   return (
-    <section className="px-6 relative" style={{ paddingTop: 56, paddingBottom: 56 }}>
+    <section className="px-6 relative" style={{ paddingTop: 24, paddingBottom: 24 }}>
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
           <div>
