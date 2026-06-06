@@ -870,7 +870,9 @@ export function Nav() {
             </motion.aside>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+        document.body
+      )}
     </motion.header>
   );
 }
