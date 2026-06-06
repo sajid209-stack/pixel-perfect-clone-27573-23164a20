@@ -20,19 +20,20 @@ const reports = [
 function ReportsPanel() {
   return (
     <div className="lg:col-span-7">
-      <div className="flex items-baseline justify-between mb-10">
+      <div className="flex items-baseline justify-between mb-6">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
           style={{ color: "var(--text-muted)" }}
         >
           Reports & filings
         </div>
-        <a
+        <Link
+          to="/reports"
           className="text-[12px] inline-flex items-center gap-1 cursor-pointer"
           style={{ color: "var(--text-secondary)" }}
         >
           Archive <ArrowUpRight className="w-3 h-3" />
-        </a>
+        </Link>
       </div>
 
       <div>
@@ -43,7 +44,7 @@ function ReportsPanel() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ delay: i * 0.06, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
-            className="group grid grid-cols-[80px_1fr_auto] items-center gap-6 py-6 border-t cursor-pointer relative"
+            className="group grid grid-cols-[80px_1fr_auto] items-center gap-6 py-5 border-t cursor-pointer relative"
             style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
           >
             <div
@@ -54,7 +55,7 @@ function ReportsPanel() {
             </div>
             <div className="min-w-0">
               <div
-                className="text-[18px] md:text-[20px] font-medium tracking-tight transition-colors"
+                className="text-[17px] md:text-[19px] font-medium tracking-tight transition-colors"
                 style={{ color: "var(--text-primary)" }}
               >
                 {r.title}
@@ -82,10 +83,20 @@ function ReportsPanel() {
           </motion.a>
         ))}
         <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
+        <div className="mt-4">
+          <Link
+            to="/reports"
+            className="text-[12px] font-medium inline-flex items-center gap-1"
+            style={{ color: "var(--green-up)" }}
+          >
+            View all reports → <ArrowUpRight className="w-3 h-3" />
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
+
 
 /* ---------- Side rail: calendar countdown + tools + helpline ---------- */
 
