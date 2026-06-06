@@ -12,6 +12,7 @@ import {
   Landmark,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
 import { ThemeToggle } from "./ThemeToggle";
