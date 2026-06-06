@@ -220,58 +220,18 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Stat pills */}
-        <div className="hero-stat-pills mt-6 grid grid-cols-3 gap-3">
-          {[
-            { label: "Listed companies", value: "352" },
-            { label: "Market cap", value: "৳6.8T" },
-            { label: "Avg daily volume", value: "312M" },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className="px-4 py-3 rounded-xl"
-              style={{
-                background: "rgb(var(--surface-rgb) / 0.55)",
-                border: "1px solid rgb(var(--ov) / 0.08)",
-                backdropFilter: "blur(18px) saturate(150%)",
-              }}
-            >
-              <div
-                className="text-[10px] uppercase tracking-[0.18em]"
-                style={{ color: "var(--text-muted)" }}
-              >
-                {s.label}
-              </div>
-              <div
-                className="mt-1 text-[18px] md:text-[20px] font-semibold tnum tracking-tight"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {s.value}
-        </div>
-
-        {/* Secondary IPO pills row */}
-        <div className="hero-mini-pills mt-3 flex flex-wrap justify-center gap-2">
-          {[
-            { label: "IPOs in 2026", value: "14" },
-            { label: "Capital raised", value: "৳1,820 Cr" },
-            { label: "Pipeline", value: "23 listings" },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px]"
-              style={{
-                background: "rgb(var(--surface-rgb) / 0.5)",
-                border: "1px solid rgb(var(--ov) / 0.08)",
-                color: "var(--text-secondary)",
-              }}
-            >
-              <span style={{ color: "var(--text-muted)" }}>{s.label}:</span>
-              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>{s.value}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-          ))}
+        {/* Stat pills — 2 rows of 3 */}
+        <div className="hero-stat-pills">
+          <div className="pill-row">
+            <span className="stat-pill">Listed companies: <strong>352</strong></span>
+            <span className="stat-pill">Market cap: <strong>৳6.8T</strong></span>
+            <span className="stat-pill">Avg daily volume: <strong>312M</strong></span>
+          </div>
+          <div className="pill-row">
+            <span className="stat-pill">IPOs in 2026: <strong>14</strong></span>
+            <span className="stat-pill">Capital raised: <strong>৳1,820 Cr</strong></span>
+            <span className="stat-pill">Pipeline: <strong>23 listings</strong></span>
+          </div>
         </div>
       </div>
     </section>
