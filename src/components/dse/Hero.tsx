@@ -61,28 +61,6 @@ export function Hero() {
   return (
     <section className="relative">
       <div className="max-w-[1440px] mx-auto px-6 pt-12 pb-16">
-        {/* Section heading */}
-        <div className="flex items-end justify-between gap-6 mb-8">
-          <div className="flex items-center gap-3">
-            <span
-              className="inline-flex w-2.5 h-6 rounded-sm"
-              style={{ background: "var(--green-up)" }}
-            />
-            <h1
-              className="text-[34px] md:text-[44px] font-semibold tracking-tight leading-none"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Dhaka Stock Exchange
-            </h1>
-          </div>
-          <a
-            className="hidden md:inline-flex items-center gap-1.5 text-[13px] cursor-pointer group"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            All highlights
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-          </a>
-        </div>
 
         {/* Featured carousel */}
         <div
