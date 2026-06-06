@@ -153,7 +153,15 @@ type TabKey = keyof typeof tabs;
 
 function MoversPanel() {
   const [tab, setTab] = useState<TabKey>("Top gainers");
+  const [expanded, setExpanded] = useState<Record<TabKey, boolean>>({
+    "Top gainers": false,
+    "Top losers": false,
+    "Most active": false,
+  });
   const rows = tabs[tab];
+  const isExpanded = expanded[tab];
+  const visibleRows = isExpanded ? rows : rows.slice(0, 3);
+  const hiddenCount = rows.length - 3;
   const showVolume = tab === "Most active";
 
   return (
@@ -194,7 +202,7 @@ function MoversPanel() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-1"
         >
-          {rows.map((r, i) => {
+          {visibleRows.map((r, i) => {
             const up = r.change >= 0;
             return (
               <motion.div
@@ -278,6 +286,22 @@ function MoversPanel() {
           <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
         </motion.div>
       </AnimatePresence>
+
+      {hiddenCount > 0 && (
+        <div className="text-center mt-3">
+          <button
+            onClick={() =>
+              setExpanded((p) => ({ ...p, [tab]: !p[tab] }))
+            }
+            className="text-[11px] font-medium hover:underline"
+            style={{ color: "var(--navy-mid, #3b5378)" }}
+          >
+            {isExpanded
+              ? "Show less ↑"
+              : `Show ${hiddenCount} more ↓`}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -285,43 +309,31 @@ function MoversPanel() {
 /* ---------- Section shell ---------- */
 
 export function MarketOverview() {
+  const advancing = sectors.filter((s) => s.change > 0).length;
+  const declining = sectors.length - advancing;
   return (
-    <section className="py-20 px-6 relative">
+    <section className="px-6 relative" style={{ paddingTop: 48, paddingBottom: 48 }}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
-          <div>
-            <div
-              className="text-[12px] uppercase tracking-[0.22em] mb-5"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Today's market — Jun 5, 2026
-            </div>
-            <h2
-              className="text-[40px] md:text-[52px] font-semibold tracking-tight leading-[1.05]"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Where money <br /> moved today.
-            </h2>
+        <div
+          className="flex items-center justify-between gap-4 mb-8 pb-3 border-b"
+          style={{ borderColor: "rgb(var(--ov) / 0.08)", maxHeight: 40 }}
+        >
+          <div
+            className="text-[11px] font-medium uppercase"
+            style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
+          >
+            Sector performance &amp; movers
           </div>
-          <div className="lg:justify-self-end max-w-[46ch]">
-            <p
-              className="text-[17px] leading-[1.8]"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              A live read of sector flows and the names doing the work — pulled from
-              the closing tape as the session winds toward 14:30 BST.
-            </p>
-            <div className="mt-6 flex items-center gap-3 text-[12px] tnum" style={{ color: "var(--text-muted)" }}>
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full opacity-60 animate-ping" style={{ background: "var(--green-up)" }} />
-                <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "var(--green-up)" }} />
-              </span>
-              Tape live · last tick 13:42:08
-            </div>
+          <div
+            className="text-[11px] tnum text-right"
+            style={{ color: "var(--text-muted)" }}
+          >
+            <span style={{ color: "var(--green-up)" }}>{advancing}</span> advancing ·{" "}
+            <span style={{ color: "var(--red-down)" }}>{declining}</span> declining · Updated 13:42
           </div>
         </div>
 
-        <div className="market-overview-grid flex flex-col lg:grid lg:grid-cols-[5fr_7fr] gap-x-20 gap-y-12 lg:gap-y-24">
+        <div className="market-overview-grid flex flex-col lg:grid lg:grid-cols-[5fr_7fr] gap-x-20 gap-y-12 lg:gap-y-16">
           <div className="heatmap-section"><SectorPanel /></div>
           <div className="movers-section"><MoversPanel /></div>
         </div>

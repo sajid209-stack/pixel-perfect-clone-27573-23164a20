@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import {
   ArrowUpRight,
   CalendarDays,
@@ -13,25 +14,26 @@ const reports = [
   { date: "Jun 04", title: "Daily market summary", meta: "PDF · 1.2 MB", tag: "Daily" },
   { date: "May 30", title: "Weekly bulletin · Wk 22", meta: "PDF · 3.8 MB", tag: "Weekly" },
   { date: "May 31", title: "Monthly digest · May 2026", meta: "PDF · 6.4 MB", tag: "Monthly" },
-  { date: "May 25", title: "Sector outlook · Q2 review", meta: "PDF · 4.1 MB", tag: "Research" },
 ];
+
 
 function ReportsPanel() {
   return (
     <div className="lg:col-span-7">
-      <div className="flex items-baseline justify-between mb-10">
+      <div className="flex items-baseline justify-between mb-6">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
           style={{ color: "var(--text-muted)" }}
         >
           Reports & filings
         </div>
-        <a
+        <Link
+          to="/reports"
           className="text-[12px] inline-flex items-center gap-1 cursor-pointer"
           style={{ color: "var(--text-secondary)" }}
         >
           Archive <ArrowUpRight className="w-3 h-3" />
-        </a>
+        </Link>
       </div>
 
       <div>
@@ -42,7 +44,7 @@ function ReportsPanel() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ delay: i * 0.06, ease: [0.16, 1, 0.3, 1], duration: 0.7 }}
-            className="group grid grid-cols-[80px_1fr_auto] items-center gap-6 py-6 border-t cursor-pointer relative"
+            className="group grid grid-cols-[80px_1fr_auto] items-center gap-6 py-5 border-t cursor-pointer relative"
             style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
           >
             <div
@@ -53,7 +55,7 @@ function ReportsPanel() {
             </div>
             <div className="min-w-0">
               <div
-                className="text-[18px] md:text-[20px] font-medium tracking-tight transition-colors"
+                className="text-[17px] md:text-[19px] font-medium tracking-tight transition-colors"
                 style={{ color: "var(--text-primary)" }}
               >
                 {r.title}
@@ -81,12 +83,28 @@ function ReportsPanel() {
           </motion.a>
         ))}
         <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
+        <div className="mt-4">
+          <Link
+            to="/reports"
+            className="text-[12px] font-medium inline-flex items-center gap-1"
+            style={{ color: "var(--green-up)" }}
+          >
+            View all reports → <ArrowUpRight className="w-3 h-3" />
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
 
+
 /* ---------- Side rail: calendar countdown + tools + helpline ---------- */
+
+const upcomingSessions = [
+  { day: "08", month: "Jun", note: "Regular session · 10:00 BST" },
+  { day: "09", month: "Jun", note: "Regular session · 10:00 BST" },
+  { day: "10", month: "Jun", note: "Regular session · 10:00 BST" },
+];
 
 function CalendarTile() {
   return (
@@ -95,75 +113,53 @@ function CalendarTile() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="relative rounded-2xl overflow-hidden p-8"
+      className="relative rounded-2xl overflow-hidden p-6"
       style={{
         background:
           "linear-gradient(160deg, rgba(127,217,176,0.06) 0%, rgb(var(--ov) / 0.01) 100%)",
       }}
     >
-      <div
-        className="absolute inset-0 pointer-events-none opacity-50"
-        style={{
-          background:
-            "radial-gradient(60% 60% at 100% 0%, rgba(127,217,176,0.10), transparent 70%)",
-        }}
-      />
-      <div className="relative flex items-start justify-between">
+      <div className="relative flex items-start justify-between mb-5">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
           style={{ color: "var(--text-muted)" }}
         >
-          Next session
+          Next sessions
         </div>
         <CalendarDays className="w-4 h-4" style={{ color: "var(--green-up)" }} />
       </div>
 
-      <div className="relative mt-8">
-        <div
-          className="text-[64px] leading-none font-semibold tnum tracking-tight"
-          style={{ color: "var(--text-primary)" }}
-        >
-          08
-        </div>
-        <div
-          className="text-[14px] mt-2 tnum"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          June 2026 · 10:00 AM BST
-        </div>
+      <div className="relative space-y-3">
+        {upcomingSessions.map((s) => (
+          <div key={s.day + s.month} className="flex items-center gap-4">
+            <div
+              className="text-[22px] tnum font-semibold leading-none w-9"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {s.day}
+            </div>
+            <div className="text-[11px] uppercase tracking-wider tnum w-10" style={{ color: "var(--text-muted)" }}>
+              {s.month}
+            </div>
+            <div className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
+              {s.note}
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="relative mt-8 pt-6 border-t" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
-        <div className="flex items-baseline justify-between">
-          <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-            Closed for
-          </span>
-          <span
-            className="text-[12px] tnum"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Eid ul-Adha
-          </span>
-        </div>
-        <div className="flex items-baseline justify-between mt-2">
-          <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-            Holiday
-          </span>
-          <span className="text-[12px] tnum" style={{ color: "var(--text-primary)" }}>
-            Jun 7, 2026
-          </span>
-        </div>
-      </div>
-
-      <a
+      <Link
+        to="/reports"
+        hash="calendar"
         className="relative mt-6 inline-flex items-center gap-1 text-[12px] font-medium cursor-pointer"
         style={{ color: "var(--green-up)" }}
       >
-        Full calendar <ArrowUpRight className="w-3 h-3" />
-      </a>
+        Full calendar → <ArrowUpRight className="w-3 h-3" />
+      </Link>
     </motion.div>
   );
 }
+
 
 const tools = [
   { label: "Circuit breaker list", Icon: ShieldCheck },
@@ -254,36 +250,30 @@ function HelplineTile() {
 
 export function Resources() {
   return (
-    <section className="py-20 px-6 relative">
+    <section className="px-6 relative" style={{ paddingTop: 48, paddingBottom: 48 }}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
-          <div>
-            <div
-              className="text-[12px] uppercase tracking-[0.22em] mb-5"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Resources
-            </div>
-            <h2
-              className="text-[40px] md:text-[52px] font-semibold tracking-tight leading-[1.05]"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Read the market, <br />
-              on your own time.
-            </h2>
+        <div
+          className="flex items-center justify-between gap-4 mb-8 pb-3 border-b"
+          style={{ borderColor: "rgb(var(--ov) / 0.08)", maxHeight: 40 }}
+        >
+          <div
+            className="text-[11px] font-medium uppercase"
+            style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
+          >
+            Market reports &amp; tools
           </div>
-          <p
-            className="text-[17px] leading-[1.8] max-w-[48ch] lg:justify-self-end"
+          <Link
+            to="/reports"
+            className="text-[11px] font-medium inline-flex items-center gap-1"
             style={{ color: "var(--text-secondary)" }}
           >
-            Daily tapes, weekly bulletins, and the calendar that tells you when
-            the bell rings next — everything you need to stay close to the desk.
-          </p>
+            Browse archive → <ArrowUpRight className="w-3 h-3" />
+          </Link>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-x-16 gap-y-16">
+        <div className="grid lg:grid-cols-12 gap-x-16 gap-y-12">
           <ReportsPanel />
-          <div className="lg:col-span-5 space-y-12">
+          <div className="lg:col-span-5 space-y-10">
             <CalendarTile />
             <ToolsTile />
             <HelplineTile />

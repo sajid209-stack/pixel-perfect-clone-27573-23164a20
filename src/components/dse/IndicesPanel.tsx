@@ -177,35 +177,60 @@ export function IndicesPanel() {
   const low = Math.min(...series.map((d) => d.v));
 
   return (
-    <section className="py-20 px-6 relative">
+    <section className="px-6 relative" style={{ paddingTop: 48, paddingBottom: 48 }}>
       <div className="max-w-7xl mx-auto">
-        {/* Editorial header */}
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
-          <div>
+        {/* Compact header with period tabs */}
+        <div
+          className="flex items-center justify-between gap-4 mb-8 pb-3 border-b flex-wrap"
+          style={{ borderColor: "rgb(var(--ov) / 0.08)" }}
+        >
+          <div
+            className="text-[11px] font-medium uppercase"
+            style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
+          >
+            Index performance
+          </div>
+          <div className="flex items-center gap-4">
             <div
-              className="text-[12px] uppercase tracking-[0.22em] mb-5"
+              className="text-[11px] tnum hidden md:block"
               style={{ color: "var(--text-muted)" }}
             >
-              Index performance
+              DSEX · DS30 · DSES
             </div>
-            <h2
-              className="text-[40px] md:text-[52px] font-semibold tracking-tight leading-[1.05]"
-              style={{ color: "var(--text-primary)" }}
+            <div
+              className="flex gap-1 p-1 rounded-full"
+              style={{ background: "rgb(var(--ov) / 0.03)" }}
             >
-              The shape <br /> of the session.
-            </h2>
+              {periods.map((p) => {
+                const isActive = p === period;
+                return (
+                  <button
+                    key={p}
+                    onClick={() => setPeriod(p)}
+                    className={`period-tab ${p === "3M" ? "period-3m" : ""} relative px-3 py-1 text-[11px] tnum rounded-full transition-colors`}
+                    style={{
+                      color: isActive ? "var(--navy-deep)" : "var(--text-secondary)",
+                      fontWeight: isActive ? 600 : 400,
+                    }}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="periodActive"
+                        className="absolute inset-0 rounded-full"
+                        style={{ background: "var(--green-up)" }}
+                        transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
+                      />
+                    )}
+                    <span className="relative">{p}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <p
-            className="text-[17px] leading-[1.8] max-w-[46ch] lg:justify-self-end"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Three benchmarks, one tape. Pick an index and a window — the chart
-            redraws against the previous close so you can read the move at a glance.
-          </p>
         </div>
 
         {/* Index selector — 3 large interactive cards */}
-        <div className="index-cards-row grid md:grid-cols-3 gap-5 mb-14">
+        <div className="index-cards-row grid md:grid-cols-3 gap-5 mb-10">
           {indices.map((idx, i) => (
             <IndexCard
               key={idx.key}
@@ -226,7 +251,7 @@ export function IndicesPanel() {
           className="relative"
         >
           {/* Header strip */}
-          <div className="flex items-end justify-between flex-wrap gap-6 mb-10">
+          <div className="flex items-end justify-between flex-wrap gap-6 mb-8">
             <div className="flex items-baseline gap-5">
               <div
                 className="text-[12px] uppercase tracking-[0.22em]"
@@ -235,7 +260,7 @@ export function IndicesPanel() {
                 {active.name}
               </div>
               <div
-                className="text-[40px] md:text-[48px] font-semibold tnum tracking-tight leading-none"
+                className="text-[32px] md:text-[40px] font-semibold tnum tracking-tight leading-none"
                 style={{ color: "var(--text-primary)" }}
               >
                 {active.value.toLocaleString(undefined, { minimumFractionDigits: 2 })}
@@ -249,38 +274,8 @@ export function IndicesPanel() {
                 {active.change.toFixed(2)}%
               </div>
             </div>
-
-            {/* Period pills */}
-            <div
-              className="flex gap-1 p-1 rounded-full"
-              style={{ background: "rgb(var(--ov) / 0.03)" }}
-            >
-              {periods.map((p) => {
-                const isActive = p === period;
-                return (
-                  <button
-                    key={p}
-                    onClick={() => setPeriod(p)}
-                    className={`period-tab ${p === "3M" ? "period-3m" : ""} relative px-4 py-1.5 text-[12px] tnum rounded-full transition-colors`}
-                    style={{
-                      color: isActive ? "var(--navy-deep)" : "var(--text-secondary)",
-                      fontWeight: isActive ? 600 : 400,
-                    }}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="periodActive"
-                        className="absolute inset-0 rounded-full"
-                        style={{ background: "var(--green-up)" }}
-                        transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
-                      />
-                    )}
-                    <span className="relative">{p}</span>
-                  </button>
-                );
-              })}
-            </div>
           </div>
+
 
           {/* Stats row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{ borderColor: "rgb(var(--ov) / 0.05)" }}>
