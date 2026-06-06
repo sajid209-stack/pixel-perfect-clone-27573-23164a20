@@ -413,8 +413,8 @@
 @media (max-width: 768px) {
   /* ---- Group 2: Hero ---- */
   .hero-section, section[class*="hero"] {
-    min-height: 380px !important;
-    max-height: 480px !important;
+    min-height: 320px !important;
+    max-height: 400px !important;
   }
 
   .carousel-card h2,
