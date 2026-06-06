@@ -205,8 +205,14 @@ export function DualAudience() {
           {paths.map((p, i) => (
             <PathCard key={p.index} path={p} i={i} />
           ))}
+          <p
+            className="text-[14px] leading-[1.6] max-w-[52ch] lg:justify-self-end"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            Whether you're placing your first order or running a full portfolio,
+            the DSE gives you the data, tools, and guardrails to move with confidence.
+          </p>
         </div>
-      </div>
     </section>
   );
 }
