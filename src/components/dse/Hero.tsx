@@ -131,10 +131,10 @@ export function Hero() {
                       />
                       {story.eyebrow}
                     </div>
-                    <h2 className="text-[26px] md:text-[34px] font-semibold tracking-tight leading-[1.15] text-white">
+                    <h2 className="text-[20px] md:text-[34px] font-semibold tracking-tight leading-[1.15] text-white">
                       {story.title}
                     </h2>
-                    <p className="mt-4 text-[14.5px] md:text-[15.5px] leading-[1.65] text-white/70">
+                    <p className="mt-4 text-[13px] md:text-[15.5px] leading-[1.65] text-white/70">
                       {story.desc}
                     </p>
                     <Link
