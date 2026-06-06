@@ -57,47 +57,14 @@ function FooterLinkItem({ item }: { item: FooterLink }) {
 }
 
 function FooterColumn({ col }: { col: typeof cols[number] }) {
-  const [open, setOpen] = useState(false);
   return (
     <div className="footer-col">
-      {/* Desktop: always-visible heading + list */}
-      <div className="hidden md:block">
-        <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>{col.title}</div>
-        <ul className="space-y-2 text-sm" style={{ color: "var(--text-secondary)" }}>
-          {col.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
-        </ul>
+      <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+        {col.title}
       </div>
-      {/* Mobile: accordion */}
-      <div
-        className="md:hidden"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
-      >
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="w-full flex items-center justify-between text-sm font-semibold"
-          style={{ color: "var(--text-primary)", minHeight: 48, padding: "0 4px" }}
-          aria-expanded={open}
-        >
-          <span>{col.title}</span>
-          <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronDown className="w-4 h-4" />
-          </motion.span>
-        </button>
-        <AnimatePresence initial={false}>
-          {open && (
-            <motion.ul
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden space-y-2 text-sm pb-4 pl-1"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              {col.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
-            </motion.ul>
-          )}
-        </AnimatePresence>
-      </div>
+      <ul className="space-y-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+        {col.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
+      </ul>
     </div>
   );
 }
