@@ -33,7 +33,7 @@ const links: NavItem[] = [
   { label: "News", to: "/news", mega: "news", activePaths: ["/news"] },
   { label: "Learn", to: "/learn", mega: "learn", activePaths: ["/learn"] },
   { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/complaints", "/members"] },
-  { label: "Contact", href: "#footer" },
+  
 ];
 
 /* ─────────────── shared dropdown atoms ─────────────── */
