@@ -354,15 +354,54 @@
   .dsex-chart { height: 120px !important; }
 }
 
-/* ========= Global mobile rules ========= */
-@media (max-width: 768px) {
-  /* Carousel mobile typography */
-  .hero-stat-pills { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-  .hero-mini-pills { gap: 6px; }
-  .hero-mini-pills > div { font-size: 10px !important; padding: 3px 8px; }
+/* ========= Hero stat pills (base) ========= */
+.hero-stat-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 16px;
+}
+.pill-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stat-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+}
+.stat-pill strong {
+  color: #fff;
+  font-weight: 600;
+}
 
-  /* Hero carousel headline + body tighter */
-  section h2 { font-size: 22px; line-height: 1.2; }
-  /* Carousel title - override md:text-[34px] via specificity */
-  .hero-stat-pills + * { font-size: 14px; }
+/* ========= Mobile groups 2–7 (<=768px) ========= */
+@media (max-width: 768px) {
+  /* Hero pills tighter */
+  .hero-stat-pills { margin-top: 12px; }
+  .pill-row { gap: 6px; }
+  .stat-pill { font-size: 10px !important; padding: 3px 10px !important; }
+
+  /* Carousel arrows hidden on mobile */
+  [class*="prev-arrow"],
+  [class*="next-arrow"],
+  [class*="carousel-arrow"],
+  [class*="nav-arrow"] { display: none !important; }
+
+  /* Two paths */
+  .dual-card { padding: 18px 16px !important; }
+  .dual-audience-grid { gap: 10px !important; }
+  .dual-bg-chart { display: none !important; }
+
+  /* Resources */
+  .report-meta { display: none !important; }
+
+  /* Footer column stack */
+  footer .grid { gap: 0 !important; }
 }
