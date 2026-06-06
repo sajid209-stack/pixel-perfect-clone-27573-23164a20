@@ -8,8 +8,8 @@ type FooterLink = { label: string; to: string; hash?: string; soon?: boolean };
 
 const marketsLinks: FooterLink[] = [
   { label: "Equities", to: "/companies" },
-  { label: "Bonds", to: "/bonds" },
-  { label: "Mutual Funds", to: "/funds" },
+  { label: "Bonds", to: "/companies" },
+  { label: "Mutual Funds", to: "/companies" },
   { label: "SME Board", to: "/companies" },
   { label: "Indices", to: "/indices" },
   { label: "Historical data", to: "/reports" },
