@@ -249,7 +249,7 @@ function ToolsCard() {
 
 export function Resources() {
   return (
-    <section className="px-6 relative" style={{ paddingTop: 40, paddingBottom: 40 }}>
+    <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
         <div
           className="flex items-center justify-between gap-4 mb-6 pb-3 border-b"

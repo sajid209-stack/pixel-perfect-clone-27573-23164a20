@@ -578,10 +578,7 @@ function IpoCell() {
 
 export function CompactMarketGrid() {
   return (
-    <section
-      className="px-6 relative"
-      style={{ paddingTop: 32, paddingBottom: 32 }}
-    >
+    <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div

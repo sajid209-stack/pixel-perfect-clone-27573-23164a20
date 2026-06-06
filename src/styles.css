@@ -695,3 +695,19 @@
   p  { font-size: 14px !important; line-height: 1.65 !important; }
   h2 br, h3 br { display: none !important; }
 }
+
+/* Homepage section spacing — uniform across content sections */
+.home-section {
+  padding-top: 64px !important;
+  padding-bottom: 64px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+@media (max-width: 768px) {
+  .home-section {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}

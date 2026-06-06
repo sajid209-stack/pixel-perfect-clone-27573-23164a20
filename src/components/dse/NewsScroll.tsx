@@ -35,8 +35,8 @@ const news: NewsItem[] = [
 
 export function NewsScroll() {
   return (
-    <section className="relative" style={{ paddingTop: 48, paddingBottom: 48 }}>
-      <div className="max-w-7xl mx-auto px-6 mb-8 flex items-end justify-between gap-6">
+    <section className="home-section relative">
+      <div className="max-w-7xl mx-auto mb-8 flex items-end justify-between gap-6">
         <div>
           <div
             className="text-[12px] uppercase tracking-[0.22em] mb-3"
@@ -61,7 +61,7 @@ export function NewsScroll() {
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto">
         <div className="news-grid grid grid-cols-1 md:grid-cols-3 gap-5">
           {news.map((n, i) => (
             <article
