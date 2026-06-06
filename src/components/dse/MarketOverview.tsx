@@ -153,7 +153,15 @@ type TabKey = keyof typeof tabs;
 
 function MoversPanel() {
   const [tab, setTab] = useState<TabKey>("Top gainers");
+  const [expanded, setExpanded] = useState<Record<TabKey, boolean>>({
+    "Top gainers": false,
+    "Top losers": false,
+    "Most active": false,
+  });
   const rows = tabs[tab];
+  const isExpanded = expanded[tab];
+  const visibleRows = isExpanded ? rows : rows.slice(0, 3);
+  const hiddenCount = rows.length - 3;
   const showVolume = tab === "Most active";
 
   return (
@@ -194,7 +202,7 @@ function MoversPanel() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-1"
         >
-          {rows.map((r, i) => {
+          {visibleRows.map((r, i) => {
             const up = r.change >= 0;
             return (
               <motion.div
@@ -278,6 +286,22 @@ function MoversPanel() {
           <div className="h-px w-full" style={{ background: "rgb(var(--ov) / 0.05)" }} />
         </motion.div>
       </AnimatePresence>
+
+      {hiddenCount > 0 && (
+        <div className="text-center mt-3">
+          <button
+            onClick={() =>
+              setExpanded((p) => ({ ...p, [tab]: !p[tab] }))
+            }
+            className="text-[11px] font-medium hover:underline"
+            style={{ color: "var(--navy-mid, #3b5378)" }}
+          >
+            {isExpanded
+              ? "Show less ↑"
+              : `Show ${hiddenCount} more ↓`}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
