@@ -21,7 +21,7 @@ const stories: Story[] = [
     cta: "View company",
     ctaTo: "/company/WALTONHIL",
     image:
-      "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=800&q=75",
     accent: "#10F0A0",
   },
   {
@@ -31,7 +31,7 @@ const stories: Story[] = [
     cta: "Explore the index",
     ctaTo: "/indices",
     image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=75",
     accent: "#7FD9B0",
   },
   {
@@ -41,7 +41,7 @@ const stories: Story[] = [
     cta: "Browse market reports",
     ctaTo: "/reports",
     image:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=75",
     accent: "#4FD1C5",
   },
 ];
