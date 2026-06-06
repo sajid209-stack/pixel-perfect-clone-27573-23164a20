@@ -719,8 +719,9 @@ export function Nav() {
       </div>
 
 
-      {/* Mobile drawer: right slide-in with overlay */}
-      <AnimatePresence>
+      {/* Mobile drawer: portal to body so backdrop-filter on header doesn't trap fixed positioning */}
+      {typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
         {mobileOpen && (
           <>
             {/* Overlay */}
