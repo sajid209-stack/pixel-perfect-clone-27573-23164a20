@@ -876,8 +876,8 @@ export function Nav() {
 const mobileSubLinks: Record<string, { label: string; to: string; hash?: string }[]> = {
   Markets: [
     { label: "Market overview", to: "/" },
-    { label: "Equities screener", to: "/companies" },
-    { label: "Market reports", to: "/reports" },
+    { label: "Equities", to: "/companies" },
+    { label: "Reports", to: "/reports" },
   ],
   Companies: [
     { label: "All companies", to: "/companies" },
@@ -891,7 +891,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
   ],
   IPO: [
     { label: "Open subscriptions", to: "/ipo" },
-    { label: "Upcoming IPOs", to: "/ipo" },
+    { label: "Upcoming", to: "/ipo" },
     { label: "How to apply", to: "/ipo" },
   ],
   News: [
@@ -901,7 +901,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
   ],
   Learn: [
     { label: "Getting started", to: "/learn" },
-    { label: "Investor glossary", to: "/learn" },
+    { label: "Glossary", to: "/learn" },
     { label: "How IPOs work", to: "/learn" },
   ],
   "About DSE": [
