@@ -36,7 +36,7 @@ const news: NewsItem[] = [
 export function NewsScroll() {
   return (
     <section className="home-section relative">
-      <div className="max-w-7xl mx-auto px-6 mb-8 flex items-end justify-between gap-6">
+      <div className="max-w-7xl mx-auto mb-8 flex items-end justify-between gap-6">
         <div>
           <div
             className="text-[12px] uppercase tracking-[0.22em] mb-3"
