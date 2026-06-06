@@ -71,7 +71,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
       whileHover={{ y: -4 }}
       className="group relative cursor-pointer"
     >
-      <div className="dual-card relative rounded-2xl overflow-hidden p-10 lg:p-12 h-full flex flex-col"
+      <div className="dual-card relative rounded-2xl overflow-hidden h-full flex flex-col p-[18px] md:p-6"
         style={{
           background:
             "linear-gradient(160deg, rgb(var(--ov) / 0.04) 0%, rgb(var(--ov) / 0.01) 100%)",
