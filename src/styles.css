@@ -367,3 +367,16 @@
   .dsex-stats .dsex-stat { border-left: none !important; }
   .dsex-chart { height: 120px !important; }
 }
+
+/* ========= Global mobile rules ========= */
+@media (max-width: 768px) {
+  /* Carousel mobile typography */
+  .hero-stat-pills { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .hero-mini-pills { gap: 6px; }
+  .hero-mini-pills > div { font-size: 10px !important; padding: 3px 8px; }
+
+  /* Hero carousel headline + body tighter */
+  section h2 { font-size: 22px; line-height: 1.2; }
+  /* Carousel title - override md:text-[34px] via specificity */
+  .hero-stat-pills + * { font-size: 14px; }
+}
