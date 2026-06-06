@@ -574,9 +574,9 @@
   [class*="heatmap-cell"],
   [class*="sector-cell"] {
     flex-shrink: 0 !important;
-    min-width: 86px !important;
-    width: 86px !important;
-    height: 78px !important;
+    min-width: 84px !important;
+    width: 84px !important;
+    height: 76px !important;
     scroll-snap-align: start;
     border-radius: 8px !important;
     grid-column: auto !important;
