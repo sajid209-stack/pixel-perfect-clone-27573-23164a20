@@ -60,7 +60,7 @@ export function Hero() {
 
   return (
     <section className="relative">
-      <div className="max-w-[1440px] mx-auto px-6 pt-12 pb-16">
+      <div className="max-w-[1440px] mx-auto px-6 pt-0 pb-16">
 
         {/* Featured carousel */}
         <div
