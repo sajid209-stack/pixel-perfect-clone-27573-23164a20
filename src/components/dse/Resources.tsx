@@ -250,36 +250,30 @@ function HelplineTile() {
 
 export function Resources() {
   return (
-    <section className="py-20 px-6 relative">
+    <section className="px-6 relative" style={{ paddingTop: 48, paddingBottom: 48 }}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
-          <div>
-            <div
-              className="text-[12px] uppercase tracking-[0.22em] mb-5"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Resources
-            </div>
-            <h2
-              className="text-[40px] md:text-[52px] font-semibold tracking-tight leading-[1.05]"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Read the market, <br />
-              on your own time.
-            </h2>
+        <div
+          className="flex items-center justify-between gap-4 mb-8 pb-3 border-b"
+          style={{ borderColor: "rgb(var(--ov) / 0.08)", maxHeight: 40 }}
+        >
+          <div
+            className="text-[11px] font-medium uppercase"
+            style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
+          >
+            Market reports &amp; tools
           </div>
-          <p
-            className="text-[17px] leading-[1.8] max-w-[48ch] lg:justify-self-end"
+          <Link
+            to="/reports"
+            className="text-[11px] font-medium inline-flex items-center gap-1"
             style={{ color: "var(--text-secondary)" }}
           >
-            Daily tapes, weekly bulletins, and the calendar that tells you when
-            the bell rings next — everything you need to stay close to the desk.
-          </p>
+            Browse archive → <ArrowUpRight className="w-3 h-3" />
+          </Link>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-x-16 gap-y-16">
+        <div className="grid lg:grid-cols-12 gap-x-16 gap-y-12">
           <ReportsPanel />
-          <div className="lg:col-span-5 space-y-12">
+          <div className="lg:col-span-5 space-y-10">
             <CalendarTile />
             <ToolsTile />
             <HelplineTile />
