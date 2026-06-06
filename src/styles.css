@@ -241,22 +241,8 @@
   .ipo-pipeline-grid { max-height: none !important; }
   .ipo-progress { height: 8px !important; }
 
-  /* Hero stat pills — horizontal scroll strip */
-  .hero-stat-pills {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 10px !important;
-    scrollbar-width: none;
-  }
-  .hero-stat-pills::-webkit-scrollbar { display: none; }
-  .hero-stat-pills > div {
-    flex-shrink: 0;
-    min-width: 150px;
-    scroll-snap-align: start;
-  }
+  /* (hero-stat-pills mobile rules moved to global block below) */
+
 
   /* Indices: horizontal scroll cards */
   .index-cards-row {
