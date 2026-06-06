@@ -62,7 +62,7 @@ export function NewsScroll() {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <div className="news-grid grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="news-grid gap-5">
           {news.map((n, i) => (
             <article
               key={i}
@@ -117,6 +117,29 @@ export function NewsScroll() {
           ))}
         </div>
       </div>
+      <style>{`
+        .news-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        @media (max-width: 768px) {
+          .news-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            margin: 0 -16px;
+            padding: 0 16px 8px;
+          }
+          .news-grid::-webkit-scrollbar { display: none; }
+          .news-card {
+            flex: 0 0 86%;
+            max-width: 320px;
+            scroll-snap-align: start;
+          }
+        }
+      `}</style>
     </section>
   );
 }
