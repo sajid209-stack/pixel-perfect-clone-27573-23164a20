@@ -718,86 +718,155 @@ export function Nav() {
       </div>
 
 
-
-      {/* Mobile drawer */}
+      {/* Mobile drawer: right slide-in with overlay */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden overflow-hidden"
-            style={{ background: "rgb(var(--surface-rgb) / 0.95)", backdropFilter: "blur(20px)" }}
-          >
-            <div className="px-4 py-3 flex flex-col">
-              {/* Live DSEX pill */}
+          <>
+            {/* Overlay */}
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden fixed inset-0 z-50"
+              style={{ background: "rgba(0,0,0,0.4)" }}
+              onClick={() => setMobileOpen(false)}
+            />
+            {/* Drawer */}
+            <motion.aside
+              key="drawer"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden fixed top-0 right-0 bottom-0 z-50 flex flex-col"
+              style={{
+                width: "min(85vw, 320px)",
+                background: "rgb(var(--surface-rgb) / 0.98)",
+                backdropFilter: "blur(20px)",
+                boxShadow: "-10px 0 40px rgba(0,0,0,0.3)",
+              }}
+            >
+              {/* Header: logo + close */}
               <div
-                className="mb-3 flex items-center justify-between px-3 py-2 rounded-lg"
-                style={{ background: "rgb(var(--ov) / 0.04)" }}
+                className="flex items-center justify-between px-4"
+                style={{ height: 64, borderBottom: "1px solid rgb(var(--ov) / 0.08)" }}
               >
-                <span className="text-[12px] font-semibold tracking-wider" style={{ color: "var(--text-muted)" }}>
-                  DSEX
-                </span>
-                <span className="text-[13px] tnum" style={{ color: "var(--text-primary)" }}>
-                  6,241.30 <span style={{ color: "var(--green-up)" }}>▲ 0.30%</span>
-                </span>
+                <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
+                  <img src={dseLogo} alt="DSE" className="w-8 h-8 object-contain" />
+                  <span className="text-[14px] font-semibold" style={{ color: "var(--text-primary)" }}>
+                    DSE
+                  </span>
+                </Link>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="w-9 h-9 flex items-center justify-center rounded-lg"
+                  style={{ color: "var(--text-primary)", background: "rgb(var(--ov) / 0.04)" }}
+                  aria-label="Close menu"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
 
-              {links.map((l) => {
-                const subs = mobileSubLinks[l.label];
-                if (l.href || !subs) {
-                  return l.href ? (
-                    <a
+              {/* Scrollable body */}
+              <div className="flex-1 overflow-y-auto px-3 py-3">
+                {/* DSEX pill */}
+                <div
+                  className="flex items-center justify-between px-3 mb-3 rounded-lg"
+                  style={{
+                    background: "#0F172A",
+                    color: "#fff",
+                    height: 40,
+                    fontSize: 12,
+                  }}
+                >
+                  <span className="font-semibold tracking-wider">DSEX</span>
+                  <span className="tnum">
+                    6,241.30 <span style={{ color: "var(--green-up)" }}>▲ 0.30%</span>
+                  </span>
+                </div>
+
+                {/* Divider */}
+                <div style={{ height: 1, background: "rgb(var(--ov) / 0.08)" }} className="mb-2" />
+
+                {/* Nav links */}
+                {links.map((l) => {
+                  const subs = mobileSubLinks[l.label];
+                  if (l.href || !subs) {
+                    return l.href ? (
+                      <a
+                        key={l.label}
+                        href={l.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center px-3 rounded-lg"
+                        style={{
+                          height: 52,
+                          fontSize: 16,
+                          fontWeight: 500,
+                          color: "var(--text-primary)",
+                        }}
+                      >
+                        {l.label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={l.label}
+                        to={l.to!}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center px-3 rounded-lg"
+                        style={{
+                          height: 52,
+                          fontSize: 16,
+                          fontWeight: 500,
+                          color: "var(--text-primary)",
+                        }}
+                      >
+                        {l.label}
+                      </Link>
+                    );
+                  }
+                  return (
+                    <MobileNavItem
                       key={l.label}
-                      href={l.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="flex items-center justify-between px-3 py-3 text-[16px] font-medium rounded-lg"
-                      style={{ color: "var(--text-primary)" }}
-                    >
-                      {l.label}
-                    </a>
-                  ) : (
-                    <Link
-                      key={l.label}
+                      label={l.label}
                       to={l.to!}
-                      onClick={() => setMobileOpen(false)}
-                      className="flex items-center justify-between px-3 py-3 text-[16px] font-medium rounded-lg"
-                      style={{ color: "var(--text-primary)" }}
-                    >
-                      {l.label}
-                    </Link>
+                      subs={subs}
+                      onNavigate={() => setMobileOpen(false)}
+                    />
                   );
-                }
-                return (
-                  <MobileNavItem
-                    key={l.label}
-                    label={l.label}
-                    to={l.to!}
-                    subs={subs}
-                    onNavigate={() => setMobileOpen(false)}
-                  />
-                );
-              })}
+                })}
 
-              <div
-                className="mt-3 flex items-center justify-between px-3 py-3 rounded-lg"
-                style={{ background: "rgb(var(--ov) / 0.04)" }}
-              >
-                <span className="text-[14px] font-medium" style={{ color: "var(--text-primary)" }}>
-                  Theme
-                </span>
-                <ThemeToggle />
+                {/* Divider */}
+                <div style={{ height: 1, background: "rgb(var(--ov) / 0.08)" }} className="my-2" />
+
+                {/* Dark mode row */}
+                <div
+                  className="flex items-center justify-between px-3 rounded-lg"
+                  style={{ height: 52 }}
+                >
+                  <span
+                    className="text-[15px] font-medium"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    Dark mode
+                  </span>
+                  <ThemeToggle />
+                </div>
+
+                {/* Language row */}
+                <button
+                  className="w-full flex items-center justify-between px-3 rounded-lg text-left"
+                  style={{ height: 52, color: "var(--text-primary)" }}
+                >
+                  <span className="text-[15px] font-medium">Language</span>
+                  <span className="text-[14px]" style={{ color: "var(--text-secondary)" }}>
+                    EN / বাং
+                  </span>
+                </button>
               </div>
-              <a
-                href="#footer"
-                onClick={() => setMobileOpen(false)}
-                className="mt-3 inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-sm font-semibold"
-                style={{ background: "var(--green-up)", color: "#07090A" }}
-              >
-                Contact <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </div>
-          </motion.div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </motion.header>
