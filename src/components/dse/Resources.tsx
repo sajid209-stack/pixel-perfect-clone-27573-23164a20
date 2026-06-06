@@ -100,6 +100,12 @@ function ReportsPanel() {
 
 /* ---------- Side rail: calendar countdown + tools + helpline ---------- */
 
+const upcomingSessions = [
+  { day: "08", month: "Jun", note: "Regular session · 10:00 BST" },
+  { day: "09", month: "Jun", note: "Regular session · 10:00 BST" },
+  { day: "10", month: "Jun", note: "Regular session · 10:00 BST" },
+];
+
 function CalendarTile() {
   return (
     <motion.div
@@ -107,75 +113,53 @@ function CalendarTile() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="relative rounded-2xl overflow-hidden p-8"
+      className="relative rounded-2xl overflow-hidden p-6"
       style={{
         background:
           "linear-gradient(160deg, rgba(127,217,176,0.06) 0%, rgb(var(--ov) / 0.01) 100%)",
       }}
     >
-      <div
-        className="absolute inset-0 pointer-events-none opacity-50"
-        style={{
-          background:
-            "radial-gradient(60% 60% at 100% 0%, rgba(127,217,176,0.10), transparent 70%)",
-        }}
-      />
-      <div className="relative flex items-start justify-between">
+      <div className="relative flex items-start justify-between mb-5">
         <div
           className="text-[11px] uppercase tracking-[0.22em]"
           style={{ color: "var(--text-muted)" }}
         >
-          Next session
+          Next sessions
         </div>
         <CalendarDays className="w-4 h-4" style={{ color: "var(--green-up)" }} />
       </div>
 
-      <div className="relative mt-8">
-        <div
-          className="text-[64px] leading-none font-semibold tnum tracking-tight"
-          style={{ color: "var(--text-primary)" }}
-        >
-          08
-        </div>
-        <div
-          className="text-[14px] mt-2 tnum"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          June 2026 · 10:00 AM BST
-        </div>
+      <div className="relative space-y-3">
+        {upcomingSessions.map((s) => (
+          <div key={s.day + s.month} className="flex items-center gap-4">
+            <div
+              className="text-[22px] tnum font-semibold leading-none w-9"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {s.day}
+            </div>
+            <div className="text-[11px] uppercase tracking-wider tnum w-10" style={{ color: "var(--text-muted)" }}>
+              {s.month}
+            </div>
+            <div className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
+              {s.note}
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="relative mt-8 pt-6 border-t" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
-        <div className="flex items-baseline justify-between">
-          <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-            Closed for
-          </span>
-          <span
-            className="text-[12px] tnum"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Eid ul-Adha
-          </span>
-        </div>
-        <div className="flex items-baseline justify-between mt-2">
-          <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-            Holiday
-          </span>
-          <span className="text-[12px] tnum" style={{ color: "var(--text-primary)" }}>
-            Jun 7, 2026
-          </span>
-        </div>
-      </div>
-
-      <a
+      <Link
+        to="/reports"
+        hash="calendar"
         className="relative mt-6 inline-flex items-center gap-1 text-[12px] font-medium cursor-pointer"
         style={{ color: "var(--green-up)" }}
       >
-        Full calendar <ArrowUpRight className="w-3 h-3" />
-      </a>
+        Full calendar → <ArrowUpRight className="w-3 h-3" />
+      </Link>
     </motion.div>
   );
 }
+
 
 const tools = [
   { label: "Circuit breaker list", Icon: ShieldCheck },
