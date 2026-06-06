@@ -478,9 +478,9 @@
   [class*="stat-cards"] > *,
   [class*="glass-cards"] > * {
     flex-shrink: 0 !important;
-    min-width: 130px !important;
+    min-width: 128px !important;
     max-width: 150px !important;
-    height: 72px !important;
+    height: 68px !important;
     scroll-snap-align: start;
     padding: 10px 12px !important;
   }
