@@ -338,25 +338,81 @@ function DisclosuresCell() {
   );
 }
 
-/* ---------- Cell D — DSEX index chart ---------- */
+/* ---------- Cell D — Index chart (DSEX / DS30 / DSES) ---------- */
 
 const idxPeriods = ["1D", "1W", "1M", "YTD"] as const;
 type IdxPeriod = (typeof idxPeriods)[number];
 
+type IndexKey = "DSEX" | "DS30" | "DSES";
+
+const indexMeta: Record<IndexKey, {
+  value: number;
+  change: number;
+  changePct: number;
+  open: string;
+  high: number;
+  low: number;
+  vol: string;
+  trend: "up" | "mild-up" | "flat-down";
+  base: number;
+}> = {
+  DSEX: { value: 6241.30, change: 18.40, changePct: 0.30, open: "6,225.10", high: 6241, low: 6192, vol: "312.4M", trend: "up", base: 6200 },
+  DS30: { value: 2118.40, change: 3.80, changePct: 0.18, open: "2,112.60", high: 2120, low: 2108, vol: "98.2M", trend: "mild-up", base: 2110 },
+  DSES: { value: 1340.20, change: -0.70, changePct: -0.05, open: "1,341.50", high: 1343, low: 1338, vol: "41.7M", trend: "flat-down", base: 1341 },
+};
+
+function makeSeries(idx: IndexKey, period: IdxPeriod): { t: string; v: number }[] {
+  const labels = indexData[period].map((d) => d.t);
+  const meta = indexMeta[idx];
+  const n = labels.length;
+  const span = meta.value * (period === "1D" ? 0.008 : period === "1W" ? 0.015 : period === "1M" ? 0.03 : 0.08);
+  return labels.map((t, i) => {
+    const p = i / Math.max(1, n - 1);
+    let v: number;
+    if (meta.trend === "up") {
+      v = meta.base + span * p + Math.sin(i * 1.2) * span * 0.12;
+    } else if (meta.trend === "mild-up") {
+      v = meta.base + span * p * 0.6 + Math.sin(i * 0.9) * span * 0.08;
+    } else {
+      v = meta.value + Math.sin(i * 1.4) * span * 0.1 - span * 0.05 * p;
+    }
+    return { t, v: Math.round(v * 100) / 100 };
+  });
+}
+
 function IndexCell() {
   const [period, setPeriod] = useState<IdxPeriod>("1D");
-  const series = indexData[period];
+  const [idx, setIdx] = useState<IndexKey>("DSEX");
+  const meta = indexMeta[idx];
+  const up = meta.change >= 0;
+  const series = makeSeries(idx, period);
   const high = Math.max(...series.map((d) => d.v));
   const low = Math.min(...series.map((d) => d.v));
+  const lineColor = up ? "var(--green-up)" : "var(--red-down)";
+  const lineColorRaw = up ? "rgba(22,169,116,1)" : "rgba(217,65,94,1)";
+  const others = (Object.keys(indexMeta) as IndexKey[]).filter((k) => k !== idx);
+  const gradId = `idxC-${idx}`;
 
   return (
     <Cell>
       <div className="flex items-center justify-between gap-2 mb-2">
-        <div
-          className="text-[11px] font-medium uppercase"
-          style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
-        >
-          DSEX
+        <div className="flex gap-0.5">
+          {(Object.keys(indexMeta) as IndexKey[]).map((k) => {
+            const active = k === idx;
+            return (
+              <button
+                key={k}
+                onClick={() => setIdx(k)}
+                className="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide transition"
+                style={{
+                  color: active ? "#07090A" : "var(--text-muted)",
+                  background: active ? "var(--green-up)" : "transparent",
+                }}
+              >
+                {k}
+              </button>
+            );
+          })}
         </div>
         <div className="flex gap-0.5">
           {idxPeriods.map((p) => {
@@ -367,8 +423,8 @@ function IndexCell() {
                 onClick={() => setPeriod(p)}
                 className="px-2 py-0.5 rounded-full text-[10px] font-medium tnum transition"
                 style={{
-                  color: active ? "#07090A" : "var(--text-muted)",
-                  background: active ? "var(--green-up)" : "transparent",
+                  color: active ? "var(--text-primary)" : "var(--text-muted)",
+                  background: active ? "rgb(var(--ov) / 0.08)" : "transparent",
                 }}
               >
                 {p}
@@ -378,97 +434,116 @@ function IndexCell() {
         </div>
       </div>
 
-      <div className="flex items-baseline gap-2 mb-1">
-        <div
-          className="text-[20px] font-semibold tnum tracking-tight"
-          style={{ color: "var(--text-primary)" }}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -4 }}
+          transition={{ duration: 0.25 }}
         >
-          6,241.30
-        </div>
-        <div className="text-[12px] tnum" style={{ color: "var(--green-up)" }}>
-          ▲ 18.40 · +0.30%
-        </div>
-      </div>
-
-      <div className="dsex-chart h-[100px] -mx-1">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={series} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
-            <defs>
-              <linearGradient id="dsexC" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--navy-mid, #3b5378)" stopOpacity={0.4} />
-                <stop offset="100%" stopColor="var(--navy-mid, #3b5378)" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <XAxis dataKey="t" hide />
-            <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
-            <Tooltip
-              cursor={{ stroke: "rgb(var(--ov) / 0.15)", strokeDasharray: "3 3" }}
-              contentStyle={{
-                borderRadius: 8,
-                border: "none",
-                background: "rgba(15,20,18,0.92)",
-                color: "#fff",
-                fontSize: 11,
-                padding: "4px 8px",
-              }}
-            />
-            <Area
-              type="monotone"
-              dataKey="v"
-              stroke="var(--navy-mid, #3b5378)"
-              strokeWidth={1.6}
-              fill="url(#dsexC)"
-              isAnimationActive
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-
-      <div className="dsex-stats mt-2 grid grid-cols-4 gap-1 text-center">
-        {[
-          { l: "Open", v: "6,225.10" },
-          { l: "High", v: high.toLocaleString() },
-          { l: "Low", v: low.toLocaleString() },
-          { l: "Vol", v: "312.4M" },
-        ].map((s, i) => (
-          <div
-            key={s.l}
-            className="dsex-stat"
-            style={{
-              borderLeft: i > 0 ? "1px solid rgb(var(--ov) / 0.08)" : "none",
-            }}
-          >
+          <div className="flex items-baseline gap-2 mb-1">
             <div
-              className="text-[9px] uppercase tracking-wider"
-              style={{ color: "var(--text-muted)" }}
-            >
-              {s.l}
-            </div>
-            <div
-              className="text-[11px] font-medium tnum"
+              className="text-[20px] font-semibold tnum tracking-tight"
               style={{ color: "var(--text-primary)" }}
             >
-              {s.v}
+              {meta.value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </div>
+            <div className="text-[12px] tnum" style={{ color: lineColor }}>
+              {up ? "▲" : "▼"} {Math.abs(meta.change).toFixed(2)} · {up ? "+" : ""}
+              {meta.changePct.toFixed(2)}%
             </div>
           </div>
-        ))}
-      </div>
+
+          <div className="dsex-chart h-[100px] -mx-1">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={series} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={lineColorRaw} stopOpacity={0.35} />
+                    <stop offset="100%" stopColor={lineColorRaw} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="t" hide />
+                <YAxis hide domain={["dataMin - 2", "dataMax + 2"]} />
+                <Tooltip
+                  cursor={{ stroke: "rgb(var(--ov) / 0.15)", strokeDasharray: "3 3" }}
+                  contentStyle={{
+                    borderRadius: 8,
+                    border: "none",
+                    background: "rgba(15,20,18,0.92)",
+                    color: "#fff",
+                    fontSize: 11,
+                    padding: "4px 8px",
+                  }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="v"
+                  stroke={lineColor}
+                  strokeWidth={1.6}
+                  fill={`url(#${gradId})`}
+                  isAnimationActive
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="dsex-stats mt-2 grid grid-cols-4 gap-1 text-center">
+            {[
+              { l: "Open", v: meta.open },
+              { l: "High", v: Math.max(meta.high, high).toLocaleString() },
+              { l: "Low", v: Math.min(meta.low, low).toLocaleString() },
+              { l: "Vol", v: meta.vol },
+            ].map((s, i) => (
+              <div
+                key={s.l}
+                className="dsex-stat"
+                style={{
+                  borderLeft: i > 0 ? "1px solid rgb(var(--ov) / 0.08)" : "none",
+                }}
+              >
+                <div
+                  className="text-[9px] uppercase tracking-wider"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {s.l}
+                </div>
+                <div
+                  className="text-[11px] font-medium tnum"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {s.v}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
       <div className="mt-2 pt-2 border-t space-y-1" style={{ borderColor: "rgb(var(--ov) / 0.05)" }}>
-        <div className="flex items-center justify-between text-[11px]">
-          <span style={{ color: "var(--text-secondary)" }}>DS30</span>
-          <span>
-            <span className="tnum" style={{ color: "var(--text-primary)" }}>2,118.40</span>{" "}
-            <span className="tnum" style={{ color: "var(--green-up)" }}>▲0.18%</span>
-          </span>
-        </div>
-        <div className="flex items-center justify-between text-[11px]">
-          <span style={{ color: "var(--text-secondary)" }}>DSES</span>
-          <span>
-            <span className="tnum" style={{ color: "var(--text-primary)" }}>1,340.20</span>{" "}
-            <span className="tnum" style={{ color: "var(--red-down)" }}>▼0.05%</span>
-          </span>
-        </div>
+        {others.map((k) => {
+          const m = indexMeta[k];
+          const u = m.change >= 0;
+          return (
+            <button
+              key={k}
+              onClick={() => setIdx(k)}
+              className="w-full flex items-center justify-between text-[11px] rounded px-1 py-0.5 -mx-1 hover:bg-[rgb(var(--ov)/0.04)] transition"
+            >
+              <span style={{ color: "var(--text-secondary)" }}>{k}</span>
+              <span>
+                <span className="tnum" style={{ color: "var(--text-primary)" }}>
+                  {m.value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </span>{" "}
+                <span className="tnum" style={{ color: u ? "var(--green-up)" : "var(--red-down)" }}>
+                  {u ? "▲" : "▼"}
+                  {Math.abs(m.changePct).toFixed(2)}%
+                </span>
+              </span>
+            </button>
+          );
+        })}
       </div>
     </Cell>
   );
