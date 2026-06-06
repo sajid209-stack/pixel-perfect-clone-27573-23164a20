@@ -929,8 +929,8 @@ function MobileNavItem({
         <Link
           to={to}
           onClick={onNavigate}
-          className="flex-1 px-3 py-3 text-[16px] font-medium rounded-lg"
-          style={{ color: "var(--text-primary)" }}
+          className="flex-1 flex items-center px-3 rounded-lg"
+          style={{ height: 52, fontSize: 16, fontWeight: 500, color: "var(--text-primary)" }}
         >
           {label}
         </Link>
@@ -955,15 +955,15 @@ function MobileNavItem({
             transition={{ duration: 0.18 }}
             className="overflow-hidden"
           >
-            <div className="pl-6 pb-2">
+            <div className="pb-2" style={{ paddingLeft: 24 }}>
               {subs.map((s) => (
                 <Link
                   key={s.label}
                   to={s.to}
                   hash={s.hash}
                   onClick={onNavigate}
-                  className="block py-2 text-[14px]"
-                  style={{ color: "var(--text-secondary)" }}
+                  className="flex items-center"
+                  style={{ minHeight: 44, fontSize: 14, color: "var(--text-secondary)" }}
                 >
                   {s.label}
                 </Link>
