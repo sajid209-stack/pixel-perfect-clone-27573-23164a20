@@ -12,6 +12,7 @@ import {
   Landmark,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
 import { ThemeToggle } from "./ThemeToggle";
@@ -718,8 +719,9 @@ export function Nav() {
       </div>
 
 
-      {/* Mobile drawer: right slide-in with overlay */}
-      <AnimatePresence>
+      {/* Mobile drawer: portal to body so backdrop-filter on header doesn't trap fixed positioning */}
+      {typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
         {mobileOpen && (
           <>
             {/* Overlay */}
@@ -868,7 +870,9 @@ export function Nav() {
             </motion.aside>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+        document.body
+      )}
     </motion.header>
   );
 }
