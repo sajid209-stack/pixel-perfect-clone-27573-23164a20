@@ -413,8 +413,8 @@
 @media (max-width: 768px) {
   /* ---- Group 2: Hero ---- */
   .hero-section, section[class*="hero"] {
-    min-height: 380px !important;
-    max-height: 480px !important;
+    min-height: 320px !important;
+    max-height: 400px !important;
   }
 
   .carousel-card h2,
@@ -478,9 +478,9 @@
   [class*="stat-cards"] > *,
   [class*="glass-cards"] > * {
     flex-shrink: 0 !important;
-    min-width: 130px !important;
+    min-width: 128px !important;
     max-width: 150px !important;
-    height: 72px !important;
+    height: 68px !important;
     scroll-snap-align: start;
     padding: 10px 12px !important;
   }
@@ -574,9 +574,9 @@
   [class*="heatmap-cell"],
   [class*="sector-cell"] {
     flex-shrink: 0 !important;
-    min-width: 86px !important;
-    width: 86px !important;
-    height: 78px !important;
+    min-width: 84px !important;
+    width: 84px !important;
+    height: 76px !important;
     scroll-snap-align: start;
     border-radius: 8px !important;
     grid-column: auto !important;
