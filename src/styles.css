@@ -405,3 +405,293 @@
   /* Footer column stack */
   footer .grid { gap: 0 !important; }
 }
+
+/* ========================================================
+   FIX GROUPS 2–7 — Mobile spec (<=768px)
+   ======================================================== */
+
+@media (max-width: 768px) {
+  /* ---- Group 2: Hero ---- */
+  .hero-section, section[class*="hero"] {
+    min-height: 380px !important;
+    max-height: 480px !important;
+  }
+
+  .carousel-card h2,
+  .carousel-card [class*="headline"],
+  .carousel-card [class*="title"] {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 8px !important;
+  }
+  .carousel-card p,
+  .carousel-card [class*="body"],
+  .carousel-card [class*="description"] {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+  .carousel-card [class*="category"],
+  .carousel-card [class*="label"],
+  .carousel-card [class*="tag"] {
+    font-size: 10px !important;
+    margin-bottom: 6px !important;
+  }
+  .carousel-card a[class*="button"],
+  .carousel-card button,
+  .carousel-card [class*="cta"] {
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: 12px !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+  }
+  .carousel-card [class*="content"],
+  .carousel-card [class*="inner"] {
+    padding: 20px 16px !important;
+  }
+
+  [class*="prev-arrow"],
+  [class*="next-arrow"],
+  [class*="carousel-arrow"],
+  [class*="nav-arrow"] { display: none !important; }
+
+  /* Hero glassmorphism stat cards -> horizontal scroll strip */
+  [class*="stat-cards"],
+  [class*="glass-cards"],
+  [class*="stats-grid"] {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    padding-bottom: 4px !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none !important;
+    grid-template-columns: unset !important;
+  }
+  [class*="stat-cards"]::-webkit-scrollbar,
+  [class*="glass-cards"]::-webkit-scrollbar { display: none !important; }
+  [class*="stat-cards"] > *,
+  [class*="glass-cards"] > * {
+    flex-shrink: 0 !important;
+    min-width: 130px !important;
+    max-width: 150px !important;
+    height: 72px !important;
+    scroll-snap-align: start;
+    padding: 10px 12px !important;
+  }
+
+  /* Hero pills */
+  .hero-stat-pills { margin-top: 12px; }
+  .pill-row { gap: 6px; }
+  .stat-pill { font-size: 10px !important; padding: 3px 10px !important; }
+
+  /* ---- Group 3: Two paths ---- */
+  [class*="two-paths"],
+  [class*="paths-section"] {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+  [class*="two-paths"] h2 {
+    font-size: 22px !important;
+    margin-bottom: 6px !important;
+  }
+  [class*="two-paths"] > p,
+  [class*="two-paths"] [class*="subtitle"] {
+    font-size: 13px !important;
+    margin-bottom: 16px !important;
+  }
+  [class*="path-card"],
+  .dual-card,
+  [class*="paths-section"] [class*="card"] {
+    padding: 18px 16px !important;
+  }
+  [class*="paths-grid"],
+  .dual-audience-grid,
+  [class*="paths-section"] [class*="grid"] {
+    gap: 10px !important;
+  }
+  [class*="path-card"] svg,
+  [class*="path-card"] canvas,
+  [class*="path-card"] [class*="chart"],
+  [class*="path-card"] [class*="sparkline"],
+  .dual-bg-chart { display: none !important; }
+  [class*="path-card"] [class*="list-item"],
+  [class*="path-card"] li,
+  .dual-card li {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    font-size: 13px !important;
+  }
+
+  /* ---- Group 4: Data grid ---- */
+  [class*="market-grid"],
+  [class*="data-grid"],
+  [class*="today-grid"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    grid-template-areas: none !important;
+    grid-template-columns: unset !important;
+    grid-template-rows: unset !important;
+  }
+  [class*="market-grid"] > *,
+  [class*="data-grid"] > *,
+  [class*="today-grid"] > * {
+    width: 100% !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+    grid-area: unset !important;
+    border-radius: 10px !important;
+  }
+
+  /* Stacking order — actual class names: cell-d=DSEX, cell-b=movers, cell-a=heatmap, cell-c=disclosures, cell-e=ipo */
+  .compact-market-grid .cell-d { order: 1 !important; }
+  .compact-market-grid .cell-b { order: 2 !important; }
+  .compact-market-grid .cell-a { order: 3 !important; }
+  .compact-market-grid .cell-c { order: 4 !important; }
+  .compact-market-grid .cell-e { order: 5 !important; }
+
+  /* Heatmap horizontal scroll */
+  [class*="heatmap-grid"],
+  [class*="sectors-grid"] {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: none !important;
+    grid-template-columns: unset !important;
+    grid-auto-rows: auto !important;
+  }
+  [class*="heatmap-grid"]::-webkit-scrollbar { display: none !important; }
+  [class*="heatmap-cell"],
+  [class*="sector-cell"] {
+    flex-shrink: 0 !important;
+    min-width: 86px !important;
+    width: 86px !important;
+    height: 78px !important;
+    scroll-snap-align: start;
+    border-radius: 8px !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  /* DSEX chart */
+  [class*="index-chart"],
+  .dsex-chart {
+    height: 130px !important;
+  }
+  [class*="chart-stats"],
+  [class*="ohlv-row"],
+  [class*="index-stats"],
+  .dsex-stats {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .dsex-stats .dsex-stat { border-left: none !important; }
+  [class*="period-tabs"] { gap: 4px !important; }
+  [class*="period-tab"] {
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+  }
+
+  /* Disclosure filter tabs */
+  [class*="filter-tabs"],
+  [class*="disclosure-filters"],
+  .disc-filters {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    scrollbar-width: none !important;
+    gap: 6px !important;
+    padding-bottom: 4px !important;
+  }
+  [class*="filter-tabs"]::-webkit-scrollbar,
+  .disc-filters::-webkit-scrollbar { display: none !important; }
+  [class*="filter-tab"],
+  [class*="disclosure-filter"] {
+    flex-shrink: 0 !important;
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+  }
+
+  /* Movers */
+  [class*="mover-rank"],
+  [class*="movers-table"] [class*="rank"] { display: none !important; }
+  .mover-row,
+  [class*="movers-table"] [class*="row"] {
+    min-height: 44px !important;
+  }
+  .mover-name,
+  [class*="company-name"] {
+    max-width: 120px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* ---- Group 5: Resources ---- */
+  [class*="resources"],
+  [class*="reports-section"] {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+  [class*="resources"] [class*="grid"],
+  [class*="resources"] [class*="columns"],
+  [class*="reports-section"] [class*="grid"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    grid-template-columns: unset !important;
+  }
+  [class*="report-size"],
+  [class*="file-size"],
+  .report-meta { display: none !important; }
+  [class*="report-row"] {
+    min-height: 44px !important;
+  }
+  [class*="calendar-row"],
+  [class*="session-row"] { min-height: 40px !important; }
+  [class*="investor-tools"] li,
+  [class*="tools-list"] li {
+    min-height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    font-size: 13px !important;
+  }
+
+  /* ---- Group 6: Footer column stack (accordion already in component) ---- */
+  footer [class*="grid"],
+  [class*="footer-columns"],
+  [class*="footer-grid"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+  footer button[aria-expanded] { min-height: 48px !important; }
+
+  /* ---- Group 7: Global spacing ---- */
+  .container,
+  [class*="max-w"],
+  [class*="wrapper"] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  section,
+  [class*="-section"],
+  [data-section] {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+  }
+  h2 { font-size: 22px !important; line-height: 1.2 !important; }
+  h3 { font-size: 18px !important; line-height: 1.25 !important; }
+  p  { font-size: 14px !important; line-height: 1.65 !important; }
+  h2 br, h3 br { display: none !important; }
+}
