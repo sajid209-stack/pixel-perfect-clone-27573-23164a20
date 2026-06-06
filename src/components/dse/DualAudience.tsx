@@ -71,7 +71,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
       whileHover={{ y: -4 }}
       className="group relative cursor-pointer"
     >
-      <div className="dual-card relative rounded-2xl overflow-hidden p-10 lg:p-12 h-full flex flex-col"
+      <div className="dual-card relative rounded-2xl overflow-hidden h-full flex flex-col p-[18px] md:p-6"
         style={{
           background:
             "linear-gradient(160deg, rgb(var(--ov) / 0.04) 0%, rgb(var(--ov) / 0.01) 100%)",
@@ -111,44 +111,38 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           }}
         />
 
-        <div className="relative flex items-start justify-between mb-10">
+        <div className="relative flex items-start justify-between mb-4">
           <span
-            className="text-[13px] tracking-[0.22em] uppercase tnum"
+            className="text-[11px] tracking-[0.22em] uppercase tnum"
             style={{ color: "var(--text-muted)" }}
           >
             {path.index} — {path.eyebrow}
           </span>
           <div
-            className="w-10 h-10 rounded-full flex items-center justify-center"
+            className="w-8 h-8 rounded-full flex items-center justify-center"
             style={{ background: "rgba(127,217,176,0.08)" }}
           >
-            <Icon className="w-4.5 h-4.5" style={{ color: "var(--green-up)", width: 18, height: 18 }} />
+            <Icon style={{ color: "var(--green-up)", width: 16, height: 16 }} />
           </div>
         </div>
 
         <div className="relative">
           <h3
-            className="text-[34px] md:text-[42px] font-semibold leading-[1.1] tracking-tight max-w-[14ch]"
+            className="text-[20px] md:text-[24px] font-semibold leading-[1.2] tracking-tight max-w-[18ch]"
             style={{ color: "var(--text-primary)" }}
           >
             {path.title}
           </h3>
-          <p
-            className="mt-6 text-[16px] leading-[1.75] max-w-[42ch]"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            {path.body}
-          </p>
         </div>
 
-        <div className="relative mt-12 space-y-px">
+        <div className="relative mt-4 space-y-px">
           {path.topics.map((t, idx) => (
             <div
               key={t.label}
-              className="flex items-center justify-between py-4 border-t group/row"
+              className="flex items-center justify-between py-2.5 border-t group/row"
               style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <span
                   className="text-[11px] tnum w-6"
                   style={{ color: "var(--text-muted)" }}
@@ -156,10 +150,10 @@ function PathCard({ path, i }: { path: Path; i: number }) {
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <div className="text-[15px]" style={{ color: "var(--text-primary)" }}>
+                  <div className="text-[13px]" style={{ color: "var(--text-primary)" }}>
                     {t.label}
                   </div>
-                  <div className="text-[12px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+                  <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
                     {t.sub}
                   </div>
                 </div>
@@ -174,7 +168,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 
         <Link
           to={path.ctaTo}
-          className="relative mt-10 inline-flex items-center gap-2 text-sm font-semibold group/cta w-fit"
+          className="relative mt-4 inline-flex items-center gap-2 text-[13px] font-semibold group/cta w-fit"
           style={{ color: "var(--green-up)" }}
         >
           {path.cta}
@@ -188,33 +182,26 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 
 export function DualAudience() {
   return (
-    <section className="px-6 relative" style={{ paddingTop: 56, paddingBottom: 56 }}>
+    <section className="px-6 relative" style={{ paddingTop: 24, paddingBottom: 24 }}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
+        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-6 mb-5 items-end">
           <div>
             <div
-              className="text-[12px] uppercase tracking-[0.22em] mb-5"
+              className="text-[11px] uppercase tracking-[0.22em] mb-2"
               style={{ color: "var(--text-muted)" }}
             >
               Get started
             </div>
             <h2
-              className="text-[40px] md:text-[52px] font-semibold tracking-tight leading-[1.05]"
+              className="text-[26px] md:text-[32px] font-semibold tracking-tight leading-[1.1]"
               style={{ color: "var(--text-primary)" }}
             >
               Two paths into the market.
             </h2>
           </div>
-          <p
-            className="text-[17px] leading-[1.8] max-w-[52ch] lg:justify-self-end"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Whether you're placing your first order or running a full portfolio,
-            the DSE gives you the data, tools, and guardrails to move with confidence.
-          </p>
         </div>
 
-        <div className="dual-audience-grid grid lg:grid-cols-2 gap-6 lg:gap-8">
+        <div className="dual-audience-grid grid lg:grid-cols-2 gap-3 lg:gap-6">
           {paths.map((p, i) => (
             <PathCard key={p.index} path={p} i={i} />
           ))}
