@@ -184,31 +184,24 @@ export function DualAudience() {
   return (
     <section className="px-6 relative" style={{ paddingTop: 24, paddingBottom: 24 }}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 mb-10 items-end">
+        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-6 mb-5 items-end">
           <div>
             <div
-              className="text-[12px] uppercase tracking-[0.22em] mb-5"
+              className="text-[11px] uppercase tracking-[0.22em] mb-2"
               style={{ color: "var(--text-muted)" }}
             >
               Get started
             </div>
             <h2
-              className="text-[40px] md:text-[52px] font-semibold tracking-tight leading-[1.05]"
+              className="text-[26px] md:text-[32px] font-semibold tracking-tight leading-[1.1]"
               style={{ color: "var(--text-primary)" }}
             >
               Two paths into the market.
             </h2>
           </div>
-          <p
-            className="text-[17px] leading-[1.8] max-w-[52ch] lg:justify-self-end"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Whether you're placing your first order or running a full portfolio,
-            the DSE gives you the data, tools, and guardrails to move with confidence.
-          </p>
         </div>
 
-        <div className="dual-audience-grid grid lg:grid-cols-2 gap-6 lg:gap-8">
+        <div className="dual-audience-grid grid lg:grid-cols-2 gap-3 lg:gap-6">
           {paths.map((p, i) => (
             <PathCard key={p.index} path={p} i={i} />
           ))}
