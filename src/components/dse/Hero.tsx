@@ -218,7 +218,6 @@ export function Hero() {
               );
             })}
           </div>
-        </div>
 
           {/* Stat pills — inside hero on dark background */}
           <div
