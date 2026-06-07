@@ -68,11 +68,16 @@
   --ov-inv: 255 255 255;
   --surface-rgb: 247 248 247;
 
+  /* Brand tints (space-separated for rgb(... / a) syntax). Used for brand panels, badges, soft backgrounds. */
+  --brand-tint: 22 169 116;
+  --brand-tint-strong: 22 169 116;
+
   --body-bg-img:
-    radial-gradient(1200px 800px at 80% -10%, rgba(22,169,116,0.07), transparent 65%),
-    radial-gradient(1000px 700px at -10% 50%, rgba(22,169,116,0.04), transparent 65%),
+    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint-strong) / 0.07), transparent 65%),
+    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint-strong) / 0.04), transparent 65%),
     linear-gradient(180deg, #F7F8F7 0%, #EEF1EF 60%, #F7F8F7 100%);
 }
+
 
 /* DARK THEME */
 .dark {
