@@ -374,7 +374,8 @@ function DisclosuresCell() {
               </span>
             </Link>
           );
-        })}
+        })
+        )}
       </div>
 
       <Link
