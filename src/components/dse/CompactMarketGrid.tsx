@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 import {
@@ -11,6 +11,21 @@ import {
   indexData,
 } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
+import { findCompany, type ShareCategory } from "@/data/companies";
+import { CategoryBadge } from "./CategoryBadge";
+
+function useBriefLoad(ms = 500) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), ms);
+    return () => clearTimeout(t);
+  }, [ms]);
+  return loading;
+}
+
+function categoryFor(code: string): ShareCategory {
+  return findCompany(code)?.category ?? "A";
+}
 
 /* ---------- Cell shell ---------- */
 
