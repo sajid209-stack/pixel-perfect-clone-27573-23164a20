@@ -138,9 +138,9 @@ function PathCard({ path, i }: { path: Path; i: number }) {
         </div>
 
         <div className="relative mt-4 space-y-px">
-          {path.topics.map((t, idx) => (
+          {path.topics.map((topic, idx) => (
             <div
-              key={t.label}
+              key={topic.label}
               className="flex items-center justify-between py-2.5 border-t group/row"
               style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
             >
@@ -153,10 +153,10 @@ function PathCard({ path, i }: { path: Path; i: number }) {
                 </span>
                 <div>
                   <div className="text-[13px]" style={{ color: "var(--text-primary)" }}>
-                    {t(t.label)}
+                    {t(topic.label)}
                   </div>
                   <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
-                    {t(t.sub)}
+                    {t(topic.sub)}
                   </div>
                 </div>
               </div>
@@ -173,7 +173,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           className="relative mt-4 inline-flex items-center gap-2 text-[13px] font-semibold group/cta w-fit"
           style={{ color: "var(--green-up)" }}
         >
-          {path.cta}
+          {t(path.cta)}
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
 
@@ -183,6 +183,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 }
 
 export function DualAudience() {
+  const { t } = useLang();
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
@@ -192,13 +193,13 @@ export function DualAudience() {
               className="text-[11px] uppercase tracking-[0.22em] mb-2"
               style={{ color: "var(--text-muted)" }}
             >
-              Get started
+              {t("Get started")}
             </div>
             <h2
               className="text-[26px] md:text-[32px] font-semibold tracking-tight leading-[1.1]"
               style={{ color: "var(--text-primary)" }}
             >
-              Two paths into the market.
+              {t("Two paths into the market.")}
             </h2>
           </div>
         </div>
