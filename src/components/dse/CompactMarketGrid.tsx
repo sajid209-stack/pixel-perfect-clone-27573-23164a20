@@ -435,6 +435,7 @@ function IndexCell() {
   const { t } = useLang();
   const [period, setPeriod] = useState<IdxPeriod>("1D");
   const [idx, setIdx] = useState<IndexKey>("DSEX");
+  const loading = useBriefLoad(500);
   const meta = indexMeta[idx];
   const up = meta.change >= 0;
   const series = makeSeries(idx, period);
@@ -486,6 +487,17 @@ function IndexCell() {
         </div>
       </div>
 
+      {loading ? (
+        <>
+          <div className="skeleton h-6 w-32 mb-2" />
+          <div className="skeleton h-[100px] w-full rounded-md" />
+          <div className="grid grid-cols-4 gap-1 mt-2">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="skeleton h-6" />
+            ))}
+          </div>
+        </>
+      ) : (
       <AnimatePresence mode="wait">
         <motion.div
           key={idx}
