@@ -179,7 +179,7 @@ function AboutPage() {
                 }}
               >
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-[14px] font-semibold shrink-0"
+                  className="w-14 h-[68px] rounded-lg flex items-center justify-center text-[14px] font-semibold shrink-0 overflow-hidden"
                   style={{ background: "#0f1b3d", color: "#ffffff" }}
                 >
                   {initials(d.name)}
