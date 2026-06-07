@@ -811,7 +811,7 @@ export function Nav() {
                           color: "var(--text-primary)",
                         }}
                       >
-                        {l.label}
+                        {t(l.label)}
                       </a>
                     ) : (
                       <Link
@@ -826,14 +826,14 @@ export function Nav() {
                           color: "var(--text-primary)",
                         }}
                       >
-                        {l.label}
+                        {t(l.label)}
                       </Link>
                     );
                   }
                   return (
                     <MobileNavItem
                       key={l.label}
-                      label={l.label}
+                      label={t(l.label)}
                       to={l.to!}
                       subs={subs}
                       onNavigate={() => setMobileOpen(false)}
@@ -853,19 +853,22 @@ export function Nav() {
                     className="text-[15px] font-medium"
                     style={{ color: "var(--text-primary)" }}
                   >
-                    Dark mode
+                    {t("Dark mode")}
                   </span>
                   <ThemeToggle />
                 </div>
 
                 {/* Language row */}
                 <button
+                  onClick={toggle}
                   className="w-full flex items-center justify-between px-3 rounded-lg text-left"
                   style={{ height: 52, color: "var(--text-primary)" }}
                 >
-                  <span className="text-[15px] font-medium">Language</span>
+                  <span className="text-[15px] font-medium">{t("Language")}</span>
                   <span className="text-[14px]" style={{ color: "var(--text-secondary)" }}>
-                    EN / বাং
+                    <span style={{ color: lang === "en" ? "var(--text-primary)" : undefined, fontWeight: lang === "en" ? 600 : 400 }}>EN</span>
+                    <span className="opacity-40"> / </span>
+                    <span className="bengali" style={{ color: lang === "bn" ? "var(--text-primary)" : undefined, fontWeight: lang === "bn" ? 600 : 400 }}>বাং</span>
                   </span>
                 </button>
               </div>
