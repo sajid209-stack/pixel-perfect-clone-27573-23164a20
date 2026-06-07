@@ -234,7 +234,7 @@ function MoversCell() {
             className="text-[11px] font-medium hover:underline"
             style={{ color: "var(--navy-mid, #3b5378)" }}
           >
-            {expanded ? "Show less ↑" : `Show ${rows.length - 3} more ↓`}
+            {expanded ? (t("Show less") + " ↑") : `${t("Show")} ${rows.length - 3} ${t("more")} ↓`}
           </button>
         </div>
       )}
@@ -254,6 +254,7 @@ const typeBadge: Record<string, { color: string; bg: string; label: string }> = 
 const discFilters = ["All", "Price sensitive", "Dividend", "AGM", "Regulatory"];
 
 function DisclosuresCell() {
+  const { t } = useLang();
   const [filter, setFilter] = useState("All");
   return (
     <Cell style={{ display: "flex", flexDirection: "column" }}>
@@ -262,10 +263,10 @@ function DisclosuresCell() {
           className="text-[11px] font-medium uppercase"
           style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
         >
-          Live disclosures
+          {t("Live disclosures")}
         </div>
         <span className="text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
-          47 today
+          47 {t("today")}
         </span>
       </div>
 
@@ -285,7 +286,7 @@ function DisclosuresCell() {
                 background: active ? "var(--green-up)" : "rgb(var(--ov) / 0.04)",
               }}
             >
-              {f}
+              {t(f)}
             </button>
           );
         })}
@@ -335,7 +336,7 @@ function DisclosuresCell() {
         className="text-[11px] font-medium hover:underline mt-3 inline-block"
         style={{ color: "var(--navy-mid, #3b5378)" }}
       >
-        View all 47 filings →
+        {t("View all")} 47 →
       </Link>
     </Cell>
   );
