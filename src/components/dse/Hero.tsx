@@ -18,6 +18,11 @@ type Story = {
   accent: string;
 };
 
+// Accent is theme-aware via CSS var; in green theme this resolves to brand green,
+// in blue theme to navy/primary. Per-story differentiation is achieved via opacity layering.
+const ACCENT = "var(--primary)";
+const OVERLAY = "var(--navy-deep)";
+
 const stories: Story[] = [
   {
     eyebrow: "Listing",
@@ -27,7 +32,7 @@ const stories: Story[] = [
     ctaTo: "/company/WALTONHIL",
     image: heroBoardroom,
     alt: "Executives in a corporate boardroom reviewing listing documents",
-    accent: "#10F0A0",
+    accent: ACCENT,
   },
   {
     eyebrow: "Market data",
@@ -37,7 +42,7 @@ const stories: Story[] = [
     ctaTo: "/indices",
     image: heroTrading,
     alt: "Stock market candlestick chart on a trading terminal",
-    accent: "#7FD9B0",
+    accent: ACCENT,
   },
   {
     eyebrow: "Investor education",
@@ -47,7 +52,7 @@ const stories: Story[] = [
     ctaTo: "/reports",
     image: heroDhaka,
     alt: "Dhaka city skyline at sunrise with modern financial buildings",
-    accent: "#4FD1C5",
+    accent: ACCENT,
   },
 ];
 
@@ -92,11 +97,12 @@ export function Hero() {
                   alt={story.alt}
                   className="w-full h-full object-cover"
                 />
-                {/* Brand tint overlay */}
+                {/* Brand tint overlay — theme-aware (navy in blue, deep-green in green) */}
                 <div
                   className="absolute inset-0"
                   style={{
-                    background: `linear-gradient(105deg, ${story.accent}33 0%, transparent 55%)`,
+                    background: `linear-gradient(105deg, ${OVERLAY} 0%, transparent 55%)`,
+                    opacity: 0.2,
                   }}
                 />
                 {/* Readability gradient */}
