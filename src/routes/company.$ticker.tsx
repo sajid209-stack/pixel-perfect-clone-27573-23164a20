@@ -15,6 +15,9 @@ import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { StarButton } from "@/components/dse/StarButton";
+import { CategoryBadge } from "@/components/dse/CategoryBadge";
+import { useRecentlyViewed } from "@/lib/userPrefs";
 import {
   buildSeries,
   companies,
@@ -60,7 +63,6 @@ const tabs = [
   { id: "price", label: "Price & Charts" },
   { id: "financials", label: "Financials" },
   { id: "announcements", label: "Announcements" },
-  { id: "directors", label: "Directors" },
   { id: "similar", label: "Similar companies" },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
@@ -99,6 +101,8 @@ function CompanyPage() {
   const [tab, setTab] = useState<TabId>("overview");
   const up = co.change >= 0;
   const series = useMemo(() => buildSeries(co, period), [co, period]);
+  const { push } = useRecentlyViewed();
+  useEffect(() => { push(co.code); }, [co.code, push]);
 
   return (
     <div className="min-h-screen">
@@ -131,11 +135,15 @@ function CompanyPage() {
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Back to market
             </Link>
-            <div
-              className="text-[14px] font-bold tnum tracking-wide"
-              style={{ color: "var(--green-up)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
-            >
-              {co.code}
+            <div className="flex items-center gap-2">
+              <div
+                className="text-[14px] font-bold tnum tracking-wide"
+                style={{ color: "var(--green-up)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
+              >
+                {co.code}
+              </div>
+              <CategoryBadge category={co.category} />
+              <StarButton code={co.code} size={16} />
             </div>
             <h1
               className="mt-1 text-[28px] md:text-[34px] font-semibold tracking-tight leading-[1.1]"
@@ -237,7 +245,6 @@ function CompanyPage() {
             )}
             {tab === "financials" && <FinancialsTab co={co} />}
             {tab === "announcements" && <AnnouncementsTab co={co} />}
-            {tab === "directors" && <DirectorsTab co={co} />}
             {tab === "similar" && <SimilarTab co={co} />}
           </motion.div>
         </AnimatePresence>
@@ -274,8 +281,7 @@ function OverviewTab({
       {/* Right col */}
       <div className="space-y-6">
         <AboutCard co={co} />
-        <FinancialSnapshot co={co} />
-        <ShareholdersCard co={co} />
+        <ShareholdingPatternCard co={co} />
         <RecentAnnouncementsCard co={co} />
       </div>
     </div>
@@ -442,40 +448,73 @@ function PriceStatsRow({ co }: { co: Company }) {
 }
 
 function StatsGrid({ co }: { co: Company }) {
-  const items = [
-    { label: "Market Cap", value: formatBDT(co.marketCap) },
-    { label: "P/E Ratio", value: `${co.pe.toFixed(1)}x` },
-    { label: "EPS (TTM)", value: `৳ ${co.eps.toFixed(2)}` },
-    { label: "Dividend Yield", value: `${co.dividendYield.toFixed(2)}%` },
-    { label: "Book Value", value: `৳ ${co.bookValue.toFixed(2)}` },
-    { label: "Free Float", value: `${co.freeFloat}%` },
-  ];
+  const pct = Math.max(
+    0,
+    Math.min(
+      100,
+      ((co.price - co.weekLow52) / Math.max(0.0001, co.weekHigh52 - co.weekLow52)) * 100,
+    ),
+  );
   return (
     <div>
-      <div className="text-[11px] uppercase tracking-[0.22em] mb-4"
-        style={{ color: "var(--text-muted)" }}>
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-4" style={{ color: "var(--text-muted)" }}>
         Key statistics
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {items.map((s) => (
-          <div
-            key={s.label}
-            className="p-5 rounded-xl"
-            style={{
-              background: "rgb(var(--ov) / 0.025)",
-              border: "1px solid rgb(var(--ov) / 0.06)",
-            }}
-          >
-            <div className="text-[11px] uppercase tracking-wider"
-              style={{ color: "var(--text-muted)" }}>
-              {s.label}
+        <StatTile label="Market Cap" value={formatBDT(co.marketCap)} />
+        <StatTile label="P/E Ratio" value={`${co.pe.toFixed(1)}x`} />
+        <StatTile label="EPS (TTM)" value={`৳ ${co.eps.toFixed(2)}`} />
+        <StatTile label="NAV / Share" value={`৳ ${co.nav.toFixed(2)}`} />
+        <StatTile label="Face Value" value={`৳ ${co.faceValue.toFixed(2)}`} />
+        <StatTile label="Paid-up Capital" value={formatBDT(co.paidUpCapital)} />
+
+        {/* 52-week range — spans full row */}
+        <div
+          className="col-span-2 md:col-span-3 p-5 rounded-xl"
+          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <div className="flex items-baseline justify-between mb-3">
+            <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+              52-week range
             </div>
-            <div className="mt-2 text-[18px] font-medium tnum tracking-tight"
-              style={{ color: "var(--text-primary)" }}>
-              {s.value}
+            <div className="text-[12px] tnum" style={{ color: "var(--text-secondary)" }}>
+              Current ৳ {co.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
           </div>
-        ))}
+          <div
+            className="relative h-1.5 rounded-full overflow-hidden"
+            style={{ background: "rgb(var(--ov) / 0.08)" }}
+          >
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
+              style={{
+                left: `calc(${pct}% - 5px)`,
+                background: "var(--green-up)",
+                boxShadow: "0 0 0 3px rgba(127,217,176,0.25)",
+              }}
+            />
+          </div>
+          <div className="mt-2 flex items-center justify-between text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+            <span>Low ৳ {co.weekLow52.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+            <span>High ৳ {co.weekHigh52.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatTile({ label, value }: { label: string; value: string }) {
+  return (
+    <div
+      className="p-5 rounded-xl"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+        {label}
+      </div>
+      <div className="mt-2 text-[18px] font-medium tnum tracking-tight" style={{ color: "var(--text-primary)" }}>
+        {value}
       </div>
     </div>
   );
@@ -488,10 +527,10 @@ function AboutCard({ co }: { co: Company }) {
         {co.description}
       </p>
       <dl className="mt-5 grid grid-cols-2 gap-3 text-[12px]">
-        <Meta label="Founded" value={String(co.founded)} />
+        <Meta label="Sector" value={co.sector} />
         <Meta label="HQ" value={co.hq} />
-        {co.employees && <Meta label="Employees" value={co.employees.toLocaleString()} />}
         <Meta label="Board" value={co.board} />
+        <Meta label="Category" value={co.category} />
       </dl>
       {co.website && (
         <a
@@ -509,57 +548,85 @@ function AboutCard({ co }: { co: Company }) {
   );
 }
 
-function FinancialSnapshot({ co }: { co: Company }) {
-  if (!co.financials) return null;
-  const rows: [string, string][] = [
-    ["Revenue (FY25)", co.financials.revenue],
-    ["Net Profit", co.financials.netProfit],
-    ["Net Margin", co.financials.netMargin],
-    ["ROE", co.financials.roe],
-    ["Debt/Equity", co.financials.debtEquity],
-  ];
+const SHAREHOLDING_ROWS: { key: keyof NonNullable<Company["sharePattern"]>; label: string; color: string }[] = [
+  { key: "sponsor",     label: "Sponsor / Director", color: "var(--green-up)" },
+  { key: "government",  label: "Government",         color: "#4FD1C5" },
+  { key: "institution", label: "Institution",        color: "#7FD9B0" },
+  { key: "foreign",     label: "Foreign",            color: "#C6A969" },
+  { key: "public",      label: "Public",             color: "#9FB7A6" },
+];
+
+function ShareholdingPatternCard({ co }: { co: Company }) {
+  if (!co.sharePattern) return null;
+  const sp = co.sharePattern;
   return (
-    <SidebarCard title="Financial snapshot">
-      <dl className="space-y-2.5">
-        {rows.map(([k, v]) => (
-          <div key={k} className="flex items-baseline justify-between text-[13px]">
-            <dt style={{ color: "var(--text-muted)" }}>{k}</dt>
-            <dd className="tnum font-medium" style={{ color: "var(--text-primary)" }}>{v}</dd>
-          </div>
-        ))}
-      </dl>
+    <SidebarCard title="Shareholding pattern">
+      <div className="space-y-3">
+        {SHAREHOLDING_ROWS.map((r, i) => {
+          const pct = sp[r.key] ?? 0;
+          return (
+            <div key={r.key}>
+              <div className="flex items-baseline justify-between text-[13px] mb-1">
+                <span style={{ color: "var(--text-secondary)" }}>{r.label}</span>
+                <span className="tnum font-medium" style={{ color: "var(--text-primary)" }}>
+                  {pct.toFixed(1)}%
+                </span>
+              </div>
+              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.06)" }}>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${Math.min(100, pct)}%` }}
+                  transition={{ duration: 0.9, delay: 0.04 * i, ease: [0.16, 1, 0.3, 1] }}
+                  className="h-full"
+                  style={{ background: r.color }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </SidebarCard>
   );
 }
 
-function ShareholdersCard({ co }: { co: Company }) {
-  if (!co.shareholders) return null;
-  const palette = ["var(--green-up)", "#7FD9B0", "#4FD1C5"];
+function DividendHistoryCard({ co }: { co: Company }) {
+  if (!co.dividendHistory?.length) return null;
   return (
-    <SidebarCard title="Top shareholders">
-      <div className="space-y-3">
-        {co.shareholders.map((s, i) => (
-          <div key={s.name}>
-            <div className="flex items-baseline justify-between text-[13px] mb-1">
-              <span style={{ color: "var(--text-secondary)" }}>{s.name}</span>
-              <span className="tnum font-medium" style={{ color: "var(--text-primary)" }}>
-                {s.pct.toFixed(1)}%
-              </span>
-            </div>
-            <div className="h-1.5 rounded-full overflow-hidden"
-              style={{ background: "rgb(var(--ov) / 0.06)" }}>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${s.pct}%` }}
-                transition={{ duration: 1, delay: 0.05 * i, ease: [0.16, 1, 0.3, 1] }}
-                className="h-full"
-                style={{ background: palette[i % palette.length] }}
-              />
-            </div>
-          </div>
-        ))}
+    <section
+      className="rounded-2xl p-6 md:p-8"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <h2 className="text-[20px] font-semibold mb-5" style={{ color: "var(--text-primary)" }}>
+        Dividend history
+      </h2>
+      <div className="overflow-x-auto">
+        <table className="w-full text-[13px]">
+          <thead>
+            <tr
+              className="text-[11px] uppercase tracking-wider"
+              style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}
+            >
+              <th className="text-left py-2.5 pr-4 font-medium">Year</th>
+              <th className="text-right py-2.5 px-4 font-medium">Cash %</th>
+              <th className="text-right py-2.5 pl-4 font-medium">Stock %</th>
+            </tr>
+          </thead>
+          <tbody>
+            {co.dividendHistory.map((d) => (
+              <tr key={d.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                <td className="py-3 pr-4 tnum" style={{ color: "var(--text-primary)" }}>{d.year}</td>
+                <td className="py-3 px-4 text-right tnum" style={{ color: "var(--text-secondary)" }}>
+                  {d.cash > 0 ? `${d.cash}%` : "—"}
+                </td>
+                <td className="py-3 pl-4 text-right tnum" style={{ color: "var(--text-secondary)" }}>
+                  {d.stock > 0 ? `${d.stock}%` : "—"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </SidebarCard>
+    </section>
   );
 }
 
@@ -596,37 +663,30 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
 function FinancialsTab({ co }: { co: Company }) {
   return (
     <div className="grid lg:grid-cols-[2fr_1fr] gap-8">
-      <section
-        className="rounded-2xl p-8"
-        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
-      >
-        <h2 className="text-[20px] font-semibold mb-6" style={{ color: "var(--text-primary)" }}>
-          Annual performance
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {co.financials &&
-            Object.entries(co.financials).map(([k, v]) => (
-              <div
-                key={k}
-                className="p-5 rounded-xl"
-                style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
-              >
-                <div className="text-[11px] uppercase tracking-wider"
-                  style={{ color: "var(--text-muted)" }}>
-                  {k.replace(/([A-Z])/g, " $1")}
-                </div>
-                <div className="mt-2 text-[20px] font-medium tnum"
-                  style={{ color: "var(--text-primary)" }}>
-                  {v}
-                </div>
-              </div>
-            ))}
-        </div>
-      </section>
-      <ShareholdersCard co={co} />
+      <div className="space-y-8">
+        <section
+          className="rounded-2xl p-6 md:p-8"
+          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <h2 className="text-[20px] font-semibold mb-6" style={{ color: "var(--text-primary)" }}>
+            Per-share metrics
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <StatTile label="EPS (TTM)" value={`৳ ${co.eps.toFixed(2)}`} />
+            <StatTile label="NAV / Share" value={`৳ ${co.nav.toFixed(2)}`} />
+            <StatTile label="Face Value" value={`৳ ${co.faceValue.toFixed(2)}`} />
+            <StatTile label="Dividend Yield" value={`${co.dividendYield.toFixed(2)}%`} />
+            <StatTile label="P/E Ratio" value={`${co.pe.toFixed(1)}x`} />
+            <StatTile label="Paid-up Capital" value={formatBDT(co.paidUpCapital)} />
+          </div>
+        </section>
+        <DividendHistoryCard co={co} />
+      </div>
+      <ShareholdingPatternCard co={co} />
     </div>
   );
 }
+
 
 function AnnouncementsTab({ co }: { co: Company }) {
   const items = co.recentAnnouncements ?? [];

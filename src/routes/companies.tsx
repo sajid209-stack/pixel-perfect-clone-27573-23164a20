@@ -1,12 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUp, ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, Search, SlidersHorizontal, Star, X } from "lucide-react";
 
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
-import { companies, formatBDT, formatVolume, type Company } from "@/data/companies";
+import { StarButton } from "@/components/dse/StarButton";
+import { CategoryBadge } from "@/components/dse/CategoryBadge";
+import { useWatchlist, useRecentlyViewed } from "@/lib/userPrefs";
+import { companies, findCompany, formatBDT, formatVolume, type Company } from "@/data/companies";
 
 export const Route = createFileRoute("/companies")({
   head: () => ({
@@ -49,12 +52,15 @@ const columns: { key: SortKey; label: string; align: "left" | "right"; w: string
 const sectors = ["All", ...Array.from(new Set(companies.map((c) => c.sector)))];
 const boards = ["All", ...Array.from(new Set(companies.map((c) => c.board)))];
 const movers = ["All", "Gainers", "Losers"] as const;
+const categories = ["All", "A", "B", "N", "Z"] as const;
 
 function ScreenerPage() {
   const [query, setQuery] = useState("");
   const [sector, setSector] = useState<string>("All");
   const [board, setBoard] = useState<string>("All");
   const [mover, setMover] = useState<(typeof movers)[number]>("All");
+  const [category, setCategory] = useState<(typeof categories)[number]>("All");
+  const [watchOnly, setWatchOnly] = useState(false);
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({
     key: "marketCap",
     dir: "desc",
@@ -65,6 +71,9 @@ function ScreenerPage() {
     return () => clearTimeout(t);
   }, []);
 
+  const { items: watchItems, has: isWatched } = useWatchlist();
+  const { items: recentItems } = useRecentlyViewed();
+
   const filtered: Company[] = useMemo(() => {
     const q = query.trim().toLowerCase();
     let rows = companies.filter((c) => {
@@ -72,6 +81,8 @@ function ScreenerPage() {
       if (board !== "All" && c.board !== board) return false;
       if (mover === "Gainers" && c.changePct <= 0) return false;
       if (mover === "Losers" && c.changePct >= 0) return false;
+      if (category !== "All" && c.category !== category) return false;
+      if (watchOnly && !isWatched(c.code)) return false;
       if (q && !(c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)))
         return false;
       return true;
@@ -87,7 +98,7 @@ function ScreenerPage() {
         : (vb as number) - (va as number);
     });
     return rows;
-  }, [query, sector, board, mover, sort]);
+  }, [query, sector, board, mover, category, watchOnly, isWatched, sort]);
 
   const stats = useMemo(() => {
     const total = filtered.length;
@@ -108,6 +119,8 @@ function ScreenerPage() {
     (sector !== "All" ? 1 : 0) +
     (board !== "All" ? 1 : 0) +
     (mover !== "All" ? 1 : 0) +
+    (category !== "All" ? 1 : 0) +
+    (watchOnly ? 1 : 0) +
     (query ? 1 : 0);
 
   const reset = () => {
@@ -115,7 +128,14 @@ function ScreenerPage() {
     setSector("All");
     setBoard("All");
     setMover("All");
+    setCategory("All");
+    setWatchOnly(false);
   };
+
+  const recents = useMemo(
+    () => recentItems.map((c) => findCompany(c)).filter((x): x is Company => !!x),
+    [recentItems],
+  );
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
@@ -178,6 +198,23 @@ function ScreenerPage() {
           <Pill label="Sector" value={sector} options={sectors} onChange={setSector} />
           <Pill label="Board" value={board} options={boards} onChange={setBoard} />
           <SegPill value={mover} options={[...movers]} onChange={(v) => setMover(v as typeof mover)} />
+          <CategoryChips value={category} onChange={setCategory} />
+
+          <button
+            type="button"
+            onClick={() => setWatchOnly((v) => !v)}
+            className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5 transition"
+            style={{
+              background: watchOnly ? "rgba(245,179,0,0.12)" : "rgb(var(--ov) / 0.04)",
+              border: `1px solid ${watchOnly ? "rgba(245,179,0,0.45)" : "rgb(var(--ov) / 0.06)"}`,
+              color: watchOnly ? "#f5b300" : "var(--text-secondary)",
+            }}
+            aria-pressed={watchOnly}
+            title="Show only watchlisted companies"
+          >
+            <Star className="w-3 h-3" fill={watchOnly ? "#f5b300" : "none"} />
+            Watchlist {watchItems.length > 0 ? `· ${watchItems.length}` : ""}
+          </button>
 
           <div className="flex-1" />
 
@@ -200,6 +237,36 @@ function ScreenerPage() {
           </div>
         </div>
       </section>
+
+      {/* Recently viewed */}
+      {recents.length > 0 && (
+        <section className="max-w-[1440px] mx-auto px-6 pt-5">
+          <div
+            className="text-[11px] uppercase tracking-[0.18em] mb-2"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Recently viewed
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {recents.map((c) => (
+              <Link
+                key={c.code}
+                to="/company/$ticker"
+                params={{ ticker: c.code }}
+                className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-[12px] transition"
+                style={{
+                  background: "rgb(var(--ov) / 0.04)",
+                  border: "1px solid rgb(var(--ov) / 0.06)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{c.code}</span>
+                <CategoryBadge category={c.category} size="xs" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Table */}
       <section className="max-w-[1440px] mx-auto px-6 py-8">
@@ -288,30 +355,36 @@ function ScreenerPage() {
                         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                       >
                         <td className="px-4 py-3.5">
-                          <Link
-                            to="/company/$ticker"
-                            params={{ ticker: c.code }}
-                            className="block"
-                          >
-                            <div className="flex items-center gap-3 min-w-0">
-                              <div
-                                className="w-9 h-9 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0"
-                                style={{
-                                  background: "rgb(var(--ov) / 0.05)",
-                                  color: "var(--text-primary)",
-                                  border: "1px solid rgb(var(--ov) / 0.06)",
-                                }}
-                              >
-                                {c.code.slice(0, 2)}
-                              </div>
-                              <div className="min-w-0">
-                                <div className="font-semibold tracking-tight">{c.code}</div>
-                                <div className="text-[11.5px] truncate" style={{ color: "var(--text-muted)" }}>
-                                  {c.name} · {c.sector}
+                          <div className="flex items-center gap-2 min-w-0">
+                            <StarButton code={c.code} size={13} />
+                            <Link
+                              to="/company/$ticker"
+                              params={{ ticker: c.code }}
+                              className="block flex-1 min-w-0"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div
+                                  className="w-9 h-9 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0"
+                                  style={{
+                                    background: "rgb(var(--ov) / 0.05)",
+                                    color: "var(--text-primary)",
+                                    border: "1px solid rgb(var(--ov) / 0.06)",
+                                  }}
+                                >
+                                  {c.code.slice(0, 2)}
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="font-semibold tracking-tight">{c.code}</span>
+                                    <CategoryBadge category={c.category} size="xs" />
+                                  </div>
+                                  <div className="text-[11.5px] truncate" style={{ color: "var(--text-muted)" }}>
+                                    {c.name} · {c.sector}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </Link>
+                            </Link>
+                          </div>
                         </td>
                         <td className="px-4 py-3.5 text-right tnum font-medium">
                           ৳ {c.price.toLocaleString(undefined, { minimumFractionDigits: c.price < 100 ? 2 : 1 })}
@@ -407,6 +480,49 @@ function StatGrid({ stats }: { stats: { total: number; gainers: number; losers: 
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function CategoryChips({
+  value,
+  onChange,
+}: {
+  value: (typeof categories)[number];
+  onChange: (v: (typeof categories)[number]) => void;
+}) {
+  return (
+    <div
+      className="h-9 p-0.5 rounded-full flex items-center gap-0.5"
+      style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <span className="px-2 text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+        Cat
+      </span>
+      {categories.map((c) => {
+        const active = c === value;
+        const danger = c === "Z";
+        const bg = active
+          ? danger
+            ? "rgba(217,65,94,0.18)"
+            : "rgb(var(--ov) / 0.10)"
+          : "transparent";
+        const color = active
+          ? danger
+            ? "var(--red-down)"
+            : "var(--text-primary)"
+          : "var(--text-secondary)";
+        return (
+          <button
+            key={c}
+            onClick={() => onChange(c)}
+            className="px-2.5 h-full text-[11.5px] font-medium rounded-full tnum transition"
+            style={{ background: bg, color, minWidth: c === "All" ? 38 : 26 }}
+          >
+            {c}
+          </button>
+        );
+      })}
     </div>
   );
 }

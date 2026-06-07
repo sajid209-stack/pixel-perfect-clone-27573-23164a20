@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 import {
@@ -11,6 +11,21 @@ import {
   indexData,
 } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
+import { findCompany, type ShareCategory } from "@/data/companies";
+import { CategoryBadge } from "./CategoryBadge";
+
+function useBriefLoad(ms = 500) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), ms);
+    return () => clearTimeout(t);
+  }, [ms]);
+  return loading;
+}
+
+function categoryFor(code: string): ShareCategory {
+  return findCompany(code)?.category ?? "A";
+}
 
 /* ---------- Cell shell ---------- */
 
@@ -69,6 +84,7 @@ function intensity(c: number) {
 
 function HeatmapCell() {
   const { t } = useLang();
+  const loading = useBriefLoad(450);
   const adv = sectors.filter((s) => s.change > 0).length;
   const dec = sectors.length - adv;
   return (
@@ -82,6 +98,19 @@ function HeatmapCell() {
           </span>
         }
       />
+      {loading ? (
+        <div
+          className="grid gap-1.5"
+          style={{ gridTemplateColumns: "repeat(6, 1fr)", gridAutoRows: "44px" }}
+        >
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={i}
+              className={`skeleton rounded-md ${i === 0 || i === 5 ? "col-span-2 row-span-2" : ""}`}
+            />
+          ))}
+        </div>
+      ) : (
       <div
         className="heatmap-grid grid gap-1.5"
         style={{
@@ -112,6 +141,7 @@ function HeatmapCell() {
           );
         })}
       </div>
+      )}
       <div
         className="mobile-swipe-hint mt-1.5 text-[10px] text-center hidden"
         style={{ color: "var(--text-muted)" }}
@@ -134,6 +164,7 @@ type MoverTab = keyof typeof moverTabs;
 function MoversCell() {
   const { t } = useLang();
   const [tab, setTab] = useState<MoverTab>("Gainers");
+  const loading = useBriefLoad(450);
   const rows = moverTabs[tab];
   const visible = rows.slice(0, 5);
   const showVol = tab === "Active";
@@ -167,6 +198,24 @@ function MoversCell() {
         </div>
       </div>
 
+      {loading ? (
+        <div>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={i}
+              className="grid grid-cols-[1fr_auto_auto] gap-2 py-2 border-t items-center"
+              style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
+            >
+              <div className="space-y-1.5">
+                <div className="skeleton h-3 w-16" />
+                <div className="skeleton h-2.5 w-28" />
+              </div>
+              <div className="skeleton h-3 w-12" />
+              <div className="skeleton h-4 w-14 rounded-full" />
+            </div>
+          ))}
+        </div>
+      ) : (
       <AnimatePresence initial={false} mode="wait">
         <motion.div
           key={tab}
@@ -187,11 +236,11 @@ function MoversCell() {
                   style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
                 >
                   <div className="min-w-0">
-                    <div
-                      className="text-[12px] font-semibold leading-tight"
-                      style={{ color: "var(--text-primary)" }}
-                    >
-                      {r.code}
+                    <div className="flex items-center gap-1.5 leading-tight">
+                      <span className="text-[12px] font-semibold" style={{ color: "var(--text-primary)" }}>
+                        {r.code}
+                      </span>
+                      <CategoryBadge category={categoryFor(r.code)} size="xs" />
                     </div>
                     <div
                       className="text-[11px] truncate mover-name"
@@ -221,6 +270,7 @@ function MoversCell() {
           </div>
         </motion.div>
       </AnimatePresence>
+      )}
     </Cell>
   );
 }
@@ -239,6 +289,7 @@ const discFilters = ["All", "Price sensitive", "Dividend", "AGM", "Regulatory"];
 function DisclosuresCell() {
   const { t } = useLang();
   const [filter, setFilter] = useState("All");
+  const loading = useBriefLoad(500);
   return (
     <Cell style={{ display: "flex", flexDirection: "column" }}>
       <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
@@ -276,7 +327,19 @@ function DisclosuresCell() {
       </div>
 
       <div className="flex-1 space-y-2">
-        {announcements.slice(0, 3).map((a) => {
+        {loading ? (
+          Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="py-2.5 border-t space-y-1.5" style={{ borderColor: "rgb(var(--ov) / 0.05)" }}>
+              <div className="flex items-center justify-between">
+                <div className="skeleton h-3 w-14" />
+                <div className="skeleton h-2.5 w-10" />
+              </div>
+              <div className="skeleton h-3 w-full" />
+              <div className="skeleton h-3 w-8 rounded" />
+            </div>
+          ))
+        ) : (
+        announcements.slice(0, 3).map((a) => {
           const cfg = typeBadge[a.type] ?? typeBadge.Regulatory;
           return (
             <Link
@@ -311,7 +374,8 @@ function DisclosuresCell() {
               </span>
             </Link>
           );
-        })}
+        })
+        )}
       </div>
 
       <Link
@@ -371,6 +435,7 @@ function IndexCell() {
   const { t } = useLang();
   const [period, setPeriod] = useState<IdxPeriod>("1D");
   const [idx, setIdx] = useState<IndexKey>("DSEX");
+  const loading = useBriefLoad(500);
   const meta = indexMeta[idx];
   const up = meta.change >= 0;
   const series = makeSeries(idx, period);
@@ -422,6 +487,17 @@ function IndexCell() {
         </div>
       </div>
 
+      {loading ? (
+        <>
+          <div className="skeleton h-6 w-32 mb-2" />
+          <div className="skeleton h-[100px] w-full rounded-md" />
+          <div className="grid grid-cols-4 gap-1 mt-2">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="skeleton h-6" />
+            ))}
+          </div>
+        </>
+      ) : (
       <AnimatePresence mode="wait">
         <motion.div
           key={idx}
@@ -508,6 +584,7 @@ function IndexCell() {
           </div>
         </motion.div>
       </AnimatePresence>
+      )}
 
       <div className="mt-2 pt-2 border-t space-y-1" style={{ borderColor: "rgb(var(--ov) / 0.05)" }}>
         {others.map((k) => {

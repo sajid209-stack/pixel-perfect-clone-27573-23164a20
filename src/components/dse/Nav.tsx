@@ -18,6 +18,7 @@ import dseLogo from "@/assets/dse-logo.png";
 import { ThemeToggle } from "./ThemeToggle";
 import { companyIndex } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
+import { openCommandPalette } from "./CommandPalette";
 
 type NavItem = {
   label: string;
@@ -476,10 +477,6 @@ export function Nav() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSearchOpen(false);
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setSearchOpen(true);
-      }
     };
     const onClick = (e: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
@@ -697,6 +694,14 @@ export function Nav() {
           </AnimatePresence>
         </div>
 
+        <button
+          onClick={openCommandPalette}
+          aria-label="Search (press / or Ctrl+K)"
+          className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full transition"
+          style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)", color: "var(--text-secondary)" }}
+        >
+          <Search className="w-4 h-4" />
+        </button>
         <a
           href="#footer"
           className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[13px] font-semibold transition cursor-pointer hover:scale-[1.02]"
