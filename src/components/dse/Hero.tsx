@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
+import heroGradient from "@/assets/hero-gradient.jpg";
 
 type Story = {
   eyebrow: string;
@@ -11,7 +12,7 @@ type Story = {
   cta: string;
   ctaTo: string;
   image: string;
-  accent: string; // hex tint for the gradient
+  accent: string;
 };
 
 const stories: Story[] = [
@@ -21,8 +22,7 @@ const stories: Story[] = [
     desc: "Bangladesh's homegrown electronics leader raises BDT 8.5B through a sustainability-linked bond — the largest of its kind on the exchange.",
     cta: "View company",
     ctaTo: "/company/WALTONHIL",
-    image:
-      "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=800&q=75",
+    image: heroGradient,
     accent: "#10F0A0",
   },
   {
@@ -31,8 +31,7 @@ const stories: Story[] = [
     desc: "A new benchmark instrument designed to give regional and institutional investors transparent exposure to Bangladesh's blue-chip equities.",
     cta: "Explore the index",
     ctaTo: "/indices",
-    image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=75",
+    image: heroGradient,
     accent: "#7FD9B0",
   },
   {
@@ -41,8 +40,7 @@ const stories: Story[] = [
     desc: "A new DSE programme helping issuers improve disclosure quality, investor relations, and long-term capital formation.",
     cta: "Browse market reports",
     ctaTo: "/reports",
-    image:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=75",
+    image: heroGradient,
     accent: "#4FD1C5",
   },
 ];

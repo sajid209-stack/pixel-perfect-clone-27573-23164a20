@@ -65,7 +65,7 @@ const mkSpark = (up: boolean) =>
 export const topGainers = [
   { code: "ANWARGALV", name: "Anwar Galvanising", price: 109.7, change: 9.92, volume: "2.1M", spark: mkSpark(true) },
   { code: "ACFL", name: "AFC Agro Biotech", price: 24.4, change: 7.02, volume: "4.8M", spark: mkSpark(true) },
-  { code: "JANATAMF", name: "Janata Mutual Fund", price: 3.1, change: 6.9, volume: "11.2M", spark: mkSpark(true) },
+  { code: "1JANATAMF", name: "Janata Mutual Fund", price: 3.1, change: 6.9, volume: "11.2M", spark: mkSpark(true) },
   { code: "APOLOISPAT", name: "Apolo Ispat Complex", price: 3.5, change: 6.06, volume: "8.6M", spark: mkSpark(true) },
   { code: "ALLTEX", name: "Alltex Industries", price: 17.4, change: 2.91, volume: "1.9M", spark: mkSpark(true) },
 ];
