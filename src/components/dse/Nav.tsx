@@ -17,6 +17,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
 import { ThemeToggle } from "./ThemeToggle";
 import { companyIndex } from "./data";
+import { useLang } from "@/i18n/LanguageContext";
 
 type NavItem = {
   label: string;
