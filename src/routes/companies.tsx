@@ -198,6 +198,23 @@ function ScreenerPage() {
           <Pill label="Sector" value={sector} options={sectors} onChange={setSector} />
           <Pill label="Board" value={board} options={boards} onChange={setBoard} />
           <SegPill value={mover} options={[...movers]} onChange={(v) => setMover(v as typeof mover)} />
+          <CategoryChips value={category} onChange={setCategory} />
+
+          <button
+            type="button"
+            onClick={() => setWatchOnly((v) => !v)}
+            className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5 transition"
+            style={{
+              background: watchOnly ? "rgba(245,179,0,0.12)" : "rgb(var(--ov) / 0.04)",
+              border: `1px solid ${watchOnly ? "rgba(245,179,0,0.45)" : "rgb(var(--ov) / 0.06)"}`,
+              color: watchOnly ? "#f5b300" : "var(--text-secondary)",
+            }}
+            aria-pressed={watchOnly}
+            title="Show only watchlisted companies"
+          >
+            <Star className="w-3 h-3" fill={watchOnly ? "#f5b300" : "none"} />
+            Watchlist {watchItems.length > 0 ? `· ${watchItems.length}` : ""}
+          </button>
 
           <div className="flex-1" />
 
@@ -220,6 +237,36 @@ function ScreenerPage() {
           </div>
         </div>
       </section>
+
+      {/* Recently viewed */}
+      {recents.length > 0 && (
+        <section className="max-w-[1440px] mx-auto px-6 pt-5">
+          <div
+            className="text-[11px] uppercase tracking-[0.18em] mb-2"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Recently viewed
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {recents.map((c) => (
+              <Link
+                key={c.code}
+                to="/company/$ticker"
+                params={{ ticker: c.code }}
+                className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-[12px] transition"
+                style={{
+                  background: "rgb(var(--ov) / 0.04)",
+                  border: "1px solid rgb(var(--ov) / 0.06)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{c.code}</span>
+                <CategoryBadge category={c.category} size="xs" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Table */}
       <section className="max-w-[1440px] mx-auto px-6 py-8">
