@@ -551,7 +551,7 @@ function AboutCard({ co }: { co: Company }) {
 const SHAREHOLDING_ROWS: { key: keyof NonNullable<Company["sharePattern"]>; label: string; color: string }[] = [
   { key: "sponsor",     label: "Sponsor / Director", color: "var(--green-up)" },
   { key: "government",  label: "Government",         color: "#4FD1C5" },
-  { key: "institution", label: "Institution",        color: "#7FD9B0" },
+  { key: "institution", label: "Institution",        color: "var(--navy-light)" },
   { key: "foreign",     label: "Foreign",            color: "#C6A969" },
   { key: "public",      label: "Public",             color: "#9FB7A6" },
 ];
@@ -929,7 +929,7 @@ function DirectorsTab({ co }: { co: Company }) {
           <div className="flex items-center gap-3 text-[11px]" style={{ color: "var(--text-muted)" }}>
             <LegendDot color="var(--green-up)" label="Independent" />
             <LegendDot color="#4FD1C5" label="Executive" />
-            <LegendDot color="#7FD9B0" label="Non-Executive" />
+            <LegendDot color="var(--navy-light)" label="Non-Executive" />
             <LegendDot color="#C6A969" label="Nominee" />
           </div>
         </div>
@@ -1086,7 +1086,7 @@ function categoryColor(c: Director["category"]) {
     case "Chairman": return "var(--green-up)";
     case "Independent": return "var(--green-up)";
     case "Executive": return "#4FD1C5";
-    case "Non-Executive": return "#7FD9B0";
+    case "Non-Executive": return "var(--navy-light)";
     case "Nominee": return "#C6A969";
   }
 }

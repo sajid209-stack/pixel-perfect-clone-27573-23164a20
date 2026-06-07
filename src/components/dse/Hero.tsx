@@ -37,7 +37,7 @@ const stories: Story[] = [
     ctaTo: "/indices",
     image: heroTrading,
     alt: "Stock market candlestick chart on a trading terminal",
-    accent: "#7FD9B0",
+    accent: "var(--navy-light)",
   },
   {
     eyebrow: "Investor education",
