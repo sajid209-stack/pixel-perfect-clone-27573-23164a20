@@ -7,6 +7,7 @@ import {
   Phone,
   ShieldCheck,
 } from "lucide-react";
+import { useLang } from "@/i18n/LanguageContext";
 
 /* ---------- Data ---------- */
 
@@ -41,6 +42,7 @@ function CardShell({
   children: React.ReactNode;
   delay?: number;
 }) {
+  const { t } = useLang();
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -60,7 +62,7 @@ function CardShell({
           className="text-[11px] uppercase tracking-[0.22em]"
           style={{ color: "var(--text-muted)" }}
         >
-          {title}
+          {t(title)}
         </div>
         {action ? (
           <Link
@@ -69,7 +71,7 @@ function CardShell({
             className="text-[11px] inline-flex items-center gap-1"
             style={{ color: "var(--green-up)" }}
           >
-            {action.label} <ArrowUpRight className="w-3 h-3" />
+            {t(action.label)} <ArrowUpRight className="w-3 h-3" />
           </Link>
         ) : null}
       </div>
@@ -81,6 +83,7 @@ function CardShell({
 /* ---------- Reports card ---------- */
 
 function ReportsCard() {
+  const { t } = useLang();
   return (
     <CardShell title="Reports & filings" action={{ label: "View all", to: "/reports" }}>
       <div className="flex-1">
@@ -101,7 +104,7 @@ function ReportsCard() {
                 className="text-[14px] font-medium tracking-tight truncate"
                 style={{ color: "var(--text-primary)" }}
               >
-                {r.title}
+                {t(r.title)}
               </div>
               <div
                 className="text-[11px] mt-0.5 flex items-center gap-2"
@@ -114,7 +117,7 @@ function ReportsCard() {
                     color: "var(--green-up)",
                   }}
                 >
-                  {r.tag}
+                  {t(r.tag)}
                 </span>
                 <span className="report-meta">{r.meta}</span>
               </div>
@@ -132,7 +135,7 @@ function ReportsCard() {
           className="text-[12px] font-medium inline-flex items-center gap-1"
           style={{ color: "var(--green-up)" }}
         >
-          View all reports → <ArrowUpRight className="w-3 h-3" />
+          {t("View all reports →")} <ArrowUpRight className="w-3 h-3" />
         </Link>
       </div>
     </CardShell>
@@ -142,6 +145,7 @@ function ReportsCard() {
 /* ---------- Sessions card ---------- */
 
 function SessionsCard() {
+  const { t } = useLang();
   return (
     <CardShell title="Next sessions" action={{ label: "Full calendar", to: "/reports", hash: "calendar" }}>
       {/* Desktop / tablet: vertical list */}
@@ -165,7 +169,7 @@ function SessionsCard() {
               {s.month}
             </div>
             <div className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
-              {s.note}
+              {t(s.note)}
             </div>
           </div>
         ))}
@@ -186,7 +190,7 @@ function SessionsCard() {
           className="text-[12px] font-medium inline-flex items-center gap-1"
           style={{ color: "var(--green-up)" }}
         >
-          Full calendar → <ArrowUpRight className="w-3 h-3" />
+          {t("Full calendar →")} <ArrowUpRight className="w-3 h-3" />
         </Link>
       </div>
     </CardShell>
@@ -196,19 +200,20 @@ function SessionsCard() {
 /* ---------- Tools card ---------- */
 
 function ToolsCard() {
+  const { t } = useLang();
   return (
     <CardShell title="Investor tools" delay={0.05}>
       <div className="flex-1">
-        {tools.map((t) => (
+        {tools.map((tool) => (
           <a
-            key={t.label}
+            key={tool.label}
             className="group flex items-center justify-between border-t cursor-pointer"
             style={{ borderColor: "rgb(var(--ov) / 0.05)", minHeight: 44 }}
           >
             <div className="flex items-center gap-3">
-              <t.Icon className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+              <tool.Icon className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
               <span className="text-[13px]" style={{ color: "var(--text-primary)" }}>
-                {t.label}
+                {t(tool.label)}
               </span>
             </div>
             <ArrowUpRight
@@ -228,7 +233,7 @@ function ToolsCard() {
             className="text-[10px] uppercase tracking-[0.22em] mb-0.5"
             style={{ color: "var(--text-muted)" }}
           >
-            24/7 helpline
+            {t("24/7 helpline")}
           </div>
           <div className="text-[14px] tnum" style={{ color: "var(--text-primary)" }}>
             +880 9612-345678
@@ -248,6 +253,7 @@ function ToolsCard() {
 /* ---------- Section ---------- */
 
 export function Resources() {
+  const { t } = useLang();
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
@@ -259,14 +265,14 @@ export function Resources() {
             className="text-[11px] font-medium uppercase"
             style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
           >
-            Market reports &amp; tools
+            {t("Market reports & tools")}
           </div>
           <Link
             to="/reports"
             className="text-[11px] font-medium inline-flex items-center gap-1"
             style={{ color: "var(--text-secondary)" }}
           >
-            Browse archive → <ArrowUpRight className="w-3 h-3" />
+            {t("Browse archive →")} <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
 

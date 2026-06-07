@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Sprout, CandlestickChart } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { Link } from "@tanstack/react-router";
+import { useLang } from "@/i18n/LanguageContext";
 
 
 const beginnerData = [
@@ -62,6 +63,7 @@ const paths: Path[] = [
 
 function PathCard({ path, i }: { path: Path; i: number }) {
   const { Icon } = path;
+  const { t } = useLang();
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
@@ -116,7 +118,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             className="text-[11px] tracking-[0.22em] uppercase tnum"
             style={{ color: "var(--text-muted)" }}
           >
-            {path.index} — {path.eyebrow}
+            {path.index} — {t(path.eyebrow)}
           </span>
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center"
@@ -131,14 +133,14 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             className="text-[20px] md:text-[24px] font-semibold leading-[1.2] tracking-tight max-w-[18ch]"
             style={{ color: "var(--text-primary)" }}
           >
-            {path.title}
+            {t(path.title)}
           </h3>
         </div>
 
         <div className="relative mt-4 space-y-px">
-          {path.topics.map((t, idx) => (
+          {path.topics.map((topic, idx) => (
             <div
-              key={t.label}
+              key={topic.label}
               className="flex items-center justify-between py-2.5 border-t group/row"
               style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
             >
@@ -151,10 +153,10 @@ function PathCard({ path, i }: { path: Path; i: number }) {
                 </span>
                 <div>
                   <div className="text-[13px]" style={{ color: "var(--text-primary)" }}>
-                    {t.label}
+                    {t(topic.label)}
                   </div>
                   <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
-                    {t.sub}
+                    {t(topic.sub)}
                   </div>
                 </div>
               </div>
@@ -171,7 +173,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           className="relative mt-4 inline-flex items-center gap-2 text-[13px] font-semibold group/cta w-fit"
           style={{ color: "var(--green-up)" }}
         >
-          {path.cta}
+          {t(path.cta)}
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
 
@@ -181,6 +183,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 }
 
 export function DualAudience() {
+  const { t } = useLang();
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
@@ -190,13 +193,13 @@ export function DualAudience() {
               className="text-[11px] uppercase tracking-[0.22em] mb-2"
               style={{ color: "var(--text-muted)" }}
             >
-              Get started
+              {t("Get started")}
             </div>
             <h2
               className="text-[26px] md:text-[32px] font-semibold tracking-tight leading-[1.1]"
               style={{ color: "var(--text-primary)" }}
             >
-              Two paths into the market.
+              {t("Two paths into the market.")}
             </h2>
           </div>
         </div>

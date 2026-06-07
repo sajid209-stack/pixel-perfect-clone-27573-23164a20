@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useLang } from "@/i18n/LanguageContext";
 
 function computeMarketState() {
   const h = new Date().getHours();
@@ -12,6 +13,7 @@ function computeMarketState() {
 export function TopBar() {
   const [time, setTime] = useState("");
   const [isOpen, setIsOpen] = useState(true);
+  const { lang, toggle, t } = useLang();
 
   useEffect(() => {
     const update = () => {
@@ -27,8 +29,8 @@ export function TopBar() {
   }, []);
 
   const dotColor = isOpen ? "var(--green-up)" : "var(--text-muted)";
-  const label = isOpen ? "Market open" : "Market closed";
-  const sub = isOpen ? "· closes 14:30" : "· Opens Jun 8 at 10:00 AM";
+  const label = isOpen ? t("Market open") : t("Market closed");
+  const sub = isOpen ? t("· closes 14:30") : t("· Opens Jun 8 at 10:00 AM");
 
   return (
     <motion.div
@@ -70,10 +72,14 @@ export function TopBar() {
         </span>
         <span className="opacity-20">·</span>
         <button
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition"
+          onClick={toggle}
+          aria-label="Toggle language"
+          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition cursor-pointer hover:opacity-100"
           style={{ color: "var(--text-secondary)" }}
         >
-          EN <span className="opacity-40">/</span> <span className="bengali">বাং</span>
+          <span style={{ color: lang === "en" ? "var(--text-primary)" : "var(--text-muted)", fontWeight: lang === "en" ? 600 : 400 }}>EN</span>
+          <span className="opacity-40">/</span>
+          <span className="bengali" style={{ color: lang === "bn" ? "var(--text-primary)" : "var(--text-muted)", fontWeight: lang === "bn" ? 600 : 400 }}>বাং</span>
         </button>
         <span className="opacity-20">·</span>
         <ThemeToggle />

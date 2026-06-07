@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useLang } from "@/i18n/LanguageContext";
 
 type NewsItem = {
   category: string;
@@ -34,6 +35,7 @@ const news: NewsItem[] = [
 ];
 
 export function NewsScroll() {
+  const { t } = useLang();
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto mb-8 flex items-end justify-between gap-6">
@@ -42,13 +44,13 @@ export function NewsScroll() {
             className="text-[12px] uppercase tracking-[0.22em] mb-3"
             style={{ color: "var(--text-muted)" }}
           >
-            Newsroom
+            {t("Newsroom")}
           </div>
           <h2
             className="text-[28px] md:text-[36px] font-semibold tracking-tight leading-[1.05]"
             style={{ color: "var(--text-primary)" }}
           >
-            Latest from the market.
+            {t("Latest from the market.")}
           </h2>
         </div>
         <Link
@@ -56,7 +58,7 @@ export function NewsScroll() {
           className="inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap"
           style={{ color: "var(--green-up)" }}
         >
-          All news
+          {t("All news")}
           <ArrowUpRight className="w-4 h-4" />
         </Link>
       </div>
@@ -89,27 +91,27 @@ export function NewsScroll() {
                   className="flex items-center justify-between text-[11px] uppercase tracking-[0.18em]"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  <span>{n.category}</span>
+                  <span>{t(n.category)}</span>
                   <span className="tnum">{n.date}</span>
                 </div>
                 <h3
                   className="mt-3 text-[17px] leading-[1.3] font-semibold"
                   style={{ color: "var(--text-primary)" }}
                 >
-                  {n.title}
+                  {t(n.title)}
                 </h3>
                 <p
                   className="mt-2 text-[13.5px] leading-[1.6]"
                   style={{ color: "var(--text-secondary)" }}
                 >
-                  {n.excerpt}
+                  {t(n.excerpt)}
                 </p>
                 <Link
                   to="/news"
                   className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
                   style={{ color: "var(--green-up)" }}
                 >
-                  Read story
+                  {t("Read story")}
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>

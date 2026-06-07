@@ -1,6 +1,7 @@
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
+import { useLang } from "@/i18n/LanguageContext";
 
 type FooterLink = { label: string; to: string; hash?: string; soon?: boolean };
 
@@ -38,6 +39,7 @@ const cols: { title: string; items: FooterLink[] }[] = [
 ];
 
 function FooterLinkItem({ item }: { item: FooterLink }) {
+  const { t } = useLang();
   return (
     <li>
       <Link
@@ -45,10 +47,10 @@ function FooterLinkItem({ item }: { item: FooterLink }) {
         hash={item.hash}
         className="transition hover:opacity-100 opacity-80 cursor-pointer inline-flex items-baseline gap-1.5"
       >
-        <span>{item.label}</span>
+        <span>{t(item.label)}</span>
         {item.soon && (
           <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>
-            (coming soon)
+            {t("(coming soon)")}
           </span>
         )}
       </Link>
@@ -57,10 +59,11 @@ function FooterLinkItem({ item }: { item: FooterLink }) {
 }
 
 function FooterColumn({ col }: { col: typeof cols[number] }) {
+  const { t } = useLang();
   return (
     <div className="footer-col">
       <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
-        {col.title}
+        {t(col.title)}
       </div>
       <ul className="space-y-2 text-sm" style={{ color: "var(--text-secondary)" }}>
         {col.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
@@ -70,6 +73,7 @@ function FooterColumn({ col }: { col: typeof cols[number] }) {
 }
 
 export function Footer() {
+  const { t } = useLang();
   return (
     <footer
       id="footer"
@@ -84,9 +88,9 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-3">
             <img src={dseLogo} alt="Dhaka Stock Exchange" className="w-12 h-12 object-contain bg-white rounded-lg p-1" />
-            <div className="font-semibold">Dhaka Stock Exchange</div>
+            <div className="font-semibold">{t("Dhaka Stock Exchange")}</div>
           </div>
-          <p className="text-sm mt-3" style={{ color: "var(--text-secondary)" }}>Bangladesh's Premier Capital Market</p>
+          <p className="text-sm mt-3" style={{ color: "var(--text-secondary)" }}>{t("Bangladesh's Premier Capital Market")}</p>
           <p className="text-xs mt-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
             DSE Tower, Plot 46, Road 21<br />Nikunja-2, Dhaka-1229<br />+880 2 5566 9100
           </p>
@@ -111,11 +115,11 @@ export function Footer() {
           className="max-w-7xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-xs"
           style={{ color: "var(--text-muted)" }}
         >
-          <div>© 2026 Dhaka Stock Exchange PLC. Regulated by Bangladesh Securities and Exchange Commission.</div>
+          <div>{t("© 2026 Dhaka Stock Exchange PLC. Regulated by Bangladesh Securities and Exchange Commission.")}</div>
           <div className="flex gap-4">
-            <a className="cursor-pointer hover:opacity-100 opacity-80">Privacy policy</a>
-            <a className="cursor-pointer hover:opacity-100 opacity-80">Terms</a>
-            <a className="cursor-pointer hover:opacity-100 opacity-80">Accessibility</a>
+            <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Privacy policy")}</a>
+            <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Terms")}</a>
+            <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Accessibility")}</a>
           </div>
         </div>
       </div>

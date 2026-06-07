@@ -10,6 +10,7 @@ import {
   announcements,
   indexData,
 } from "./data";
+import { useLang } from "@/i18n/LanguageContext";
 
 /* ---------- Cell shell ---------- */
 
@@ -67,16 +68,17 @@ function intensity(c: number) {
 }
 
 function HeatmapCell() {
+  const { t } = useLang();
   const adv = sectors.filter((s) => s.change > 0).length;
   const dec = sectors.length - adv;
   return (
     <Cell>
       <CellHeader
-        left="Sector heatmap"
+        left={t("Sector heatmap")}
         right={
           <span className="tnum">
-            <span style={{ color: "var(--green-up)" }}>{adv}</span> adv ·{" "}
-            <span style={{ color: "var(--red-down)" }}>{dec}</span> dec
+            <span style={{ color: "var(--green-up)" }}>{adv}</span> {t("adv")} ·{" "}
+            <span style={{ color: "var(--red-down)" }}>{dec}</span> {t("dec")}
           </span>
         }
       />
@@ -130,6 +132,7 @@ const moverTabs = {
 type MoverTab = keyof typeof moverTabs;
 
 function MoversCell() {
+  const { t } = useLang();
   const [tab, setTab] = useState<MoverTab>("Gainers");
   const [expanded, setExpanded] = useState(false);
   const rows = moverTabs[tab];
@@ -143,16 +146,16 @@ function MoversCell() {
           className="text-[11px] font-medium uppercase"
           style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
         >
-          Top movers
+          {t("Top movers")}
         </div>
         <div className="flex gap-0.5">
-          {(Object.keys(moverTabs) as MoverTab[]).map((t) => {
-            const active = tab === t;
+          {(Object.keys(moverTabs) as MoverTab[]).map((tk) => {
+            const active = tab === tk;
             return (
               <button
-                key={t}
+                key={tk}
                 onClick={() => {
-                  setTab(t);
+                  setTab(tk);
                   setExpanded(false);
                 }}
                 className="px-2 py-0.5 rounded-full text-[10px] font-medium transition"
@@ -161,7 +164,7 @@ function MoversCell() {
                   background: active ? "rgba(127,217,176,0.12)" : "transparent",
                 }}
               >
-                {t}
+                {t(tk)}
               </button>
             );
           })}
@@ -231,7 +234,7 @@ function MoversCell() {
             className="text-[11px] font-medium hover:underline"
             style={{ color: "var(--navy-mid, #3b5378)" }}
           >
-            {expanded ? "Show less ↑" : `Show ${rows.length - 3} more ↓`}
+            {expanded ? (t("Show less") + " ↑") : `${t("Show")} ${rows.length - 3} ${t("more")} ↓`}
           </button>
         </div>
       )}
@@ -251,6 +254,7 @@ const typeBadge: Record<string, { color: string; bg: string; label: string }> = 
 const discFilters = ["All", "Price sensitive", "Dividend", "AGM", "Regulatory"];
 
 function DisclosuresCell() {
+  const { t } = useLang();
   const [filter, setFilter] = useState("All");
   return (
     <Cell style={{ display: "flex", flexDirection: "column" }}>
@@ -259,10 +263,10 @@ function DisclosuresCell() {
           className="text-[11px] font-medium uppercase"
           style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
         >
-          Live disclosures
+          {t("Live disclosures")}
         </div>
         <span className="text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
-          47 today
+          47 {t("today")}
         </span>
       </div>
 
@@ -282,7 +286,7 @@ function DisclosuresCell() {
                 background: active ? "var(--green-up)" : "rgb(var(--ov) / 0.04)",
               }}
             >
-              {f}
+              {t(f)}
             </button>
           );
         })}
@@ -332,7 +336,7 @@ function DisclosuresCell() {
         className="text-[11px] font-medium hover:underline mt-3 inline-block"
         style={{ color: "var(--navy-mid, #3b5378)" }}
       >
-        View all 47 filings →
+        {t("View all")} 47 →
       </Link>
     </Cell>
   );
@@ -381,6 +385,7 @@ function makeSeries(idx: IndexKey, period: IdxPeriod): { t: string; v: number }[
 }
 
 function IndexCell() {
+  const { t } = useLang();
   const [period, setPeriod] = useState<IdxPeriod>("1D");
   const [idx, setIdx] = useState<IndexKey>("DSEX");
   const meta = indexMeta[idx];
@@ -507,7 +512,7 @@ function IndexCell() {
                   className="text-[9px] uppercase tracking-wider"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  {s.l}
+                  {t(s.l)}
                 </div>
                 <div
                   className="text-[11px] font-medium tnum"
@@ -552,6 +557,7 @@ function IndexCell() {
 /* ---------- Cell E — IPO ---------- */
 
 function IpoCell() {
+  const { t } = useLang();
   return (
     <Cell>
       <div className="flex items-center justify-between gap-2 mb-3">
@@ -559,14 +565,14 @@ function IpoCell() {
           className="text-[11px] font-medium uppercase"
           style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
         >
-          IPO pipeline
+          {t("IPO pipeline")}
         </div>
         <Link
           to="/ipo"
           className="text-[11px] font-medium hover:underline"
           style={{ color: "var(--navy-mid, #3b5378)" }}
         >
-          View all →
+          {t("View all →")}
         </Link>
       </div>
 
@@ -591,11 +597,11 @@ function IpoCell() {
               />
             </span>
             <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--green-up)" }}>
-              Subscription open
+              {t("Subscription open")}
             </span>
           </div>
           <div className="text-[12px] font-medium mb-0.5" style={{ color: "var(--text-primary)" }}>
-            Sample Bangladesh Co.
+            {t("Sample Bangladesh Co.")}
           </div>
           <div className="text-[11px] mb-2" style={{ color: "var(--text-muted)" }}>
             ৳10/share · Closes Jun 10
@@ -611,14 +617,14 @@ function IpoCell() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-medium" style={{ color: "var(--green-up)" }}>
-              73% subscribed
+              {t("73% subscribed")}
             </span>
             <a
               href="#"
               className="text-[10px] hover:underline"
               style={{ color: "var(--navy-mid, #3b5378)" }}
             >
-              Apply via your broker →
+              {t("Apply via your broker →")}
             </a>
           </div>
         </div>
@@ -635,10 +641,10 @@ function IpoCell() {
             className="inline-block text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded mb-1"
             style={{ color: "#b7791f", background: "rgba(183,121,31,0.12)" }}
           >
-            Upcoming · Jun 18
+            {t("Upcoming · Jun 18")}
           </span>
           <div className="text-[12px] font-medium mb-0.5" style={{ color: "var(--text-primary)" }}>
-            Another Sample Co.
+            {t("Another Sample Co.")}
           </div>
           <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
             ৳15/share
@@ -652,6 +658,7 @@ function IpoCell() {
 /* ---------- Section shell ---------- */
 
 export function CompactMarketGrid() {
+  const { t } = useLang();
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
@@ -664,7 +671,7 @@ export function CompactMarketGrid() {
             className="text-[11px] font-medium uppercase"
             style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
           >
-            Today's market
+            {t("Today's market")}
           </div>
           <div
             className="text-[11px] tnum"
