@@ -15,6 +15,9 @@ import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { StarButton } from "@/components/dse/StarButton";
+import { CategoryBadge } from "@/components/dse/CategoryBadge";
+import { useRecentlyViewed } from "@/lib/userPrefs";
 import {
   buildSeries,
   companies,
@@ -60,7 +63,6 @@ const tabs = [
   { id: "price", label: "Price & Charts" },
   { id: "financials", label: "Financials" },
   { id: "announcements", label: "Announcements" },
-  { id: "directors", label: "Directors" },
   { id: "similar", label: "Similar companies" },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
