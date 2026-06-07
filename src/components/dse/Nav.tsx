@@ -457,6 +457,7 @@ export function Nav() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { lang, toggle, t } = useLang();
 
   const activeLabel = useMemo(() => {
     const match = links.find((l) =>
