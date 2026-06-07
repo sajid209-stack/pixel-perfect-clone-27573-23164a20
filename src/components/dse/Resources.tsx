@@ -204,16 +204,16 @@ function ToolsCard() {
   return (
     <CardShell title="Investor tools" delay={0.05}>
       <div className="flex-1">
-        {tools.map((t) => (
+        {tools.map((tool) => (
           <a
-            key={t.label}
+            key={tool.label}
             className="group flex items-center justify-between border-t cursor-pointer"
             style={{ borderColor: "rgb(var(--ov) / 0.05)", minHeight: 44 }}
           >
             <div className="flex items-center gap-3">
-              <t.Icon className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+              <tool.Icon className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
               <span className="text-[13px]" style={{ color: "var(--text-primary)" }}>
-                {t(t2.label)}
+                {t(tool.label)}
               </span>
             </div>
             <ArrowUpRight
