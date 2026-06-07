@@ -557,6 +557,7 @@ function IndexCell() {
 /* ---------- Cell E — IPO ---------- */
 
 function IpoCell() {
+  const { t } = useLang();
   return (
     <Cell>
       <div className="flex items-center justify-between gap-2 mb-3">
@@ -564,14 +565,14 @@ function IpoCell() {
           className="text-[11px] font-medium uppercase"
           style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
         >
-          IPO pipeline
+          {t("IPO pipeline")}
         </div>
         <Link
           to="/ipo"
           className="text-[11px] font-medium hover:underline"
           style={{ color: "var(--navy-mid, #3b5378)" }}
         >
-          View all →
+          {t("View all →")}
         </Link>
       </div>
 
@@ -596,11 +597,11 @@ function IpoCell() {
               />
             </span>
             <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--green-up)" }}>
-              Subscription open
+              {t("Subscription open")}
             </span>
           </div>
           <div className="text-[12px] font-medium mb-0.5" style={{ color: "var(--text-primary)" }}>
-            Sample Bangladesh Co.
+            {t("Sample Bangladesh Co.")}
           </div>
           <div className="text-[11px] mb-2" style={{ color: "var(--text-muted)" }}>
             ৳10/share · Closes Jun 10
@@ -616,14 +617,14 @@ function IpoCell() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-medium" style={{ color: "var(--green-up)" }}>
-              73% subscribed
+              {t("73% subscribed")}
             </span>
             <a
               href="#"
               className="text-[10px] hover:underline"
               style={{ color: "var(--navy-mid, #3b5378)" }}
             >
-              Apply via your broker →
+              {t("Apply via your broker →")}
             </a>
           </div>
         </div>
@@ -640,10 +641,10 @@ function IpoCell() {
             className="inline-block text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded mb-1"
             style={{ color: "#b7791f", background: "rgba(183,121,31,0.12)" }}
           >
-            Upcoming · Jun 18
+            {t("Upcoming · Jun 18")}
           </span>
           <div className="text-[12px] font-medium mb-0.5" style={{ color: "var(--text-primary)" }}>
-            Another Sample Co.
+            {t("Another Sample Co.")}
           </div>
           <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
             ৳15/share
@@ -657,6 +658,7 @@ function IpoCell() {
 /* ---------- Section shell ---------- */
 
 export function CompactMarketGrid() {
+  const { t } = useLang();
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
@@ -669,7 +671,7 @@ export function CompactMarketGrid() {
             className="text-[11px] font-medium uppercase"
             style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
           >
-            Today's market
+            {t("Today's market")}
           </div>
           <div
             className="text-[11px] tnum"
