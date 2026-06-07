@@ -652,7 +652,7 @@ export function Nav() {
                 }}
               >
                 <div className="px-4 pt-3 pb-2 text-[10px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
-                  {q ? `${t("Trending").replace(t("Trending"), lang === "bn" ? "ফলাফল" : "Results")} · ${results.length}` : t("Trending")}
+                  {q ? `${lang === "bn" ? "ফলাফল" : "Results"} · ${results.length}` : t("Trending")}
                 </div>
                 {results.length === 0 ? (
                   <div className="px-4 py-6 text-[13px] text-center" style={{ color: "var(--text-muted)" }}>
