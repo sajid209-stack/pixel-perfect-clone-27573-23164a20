@@ -741,6 +741,52 @@ export function CompactMarketGrid() {
           </div>
         </div>
 
+        {/* Market summary strip */}
+        <div
+          className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-4 text-[12px]"
+          style={{ color: "var(--text-muted)" }}
+        >
+          <div>
+            <span className="uppercase tracking-wider text-[10px] mr-1.5" style={{ letterSpacing: "0.08em" }}>
+              {t("Turnover")}
+            </span>
+            <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>৳1,124 Cr</span>
+          </div>
+          <div>
+            <span className="uppercase tracking-wider text-[10px] mr-1.5" style={{ letterSpacing: "0.08em" }}>
+              {t("Volume")}
+            </span>
+            <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>312.4M {t("shares")}</span>
+          </div>
+          <div>
+            <span className="uppercase tracking-wider text-[10px] mr-1.5" style={{ letterSpacing: "0.08em" }}>
+              {t("Trades")}
+            </span>
+            <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>198,432</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="uppercase tracking-wider text-[10px]" style={{ letterSpacing: "0.08em" }}>
+              {t("Breadth")}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--green-up)" }} />
+              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>142</span>
+              <span>{t("Adv")}</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--red-down)" }} />
+              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>188</span>
+              <span>{t("Dec")}</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "rgb(var(--ov) / 0.35)" }} />
+              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>47</span>
+              <span>{t("Unch")}</span>
+            </span>
+          </div>
+        </div>
+
+
         {/* Grid */}
         <div className="compact-market-grid">
           <div className="cell-a"><HeatmapCell /></div>
