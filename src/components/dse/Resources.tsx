@@ -113,7 +113,7 @@ function ReportsCard() {
                 <span
                   className="px-1.5 py-0.5 rounded-full text-[10px] tracking-wider uppercase"
                   style={{
-                    background: "rgba(127,217,176,0.06)",
+                    background: "rgb(var(--brand-tint) / 0.06)",
                     color: "var(--green-up)",
                   }}
                 >
@@ -241,7 +241,7 @@ function ToolsCard() {
         </div>
         <div
           className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ background: "rgba(127,217,176,0.08)" }}
+          style={{ background: "rgb(var(--brand-tint) / 0.08)" }}
         >
           <Phone className="w-4 h-4" style={{ color: "var(--green-up)" }} />
         </div>

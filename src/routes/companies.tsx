@@ -543,7 +543,7 @@ function Pill({
       className="h-9 px-3 rounded-full text-[12.5px] flex items-center gap-2 transition cursor-pointer"
       style={{
         background: value !== "All" ? "rgba(16,240,160,0.08)" : "rgb(var(--ov) / 0.04)",
-        border: `1px solid ${value !== "All" ? "rgba(127,217,176,0.4)" : "rgb(var(--ov) / 0.06)"}`,
+        border: `1px solid ${value !== "All" ? "rgb(var(--brand-tint) / 0.4)" : "rgb(var(--ov) / 0.06)"}`,
         color: "var(--text-secondary)",
       }}
     >

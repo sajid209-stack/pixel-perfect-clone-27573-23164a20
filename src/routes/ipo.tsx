@@ -364,9 +364,9 @@ function IpoPage() {
                 <div
                   className="w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-semibold tnum shrink-0"
                   style={{
-                    background: "rgba(127,217,176,0.10)",
+                    background: "rgb(var(--brand-tint) / 0.10)",
                     color: "var(--green-up)",
-                    border: "1px solid rgba(127,217,176,0.25)",
+                    border: "1px solid rgb(var(--brand-tint) / 0.25)",
                   }}
                 >
                   {i + 1}
@@ -437,7 +437,7 @@ function IpoCard({ ipo, i }: { ipo: Ipo; i: number }) {
 
   const tone =
     ipo.status === "open"
-      ? { label: "Subscription open", color: "var(--green-up)", bg: "rgba(127,217,176,0.10)" }
+      ? { label: "Subscription open", color: "var(--green-up)", bg: "rgb(var(--brand-tint) / 0.10)" }
       : ipo.status === "upcoming"
         ? { label: "Upcoming", color: "#f0c674", bg: "rgba(240,198,116,0.10)" }
         : { label: "Listed", color: "var(--text-secondary)", bg: "rgb(var(--ov) / 0.06)" };

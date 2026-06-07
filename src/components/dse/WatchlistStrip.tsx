@@ -53,7 +53,7 @@ export function WatchlistStrip() {
                 className="text-[10px] tnum font-medium px-1.5 py-0.5 rounded"
                 style={{
                   color: up ? "var(--green-up)" : "var(--red-down)",
-                  background: up ? "rgba(127,217,176,0.10)" : "rgba(232,136,154,0.10)",
+                  background: up ? "rgb(var(--brand-tint) / 0.10)" : "rgba(232,136,154,0.10)",
                 }}
               >
                 {up ? "▲" : "▼"} {Math.abs(c.changePct).toFixed(2)}%

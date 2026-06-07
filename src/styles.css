@@ -68,11 +68,16 @@
   --ov-inv: 255 255 255;
   --surface-rgb: 247 248 247;
 
+  /* Brand tints (space-separated for rgb(... / a) syntax). Used for brand panels, badges, soft backgrounds. */
+  --brand-tint: 22 169 116;
+  --brand-tint-strong: 22 169 116;
+
   --body-bg-img:
-    radial-gradient(1200px 800px at 80% -10%, rgba(22,169,116,0.07), transparent 65%),
-    radial-gradient(1000px 700px at -10% 50%, rgba(22,169,116,0.04), transparent 65%),
+    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint-strong) / 0.07), transparent 65%),
+    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint-strong) / 0.04), transparent 65%),
     linear-gradient(180deg, #F7F8F7 0%, #EEF1EF 60%, #F7F8F7 100%);
 }
+
 
 /* DARK THEME */
 .dark {
@@ -105,11 +110,105 @@
   --ov-inv: 0 0 0;
   --surface-rgb: 7 9 10;
 
+  --brand-tint: 127 217 176;
+  --brand-tint-strong: 127 217 176;
+
   --body-bg-img:
-    radial-gradient(1200px 800px at 80% -10%, rgba(127,217,176,0.04), transparent 65%),
-    radial-gradient(1000px 700px at -10% 50%, rgba(127,217,176,0.025), transparent 65%),
+    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint) / 0.04), transparent 65%),
+    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint) / 0.025), transparent 65%),
     linear-gradient(180deg, #0B0E10 0%, #0C1011 60%, #0B0E10 100%);
 }
+
+/* ============================================================
+   BLUE THEME — opt-in via [data-theme="blue"] on <html>
+   Mirrors :root/.dark with brand greens swapped to a blue
+   palette at the same saturation/lightness intent. Neutrals,
+   amber and ALL price-movement greens/reds are unchanged so
+   gains stay green and losses stay red.
+   ============================================================ */
+
+/* Blue light */
+[data-theme="blue"] {
+  --navy-deep: #FFFFFF;
+  --navy-mid: #155EA8;
+  --navy-light: #2E7CD6;
+  --sky-50: rgba(0,0,0,0.04);
+  --sky-100: #475569;
+  --green-up: #16A974;
+  --green-up-light: rgba(22,169,116,0.10);
+  --red-down: #D9415E;
+  --red-down-light: rgba(217,65,94,0.10);
+  --amber: #C2913B;
+  --amber-light: rgba(194,145,59,0.10);
+  --surface: transparent;
+  --border: rgba(0,0,0,0.08);
+  --text-primary: #0E1513;
+  --text-secondary: #4A555B;
+  --text-muted: #8A949A;
+
+  --background: #F7F8FB;
+  --foreground: #0E1513;
+  --card: rgba(0,0,0,0.025);
+  --card-foreground: #0E1513;
+  --primary: #155EA8;
+  --primary-foreground: #FFFFFF;
+  --muted: rgba(0,0,0,0.03);
+  --muted-foreground: #4A555B;
+  --radius: 1rem;
+
+  --ov: 0 0 0;
+  --ov-inv: 255 255 255;
+  --surface-rgb: 247 248 251;
+
+  --brand-tint: 46 124 214;
+  --brand-tint-strong: 21 94 168;
+
+  --body-bg-img:
+    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint-strong) / 0.07), transparent 65%),
+    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint-strong) / 0.04), transparent 65%),
+    linear-gradient(180deg, #F7F8FB 0%, #E3EEF9 60%, #F7F8FB 100%);
+}
+
+/* Blue dark */
+[data-theme="blue"].dark {
+  --navy-deep: #0B0E10;
+  --navy-mid: #6BA5E0;
+  --navy-light: #9BC3EC;
+  --sky-50: rgba(255,255,255,0.05);
+  --sky-100: #94A3B8;
+  --green-up: #7FD9B0;
+  --green-up-light: rgba(127,217,176,0.10);
+  --red-down: #E8889A;
+  --red-down-light: rgba(232,136,154,0.10);
+  --amber: #E8C28A;
+  --amber-light: rgba(232,194,138,0.10);
+  --border: rgba(255,255,255,0.07);
+  --text-primary: #D6DBD8;
+  --text-secondary: #8E969E;
+  --text-muted: #5C656D;
+
+  --background: #0B0E10;
+  --foreground: #D6DBD8;
+  --card: rgba(255,255,255,0.03);
+  --card-foreground: #D6DBD8;
+  --primary: #6BA5E0;
+  --primary-foreground: #0B0E10;
+  --muted: rgba(255,255,255,0.03);
+  --muted-foreground: #8E969E;
+
+  --ov: 255 255 255;
+  --ov-inv: 0 0 0;
+  --surface-rgb: 7 9 10;
+
+  --brand-tint: 107 165 224;
+  --brand-tint-strong: 46 124 214;
+
+  --body-bg-img:
+    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint) / 0.04), transparent 65%),
+    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint) / 0.025), transparent 65%),
+    linear-gradient(180deg, #0B0E10 0%, #0C1011 60%, #0B0E10 100%);
+}
+
 
 @layer base {
   * {

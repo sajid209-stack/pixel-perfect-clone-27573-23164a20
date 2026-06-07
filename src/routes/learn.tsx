@@ -333,9 +333,9 @@ function LearnPage() {
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center"
                     style={{
-                      background: "rgba(127,217,176,0.10)",
+                      background: "rgb(var(--brand-tint) / 0.10)",
                       color: "var(--green-up)",
-                      border: "1px solid rgba(127,217,176,0.20)",
+                      border: "1px solid rgb(var(--brand-tint) / 0.20)",
                     }}
                   >
                     <Icon className="w-4 h-4" />
@@ -458,8 +458,8 @@ function LearnPage() {
           className="rounded-2xl p-10 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
           style={{
             background:
-              "linear-gradient(160deg, rgba(127,217,176,0.10) 0%, rgb(var(--ov) / 0.02) 100%)",
-            border: "1px solid rgba(127,217,176,0.18)",
+              "linear-gradient(160deg, rgb(var(--brand-tint) / 0.10) 0%, rgb(var(--ov) / 0.02) 100%)",
+            border: "1px solid rgb(var(--brand-tint) / 0.18)",
           }}
         >
           <div>

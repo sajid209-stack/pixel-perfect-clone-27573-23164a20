@@ -609,7 +609,7 @@ export function Nav() {
             className="flex items-center gap-2.5 h-9 pl-3 pr-2 rounded-full text-[13px] transition"
             style={{
               background: searchOpen ? "rgb(var(--surface-rgb) / 0.9)" : "rgb(var(--ov) / 0.03)",
-              border: `1px solid ${searchOpen ? "rgba(127,217,176,0.4)" : "rgb(var(--ov) / 0.06)"}`,
+              border: `1px solid ${searchOpen ? "rgb(var(--brand-tint) / 0.4)" : "rgb(var(--ov) / 0.06)"}`,
               color: "var(--text-secondary)",
             }}
           >

@@ -59,7 +59,7 @@ function IndexCard({
       className="index-card group relative text-left p-7 rounded-2xl overflow-hidden transition-colors"
       style={{
         background: active
-          ? "linear-gradient(160deg, rgba(127,217,176,0.07) 0%, rgb(var(--ov) / 0.01) 100%)"
+          ? "linear-gradient(160deg, rgb(var(--brand-tint) / 0.07) 0%, rgb(var(--ov) / 0.01) 100%)"
           : "linear-gradient(160deg, rgb(var(--ov) / 0.025) 0%, rgb(var(--ov) / 0.005) 100%)",
       }}
     >
@@ -69,7 +69,7 @@ function IndexCard({
           className="absolute inset-0 rounded-2xl pointer-events-none"
           style={{
             boxShadow:
-              "inset 0 0 0 1px rgba(127,217,176,0.18), 0 30px 60px -40px rgba(127,217,176,0.4)",
+              "inset 0 0 0 1px rgb(var(--brand-tint) / 0.18), 0 30px 60px -40px rgb(var(--brand-tint) / 0.4)",
           }}
           transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
         />
@@ -94,7 +94,7 @@ function IndexCard({
           className="text-[12px] tnum px-2 py-0.5 rounded-full"
           style={{
             background: up
-              ? "rgba(127,217,176,0.10)"
+              ? "rgb(var(--brand-tint) / 0.10)"
               : "rgba(232,136,154,0.10)",
             color: up ? "var(--green-up)" : "var(--red-down)",
           }}
