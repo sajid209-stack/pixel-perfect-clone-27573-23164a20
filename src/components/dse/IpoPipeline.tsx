@@ -34,8 +34,8 @@ export function IpoPipeline() {
             viewport={{ once: true }}
             className="p-5 rounded-2xl"
             style={{
-              background: "rgba(16,240,160,0.04)",
-              border: "1px solid rgba(16,240,160,0.2)",
+              background: "rgb(var(--brand-tint) / 0.04)",
+              border: "1px solid rgb(var(--brand-tint) / 0.2)",
             }}
           >
             <div className="flex items-center gap-2 mb-2">

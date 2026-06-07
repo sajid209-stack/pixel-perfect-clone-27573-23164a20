@@ -5,8 +5,8 @@ import { ArrowUpRight, Bell, FileText, TrendingUp, AlertCircle, Calendar } from 
 import { announcements } from "./data";
 
 const typeConfig: Record<string, { color: string; bg: string; icon: typeof Bell; label: string }> = {
-  "Price sensitive": { color: "var(--green-up)", bg: "rgba(16,240,160,0.10)", icon: TrendingUp, label: "PSI" },
-  Dividend: { color: "var(--green-up)", bg: "rgba(16,240,160,0.08)", icon: FileText, label: "DIV" },
+  "Price sensitive": { color: "var(--green-up)", bg: "rgb(var(--brand-tint) / 0.10)", icon: TrendingUp, label: "PSI" },
+  Dividend: { color: "var(--green-up)", bg: "rgb(var(--brand-tint) / 0.08)", icon: FileText, label: "DIV" },
   "AGM notice": { color: "var(--amber)", bg: "rgba(245,180,80,0.10)", icon: Calendar, label: "AGM" },
   Regulatory: { color: "var(--red-down)", bg: "rgba(255,90,90,0.10)", icon: AlertCircle, label: "REG" },
 };
@@ -85,8 +85,8 @@ export function Announcements() {
               viewport={{ once: true }}
               className="relative p-8 md:p-10 rounded-3xl overflow-hidden group cursor-pointer"
               style={{
-                background: "linear-gradient(135deg, rgba(16,240,160,0.06), rgb(var(--ov) / 0.02))",
-                border: "1px solid rgba(16,240,160,0.18)",
+                background: "linear-gradient(135deg, rgb(var(--brand-tint) / 0.06), rgb(var(--ov) / 0.02))",
+                border: "1px solid rgb(var(--brand-tint) / 0.18)",
               }}
             >
               <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-30 blur-3xl"

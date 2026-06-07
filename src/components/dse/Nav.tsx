@@ -131,7 +131,7 @@ function MarketsPanel({ close }: { close: () => void }) {
         <div className="flex items-baseline gap-2">
           <span className="text-[11px]" style={{ color: "#94A3B8" }}>DSEX</span>
           <span className="text-[16px] font-semibold tnum" style={{ color: "#0F172A" }}>6,241.30</span>
-          <span className="text-[12px] font-semibold" style={{ color: "#16A34A" }}>▲ 0.30%</span>
+          <span className="text-[12px] font-semibold" style={{ color: "var(--green-up)" }}>▲ 0.30%</span>
         </div>
         <span className="text-[10px] italic" style={{ color: "#94A3B8" }}>Sample data</span>
       </div>
@@ -252,8 +252,9 @@ function IndicesPanel({ close }: { close: () => void }) {
               <span
                 className="inline-flex items-center mt-1 px-1.5 py-0.5 rounded text-[10px] font-semibold"
                 style={{
-                  background: up ? "#DCFCE7" : "#FEE2E2",
-                  color: up ? "#15803D" : "#B91C1C",
+                  background: up ? "var(--green-up-light)" : "var(--red-down-light)",
+                  color: up ? "var(--green-up)" : "var(--red-down)",
+
                 }}
               >
                 {up ? "▲" : "▼"} {Math.abs(c.change).toFixed(2)}%
@@ -304,15 +305,16 @@ function IpoPanel({ close }: { close: () => void }) {
       <div style={{ width: 150, borderLeft: "1px solid #E2E8F0" }} className="pl-4">
         <ColHeader>Live now</ColHeader>
         <div className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#16A34A", boxShadow: "0 0 6px #16A34A" }} />
-          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#16A34A" }}>Open</span>
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--green-up)", boxShadow: "0 0 6px var(--green-up)" }} />
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--green-up)" }}>Open</span>
         </div>
         <div className="text-[12px] font-medium mt-1.5" style={{ color: "#0F172A" }}>NRBC Bank PLC</div>
         <div className="text-[10px] mt-0.5" style={{ color: "#64748B" }}>৳ 30/share · Closes Jun 10</div>
         <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: "#E2E8F0" }}>
-          <div style={{ width: "73%", height: "100%", background: "#3B6D11" }} />
+          <div style={{ width: "73%", height: "100%", background: "var(--primary)" }} />
         </div>
-        <div className="text-[10px] mt-1 font-semibold" style={{ color: "#16A34A" }}>73% subscribed</div>
+        <div className="text-[10px] mt-1 font-semibold" style={{ color: "var(--primary)" }}>73% subscribed</div>
+
         <Link to="/ipo" onClick={close} className="block text-[10px] mt-2 font-semibold" style={{ color: "#0F172A" }}>
           Apply via your broker →
         </Link>
@@ -324,7 +326,7 @@ function IpoPanel({ close }: { close: () => void }) {
 function NewsPanel({ close }: { close: () => void }) {
   const types = [
     { icon: AlertCircle, label: "Price sensitive", count: 10, color: "#2563EB", bg: "#DBEAFE", q: "price-sensitive" },
-    { icon: Coins, label: "Dividends", count: 11, color: "#16A34A", bg: "#DCFCE7", q: "dividends" },
+    { icon: Coins, label: "Dividends", count: 11, color: "var(--green-up)", bg: "var(--green-up-light)", q: "dividends" },
     { icon: Users, label: "AGM / EGM", count: 8, color: "#D97706", bg: "#FEF3C7", q: "agm-egm" },
     { icon: Landmark, label: "Regulatory", count: 2, color: "#DC2626", bg: "#FEE2E2", q: "regulatory" },
   ];
@@ -525,7 +527,7 @@ export function Nav() {
             src={dseLogo}
             alt="Dhaka Stock Exchange"
             className="w-9 h-9 object-contain transition group-hover:scale-105"
-            style={{ filter: "drop-shadow(0 0 10px rgba(16,240,160,0.25))" }}
+            style={{ filter: "drop-shadow(0 0 10px rgb(var(--brand-tint) / 0.25))" }}
           />
           <div className="hidden md:block leading-tight">
             <div className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--text-primary)" }}>
@@ -708,7 +710,7 @@ export function Nav() {
           style={{
             background: "var(--green-up)",
             color: "#07090A",
-            boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
+            boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
           }}
         >
           {t("Contact")}
