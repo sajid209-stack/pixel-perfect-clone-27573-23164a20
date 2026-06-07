@@ -355,30 +355,36 @@ function ScreenerPage() {
                         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                       >
                         <td className="px-4 py-3.5">
-                          <Link
-                            to="/company/$ticker"
-                            params={{ ticker: c.code }}
-                            className="block"
-                          >
-                            <div className="flex items-center gap-3 min-w-0">
-                              <div
-                                className="w-9 h-9 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0"
-                                style={{
-                                  background: "rgb(var(--ov) / 0.05)",
-                                  color: "var(--text-primary)",
-                                  border: "1px solid rgb(var(--ov) / 0.06)",
-                                }}
-                              >
-                                {c.code.slice(0, 2)}
-                              </div>
-                              <div className="min-w-0">
-                                <div className="font-semibold tracking-tight">{c.code}</div>
-                                <div className="text-[11.5px] truncate" style={{ color: "var(--text-muted)" }}>
-                                  {c.name} · {c.sector}
+                          <div className="flex items-center gap-2 min-w-0">
+                            <StarButton code={c.code} size={13} />
+                            <Link
+                              to="/company/$ticker"
+                              params={{ ticker: c.code }}
+                              className="block flex-1 min-w-0"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div
+                                  className="w-9 h-9 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0"
+                                  style={{
+                                    background: "rgb(var(--ov) / 0.05)",
+                                    color: "var(--text-primary)",
+                                    border: "1px solid rgb(var(--ov) / 0.06)",
+                                  }}
+                                >
+                                  {c.code.slice(0, 2)}
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="font-semibold tracking-tight">{c.code}</span>
+                                    <CategoryBadge category={c.category} size="xs" />
+                                  </div>
+                                  <div className="text-[11.5px] truncate" style={{ color: "var(--text-muted)" }}>
+                                    {c.name} · {c.sector}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </Link>
+                            </Link>
+                          </div>
                         </td>
                         <td className="px-4 py-3.5 text-right tnum font-medium">
                           ৳ {c.price.toLocaleString(undefined, { minimumFractionDigits: c.price < 100 ? 2 : 1 })}
