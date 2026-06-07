@@ -385,6 +385,7 @@ function makeSeries(idx: IndexKey, period: IdxPeriod): { t: string; v: number }[
 }
 
 function IndexCell() {
+  const { t } = useLang();
   const [period, setPeriod] = useState<IdxPeriod>("1D");
   const [idx, setIdx] = useState<IndexKey>("DSEX");
   const meta = indexMeta[idx];
