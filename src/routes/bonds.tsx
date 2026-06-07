@@ -230,7 +230,7 @@ const yieldCurve = [
 
 const typeMeta: Record<BondType, { bg: string; fg: string; icon: typeof Landmark }> = {
   Treasury: {
-    bg: "rgba(16,240,160,0.10)",
+    bg: "rgb(var(--brand-tint) / 0.10)",
     fg: "var(--green-up)",
     icon: Landmark,
   },
@@ -742,8 +742,8 @@ function BondsPage() {
               <div
                 className="p-3 rounded-xl flex items-center gap-2"
                 style={{
-                  background: "rgba(16,240,160,0.06)",
-                  border: "1px solid rgba(16,240,160,0.20)",
+                  background: "rgb(var(--brand-tint) / 0.06)",
+                  border: "1px solid rgb(var(--brand-tint) / 0.20)",
                 }}
               >
                 <Calendar className="w-3.5 h-3.5" style={{ color: "var(--green-up)" }} />
@@ -763,7 +763,7 @@ function BondsPage() {
                 style={{
                   background: "var(--green-up)",
                   color: "#07090A",
-                  boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
+                  boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
                 }}
               >
                 Buy this bond

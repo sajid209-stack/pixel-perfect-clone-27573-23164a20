@@ -224,7 +224,7 @@ const structures = ["All", "Open-end", "Closed-end"] as const;
 const sortKeys = ["1Y return", "AUM", "NAV", "Expense"] as const;
 
 const catTint: Record<Cat, string> = {
-  Equity: "rgba(16,240,160,0.12)",
+  Equity: "rgb(var(--brand-tint) / 0.12)",
   Balanced: "rgba(116,170,255,0.12)",
   Income: "rgba(201,168,76,0.12)",
   Shariah: "rgba(167,139,250,0.14)",
@@ -674,11 +674,11 @@ function FundsPage() {
                   style={{
                     background:
                       selected.marketPrice < selected.nav
-                        ? "rgba(16,240,160,0.06)"
+                        ? "rgb(var(--brand-tint) / 0.06)"
                         : "rgba(255,107,107,0.06)",
                     border: `1px solid ${
                       selected.marketPrice < selected.nav
-                        ? "rgba(16,240,160,0.20)"
+                        ? "rgb(var(--brand-tint) / 0.20)"
                         : "rgba(255,107,107,0.20)"
                     }`,
                   }}
@@ -719,7 +719,7 @@ function FundsPage() {
                 style={{
                   background: "var(--green-up)",
                   color: "#07090A",
-                  boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
+                  boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
                 }}
               >
                 Invest in this fund
@@ -781,7 +781,7 @@ function FundsPage() {
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                 style={{
-                  background: "rgba(16,240,160,0.10)",
+                  background: "rgb(var(--brand-tint) / 0.10)",
                   color: "var(--green-up)",
                 }}
               >

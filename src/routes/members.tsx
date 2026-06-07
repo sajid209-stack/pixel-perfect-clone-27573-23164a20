@@ -232,9 +232,9 @@ const tiers = ["All", "Full service", "Discount", "Institutional"] as const;
 
 const tierMeta: Record<Tier, { bg: string; fg: string; border: string }> = {
   "Full service": {
-    bg: "rgba(16,240,160,0.10)",
+    bg: "rgb(var(--brand-tint) / 0.10)",
     fg: "var(--green-up)",
-    border: "rgba(16,240,160,0.30)",
+    border: "rgb(var(--brand-tint) / 0.30)",
   },
   Discount: {
     bg: "rgba(116,170,255,0.10)",
@@ -287,8 +287,8 @@ function MembersPage() {
           <div
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.22em] mb-5"
             style={{
-              background: "rgba(16,240,160,0.08)",
-              border: "1px solid rgba(16,240,160,0.25)",
+              background: "rgb(var(--brand-tint) / 0.08)",
+              border: "1px solid rgb(var(--brand-tint) / 0.25)",
               color: "var(--green-up)",
             }}
           >
@@ -453,7 +453,7 @@ function MembersPage() {
                     border: "1px solid rgb(var(--ov) / 0.06)",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(16,240,160,0.25)";
+                    e.currentTarget.style.borderColor = "rgb(var(--brand-tint) / 0.25)";
                     e.currentTarget.style.background = "rgb(var(--surface-rgb) / 0.75)";
                   }}
                   onMouseLeave={(e) => {
@@ -627,8 +627,8 @@ function MembersPage() {
           className="p-10 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-6"
           style={{
             background:
-              "linear-gradient(135deg, rgba(16,240,160,0.10) 0%, rgba(116,170,255,0.06) 100%)",
-            border: "1px solid rgba(16,240,160,0.20)",
+              "linear-gradient(135deg, rgb(var(--brand-tint) / 0.10) 0%, rgba(116,170,255,0.06) 100%)",
+            border: "1px solid rgb(var(--brand-tint) / 0.20)",
           }}
         >
           <div className="max-w-xl">
@@ -657,7 +657,7 @@ function MembersPage() {
             style={{
               background: "var(--green-up)",
               color: "#07090A",
-              boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
+              boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
             }}
           >
             Membership guide

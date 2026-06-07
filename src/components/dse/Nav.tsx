@@ -527,7 +527,7 @@ export function Nav() {
             src={dseLogo}
             alt="Dhaka Stock Exchange"
             className="w-9 h-9 object-contain transition group-hover:scale-105"
-            style={{ filter: "drop-shadow(0 0 10px rgba(16,240,160,0.25))" }}
+            style={{ filter: "drop-shadow(0 0 10px rgb(var(--brand-tint) / 0.25))" }}
           />
           <div className="hidden md:block leading-tight">
             <div className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--text-primary)" }}>
@@ -710,7 +710,7 @@ export function Nav() {
           style={{
             background: "var(--green-up)",
             color: "#07090A",
-            boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
+            boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
           }}
         >
           {t("Contact")}

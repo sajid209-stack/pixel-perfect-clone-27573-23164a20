@@ -393,7 +393,7 @@ function ScreenerPage() {
                           <span
                             className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-medium"
                             style={{
-                              background: up ? "rgba(16,240,160,0.10)" : "rgba(255,90,108,0.10)",
+                              background: up ? "rgb(var(--brand-tint) / 0.10)" : "rgba(255,90,108,0.10)",
                               color: up ? "var(--green-up)" : "var(--red-down)",
                             }}
                           >
@@ -542,7 +542,7 @@ function Pill({
     <label
       className="h-9 px-3 rounded-full text-[12.5px] flex items-center gap-2 transition cursor-pointer"
       style={{
-        background: value !== "All" ? "rgba(16,240,160,0.08)" : "rgb(var(--ov) / 0.04)",
+        background: value !== "All" ? "rgb(var(--brand-tint) / 0.08)" : "rgb(var(--ov) / 0.04)",
         border: `1px solid ${value !== "All" ? "rgb(var(--brand-tint) / 0.4)" : "rgb(var(--ov) / 0.06)"}`,
         color: "var(--text-secondary)",
       }}

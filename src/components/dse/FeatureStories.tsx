@@ -141,7 +141,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
           <div
             className="absolute -inset-8 -z-10 rounded-[40px] pointer-events-none"
             style={{
-              background: "radial-gradient(60% 60% at 50% 50%, rgba(16,240,160,0.12), transparent 70%)",
+              background: "radial-gradient(60% 60% at 50% 50%, rgb(var(--brand-tint) / 0.12), transparent 70%)",
               filter: "blur(50px)",
             }}
           />
@@ -176,7 +176,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
             style={{
               background: "var(--primary)",
               color: "#07090A",
-              boxShadow: "0 12px 32px -12px rgba(16,240,160,0.65)",
+              boxShadow: "0 12px 32px -12px rgb(var(--brand-tint) / 0.65)",
             }}
           >
             {story.cta}

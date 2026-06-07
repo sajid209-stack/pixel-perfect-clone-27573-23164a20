@@ -476,7 +476,7 @@ function LearnPage() {
             style={{
               background: "var(--primary)",
               color: "#07090A",
-              boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
+              boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
             }}
           >
             Open the screener <ArrowUpRight className="w-4 h-4" />
