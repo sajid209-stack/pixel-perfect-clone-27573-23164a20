@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Sprout, CandlestickChart } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { Link } from "@tanstack/react-router";
+import { useLang } from "@/i18n/LanguageContext";
 
 
 const beginnerData = [
@@ -62,6 +63,7 @@ const paths: Path[] = [
 
 function PathCard({ path, i }: { path: Path; i: number }) {
   const { Icon } = path;
+  const { t } = useLang();
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
@@ -116,7 +118,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             className="text-[11px] tracking-[0.22em] uppercase tnum"
             style={{ color: "var(--text-muted)" }}
           >
-            {path.index} — {path.eyebrow}
+            {path.index} — {t(path.eyebrow)}
           </span>
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center"
@@ -131,7 +133,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             className="text-[20px] md:text-[24px] font-semibold leading-[1.2] tracking-tight max-w-[18ch]"
             style={{ color: "var(--text-primary)" }}
           >
-            {path.title}
+            {t(path.title)}
           </h3>
         </div>
 
@@ -151,10 +153,10 @@ function PathCard({ path, i }: { path: Path; i: number }) {
                 </span>
                 <div>
                   <div className="text-[13px]" style={{ color: "var(--text-primary)" }}>
-                    {t.label}
+                    {t(t.label)}
                   </div>
                   <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
-                    {t.sub}
+                    {t(t.sub)}
                   </div>
                 </div>
               </div>
