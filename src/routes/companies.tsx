@@ -9,7 +9,7 @@ import { Footer } from "@/components/dse/Footer";
 import { StarButton } from "@/components/dse/StarButton";
 import { CategoryBadge } from "@/components/dse/CategoryBadge";
 import { useWatchlist, useRecentlyViewed } from "@/lib/userPrefs";
-import { companies, findCompany, formatBDT, formatVolume, type Company, type ShareCategory } from "@/data/companies";
+import { companies, findCompany, formatBDT, formatVolume, type Company } from "@/data/companies";
 
 export const Route = createFileRoute("/companies")({
   head: () => ({
