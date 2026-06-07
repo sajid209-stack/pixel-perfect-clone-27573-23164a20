@@ -149,13 +149,13 @@ function MoversCell() {
           {t("Top movers")}
         </div>
         <div className="flex gap-0.5">
-          {(Object.keys(moverTabs) as MoverTab[]).map((t) => {
-            const active = tab === t;
+          {(Object.keys(moverTabs) as MoverTab[]).map((tk) => {
+            const active = tab === tk;
             return (
               <button
-                key={t}
+                key={tk}
                 onClick={() => {
-                  setTab(t);
+                  setTab(tk);
                   setExpanded(false);
                 }}
                 className="px-2 py-0.5 rounded-full text-[10px] font-medium transition"
@@ -164,7 +164,7 @@ function MoversCell() {
                   background: active ? "rgba(127,217,176,0.12)" : "transparent",
                 }}
               >
-                {t(t2)}
+                {t(tk)}
               </button>
             );
           })}
