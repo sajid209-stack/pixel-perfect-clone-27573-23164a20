@@ -161,7 +161,7 @@ function ListingPage() {
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
+                  style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
                 >
                   <c.Icon className="w-5 h-5" />
                 </div>
@@ -191,7 +191,7 @@ function ListingPage() {
                 <ul className="space-y-2 text-[13px]" style={{ color: "var(--text-secondary)" }}>
                   {r.bullets.map((b) => (
                     <li key={b} className="flex gap-2">
-                      <span style={{ color: "var(--green-up)" }} className="shrink-0">•</span>
+                      <span style={{ color: "var(--primary)" }} className="shrink-0">•</span>
                       <span>{b}</span>
                     </li>
                   ))}
@@ -218,7 +218,7 @@ function ListingPage() {
                   className="w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-semibold tnum shrink-0"
                   style={{
                     background: "rgb(var(--brand-tint) / 0.10)",
-                    color: "var(--green-up)",
+                    color: "var(--primary)",
                     border: "1px solid rgb(var(--brand-tint) / 0.25)",
                   }}
                 >
@@ -286,7 +286,7 @@ function ListingPage() {
               </p>
               <ul className="mt-5 space-y-2 text-[13px]" style={{ color: "var(--text-secondary)" }}>
                 <li>
-                  <a href="mailto:listing@dsebd.org" style={{ color: "var(--green-up)" }}>
+                  <a href="mailto:listing@dsebd.org" style={{ color: "var(--primary)" }}>
                     listing@dsebd.org
                   </a>
                 </li>

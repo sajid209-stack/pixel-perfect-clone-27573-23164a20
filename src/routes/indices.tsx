@@ -358,7 +358,7 @@ function IndicesPage() {
                       <motion.div
                         layoutId="idxPeriodActive"
                         className="absolute inset-0 rounded-full"
-                        style={{ background: "var(--green-up)" }}
+                        style={{ background: "var(--primary)" }}
                         transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.45 }}
                       />
                     )}
@@ -461,7 +461,7 @@ function IndicesPage() {
               </div>
               <h2 className="text-[22px] font-semibold tracking-tight">Names moving the level</h2>
             </div>
-            <Link to="/companies" className="text-[12px] flex items-center gap-1" style={{ color: "var(--green-up)" }}>
+            <Link to="/companies" className="text-[12px] flex items-center gap-1" style={{ color: "var(--primary)" }}>
               All companies <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>

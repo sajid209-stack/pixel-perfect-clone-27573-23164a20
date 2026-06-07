@@ -185,10 +185,10 @@ const articles: Article[] = [
 ];
 
 const categoryMeta: Record<Category, { icon: LucideIcon; tone: string }> = {
-  "Getting started": { icon: GraduationCap, tone: "var(--green-up)" },
+  "Getting started": { icon: GraduationCap, tone: "var(--primary)" },
   "Markets & products": { icon: LineChart, tone: "#7fbcd9" },
   "Reading reports": { icon: BookOpen, tone: "#f0c674" },
-  Strategy: { icon: PiggyBank, tone: "var(--green-up)" },
+  Strategy: { icon: PiggyBank, tone: "var(--primary)" },
   Regulation: { icon: Shield, tone: "var(--red-down)" },
 };
 
@@ -334,7 +334,7 @@ function LearnPage() {
                     className="w-9 h-9 rounded-lg flex items-center justify-center"
                     style={{
                       background: "rgb(var(--brand-tint) / 0.10)",
-                      color: "var(--green-up)",
+                      color: "var(--primary)",
                       border: "1px solid rgb(var(--brand-tint) / 0.20)",
                     }}
                   >
@@ -406,7 +406,7 @@ function LearnPage() {
                     <motion.span
                       layoutId="learnCat"
                       className="absolute inset-0 rounded-full"
-                      style={{ background: "var(--green-up)" }}
+                      style={{ background: "var(--primary)" }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -474,7 +474,7 @@ function LearnPage() {
             to="/companies"
             className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14px] font-semibold shrink-0"
             style={{
-              background: "var(--green-up)",
+              background: "var(--primary)",
               color: "#07090A",
               boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
             }}
@@ -536,7 +536,7 @@ function FeaturedCard({ a, i }: { a: Article; i: number }) {
       </p>
       <div className="flex items-center justify-between text-[11.5px]" style={{ color: "var(--text-muted)" }}>
         <span className="tnum">{a.minutes} min read</span>
-        <span className="inline-flex items-center gap-1 transition group-hover:text-[color:var(--green-up)]">
+        <span className="inline-flex items-center gap-1 transition group-hover:text-[color:var(--primary)]">
           Read guide <ArrowUpRight className="w-3 h-3" />
         </span>
       </div>
@@ -593,7 +593,7 @@ function ArticleCard({ a, i }: { a: Article; i: number }) {
       </p>
       <div className="flex items-center justify-between text-[11px]" style={{ color: "var(--text-muted)" }}>
         <span className="tnum">{a.minutes} min · {a.category}</span>
-        <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" style={{ color: "var(--green-up)" }} />
+        <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" style={{ color: "var(--primary)" }} />
       </div>
     </motion.a>
   );

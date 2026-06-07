@@ -187,7 +187,7 @@ function MoversCell() {
                 onClick={() => setTab(tk)}
                 className="px-2 py-0.5 rounded-full text-[10px] font-medium transition"
                 style={{
-                  color: active ? "var(--green-up)" : "var(--text-muted)",
+                  color: active ? "var(--primary)" : "var(--text-muted)",
                   background: active ? "rgb(var(--brand-tint) / 0.12)" : "transparent",
                 }}
               >
@@ -317,7 +317,7 @@ function DisclosuresCell() {
               className="px-2 py-0.5 rounded-full text-[10px] font-medium whitespace-nowrap transition"
               style={{
                 color: active ? "#07090A" : "var(--text-secondary)",
-                background: active ? "var(--green-up)" : "rgb(var(--ov) / 0.04)",
+                background: active ? "var(--primary)" : "rgb(var(--ov) / 0.04)",
               }}
             >
               {t(f)}
@@ -459,7 +459,7 @@ function IndexCell() {
                 className="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide transition"
                 style={{
                   color: active ? "#07090A" : "var(--text-muted)",
-                  background: active ? "var(--green-up)" : "transparent",
+                  background: active ? "var(--primary)" : "transparent",
                 }}
               >
                 {k}
@@ -672,11 +672,11 @@ function IpoCell() {
           >
             <div
               className="h-full rounded-sm"
-              style={{ width: "73%", background: "var(--green-up)" }}
+              style={{ width: "73%", background: "var(--primary)" }}
             />
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-medium" style={{ color: "var(--green-up)" }}>
+            <span className="text-[10px] font-medium" style={{ color: "var(--primary)" }}>
               {t("73% subscribed")}
             </span>
             <a

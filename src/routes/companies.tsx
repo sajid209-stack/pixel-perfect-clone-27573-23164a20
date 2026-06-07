@@ -299,9 +299,9 @@ function ScreenerPage() {
                         {col.label}
                         {sort.key === col.key ? (
                           sort.dir === "asc" ? (
-                            <ArrowUp className="w-3 h-3" style={{ color: "var(--green-up)" }} />
+                            <ArrowUp className="w-3 h-3" style={{ color: "var(--primary)" }} />
                           ) : (
-                            <ArrowDown className="w-3 h-3" style={{ color: "var(--green-up)" }} />
+                            <ArrowDown className="w-3 h-3" style={{ color: "var(--primary)" }} />
                           )
                         ) : (
                           <span className="w-3 h-3 inline-block opacity-0" />
@@ -416,7 +416,7 @@ function ScreenerPage() {
                         <td className="px-2 py-3.5 text-right">
                           <ArrowUpRight
                             className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition"
-                            style={{ color: "var(--green-up)" }}
+                            style={{ color: "var(--primary)" }}
                           />
                         </td>
                       </motion.tr>
@@ -436,7 +436,7 @@ function ScreenerPage() {
               <button
                 onClick={reset}
                 className="mt-3 text-[12px] underline"
-                style={{ color: "var(--green-up)" }}
+                style={{ color: "var(--primary)" }}
               >
                 Clear filters
               </button>
@@ -594,7 +594,7 @@ function SegPill({
               <motion.span
                 layoutId="segPill"
                 className="absolute inset-0 rounded-full"
-                style={{ background: "var(--green-up)" }}
+                style={{ background: "var(--primary)" }}
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />
             )}

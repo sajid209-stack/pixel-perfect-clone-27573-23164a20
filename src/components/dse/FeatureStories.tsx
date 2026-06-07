@@ -151,8 +151,8 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
       {/* TEXT side */}
       <div className={`lg:col-span-5 ${reverse ? "lg:order-1 lg:pr-8" : "lg:pl-8"}`}>
         <div className="flex items-center gap-3 mb-6">
-          <div className="h-px w-10" style={{ background: "var(--green-up)" }} />
-          <div className="text-[11px] uppercase tracking-[0.22em] font-medium" style={{ color: "var(--green-up)" }}>
+          <div className="h-px w-10" style={{ background: "var(--primary)" }} />
+          <div className="text-[11px] uppercase tracking-[0.22em] font-medium" style={{ color: "var(--primary)" }}>
             {story.eyebrow}
           </div>
         </div>
@@ -162,7 +162,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
           style={{ color: "var(--text-primary)" }}
         >
           {story.title}<br />
-          <span className="italic font-light" style={{ color: "var(--green-up)" }}>{story.italic}</span>
+          <span className="italic font-light" style={{ color: "var(--primary)" }}>{story.italic}</span>
         </h3>
 
         <p className="mt-7 text-[17px] leading-[1.65] max-w-[48ch]" style={{ color: "var(--text-secondary)" }}>
@@ -174,7 +174,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
             to={story.ctaTo}
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition group cursor-pointer"
             style={{
-              background: "var(--green-up)",
+              background: "var(--primary)",
               color: "#07090A",
               boxShadow: "0 12px 32px -12px rgba(16,240,160,0.65)",
             }}
@@ -207,8 +207,8 @@ export function FeatureStories() {
           viewport={{ once: true }}
           className="flex items-center gap-3 mb-6"
         >
-          <Sparkles className="w-4 h-4" style={{ color: "var(--green-up)" }} />
-          <div className="text-[11px] uppercase tracking-[0.24em] font-medium" style={{ color: "var(--green-up)" }}>
+          <Sparkles className="w-4 h-4" style={{ color: "var(--primary)" }} />
+          <div className="text-[11px] uppercase tracking-[0.24em] font-medium" style={{ color: "var(--primary)" }}>
             Insights & stories
           </div>
         </motion.div>
@@ -223,7 +223,7 @@ export function FeatureStories() {
             style={{ color: "var(--text-primary)" }}
           >
             Stories from<br />
-            <span className="italic font-light" style={{ color: "var(--green-up)" }}>Bangladesh's market.</span>
+            <span className="italic font-light" style={{ color: "var(--primary)" }}>Bangladesh's market.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

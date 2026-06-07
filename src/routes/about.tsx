@@ -238,7 +238,7 @@ function AboutPage() {
                 <a
                   href="#"
                   className="text-[12.5px] shrink-0"
-                  style={{ color: "var(--green-up)" }}
+                  style={{ color: "var(--primary)" }}
                 >
                   Read →
                 </a>
@@ -287,7 +287,7 @@ function AboutPage() {
               target="_blank"
               rel="noreferrer"
               className="inline-block mt-5 text-[13px]"
-              style={{ color: "var(--green-up)" }}
+              style={{ color: "var(--primary)" }}
             >
               Visit BICM website →
             </a>
@@ -325,7 +325,7 @@ function AboutPage() {
           >
             No positions currently advertised. Check back for updates or send a speculative
             application to{" "}
-            <a href="mailto:hr@dsebd.org" style={{ color: "var(--green-up)" }}>
+            <a href="mailto:hr@dsebd.org" style={{ color: "var(--primary)" }}>
               hr@dsebd.org
             </a>
             .
@@ -343,13 +343,13 @@ function AboutPage() {
           <ul className="mt-5 space-y-2 text-[13.5px]" style={{ color: "var(--text-secondary)" }}>
             <li>
               For data vendor licensing: contact{" "}
-              <a href="mailto:dataservices@dsebd.org" style={{ color: "var(--green-up)" }}>
+              <a href="mailto:dataservices@dsebd.org" style={{ color: "var(--primary)" }}>
                 dataservices@dsebd.org
               </a>
             </li>
             <li>
               For institutional data feeds: contact{" "}
-              <a href="mailto:it@dsebd.org" style={{ color: "var(--green-up)" }}>
+              <a href="mailto:it@dsebd.org" style={{ color: "var(--primary)" }}>
                 it@dsebd.org
               </a>
             </li>

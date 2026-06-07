@@ -259,7 +259,7 @@ function IpoPage() {
                   <motion.span
                     layoutId="ipoTab"
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -320,7 +320,7 @@ function IpoPage() {
             <Link
               to="/companies"
               className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-medium"
-              style={{ color: "var(--green-up)" }}
+              style={{ color: "var(--primary)" }}
             >
               Browse listed companies <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
@@ -365,7 +365,7 @@ function IpoPage() {
                   className="w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-semibold tnum shrink-0"
                   style={{
                     background: "rgb(var(--brand-tint) / 0.10)",
-                    color: "var(--green-up)",
+                    color: "var(--primary)",
                     border: "1px solid rgb(var(--brand-tint) / 0.25)",
                   }}
                 >
@@ -507,7 +507,7 @@ function IpoCard({ ipo, i }: { ipo: Ipo; i: number }) {
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              style={{ background: "var(--green-up)", height: "100%" }}
+              style={{ background: "var(--primary)", height: "100%" }}
             />
           </div>
         </div>
