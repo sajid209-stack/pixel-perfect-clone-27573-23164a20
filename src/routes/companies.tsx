@@ -1,12 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUp, ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, Search, SlidersHorizontal, Star, X } from "lucide-react";
 
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
-import { companies, formatBDT, formatVolume, type Company } from "@/data/companies";
+import { StarButton } from "@/components/dse/StarButton";
+import { CategoryBadge } from "@/components/dse/CategoryBadge";
+import { useWatchlist, useRecentlyViewed } from "@/lib/userPrefs";
+import { companies, findCompany, formatBDT, formatVolume, type Company, type ShareCategory } from "@/data/companies";
 
 export const Route = createFileRoute("/companies")({
   head: () => ({
