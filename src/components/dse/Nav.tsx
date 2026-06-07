@@ -305,15 +305,16 @@ function IpoPanel({ close }: { close: () => void }) {
       <div style={{ width: 150, borderLeft: "1px solid #E2E8F0" }} className="pl-4">
         <ColHeader>Live now</ColHeader>
         <div className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#16A34A", boxShadow: "0 0 6px #16A34A" }} />
-          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#16A34A" }}>Open</span>
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--green-up)", boxShadow: "0 0 6px var(--green-up)" }} />
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--green-up)" }}>Open</span>
         </div>
         <div className="text-[12px] font-medium mt-1.5" style={{ color: "#0F172A" }}>NRBC Bank PLC</div>
         <div className="text-[10px] mt-0.5" style={{ color: "#64748B" }}>৳ 30/share · Closes Jun 10</div>
         <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: "#E2E8F0" }}>
-          <div style={{ width: "73%", height: "100%", background: "#3B6D11" }} />
+          <div style={{ width: "73%", height: "100%", background: "var(--primary)" }} />
         </div>
-        <div className="text-[10px] mt-1 font-semibold" style={{ color: "#16A34A" }}>73% subscribed</div>
+        <div className="text-[10px] mt-1 font-semibold" style={{ color: "var(--primary)" }}>73% subscribed</div>
+
         <Link to="/ipo" onClick={close} className="block text-[10px] mt-2 font-semibold" style={{ color: "#0F172A" }}>
           Apply via your broker →
         </Link>
