@@ -127,16 +127,16 @@
    gains stay green and losses stay red.
    ============================================================ */
 
-/* Blue light */
+/* Blue light — brand colors only; page backgrounds stay near-white */
 [data-theme="blue"] {
-  --navy-deep: #FFFFFF;
-  --navy-mid: #155EA8;
-  --navy-light: #2E7CD6;
+  --navy-deep: #122A47;        /* deep brand surface (status bar / footer) */
+  --navy-mid: #155EA8;         /* primary brand */
+  --navy-light: #2E7CD6;       /* accent / hover */
   --sky-50: rgba(0,0,0,0.04);
   --sky-100: #475569;
-  --green-up: #16A974;
+  --green-up: #16A974;         /* SEMANTIC — price up stays green */
   --green-up-light: rgba(22,169,116,0.10);
-  --red-down: #D9415E;
+  --red-down: #D9415E;         /* SEMANTIC — price down stays red */
   --red-down-light: rgba(217,65,94,0.10);
   --amber: #C2913B;
   --amber-light: rgba(194,145,59,0.10);
@@ -146,7 +146,7 @@
   --text-secondary: #4A555B;
   --text-muted: #8A949A;
 
-  --background: #F7F8FB;
+  --background: #FFFFFF;
   --foreground: #0E1513;
   --card: rgba(0,0,0,0.025);
   --card-foreground: #0E1513;
@@ -158,22 +158,22 @@
 
   --ov: 0 0 0;
   --ov-inv: 255 255 255;
-  --surface-rgb: 247 248 251;
+  --surface-rgb: 255 255 255;
 
+  /* Brand tint resolves to ice-blue panels (#E3EEF9 ≈ rgb 227 238 249) at 1.0 alpha */
   --brand-tint: 46 124 214;
   --brand-tint-strong: 21 94 168;
 
+  /* Barely-perceptible cool tint — backgrounds remain effectively white */
   --body-bg-img:
-    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint-strong) / 0.07), transparent 65%),
-    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint-strong) / 0.04), transparent 65%),
-    linear-gradient(180deg, #F7F8FB 0%, #E3EEF9 60%, #F7F8FB 100%);
+    linear-gradient(180deg, #FFFFFF 0%, #F3F7FC 60%, #FFFFFF 100%);
 }
 
-/* Blue dark */
+/* Blue dark — deep navy-black, lighter blue brand */
 [data-theme="blue"].dark {
-  --navy-deep: #0B0E10;
-  --navy-mid: #6BA5E0;
-  --navy-light: #9BC3EC;
+  --navy-deep: #0A1220;
+  --navy-mid: #4D9BE8;
+  --navy-light: #7FB5EF;
   --sky-50: rgba(255,255,255,0.05);
   --sky-100: #94A3B8;
   --green-up: #7FD9B0;
@@ -187,26 +187,25 @@
   --text-secondary: #8E969E;
   --text-muted: #5C656D;
 
-  --background: #0B0E10;
+  --background: #0A1220;
   --foreground: #D6DBD8;
-  --card: rgba(255,255,255,0.03);
+  --card: #101B2E;
   --card-foreground: #D6DBD8;
-  --primary: #6BA5E0;
-  --primary-foreground: #0B0E10;
+  --primary: #4D9BE8;
+  --primary-foreground: #0A1220;
   --muted: rgba(255,255,255,0.03);
   --muted-foreground: #8E969E;
 
   --ov: 255 255 255;
   --ov-inv: 0 0 0;
-  --surface-rgb: 7 9 10;
+  --surface-rgb: 16 27 46;
 
-  --brand-tint: 107 165 224;
+  /* Tint resolves to #16243A panel territory */
+  --brand-tint: 77 155 232;
   --brand-tint-strong: 46 124 214;
 
   --body-bg-img:
-    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint) / 0.04), transparent 65%),
-    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint) / 0.025), transparent 65%),
-    linear-gradient(180deg, #0B0E10 0%, #0C1011 60%, #0B0E10 100%);
+    linear-gradient(180deg, #0A1220 0%, #0C1525 60%, #0A1220 100%);
 }
 
 
