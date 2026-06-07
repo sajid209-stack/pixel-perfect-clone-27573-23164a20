@@ -584,6 +584,7 @@ function IndexCell() {
           </div>
         </motion.div>
       </AnimatePresence>
+      )}
 
       <div className="mt-2 pt-2 border-t space-y-1" style={{ borderColor: "rgb(var(--ov) / 0.05)" }}>
         {others.map((k) => {
