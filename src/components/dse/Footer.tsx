@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import dseLogo from "@/assets/dse-logo.png";
 import { useLang } from "@/i18n/LanguageContext";
 
-type FooterLink = { label: string; to: string; hash?: string; soon?: boolean };
+type FooterLink = { label: string; to: string; hash?: string };
 
 const marketsLinks: FooterLink[] = [
   { label: "Equities", to: "/companies" },
@@ -18,8 +18,8 @@ const aboutLinks: FooterLink[] = [
   { label: "About us", to: "/about" },
   { label: "Board of directors", to: "/about", hash: "board" },
   { label: "Press releases", to: "/about", hash: "press" },
-  { label: "Careers", to: "/about", hash: "careers", soon: true },
-  { label: "Sustainability", to: "/about", hash: "sustainability", soon: true },
+  { label: "Careers", to: "/about", hash: "careers" },
+  { label: "Sustainability", to: "/about", hash: "sustainability" },
   { label: "Annual reports", to: "/reports" },
 ];
 
@@ -28,8 +28,8 @@ const servicesLinks: FooterLink[] = [
   { label: "Listing requirements", to: "/listing" },
   { label: "BICM", to: "/about", hash: "bicm" },
   { label: "Investor education", to: "/learn" },
-  { label: "Complaints portal", to: "/complaints", soon: true },
-  { label: "Data API", to: "/about", hash: "api", soon: true },
+  { label: "Complaints portal", to: "/complaints" },
+  { label: "Data API", to: "/about", hash: "api" },
 ];
 
 const cols: { title: string; items: FooterLink[] }[] = [
@@ -45,14 +45,9 @@ function FooterLinkItem({ item }: { item: FooterLink }) {
       <Link
         to={item.to}
         hash={item.hash}
-        className="transition hover:opacity-100 opacity-80 cursor-pointer inline-flex items-baseline gap-1.5"
+        className="transition hover:opacity-100 opacity-80 cursor-pointer"
       >
-        <span>{t(item.label)}</span>
-        {item.soon && (
-          <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>
-            {t("(coming soon)")}
-          </span>
-        )}
+        {t(item.label)}
       </Link>
     </li>
   );
