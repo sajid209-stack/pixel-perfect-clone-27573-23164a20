@@ -131,7 +131,7 @@ function MarketsPanel({ close }: { close: () => void }) {
         <div className="flex items-baseline gap-2">
           <span className="text-[11px]" style={{ color: "#94A3B8" }}>DSEX</span>
           <span className="text-[16px] font-semibold tnum" style={{ color: "#0F172A" }}>6,241.30</span>
-          <span className="text-[12px] font-semibold" style={{ color: "#16A34A" }}>▲ 0.30%</span>
+          <span className="text-[12px] font-semibold" style={{ color: "var(--green-up)" }}>▲ 0.30%</span>
         </div>
         <span className="text-[10px] italic" style={{ color: "#94A3B8" }}>Sample data</span>
       </div>
