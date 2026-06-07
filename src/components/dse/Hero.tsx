@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useLang } from "@/i18n/LanguageContext";
 
 type Story = {
   eyebrow: string;
@@ -49,6 +50,7 @@ const stories: Story[] = [
 
 export function Hero() {
   const [active, setActive] = useState(0);
+  const { t } = useLang();
 
   // auto-advance
   useEffect(() => {
@@ -129,13 +131,13 @@ export function Hero() {
                         className="inline-block w-1.5 h-1.5 rounded-full"
                         style={{ background: story.accent }}
                       />
-                      {story.eyebrow}
+                      {t(story.eyebrow)}
                     </div>
                     <h2 className="text-[20px] md:text-[34px] font-semibold tracking-tight leading-[1.15] text-white">
-                      {story.title}
+                      {t(story.title)}
                     </h2>
                     <p className="mt-4 text-[13px] md:text-[15.5px] leading-[1.65] text-white/70">
-                      {story.desc}
+                      {t(story.desc)}
                     </p>
                     <Link
                       to={story.ctaTo}
@@ -146,7 +148,7 @@ export function Hero() {
                         boxShadow: `0 8px 24px -8px ${story.accent}88`,
                       }}
                     >
-                      {story.cta}
+                      {t(story.cta)}
                       <ArrowUpRight className="w-4 h-4" />
                     </Link>
 
@@ -202,7 +204,7 @@ export function Hero() {
                       color: isActive ? s.accent : "var(--text-muted)",
                     }}
                   >
-                    {s.eyebrow}
+                    {t(s.eyebrow)}
                   </div>
                   <div
                     className="text-[14px] md:text-[15px] font-semibold leading-snug line-clamp-2 transition"
@@ -212,7 +214,7 @@ export function Hero() {
                         : "var(--text-secondary)",
                     }}
                   >
-                    {s.title}
+                    {t(s.title)}
                   </div>
                 </button>
               );
