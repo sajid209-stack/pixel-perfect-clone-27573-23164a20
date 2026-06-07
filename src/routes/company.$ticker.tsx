@@ -281,8 +281,7 @@ function OverviewTab({
       {/* Right col */}
       <div className="space-y-6">
         <AboutCard co={co} />
-        <FinancialSnapshot co={co} />
-        <ShareholdersCard co={co} />
+        <ShareholdingPatternCard co={co} />
         <RecentAnnouncementsCard co={co} />
       </div>
     </div>
