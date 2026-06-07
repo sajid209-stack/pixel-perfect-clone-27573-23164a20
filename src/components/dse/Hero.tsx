@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
-import heroGradient from "@/assets/hero-gradient.jpg";
+import heroDhaka from "@/assets/hero-dhaka.jpg";
+import heroTrading from "@/assets/hero-trading.jpg";
+import heroBoardroom from "@/assets/hero-boardroom.jpg";
 
 type Story = {
   eyebrow: string;
@@ -12,6 +14,7 @@ type Story = {
   cta: string;
   ctaTo: string;
   image: string;
+  alt: string;
   accent: string;
 };
 
@@ -22,7 +25,8 @@ const stories: Story[] = [
     desc: "Bangladesh's homegrown electronics leader raises BDT 8.5B through a sustainability-linked bond — the largest of its kind on the exchange.",
     cta: "View company",
     ctaTo: "/company/WALTONHIL",
-    image: heroGradient,
+    image: heroBoardroom,
+    alt: "Executives in a corporate boardroom reviewing listing documents",
     accent: "#10F0A0",
   },
   {
@@ -31,7 +35,8 @@ const stories: Story[] = [
     desc: "A new benchmark instrument designed to give regional and institutional investors transparent exposure to Bangladesh's blue-chip equities.",
     cta: "Explore the index",
     ctaTo: "/indices",
-    image: heroGradient,
+    image: heroTrading,
+    alt: "Stock market candlestick chart on a trading terminal",
     accent: "#7FD9B0",
   },
   {
@@ -40,7 +45,8 @@ const stories: Story[] = [
     desc: "A new DSE programme helping issuers improve disclosure quality, investor relations, and long-term capital formation.",
     cta: "Browse market reports",
     ctaTo: "/reports",
-    image: heroGradient,
+    image: heroDhaka,
+    alt: "Dhaka city skyline at sunrise with modern financial buildings",
     accent: "#4FD1C5",
   },
 ];
@@ -83,7 +89,7 @@ export function Hero() {
               >
                 <img
                   src={story.image}
-                  alt=""
+                  alt={story.alt}
                   className="w-full h-full object-cover"
                 />
                 {/* Brand tint overlay */}

@@ -1,12 +1,16 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageContext";
+import newsPharma from "@/assets/news-pharma.jpg";
+import newsIpo from "@/assets/news-ipo.jpg";
 
 type NewsItem = {
   category: string;
   date: string;
   title: string;
   excerpt: string;
+  image?: string;
+  alt?: string;
 };
 
 const news: NewsItem[] = [
@@ -15,12 +19,16 @@ const news: NewsItem[] = [
     date: "Jun 06",
     title: "DSEX closes above 6,240 as pharma rallies",
     excerpt: "Pharmaceuticals led broad-based gains with Square and Renata both up over 1.5%.",
+    image: newsPharma,
+    alt: "Pharmaceutical production line in a modern facility",
   },
   {
     category: "IPO",
     date: "Jun 05",
     title: "Three IPOs open for subscription next week",
     excerpt: "Combined capital raise targets ৳480 Cr across textile, fintech and energy issuers.",
+    image: newsIpo,
+    alt: "Executives ringing the bell at a stock exchange IPO listing",
   },
   {
     category: "Policy",
