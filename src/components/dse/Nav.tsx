@@ -252,8 +252,9 @@ function IndicesPanel({ close }: { close: () => void }) {
               <span
                 className="inline-flex items-center mt-1 px-1.5 py-0.5 rounded text-[10px] font-semibold"
                 style={{
-                  background: up ? "#DCFCE7" : "#FEE2E2",
-                  color: up ? "#15803D" : "#B91C1C",
+                  background: up ? "var(--green-up-light)" : "var(--red-down-light)",
+                  color: up ? "var(--green-up)" : "var(--red-down)",
+
                 }}
               >
                 {up ? "▲" : "▼"} {Math.abs(c.change).toFixed(2)}%
