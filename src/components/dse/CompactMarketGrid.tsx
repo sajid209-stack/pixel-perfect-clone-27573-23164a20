@@ -289,6 +289,7 @@ const discFilters = ["All", "Price sensitive", "Dividend", "AGM", "Regulatory"];
 function DisclosuresCell() {
   const { t } = useLang();
   const [filter, setFilter] = useState("All");
+  const loading = useBriefLoad(500);
   return (
     <Cell style={{ display: "flex", flexDirection: "column" }}>
       <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
@@ -326,7 +327,19 @@ function DisclosuresCell() {
       </div>
 
       <div className="flex-1 space-y-2">
-        {announcements.slice(0, 3).map((a) => {
+        {loading ? (
+          Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="py-2.5 border-t space-y-1.5" style={{ borderColor: "rgb(var(--ov) / 0.05)" }}>
+              <div className="flex items-center justify-between">
+                <div className="skeleton h-3 w-14" />
+                <div className="skeleton h-2.5 w-10" />
+              </div>
+              <div className="skeleton h-3 w-full" />
+              <div className="skeleton h-3 w-8 rounded" />
+            </div>
+          ))
+        ) : (
+        announcements.slice(0, 3).map((a) => {
           const cfg = typeBadge[a.type] ?? typeBadge.Regulatory;
           return (
             <Link
