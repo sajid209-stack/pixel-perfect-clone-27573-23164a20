@@ -81,8 +81,8 @@ export function NewsScroll() {
                     }
                   : {
                       background:
-                        "linear-gradient(155deg, rgba(127,217,176,0.10) 0%, rgba(127,217,176,0.03) 60%, rgb(var(--surface-rgb)) 100%)",
-                      border: "1px solid rgba(127,217,176,0.18)",
+                        "linear-gradient(155deg, rgb(var(--brand-tint) / 0.10) 0%, rgb(var(--brand-tint) / 0.03) 60%, rgb(var(--surface-rgb)) 100%)",
+                      border: "1px solid rgb(var(--brand-tint) / 0.18)",
                     }
               }
             >

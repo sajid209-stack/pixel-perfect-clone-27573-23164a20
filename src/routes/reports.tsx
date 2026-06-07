@@ -67,7 +67,7 @@ const calendar: { date: string; kind: SessionKind; note?: string }[] = [
 ];
 
 const kindStyles: Record<SessionKind, { bg: string; fg: string; border: string }> = {
-  "Trading day": { bg: "rgba(127,217,176,0.12)", fg: "#7fd9b0", border: "rgba(127,217,176,0.30)" },
+  "Trading day": { bg: "rgb(var(--brand-tint) / 0.12)", fg: "#7fd9b0", border: "rgb(var(--brand-tint) / 0.30)" },
   Holiday: { bg: "rgba(245,158,11,0.12)", fg: "#f59e0b", border: "rgba(245,158,11,0.30)" },
   Weekend: { bg: "rgb(var(--ov) / 0.08)", fg: "var(--text-muted)", border: "rgb(var(--ov) / 0.10)" },
 };

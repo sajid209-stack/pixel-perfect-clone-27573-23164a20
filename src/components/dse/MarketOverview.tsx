@@ -183,7 +183,7 @@ function MoversPanel() {
                 className="px-3 py-1.5 rounded-full text-[12px] transition relative"
                 style={{
                   color: active ? "var(--green-up)" : "var(--text-secondary)",
-                  background: active ? "rgba(127,217,176,0.08)" : "transparent",
+                  background: active ? "rgb(var(--brand-tint) / 0.08)" : "transparent",
                 }}
               >
                 {t}

@@ -57,7 +57,7 @@ function ComplaintsPage() {
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-              style={{ background: "rgba(127,217,176,0.10)", color: "var(--green-up)" }}
+              style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
             >
               <Landmark className="w-5 h-5" />
             </div>
@@ -85,7 +85,7 @@ function ComplaintsPage() {
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-              style={{ background: "rgba(127,217,176,0.10)", color: "var(--green-up)" }}
+              style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
             >
               <Building2 className="w-5 h-5" />
             </div>
@@ -111,8 +111,8 @@ function ComplaintsPage() {
         <div
           className="rounded-2xl p-5 flex flex-wrap items-center justify-between gap-3 text-[13px]"
           style={{
-            background: "rgba(127,217,176,0.06)",
-            border: "1px solid rgba(127,217,176,0.20)",
+            background: "rgb(var(--brand-tint) / 0.06)",
+            border: "1px solid rgb(var(--brand-tint) / 0.20)",
           }}
         >
           <div>

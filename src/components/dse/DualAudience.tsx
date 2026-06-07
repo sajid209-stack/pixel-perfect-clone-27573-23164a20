@@ -109,7 +109,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
           style={{
             background:
-              "radial-gradient(60% 60% at 20% 0%, rgba(127,217,176,0.10), transparent 70%)",
+              "radial-gradient(60% 60% at 20% 0%, rgb(var(--brand-tint) / 0.10), transparent 70%)",
           }}
         />
 
@@ -122,7 +122,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
           </span>
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center"
-            style={{ background: "rgba(127,217,176,0.08)" }}
+            style={{ background: "rgb(var(--brand-tint) / 0.08)" }}
           >
             <Icon style={{ color: "var(--green-up)", width: 16, height: 16 }} />
           </div>

@@ -490,7 +490,7 @@ function StatsGrid({ co }: { co: Company }) {
               style={{
                 left: `calc(${pct}% - 5px)`,
                 background: "var(--green-up)",
-                boxShadow: "0 0 0 3px rgba(127,217,176,0.25)",
+                boxShadow: "0 0 0 3px rgb(var(--brand-tint) / 0.25)",
               }}
             />
           </div>
@@ -640,7 +640,7 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
             <div className="flex items-center gap-2 mb-1">
               <span
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
-                style={{ background: "rgba(127,217,176,0.10)", color: "var(--green-up)" }}
+                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
               >
                 {a.type}
               </span>
@@ -709,7 +709,7 @@ function AnnouncementsTab({ co }: { co: Company }) {
               <div className="text-[15px] mb-1" style={{ color: "var(--text-primary)" }}>{a.summary}</div>
               <span
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
-                style={{ background: "rgba(127,217,176,0.10)", color: "var(--green-up)" }}
+                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
               >
                 {a.type}
               </span>
@@ -1227,9 +1227,9 @@ function Pill({ children }: { children: React.ReactNode }) {
     <span
       className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium"
       style={{
-        background: "rgba(127,217,176,0.10)",
+        background: "rgb(var(--brand-tint) / 0.10)",
         color: "var(--green-up)",
-        border: "1px solid rgba(127,217,176,0.18)",
+        border: "1px solid rgb(var(--brand-tint) / 0.18)",
       }}
     >
       {children}

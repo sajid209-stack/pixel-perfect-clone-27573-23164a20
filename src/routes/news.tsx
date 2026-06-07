@@ -113,7 +113,7 @@ function buildFeed(): Disclosure[] {
 
 const typeMeta: Record<DisclosureType, { color: string; bg: string }> = {
   "Price sensitive": { color: "var(--red-down)", bg: "rgba(232,136,154,0.10)" },
-  Dividend: { color: "var(--green-up)", bg: "rgba(127,217,176,0.10)" },
+  Dividend: { color: "var(--green-up)", bg: "rgb(var(--brand-tint) / 0.10)" },
   "AGM notice": { color: "#7fbcd9", bg: "rgba(127,188,217,0.10)" },
   Regulatory: { color: "#f0c674", bg: "rgba(240,198,116,0.10)" },
 };

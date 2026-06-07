@@ -188,7 +188,7 @@ function MoversCell() {
                 className="px-2 py-0.5 rounded-full text-[10px] font-medium transition"
                 style={{
                   color: active ? "var(--green-up)" : "var(--text-muted)",
-                  background: active ? "rgba(127,217,176,0.12)" : "transparent",
+                  background: active ? "rgb(var(--brand-tint) / 0.12)" : "transparent",
                 }}
               >
                 {t(tk)}
@@ -259,7 +259,7 @@ function MoversCell() {
                     className="text-[10px] tnum px-1.5 py-0.5 rounded-full"
                     style={{
                       color: up ? "var(--green-up)" : "var(--red-down)",
-                      background: up ? "rgba(127,217,176,0.10)" : "rgba(232,136,154,0.10)",
+                      background: up ? "rgb(var(--brand-tint) / 0.10)" : "rgba(232,136,154,0.10)",
                     }}
                   >
                     {up ? "▲" : "▼"} {Math.abs(r.change).toFixed(2)}%
