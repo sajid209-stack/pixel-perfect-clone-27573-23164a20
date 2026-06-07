@@ -101,6 +101,8 @@ function CompanyPage() {
   const [tab, setTab] = useState<TabId>("overview");
   const up = co.change >= 0;
   const series = useMemo(() => buildSeries(co, period), [co, period]);
+  const { push } = useRecentlyViewed();
+  useEffect(() => { push(co.code); }, [co.code, push]);
 
   return (
     <div className="min-h-screen">
@@ -133,11 +135,15 @@ function CompanyPage() {
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Back to market
             </Link>
-            <div
-              className="text-[14px] font-bold tnum tracking-wide"
-              style={{ color: "var(--green-up)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
-            >
-              {co.code}
+            <div className="flex items-center gap-2">
+              <div
+                className="text-[14px] font-bold tnum tracking-wide"
+                style={{ color: "var(--green-up)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
+              >
+                {co.code}
+              </div>
+              <CategoryBadge category={co.category} />
+              <StarButton code={co.code} size={16} />
             </div>
             <h1
               className="mt-1 text-[28px] md:text-[34px] font-semibold tracking-tight leading-[1.1]"
