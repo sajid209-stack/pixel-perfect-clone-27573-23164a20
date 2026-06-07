@@ -7,7 +7,6 @@ type NewsItem = {
   date: string;
   title: string;
   excerpt: string;
-  image: string;
 };
 
 const news: NewsItem[] = [
@@ -16,21 +15,18 @@ const news: NewsItem[] = [
     date: "Jun 06",
     title: "DSEX closes above 6,240 as pharma rallies",
     excerpt: "Pharmaceuticals led broad-based gains with Square and Renata both up over 1.5%.",
-    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=720&q=80&auto=format&fit=crop",
   },
   {
     category: "IPO",
     date: "Jun 05",
     title: "Three IPOs open for subscription next week",
     excerpt: "Combined capital raise targets ৳480 Cr across textile, fintech and energy issuers.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=720&q=80&auto=format&fit=crop",
   },
   {
     category: "Policy",
     date: "Jun 04",
     title: "BSEC clarifies new margin rules for retail",
     excerpt: "Revised circular caps exposure ratios and tightens disclosure timelines for brokers.",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=720&q=80&auto=format&fit=crop",
   },
 ];
 
@@ -38,10 +34,10 @@ export function NewsScroll() {
   const { t } = useLang();
   return (
     <section className="home-section relative">
-      <div className="max-w-7xl mx-auto mb-8 flex items-end justify-between gap-6">
+      <div className="max-w-7xl mx-auto mb-5 flex items-end justify-between gap-6">
         <div>
           <div
-            className="text-[12px] uppercase tracking-[0.22em] mb-3"
+            className="text-[12px] uppercase tracking-[0.22em] mb-2"
             style={{ color: "var(--text-muted)" }}
           >
             {t("Newsroom")}
@@ -68,53 +64,49 @@ export function NewsScroll() {
           {news.map((n, i) => (
             <article
               key={i}
-              className="news-card rounded-2xl flex flex-col overflow-hidden"
+              className="news-card rounded-2xl flex flex-col p-6 relative overflow-hidden"
               style={{
-                background: "rgb(var(--surface-rgb))",
-                border: "1px solid rgb(var(--ov) / 0.08)",
+                background:
+                  "linear-gradient(155deg, rgba(127,217,176,0.10) 0%, rgba(127,217,176,0.03) 60%, rgb(var(--surface-rgb)) 100%)",
+                border: "1px solid rgba(127,217,176,0.18)",
               }}
             >
               <div
-                className="w-full overflow-hidden"
-                style={{ height: 180, background: "rgb(var(--ov) / 0.05)" }}
+                className="flex items-center justify-between text-[11px] uppercase tracking-[0.18em]"
+                style={{ color: "var(--text-muted)" }}
               >
-                <img
-                  src={n.image}
-                  alt={n.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
+                <span
+                  className="px-2 py-0.5 rounded-full font-semibold"
+                  style={{
+                    background: "rgba(22,169,116,0.12)",
+                    color: "var(--green-up)",
+                    letterSpacing: "0.14em",
+                  }}
+                >
+                  {t(n.category)}
+                </span>
+                <span className="tnum">{n.date}</span>
               </div>
-              <div className="p-5 flex flex-col flex-1">
-                <div
-                  className="flex items-center justify-between text-[11px] uppercase tracking-[0.18em]"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  <span>{t(n.category)}</span>
-                  <span className="tnum">{n.date}</span>
-                </div>
-                <h3
-                  className="mt-3 text-[17px] leading-[1.3] font-semibold"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  {t(n.title)}
-                </h3>
-                <p
-                  className="mt-2 text-[13.5px] leading-[1.6]"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  {t(n.excerpt)}
-                </p>
-                <Link
-                  to="/news"
-                  className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
-                  style={{ color: "var(--green-up)" }}
-                >
-                  {t("Read story")}
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
+              <h3
+                className="mt-5 text-[19px] md:text-[20px] leading-[1.3] font-semibold tracking-tight"
+                style={{ color: "var(--text-primary)" }}
+              >
+                {t(n.title)}
+              </h3>
+              <p
+                className="mt-2 text-[13.5px] leading-[1.6]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {t(n.excerpt)}
+              </p>
+              <Link
+                to="/news"
+                className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold"
+                style={{ color: "var(--green-up)" }}
+              >
+                {t("Read story")}
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
             </article>
           ))}
         </div>
@@ -138,6 +130,7 @@ export function NewsScroll() {
           .news-card {
             flex: 0 0 86%;
             max-width: 320px;
+            min-height: 220px;
             scroll-snap-align: start;
           }
         }

@@ -134,9 +134,8 @@ type MoverTab = keyof typeof moverTabs;
 function MoversCell() {
   const { t } = useLang();
   const [tab, setTab] = useState<MoverTab>("Gainers");
-  const [expanded, setExpanded] = useState(false);
   const rows = moverTabs[tab];
-  const visible = expanded ? rows : rows.slice(0, 3);
+  const visible = rows.slice(0, 5);
   const showVol = tab === "Active";
 
   return (
@@ -154,10 +153,7 @@ function MoversCell() {
             return (
               <button
                 key={tk}
-                onClick={() => {
-                  setTab(tk);
-                  setExpanded(false);
-                }}
+                onClick={() => setTab(tk)}
                 className="px-2 py-0.5 rounded-full text-[10px] font-medium transition"
                 style={{
                   color: active ? "var(--green-up)" : "var(--text-muted)",
@@ -173,12 +169,11 @@ function MoversCell() {
 
       <AnimatePresence initial={false} mode="wait">
         <motion.div
-          key={tab + String(expanded)}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.2 }}
-          className="overflow-hidden"
+          key={tab}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
         >
           <div className="movers-list">
             {visible.map((r) => {
@@ -226,18 +221,6 @@ function MoversCell() {
           </div>
         </motion.div>
       </AnimatePresence>
-
-      {rows.length > 3 && (
-        <div className="text-center mt-2">
-          <button
-            onClick={() => setExpanded((p) => !p)}
-            className="text-[11px] font-medium hover:underline"
-            style={{ color: "var(--navy-mid, #3b5378)" }}
-          >
-            {expanded ? (t("Show less") + " ↑") : `${t("Show")} ${rows.length - 3} ${t("more")} ↓`}
-          </button>
-        </div>
-      )}
     </Cell>
   );
 }
@@ -497,8 +480,8 @@ function IndexCell() {
           <div className="dsex-stats mt-2 grid grid-cols-4 gap-1 text-center">
             {[
               { l: "Open", v: meta.open },
-              { l: "High", v: Math.max(meta.high, high).toLocaleString() },
-              { l: "Low", v: Math.min(meta.low, low).toLocaleString() },
+              { l: "High", v: Math.max(meta.high, high).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
+              { l: "Low", v: Math.min(meta.low, low).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
               { l: "Vol", v: meta.vol },
             ].map((s, i) => (
               <div

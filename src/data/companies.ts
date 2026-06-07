@@ -229,7 +229,7 @@ export const companies: Company[] = [
     high: 1628,
     low: 1612,
     volume: 1800000,
-    marketCap: 8910000000000,
+    marketCap: 490000000000,
     pe: 26.4,
     eps: 61.36,
     dividendYield: 0.9,
