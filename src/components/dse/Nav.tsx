@@ -697,7 +697,7 @@ export function Nav() {
         <button
           onClick={openCommandPalette}
           aria-label="Search (press / or Ctrl+K)"
-          className="lg:hidden md:inline-flex items-center justify-center w-9 h-9 rounded-full transition"
+          className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full transition"
           style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)", color: "var(--text-secondary)" }}
         >
           <Search className="w-4 h-4" />
