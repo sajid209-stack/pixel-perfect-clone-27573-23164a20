@@ -233,7 +233,7 @@ function ToolsCard() {
             className="text-[10px] uppercase tracking-[0.22em] mb-0.5"
             style={{ color: "var(--text-muted)" }}
           >
-            24/7 helpline
+            {t("24/7 helpline")}
           </div>
           <div className="text-[14px] tnum" style={{ color: "var(--text-primary)" }}>
             +880 9612-345678
@@ -253,6 +253,7 @@ function ToolsCard() {
 /* ---------- Section ---------- */
 
 export function Resources() {
+  const { t } = useLang();
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
@@ -264,14 +265,14 @@ export function Resources() {
             className="text-[11px] font-medium uppercase"
             style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
           >
-            Market reports &amp; tools
+            {t("Market reports & tools")}
           </div>
           <Link
             to="/reports"
             className="text-[11px] font-medium inline-flex items-center gap-1"
             style={{ color: "var(--text-secondary)" }}
           >
-            Browse archive → <ArrowUpRight className="w-3 h-3" />
+            {t("Browse archive →")} <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
 
