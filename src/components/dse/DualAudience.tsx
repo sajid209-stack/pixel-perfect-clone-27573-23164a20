@@ -187,10 +187,10 @@ export function DualAudience() {
   return (
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-6 mb-5 items-end">
+        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-6 mb-3 items-end">
           <div>
             <div
-              className="text-[11px] uppercase tracking-[0.22em] mb-2"
+              className="text-[11px] uppercase tracking-[0.22em] mb-1.5"
               style={{ color: "var(--text-muted)" }}
             >
               {t("Get started")}

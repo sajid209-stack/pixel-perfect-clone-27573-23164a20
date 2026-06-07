@@ -258,7 +258,7 @@ export function Resources() {
     <section className="home-section relative">
       <div className="max-w-7xl mx-auto">
         <div
-          className="flex items-center justify-between gap-4 mb-6 pb-3 border-b"
+          className="flex items-center justify-between gap-4 mb-4 pb-2 border-b"
           style={{ borderColor: "rgb(var(--ov) / 0.08)" }}
         >
           <div
