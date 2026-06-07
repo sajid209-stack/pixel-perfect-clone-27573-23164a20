@@ -235,7 +235,7 @@ const catFg: Record<Cat, string> = {
   Balanced: "#74AAFF",
   Income: "#C9A84C",
   Shariah: "#A78BFA",
-  Index: "#5EEAD4",
+  Index: "var(--primary)",
 };
 
 function FundsPage() {
