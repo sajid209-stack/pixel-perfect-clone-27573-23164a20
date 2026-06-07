@@ -164,6 +164,7 @@ type MoverTab = keyof typeof moverTabs;
 function MoversCell() {
   const { t } = useLang();
   const [tab, setTab] = useState<MoverTab>("Gainers");
+  const loading = useBriefLoad(450);
   const rows = moverTabs[tab];
   const visible = rows.slice(0, 5);
   const showVol = tab === "Active";
@@ -197,6 +198,24 @@ function MoversCell() {
         </div>
       </div>
 
+      {loading ? (
+        <div>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={i}
+              className="grid grid-cols-[1fr_auto_auto] gap-2 py-2 border-t items-center"
+              style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
+            >
+              <div className="space-y-1.5">
+                <div className="skeleton h-3 w-16" />
+                <div className="skeleton h-2.5 w-28" />
+              </div>
+              <div className="skeleton h-3 w-12" />
+              <div className="skeleton h-4 w-14 rounded-full" />
+            </div>
+          ))}
+        </div>
+      ) : (
       <AnimatePresence initial={false} mode="wait">
         <motion.div
           key={tab}
@@ -217,11 +236,11 @@ function MoversCell() {
                   style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
                 >
                   <div className="min-w-0">
-                    <div
-                      className="text-[12px] font-semibold leading-tight"
-                      style={{ color: "var(--text-primary)" }}
-                    >
-                      {r.code}
+                    <div className="flex items-center gap-1.5 leading-tight">
+                      <span className="text-[12px] font-semibold" style={{ color: "var(--text-primary)" }}>
+                        {r.code}
+                      </span>
+                      <CategoryBadge category={categoryFor(r.code)} size="xs" />
                     </div>
                     <div
                       className="text-[11px] truncate mover-name"
@@ -251,6 +270,7 @@ function MoversCell() {
           </div>
         </motion.div>
       </AnimatePresence>
+      )}
     </Cell>
   );
 }
