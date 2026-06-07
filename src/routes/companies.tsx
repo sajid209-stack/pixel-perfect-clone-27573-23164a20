@@ -52,12 +52,15 @@ const columns: { key: SortKey; label: string; align: "left" | "right"; w: string
 const sectors = ["All", ...Array.from(new Set(companies.map((c) => c.sector)))];
 const boards = ["All", ...Array.from(new Set(companies.map((c) => c.board)))];
 const movers = ["All", "Gainers", "Losers"] as const;
+const categories = ["All", "A", "B", "N", "Z"] as const;
 
 function ScreenerPage() {
   const [query, setQuery] = useState("");
   const [sector, setSector] = useState<string>("All");
   const [board, setBoard] = useState<string>("All");
   const [mover, setMover] = useState<(typeof movers)[number]>("All");
+  const [category, setCategory] = useState<(typeof categories)[number]>("All");
+  const [watchOnly, setWatchOnly] = useState(false);
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({
     key: "marketCap",
     dir: "desc",
@@ -68,6 +71,9 @@ function ScreenerPage() {
     return () => clearTimeout(t);
   }, []);
 
+  const { items: watchItems, has: isWatched } = useWatchlist();
+  const { items: recentItems } = useRecentlyViewed();
+
   const filtered: Company[] = useMemo(() => {
     const q = query.trim().toLowerCase();
     let rows = companies.filter((c) => {
@@ -75,6 +81,8 @@ function ScreenerPage() {
       if (board !== "All" && c.board !== board) return false;
       if (mover === "Gainers" && c.changePct <= 0) return false;
       if (mover === "Losers" && c.changePct >= 0) return false;
+      if (category !== "All" && c.category !== category) return false;
+      if (watchOnly && !isWatched(c.code)) return false;
       if (q && !(c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)))
         return false;
       return true;
@@ -90,7 +98,7 @@ function ScreenerPage() {
         : (vb as number) - (va as number);
     });
     return rows;
-  }, [query, sector, board, mover, sort]);
+  }, [query, sector, board, mover, category, watchOnly, isWatched, sort]);
 
   const stats = useMemo(() => {
     const total = filtered.length;
@@ -111,6 +119,8 @@ function ScreenerPage() {
     (sector !== "All" ? 1 : 0) +
     (board !== "All" ? 1 : 0) +
     (mover !== "All" ? 1 : 0) +
+    (category !== "All" ? 1 : 0) +
+    (watchOnly ? 1 : 0) +
     (query ? 1 : 0);
 
   const reset = () => {
@@ -118,7 +128,14 @@ function ScreenerPage() {
     setSector("All");
     setBoard("All");
     setMover("All");
+    setCategory("All");
+    setWatchOnly(false);
   };
+
+  const recents = useMemo(
+    () => recentItems.map((c) => findCompany(c)).filter((x): x is Company => !!x),
+    [recentItems],
+  );
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
