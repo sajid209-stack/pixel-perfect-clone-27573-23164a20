@@ -1133,11 +1133,10 @@ function Avatar({ name, category, size = 40 }: { name: string; category: Directo
   const color = categoryColor(category);
   return (
     <div
-      className="relative flex items-end justify-center font-semibold flex-shrink-0 overflow-hidden"
+      className="relative flex items-end justify-center font-semibold flex-shrink-0 overflow-hidden rounded-lg"
       style={{
         width: size,
         height: size,
-        borderRadius: "50%",
         background: `linear-gradient(160deg, ${color}33 0%, ${color}11 60%, rgb(var(--ov) / 0.04) 100%)`,
         color,
         border: `1px solid ${color}55`,
