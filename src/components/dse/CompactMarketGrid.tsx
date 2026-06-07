@@ -512,7 +512,7 @@ function IndexCell() {
                   className="text-[9px] uppercase tracking-wider"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  {s.l}
+                  {t(s.l)}
                 </div>
                 <div
                   className="text-[11px] font-medium tnum"
