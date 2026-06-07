@@ -84,6 +84,7 @@ function intensity(c: number) {
 
 function HeatmapCell() {
   const { t } = useLang();
+  const loading = useBriefLoad(450);
   const adv = sectors.filter((s) => s.change > 0).length;
   const dec = sectors.length - adv;
   return (
@@ -97,6 +98,19 @@ function HeatmapCell() {
           </span>
         }
       />
+      {loading ? (
+        <div
+          className="grid gap-1.5"
+          style={{ gridTemplateColumns: "repeat(6, 1fr)", gridAutoRows: "44px" }}
+        >
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={i}
+              className={`skeleton rounded-md ${i === 0 || i === 5 ? "col-span-2 row-span-2" : ""}`}
+            />
+          ))}
+        </div>
+      ) : (
       <div
         className="heatmap-grid grid gap-1.5"
         style={{
@@ -127,6 +141,7 @@ function HeatmapCell() {
           );
         })}
       </div>
+      )}
       <div
         className="mobile-swipe-hint mt-1.5 text-[10px] text-center hidden"
         style={{ color: "var(--text-muted)" }}
