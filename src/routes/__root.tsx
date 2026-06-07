@@ -108,7 +108,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  const themeInit = `(function(){try{var t=localStorage.getItem('dse-theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
+  const viteTheme = (import.meta.env.VITE_THEME as string | undefined) ?? "";
+  const themeInit = `(function(){try{var t=localStorage.getItem('dse-theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}try{var url=new URL(window.location.href);var qp=url.searchParams.get('theme');var vt=${JSON.stringify(viteTheme)};var brand=qp||vt;if(brand==='blue'){document.documentElement.dataset.theme='blue';}else if(brand){document.documentElement.dataset.theme=brand;}}catch(e){}})();`;
+
   return (
     <html lang="en" className="dark">
       <head>
