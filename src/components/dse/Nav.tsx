@@ -326,7 +326,7 @@ function IpoPanel({ close }: { close: () => void }) {
 function NewsPanel({ close }: { close: () => void }) {
   const types = [
     { icon: AlertCircle, label: "Price sensitive", count: 10, color: "#2563EB", bg: "#DBEAFE", q: "price-sensitive" },
-    { icon: Coins, label: "Dividends", count: 11, color: "#16A34A", bg: "#DCFCE7", q: "dividends" },
+    { icon: Coins, label: "Dividends", count: 11, color: "var(--green-up)", bg: "var(--green-up-light)", q: "dividends" },
     { icon: Users, label: "AGM / EGM", count: 8, color: "#D97706", bg: "#FEF3C7", q: "agm-egm" },
     { icon: Landmark, label: "Regulatory", count: 2, color: "#DC2626", bg: "#FEE2E2", q: "regulatory" },
   ];
