@@ -484,6 +484,49 @@ function StatGrid({ stats }: { stats: { total: number; gainers: number; losers: 
   );
 }
 
+function CategoryChips({
+  value,
+  onChange,
+}: {
+  value: (typeof categories)[number];
+  onChange: (v: (typeof categories)[number]) => void;
+}) {
+  return (
+    <div
+      className="h-9 p-0.5 rounded-full flex items-center gap-0.5"
+      style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <span className="px-2 text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+        Cat
+      </span>
+      {categories.map((c) => {
+        const active = c === value;
+        const danger = c === "Z";
+        const bg = active
+          ? danger
+            ? "rgba(217,65,94,0.18)"
+            : "rgb(var(--ov) / 0.10)"
+          : "transparent";
+        const color = active
+          ? danger
+            ? "var(--red-down)"
+            : "var(--text-primary)"
+          : "var(--text-secondary)";
+        return (
+          <button
+            key={c}
+            onClick={() => onChange(c)}
+            className="px-2.5 h-full text-[11.5px] font-medium rounded-full tnum transition"
+            style={{ background: bg, color, minWidth: c === "All" ? 38 : 26 }}
+          >
+            {c}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 function Pill({
   label,
   value,
