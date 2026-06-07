@@ -10,6 +10,7 @@ import {
   announcements,
   indexData,
 } from "./data";
+import { useLang } from "@/i18n/LanguageContext";
 
 /* ---------- Cell shell ---------- */
 
@@ -67,16 +68,17 @@ function intensity(c: number) {
 }
 
 function HeatmapCell() {
+  const { t } = useLang();
   const adv = sectors.filter((s) => s.change > 0).length;
   const dec = sectors.length - adv;
   return (
     <Cell>
       <CellHeader
-        left="Sector heatmap"
+        left={t("Sector heatmap")}
         right={
           <span className="tnum">
-            <span style={{ color: "var(--green-up)" }}>{adv}</span> adv ·{" "}
-            <span style={{ color: "var(--red-down)" }}>{dec}</span> dec
+            <span style={{ color: "var(--green-up)" }}>{adv}</span> {t("adv")} ·{" "}
+            <span style={{ color: "var(--red-down)" }}>{dec}</span> {t("dec")}
           </span>
         }
       />
@@ -130,6 +132,7 @@ const moverTabs = {
 type MoverTab = keyof typeof moverTabs;
 
 function MoversCell() {
+  const { t } = useLang();
   const [tab, setTab] = useState<MoverTab>("Gainers");
   const [expanded, setExpanded] = useState(false);
   const rows = moverTabs[tab];
@@ -143,7 +146,7 @@ function MoversCell() {
           className="text-[11px] font-medium uppercase"
           style={{ letterSpacing: "0.06em", color: "var(--text-secondary)" }}
         >
-          Top movers
+          {t("Top movers")}
         </div>
         <div className="flex gap-0.5">
           {(Object.keys(moverTabs) as MoverTab[]).map((t) => {
@@ -161,7 +164,7 @@ function MoversCell() {
                   background: active ? "rgba(127,217,176,0.12)" : "transparent",
                 }}
               >
-                {t}
+                {t(t2)}
               </button>
             );
           })}
