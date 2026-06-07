@@ -233,7 +233,7 @@ function NewsPage() {
                     <motion.span
                       layoutId="newsTab"
                       className="absolute inset-0 rounded-full"
-                      style={{ background: "var(--green-up)" }}
+                      style={{ background: "var(--primary)" }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -311,7 +311,7 @@ function NewsPage() {
                         <motion.span
                           layoutId="newsActive"
                           className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full"
-                          style={{ background: "var(--green-up)" }}
+                          style={{ background: "var(--primary)" }}
                         />
                       )}
                       <div
@@ -395,14 +395,14 @@ function NewsPage() {
                 >
                   <span className="text-[26px] font-semibold tracking-tight">{selected.code}</span>
                   <span
-                    className="text-[13px] group-hover:text-[color:var(--green-up)] transition"
+                    className="text-[13px] group-hover:text-[color:var(--primary)] transition"
                     style={{ color: "var(--text-secondary)" }}
                   >
                     {selected.name}
                   </span>
                   <ArrowUpRight
                     className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition"
-                    style={{ color: "var(--green-up)" }}
+                    style={{ color: "var(--primary)" }}
                   />
                 </Link>
                 <div className="text-[11.5px] mb-6" style={{ color: "var(--text-muted)" }}>
@@ -426,7 +426,7 @@ function NewsPage() {
                     to="/company/$ticker"
                     params={{ ticker: selected.code }}
                     className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-semibold"
-                    style={{ background: "var(--green-up)", color: "#07090A" }}
+                    style={{ background: "var(--primary)", color: "#07090A" }}
                   >
                     Open {selected.code} <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>

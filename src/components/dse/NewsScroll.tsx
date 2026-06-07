@@ -60,7 +60,7 @@ export function NewsScroll() {
         <Link
           to="/news"
           className="inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap"
-          style={{ color: "var(--green-up)" }}
+          style={{ color: "var(--primary)" }}
         >
           {t("All news")}
           <ArrowUpRight className="w-4 h-4" />
@@ -128,7 +128,7 @@ export function NewsScroll() {
                 <Link
                   to="/news"
                   className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold"
-                  style={{ color: "var(--green-up)" }}
+                  style={{ color: "var(--primary)" }}
                 >
                   {t("Read story")}
                   <ArrowUpRight className="w-4 h-4" />

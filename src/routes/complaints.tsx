@@ -57,7 +57,7 @@ function ComplaintsPage() {
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-              style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
+              style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
             >
               <Landmark className="w-5 h-5" />
             </div>
@@ -66,7 +66,7 @@ function ComplaintsPage() {
               <li>First raise the issue directly with the brokerage's compliance officer.</li>
               <li>
                 If unresolved within 15 working days, file with DSE Investor Services:{" "}
-                <a href="mailto:investorservices@dsebd.org" style={{ color: "var(--green-up)" }}>
+                <a href="mailto:investorservices@dsebd.org" style={{ color: "var(--primary)" }}>
                   investorservices@dsebd.org
                 </a>
               </li>
@@ -85,7 +85,7 @@ function ComplaintsPage() {
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-              style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
+              style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
             >
               <Building2 className="w-5 h-5" />
             </div>
@@ -100,7 +100,7 @@ function ComplaintsPage() {
               target="_blank"
               rel="noreferrer"
               className="inline-block mt-5 text-[13px]"
-              style={{ color: "var(--green-up)" }}
+              style={{ color: "var(--primary)" }}
             >
               File with BSEC →
             </a>
@@ -116,7 +116,7 @@ function ComplaintsPage() {
           }}
         >
           <div>
-            <a href="mailto:investorservices@dsebd.org" style={{ color: "var(--green-up)" }}>
+            <a href="mailto:investorservices@dsebd.org" style={{ color: "var(--primary)" }}>
               investorservices@dsebd.org
             </a>
             <span className="mx-2" style={{ color: "var(--text-muted)" }}>·</span>

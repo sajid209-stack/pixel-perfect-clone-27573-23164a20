@@ -116,9 +116,9 @@ function ReportsPage() {
                   onClick={() => setFilter(f)}
                   className="px-3 h-8 rounded-full text-[12px] font-medium transition"
                   style={{
-                    background: active ? "var(--green-up)" : "rgb(var(--ov) / 0.04)",
+                    background: active ? "var(--primary)" : "rgb(var(--ov) / 0.04)",
                     color: active ? "#07090A" : "var(--text-secondary)",
-                    border: active ? "1px solid var(--green-up)" : "1px solid rgb(var(--ov) / 0.08)",
+                    border: active ? "1px solid var(--primary)" : "1px solid rgb(var(--ov) / 0.08)",
                   }}
                 >
                   {f}

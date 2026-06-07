@@ -69,7 +69,7 @@ function CardShell({
             to={action.to ?? "/reports"}
             hash={action.hash}
             className="text-[11px] inline-flex items-center gap-1"
-            style={{ color: "var(--green-up)" }}
+            style={{ color: "var(--primary)" }}
           >
             {t(action.label)} <ArrowUpRight className="w-3 h-3" />
           </Link>
@@ -114,7 +114,7 @@ function ReportsCard() {
                   className="px-1.5 py-0.5 rounded-full text-[10px] tracking-wider uppercase"
                   style={{
                     background: "rgb(var(--brand-tint) / 0.06)",
-                    color: "var(--green-up)",
+                    color: "var(--primary)",
                   }}
                 >
                   {t(r.tag)}
@@ -133,7 +133,7 @@ function ReportsCard() {
         <Link
           to="/reports"
           className="text-[12px] font-medium inline-flex items-center gap-1"
-          style={{ color: "var(--green-up)" }}
+          style={{ color: "var(--primary)" }}
         >
           {t("View all reports →")} <ArrowUpRight className="w-3 h-3" />
         </Link>
@@ -177,7 +177,7 @@ function SessionsCard() {
 
       {/* Mobile: single compact inline row */}
       <div className="sessions-inline hidden items-center gap-2">
-        <CalendarDays className="w-4 h-4" style={{ color: "var(--green-up)" }} />
+        <CalendarDays className="w-4 h-4" style={{ color: "var(--primary)" }} />
         <div className="text-[13px] tnum" style={{ color: "var(--text-primary)" }}>
           {upcomingSessions.map((s) => `${s.month} ${parseInt(s.day, 10)}`).join(" · ")}
         </div>
@@ -188,7 +188,7 @@ function SessionsCard() {
           to="/reports"
           hash="calendar"
           className="text-[12px] font-medium inline-flex items-center gap-1"
-          style={{ color: "var(--green-up)" }}
+          style={{ color: "var(--primary)" }}
         >
           {t("Full calendar →")} <ArrowUpRight className="w-3 h-3" />
         </Link>
@@ -243,7 +243,7 @@ function ToolsCard() {
           className="w-9 h-9 rounded-full flex items-center justify-center"
           style={{ background: "rgb(var(--brand-tint) / 0.08)" }}
         >
-          <Phone className="w-4 h-4" style={{ color: "var(--green-up)" }} />
+          <Phone className="w-4 h-4" style={{ color: "var(--primary)" }} />
         </div>
       </div>
     </CardShell>
