@@ -532,7 +532,7 @@ export function Nav() {
           />
           <div className="hidden md:block leading-tight">
             <div className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--text-primary)" }}>
-              Dhaka Stock Exchange
+              {t("Dhaka Stock Exchange")}
             </div>
           </div>
         </Link>
@@ -542,7 +542,7 @@ export function Nav() {
             const isActive = activeLabel === l.label;
             const inner = (
               <>
-                {l.label}
+                {t(l.label)}
                 {isActive && (
                   <motion.span
                     layoutId="navActive"
@@ -624,7 +624,7 @@ export function Nav() {
                 setSearchOpen(true);
               }}
               onFocus={() => setSearchOpen(true)}
-              placeholder="Search ticker or company…"
+              placeholder={t("Search ticker or company…")}
               className="w-44 bg-transparent outline-none placeholder:opacity-60"
               style={{ color: "var(--text-primary)" }}
             />
@@ -652,7 +652,7 @@ export function Nav() {
                 }}
               >
                 <div className="px-4 pt-3 pb-2 text-[10px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
-                  {q ? `Results · ${results.length}` : "Trending"}
+                  {q ? `${t("Trending").replace(t("Trending"), lang === "bn" ? "ফলাফল" : "Results")} · ${results.length}` : t("Trending")}
                 </div>
                 {results.length === 0 ? (
                   <div className="px-4 py-6 text-[13px] text-center" style={{ color: "var(--text-muted)" }}>
@@ -689,8 +689,8 @@ export function Nav() {
                   className="px-4 py-2 text-[10px] flex justify-between"
                   style={{ color: "var(--text-muted)", borderTop: "1px solid rgb(var(--ov) / 0.06)" }}
                 >
-                  <span>Esc to close</span>
-                  <span>↵ to open</span>
+                  <span>{t("Esc to close")}</span>
+                  <span>{t("↵ to open")}</span>
                 </div>
               </motion.div>
             )}
@@ -706,7 +706,7 @@ export function Nav() {
             boxShadow: "0 6px 20px -6px rgba(16,240,160,0.55)",
           }}
         >
-          Contact
+          {t("Contact")}
           <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
 
