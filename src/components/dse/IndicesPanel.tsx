@@ -345,7 +345,7 @@ export function IndicesPanel() {
                   <Area
                     type="monotone"
                     dataKey="v"
-                    stroke="var(--green-up)"
+                    stroke="var(--primary)"
                     strokeWidth={1.8}
                     fill="url(#mainArea)"
                     isAnimationActive
