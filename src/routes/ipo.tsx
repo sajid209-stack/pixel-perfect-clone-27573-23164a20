@@ -437,7 +437,7 @@ function IpoCard({ ipo, i }: { ipo: Ipo; i: number }) {
 
   const tone =
     ipo.status === "open"
-      ? { label: "Subscription open", color: "var(--green-up)", bg: "rgb(var(--brand-tint) / 0.10)" }
+      ? { label: "Subscription open", color: "var(--primary)", bg: "rgb(var(--brand-tint) / 0.10)" }
       : ipo.status === "upcoming"
         ? { label: "Upcoming", color: "#f0c674", bg: "rgba(240,198,116,0.10)" }
         : { label: "Listed", color: "var(--text-secondary)", bg: "rgb(var(--ov) / 0.06)" };

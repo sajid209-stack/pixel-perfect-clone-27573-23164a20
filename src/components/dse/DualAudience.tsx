@@ -86,14 +86,14 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             <AreaChart data={path.data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <defs>
                 <linearGradient id={`pathFill-${i}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--green-up)" stopOpacity={0.18} />
-                  <stop offset="100%" stopColor="var(--green-up)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.18} />
+                  <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <Area
                 type="monotone"
                 dataKey="v"
-                stroke="var(--green-up)"
+                stroke="var(--primary)"
                 strokeOpacity={0.35}
                 strokeWidth={1.2}
                 fill={`url(#pathFill-${i})`}
@@ -124,7 +124,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             className="w-8 h-8 rounded-full flex items-center justify-center"
             style={{ background: "rgb(var(--brand-tint) / 0.08)" }}
           >
-            <Icon style={{ color: "var(--green-up)", width: 16, height: 16 }} />
+            <Icon style={{ color: "var(--primary)", width: 16, height: 16 }} />
           </div>
         </div>
 
@@ -171,7 +171,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
         <Link
           to={path.ctaTo}
           className="relative mt-4 inline-flex items-center gap-2 text-[13px] font-semibold group/cta w-fit"
-          style={{ color: "var(--green-up)" }}
+          style={{ color: "var(--primary)" }}
         >
           {t(path.cta)}
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
