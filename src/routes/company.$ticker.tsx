@@ -244,8 +244,8 @@ function CompanyPage() {
               </div>
             )}
             {tab === "financials" && <FinancialsTab co={co} />}
+            {tab === "dividends" && <DividendsTab co={co} />}
             {tab === "announcements" && <AnnouncementsTab co={co} />}
-            {tab === "similar" && <SimilarTab co={co} />}
           </motion.div>
         </AnimatePresence>
       </main>
