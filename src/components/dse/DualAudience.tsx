@@ -171,7 +171,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
         <Link
           to={path.ctaTo}
           className="relative mt-4 inline-flex items-center gap-2 text-[13px] font-semibold group/cta w-fit"
-          style={{ color: "var(--green-up)" }}
+          style={{ color: "var(--primary)" }}
         >
           {t(path.cta)}
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
