@@ -457,11 +457,18 @@ function CompanyDetailsCard({ co }: { co: Company }) {
   const [open, setOpen] = useState(false);
   const d = companyDetails(co);
   const rows: [string, string][] = [
+    ["Operational status", d.operationalStatus],
     ["Registered office", d.office],
+    ["Factory address", d.factory],
     ["Phone", d.phone],
+    ["Fax", d.fax],
     ["Email", d.email],
     ["Website", d.website],
-    ["Company secretary", d.secretary],
+    ["Company secretary", `${d.secretary}${d.secretaryEmail !== "—" ? ` · ${d.secretaryEmail}` : ""}${d.secretaryPhone !== "—" ? ` · ${d.secretaryPhone}` : ""}`],
+    ["Loan status",
+      `Short-term: ${d.loanShort !== undefined ? `৳ ${d.loanShort.toLocaleString()} mn` : "—"} · Long-term: ${d.loanLong !== undefined ? `৳ ${d.loanLong.toLocaleString()} mn` : "—"}`,
+    ],
+    ["Credit rating", `Short-term: ${d.creditShort} · Long-term: ${d.creditLong}`],
     ["Last AGM", d.lastAgm],
     ["Year-end", d.yearEnd],
   ];
