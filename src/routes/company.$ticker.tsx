@@ -7,6 +7,8 @@ import {
   BarChart,
   ComposedChart,
   Legend,
+  Line,
+  LineChart,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
