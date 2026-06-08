@@ -171,7 +171,7 @@
 
 /* Blue dark — deep navy-black, lighter blue brand */
 [data-theme="blue"].dark {
-  --navy-deep: #081424;
+  --navy-deep: #0A1220;
   --navy-mid: #5AA2EC;
   --navy-light: #7FB5EF;
   --sky-50: rgba(255,255,255,0.05);
@@ -187,9 +187,9 @@
   --text-secondary: #8E969E;
   --text-muted: #5C656D;
 
-  --background: #081424;
+  --background: #000000;
   --foreground: #D6DBD8;
-  --card: #0E1A2C;
+  --card: #0A0D14;
   --card-foreground: #D6DBD8;
   --primary: #5AA2EC;
   --primary-foreground: #081424;
