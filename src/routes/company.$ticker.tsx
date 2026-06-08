@@ -709,12 +709,12 @@ function AnnouncementsTab({ co }: { co: Company }) {
               <div className="text-[15px] mb-1" style={{ color: "var(--text-primary)" }}>{a.summary}</div>
               <span
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
-                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
+                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
               >
                 {a.type}
               </span>
             </div>
-            <a className="text-[13px] inline-flex items-center gap-1" style={{ color: "var(--green-up)" }}>
+            <a className="text-[13px] inline-flex items-center gap-1" style={{ color: "var(--primary)" }}>
               Read <ArrowUpRight className="w-3 h-3" />
             </a>
           </li>
