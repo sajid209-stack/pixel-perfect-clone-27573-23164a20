@@ -31,9 +31,9 @@ function Home() {
       <Hero />
       <WatchlistStrip />
       <CompactMarketGrid />
+      <NewsScroll />
       <DualAudience />
       <Resources />
-      <NewsScroll />
       <Footer />
     </div>
   );
