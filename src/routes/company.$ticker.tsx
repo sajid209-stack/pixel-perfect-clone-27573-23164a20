@@ -640,7 +640,7 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
             <div className="flex items-center gap-2 mb-1">
               <span
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
-                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
+                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
               >
                 {a.type}
               </span>
