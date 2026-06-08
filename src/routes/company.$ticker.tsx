@@ -901,7 +901,6 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
 /* ----------------- Other tabs ----------------- */
 
 function FinancialsTab({ co }: { co: Company }) {
-function FinancialsTab({ co }: { co: Company }) {
   const rows = co.interimFinancials ?? interimRowsFallback(co);
   const my = co.multiYearFinancials ?? [];
   const peTrend = co.peTrend ?? [];
