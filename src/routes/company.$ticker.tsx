@@ -549,11 +549,11 @@ function AboutCard({ co }: { co: Company }) {
 }
 
 const SHAREHOLDING_ROWS: { key: keyof NonNullable<Company["sharePattern"]>; label: string; color: string }[] = [
-  { key: "sponsor",     label: "Sponsor / Director", color: "var(--green-up)" },
-  { key: "government",  label: "Government",         color: "#4FD1C5" },
-  { key: "institution", label: "Institution",        color: "#7FD9B0" },
+  { key: "sponsor",     label: "Sponsor / Director", color: "var(--primary)" },
+  { key: "government",  label: "Government",         color: "#5B8DB8" },
+  { key: "institution", label: "Institution",        color: "#88A9C4" },
   { key: "foreign",     label: "Foreign",            color: "#C6A969" },
-  { key: "public",      label: "Public",             color: "#9FB7A6" },
+  { key: "public",      label: "Public",             color: "#9AA7B2" },
 ];
 
 function ShareholdingPatternCard({ co }: { co: Company }) {
