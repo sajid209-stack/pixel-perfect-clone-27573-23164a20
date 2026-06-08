@@ -85,7 +85,7 @@ function CompanyNotFound() {
         <Link
           to="/"
           className="inline-flex items-center gap-2 mt-8 px-5 py-3 rounded-full text-sm font-semibold"
-          style={{ background: "var(--green-up)", color: "#07090A" }}
+          style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
         >
           Back to market <ArrowUpRight className="w-4 h-4" />
         </Link>

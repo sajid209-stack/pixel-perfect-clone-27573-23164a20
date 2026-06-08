@@ -547,7 +547,7 @@ export function Nav() {
                     layoutId="navActive"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     className="absolute left-3 right-3 -bottom-[18px] h-[2px] rounded-full"
-                    style={{ background: "var(--green-up)", boxShadow: "0 0 8px var(--green-up)" }}
+                    style={{ background: "var(--primary)", boxShadow: "0 0 8px var(--primary)" }}
                   />
                 )}
               </>
@@ -708,8 +708,8 @@ export function Nav() {
           href="#footer"
           className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[13px] font-semibold transition cursor-pointer hover:scale-[1.02]"
           style={{
-            background: "var(--green-up)",
-            color: "#07090A",
+            background: "var(--primary)",
+            color: "var(--primary-foreground)",
             boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
           }}
         >

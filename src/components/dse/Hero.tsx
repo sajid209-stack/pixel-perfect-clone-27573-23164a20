@@ -154,7 +154,7 @@ export function Hero() {
                       className="mt-7 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13.5px] font-semibold transition hover:scale-[1.02]"
                       style={{
                         background: story.accent,
-                        color: "#07090A",
+                        color: "var(--primary-foreground)",
                         boxShadow: `0 8px 24px -8px ${story.accent}88`,
                       }}
                     >

@@ -350,7 +350,7 @@ function IndicesPage() {
                     onClick={() => setPeriod(p)}
                     className="relative px-3.5 py-1.5 text-[12px] tnum rounded-full transition-colors"
                     style={{
-                      color: isActive ? "#07090A" : "var(--text-secondary)",
+                      color: isActive ? "var(--primary-foreground)" : "var(--text-secondary)",
                       fontWeight: isActive ? 600 : 400,
                     }}
                   >

@@ -60,13 +60,13 @@ export function Announcements() {
                 key={f}
                 onClick={() => setFilter(f)}
                 className="relative px-3 py-1 rounded-full text-[11px] font-medium transition"
-                style={{ color: filter === f ? "#07090A" : "var(--text-secondary)" }}
+                style={{ color: filter === f ? "var(--primary-foreground)" : "var(--text-secondary)" }}
               >
                 {filter === f && (
                   <motion.div
                     layoutId="annFilter"
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
                 )}

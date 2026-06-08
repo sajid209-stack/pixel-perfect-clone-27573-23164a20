@@ -588,7 +588,7 @@ function SegPill({
             key={o}
             onClick={() => onChange(o)}
             className="relative px-3 h-full text-[12px] font-medium rounded-full transition"
-            style={{ color: active ? "#07090A" : "var(--text-secondary)" }}
+            style={{ color: active ? "var(--primary-foreground)" : "var(--text-secondary)" }}
           >
             {active && (
               <motion.span

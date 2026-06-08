@@ -19,7 +19,7 @@ export function IpoPipeline() {
           <Link
             to="/ipo"
             className="text-[11px] font-medium inline-flex items-center gap-1"
-            style={{ color: "var(--green-up)" }}
+            style={{ color: "var(--primary)" }}
           >
             View all → <ArrowUpRight className="w-3 h-3" />
           </Link>
@@ -41,7 +41,7 @@ export function IpoPipeline() {
             <div className="flex items-center gap-2 mb-2">
               <span
                 className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                style={{ background: "var(--green-up)", color: "#07090A" }}
+                style={{ background: "var(--green-up)", color: "var(--primary-foreground)" }}
               >
                 Live
               </span>
@@ -68,7 +68,7 @@ export function IpoPipeline() {
             </div>
             <div className="flex items-center justify-between text-[11px] mb-1.5">
               <span style={{ color: "var(--text-muted)" }}>Subscribed</span>
-              <span className="tnum font-semibold" style={{ color: "var(--green-up)" }}>73%</span>
+              <span className="tnum font-semibold" style={{ color: "var(--primary)" }}>73%</span>
             </div>
             <div
               className="ipo-progress h-1.5 w-full rounded-full overflow-hidden"
@@ -80,7 +80,7 @@ export function IpoPipeline() {
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 className="h-full rounded-full"
-                style={{ background: "var(--green-up)" }}
+                style={{ background: "var(--primary)" }}
               />
             </div>
           </motion.div>

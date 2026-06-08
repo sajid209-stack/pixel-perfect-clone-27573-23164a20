@@ -253,7 +253,7 @@ function IpoPage() {
                 key={t.key}
                 onClick={() => setTab(t.key as Status)}
                 className="relative px-4 h-9 rounded-full text-[12.5px] font-medium flex items-center gap-2 transition"
-                style={{ color: active ? "#07090A" : "var(--text-secondary)" }}
+                style={{ color: active ? "var(--primary-foreground)" : "var(--text-secondary)" }}
               >
                 {active && (
                   <motion.span

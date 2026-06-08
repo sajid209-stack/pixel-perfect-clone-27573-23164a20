@@ -231,7 +231,7 @@ const yieldCurve = [
 const typeMeta: Record<BondType, { bg: string; fg: string; icon: typeof Landmark }> = {
   Treasury: {
     bg: "rgb(var(--brand-tint) / 0.10)",
-    fg: "var(--green-up)",
+    fg: "var(--primary)",
     icon: Landmark,
   },
   Sukuk: {
@@ -404,7 +404,7 @@ function BondsPage() {
               <div className="flex items-center gap-1.5">
                 <span
                   className="w-2 h-2 rounded-full"
-                  style={{ background: "var(--green-up)" }}
+                  style={{ background: "var(--primary)" }}
                 />
                 Indicative mid-yield
               </div>
@@ -452,9 +452,9 @@ function BondsPage() {
                 <Line
                   type="monotone"
                   dataKey="yield"
-                  stroke="var(--green-up)"
+                  stroke="var(--primary)"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: "var(--green-up)" }}
+                  dot={{ r: 3, fill: "var(--primary)" }}
                   activeDot={{ r: 5 }}
                 />
               </LineChart>
@@ -496,14 +496,14 @@ function BondsPage() {
                 key={t}
                 onClick={() => setType(t)}
                 className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                style={{ color: type === t ? "#07090A" : "var(--text-secondary)" }}
+                style={{ color: type === t ? "var(--primary-foreground)" : "var(--text-secondary)" }}
               >
                 {type === t && (
                   <motion.span
                     layoutId="bondTypePill"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                   />
                 )}
                 <span className="relative">{t}</span>
@@ -619,7 +619,7 @@ function BondsPage() {
                       </div>
                       <div
                         className="text-right text-[13px] tnum font-semibold"
-                        style={{ color: "var(--green-up)" }}
+                        style={{ color: "var(--primary)" }}
                       >
                         {b.ytm.toFixed(2)}%
                       </div>
@@ -703,7 +703,7 @@ function BondsPage() {
                   {
                     l: "Yield to maturity",
                     v: `${selected.ytm.toFixed(2)}%`,
-                    c: "var(--green-up)",
+                    c: "var(--primary)",
                   },
                   { l: "Clean price", v: selected.price.toFixed(2) },
                   {
@@ -746,7 +746,7 @@ function BondsPage() {
                   border: "1px solid rgb(var(--brand-tint) / 0.20)",
                 }}
               >
-                <Calendar className="w-3.5 h-3.5" style={{ color: "var(--green-up)" }} />
+                <Calendar className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} />
                 <div
                   className="text-[11.5px]"
                   style={{ color: "var(--text-secondary)" }}
@@ -761,8 +761,8 @@ function BondsPage() {
               <a
                 className="inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-[13.5px] font-semibold cursor-pointer hover:scale-[1.02] transition"
                 style={{
-                  background: "var(--green-up)",
-                  color: "#07090A",
+                  background: "var(--primary)",
+                  color: "var(--primary-foreground)",
                   boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
                 }}
               >

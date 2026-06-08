@@ -231,7 +231,7 @@ const catTint: Record<Cat, string> = {
   Index: "rgba(94,234,212,0.14)",
 };
 const catFg: Record<Cat, string> = {
-  Equity: "var(--green-up)",
+  Equity: "var(--primary)",
   Balanced: "#74AAFF",
   Income: "#C9A84C",
   Shariah: "#A78BFA",
@@ -381,14 +381,14 @@ function FundsPage() {
                 key={c}
                 onClick={() => setCat(c)}
                 className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                style={{ color: cat === c ? "#07090A" : "var(--text-secondary)" }}
+                style={{ color: cat === c ? "var(--primary-foreground)" : "var(--text-secondary)" }}
               >
                 {cat === c && (
                   <motion.span
                     layoutId="fundCatPill"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                   />
                 )}
                 <span className="relative">{c}</span>
@@ -717,8 +717,8 @@ function FundsPage() {
               <a
                 className="inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-[13.5px] font-semibold cursor-pointer hover:scale-[1.02] transition"
                 style={{
-                  background: "var(--green-up)",
-                  color: "#07090A",
+                  background: "var(--primary)",
+                  color: "var(--primary-foreground)",
                   boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
                 }}
               >
@@ -782,7 +782,7 @@ function FundsPage() {
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                 style={{
                   background: "rgb(var(--brand-tint) / 0.10)",
-                  color: "var(--green-up)",
+                  color: "var(--primary)",
                 }}
               >
                 <b.icon className="w-5 h-5" />

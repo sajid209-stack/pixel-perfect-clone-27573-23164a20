@@ -233,7 +233,7 @@ const tiers = ["All", "Full service", "Discount", "Institutional"] as const;
 const tierMeta: Record<Tier, { bg: string; fg: string; border: string }> = {
   "Full service": {
     bg: "rgb(var(--brand-tint) / 0.10)",
-    fg: "var(--green-up)",
+    fg: "var(--primary)",
     border: "rgb(var(--brand-tint) / 0.30)",
   },
   Discount: {
@@ -289,7 +289,7 @@ function MembersPage() {
             style={{
               background: "rgb(var(--brand-tint) / 0.08)",
               border: "1px solid rgb(var(--brand-tint) / 0.25)",
-              color: "var(--green-up)",
+              color: "var(--primary)",
             }}
           >
             <ShieldCheck className="w-3 h-3" />
@@ -386,7 +386,7 @@ function MembersPage() {
                   onClick={() => setCity(c)}
                   className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
                   style={{
-                    color: city === c ? "#07090A" : "var(--text-secondary)",
+                    color: city === c ? "var(--primary-foreground)" : "var(--text-secondary)",
                   }}
                 >
                   {city === c && (
@@ -394,7 +394,7 @@ function MembersPage() {
                       layoutId="memberCityPill"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                       className="absolute inset-0 rounded-full"
-                      style={{ background: "var(--green-up)" }}
+                      style={{ background: "var(--primary)" }}
                     />
                   )}
                   <span className="relative">{c}</span>
@@ -592,7 +592,7 @@ function MembersPage() {
                     </div>
                     <span
                       className="inline-flex items-center gap-1 text-[12px] font-semibold opacity-0 group-hover:opacity-100 transition"
-                      style={{ color: "var(--green-up)" }}
+                      style={{ color: "var(--primary)" }}
                     >
                       View profile
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -634,7 +634,7 @@ function MembersPage() {
           <div className="max-w-xl">
             <div
               className="text-[11px] uppercase tracking-[0.22em] mb-2"
-              style={{ color: "var(--green-up)" }}
+              style={{ color: "var(--primary)" }}
             >
               Apply for TREC
             </div>
@@ -655,8 +655,8 @@ function MembersPage() {
           <a
             className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[13.5px] font-semibold cursor-pointer hover:scale-[1.02] transition"
             style={{
-              background: "var(--green-up)",
-              color: "#07090A",
+              background: "var(--primary)",
+              color: "var(--primary-foreground)",
               boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
             }}
           >
