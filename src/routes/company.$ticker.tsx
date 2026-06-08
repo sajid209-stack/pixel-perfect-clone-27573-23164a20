@@ -694,14 +694,19 @@ function StatsGrid({ co }: { co: Company }) {
   );
 }
 
-function StatTile({ label, value }: { label: string; value: string }) {
+function StatTile({ label, value, tooltip }: { label: string; value: string; tooltip?: string }) {
   return (
     <div
       className="p-5 rounded-xl"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
-        {label}
+      <div className="text-[11px] uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--text-muted)" }}>
+        <span>{label}</span>
+        {tooltip && (
+          <span title={tooltip} className="inline-flex cursor-help" aria-label={tooltip}>
+            <Info className="w-3 h-3 opacity-70" />
+          </span>
+        )}
       </div>
       <div className="mt-2 text-[18px] font-medium tnum tracking-tight" style={{ color: "var(--text-primary)" }}>
         {value}
