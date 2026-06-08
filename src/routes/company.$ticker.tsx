@@ -301,7 +301,7 @@ function PriceCard({
   series: { t: string; v: number }[];
   up: boolean;
 }) {
-  const stroke = up ? "var(--green-up)" : "var(--red-down)";
+  const stroke = "var(--primary)";
   return (
     <section
       className="rounded-2xl p-6 md:p-8"
