@@ -1228,7 +1228,7 @@ function Pill({ children }: { children: React.ReactNode }) {
       className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium"
       style={{
         background: "rgb(var(--brand-tint) / 0.10)",
-        color: "var(--green-up)",
+        color: "var(--primary)",
         border: "1px solid rgb(var(--brand-tint) / 0.18)",
       }}
     >
