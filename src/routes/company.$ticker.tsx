@@ -208,7 +208,7 @@ function CompanyPage() {
                   <motion.span
                     layoutId="companyTab"
                     className="absolute left-3 right-3 bottom-0 h-[2px] rounded-full"
-                    style={{ background: "var(--green-up)", boxShadow: "0 0 8px var(--green-up)" }}
+                    style={{ background: "var(--primary)", boxShadow: "0 0 8px var(--primary)" }}
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
