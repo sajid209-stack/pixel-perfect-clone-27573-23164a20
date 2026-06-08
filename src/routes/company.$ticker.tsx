@@ -60,10 +60,10 @@ type Period = (typeof periods)[number];
 
 const tabs = [
   { id: "overview", label: "Overview" },
-  { id: "price", label: "Price & Charts" },
   { id: "financials", label: "Financials" },
+  { id: "dividends", label: "Dividends" },
+  { id: "price", label: "Price & Charts" },
   { id: "announcements", label: "Announcements" },
-  { id: "similar", label: "Similar companies" },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
 
