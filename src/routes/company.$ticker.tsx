@@ -233,15 +233,7 @@ function CompanyPage() {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            {tab === "overview" && (
-              <OverviewTab
-                co={co}
-                period={period}
-                setPeriod={setPeriod}
-                series={series}
-                up={up}
-              />
-            )}
+            {tab === "overview" && <OverviewTab co={co} />}
             {tab === "price" && (
               <div className="grid lg:grid-cols-[2fr_1fr] gap-8">
                 <PriceCard co={co} period={period} setPeriod={setPeriod} series={series} up={up} />
