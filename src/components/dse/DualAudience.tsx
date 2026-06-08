@@ -124,7 +124,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             className="w-8 h-8 rounded-full flex items-center justify-center"
             style={{ background: "rgb(var(--brand-tint) / 0.08)" }}
           >
-            <Icon style={{ color: "var(--green-up)", width: 16, height: 16 }} />
+            <Icon style={{ color: "var(--primary)", width: 16, height: 16 }} />
           </div>
         </div>
 
