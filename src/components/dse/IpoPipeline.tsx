@@ -41,7 +41,7 @@ export function IpoPipeline() {
             <div className="flex items-center gap-2 mb-2">
               <span
                 className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                style={{ background: "var(--green-up)", color: "#07090A" }}
+                style={{ background: "var(--green-up)", color: "var(--primary-foreground)" }}
               >
                 Live
               </span>

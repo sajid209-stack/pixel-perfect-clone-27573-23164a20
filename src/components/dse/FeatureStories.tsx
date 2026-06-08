@@ -175,7 +175,7 @@ function StoryBlock({ story, index }: { story: Story; index: number }) {
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition group cursor-pointer"
             style={{
               background: "var(--primary)",
-              color: "#07090A",
+              color: "var(--primary-foreground)",
               boxShadow: "0 12px 32px -12px rgb(var(--brand-tint) / 0.65)",
             }}
           >
