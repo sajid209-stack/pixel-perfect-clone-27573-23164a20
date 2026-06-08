@@ -374,7 +374,7 @@ function IndicesPage() {
             style={{ borderColor: "rgb(var(--ov) / 0.05)" }}
           >
             <StatCol label="Prev close" value={active.prev.toLocaleString()} />
-            <StatCol label="High" value={high.toLocaleString(undefined, { maximumFractionDigits: 2 })} accent="var(--green-up)" />
+            <StatCol label="High" value={high.toLocaleString(undefined, { maximumFractionDigits: 2 })} accent="var(--primary)" />
             <StatCol label="Low" value={low.toLocaleString(undefined, { maximumFractionDigits: 2 })} accent="var(--red-down)" />
             <StatCol label="Constituents" value={active.constituents.toString()} />
           </div>
