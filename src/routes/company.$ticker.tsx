@@ -901,10 +901,20 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
 /* ----------------- Other tabs ----------------- */
 
 function FinancialsTab({ co }: { co: Company }) {
-  const rows = interimRows(co);
-  const reserve = +(co.nav * co.paidUpCapital / co.faceValue / 1_000_000).toFixed(1);
+function FinancialsTab({ co }: { co: Company }) {
+  const rows = co.interimFinancials ?? interimRowsFallback(co);
+  const my = co.multiYearFinancials ?? [];
+  const peTrend = co.peTrend ?? [];
+  const reserve = my.length ? (my[my.length - 1].reserve ?? 0) : +(co.nav * co.paidUpCapital / co.faceValue / 1_000_000).toFixed(1);
+  const oci = my.length ? (my[my.length - 1].oci ?? 0) : 0;
+  const loanLong = co.loanStatus?.longTerm;
+  const loanShort = co.loanStatus?.shortTerm;
+  const fmt = (n?: number | null, d = 2) => (n === undefined || n === null ? "—" : n.toFixed(d));
+  const mn = (n?: number | null) => (n === undefined || n === null ? "—" : `৳ ${Math.abs(n).toLocaleString()}${n < 0 ? "" : ""} mn`);
+
   return (
     <div className="space-y-10">
+      {/* Snapshot */}
       <section
         className="rounded-2xl p-6 md:p-8"
         style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
@@ -913,22 +923,26 @@ function FinancialsTab({ co }: { co: Company }) {
           Financial snapshot
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <StatTile label="Reserve & surplus (incl. OCI)" value={`৳ ${reserve.toLocaleString()} mn`} />
-          <StatTile label="Reserve & surplus (excl. OCI)" value={`৳ ${(reserve * 0.97).toFixed(1)} mn`} />
-          <StatTile label="Loan status" value="Long-term: ৳ 480 mn · Short-term: ৳ 920 mn" />
+          <StatTile label="Reserve & surplus" value={`৳ ${reserve.toLocaleString()} mn`} />
+          <StatTile label="Other comprehensive income (OCI)" value={`৳ ${oci.toLocaleString()} mn`} />
+          <StatTile
+            label="Loan status"
+            value={`Long-term: ${loanLong !== undefined ? `৳ ${loanLong} mn` : "—"} · Short-term: ${loanShort !== undefined ? `৳ ${loanShort} mn` : "—"}`}
+          />
           <StatTile label="EPS (TTM)" value={`৳ ${co.eps.toFixed(2)}`} />
           <StatTile label="NAV / share" value={`৳ ${co.nav.toFixed(2)}`} />
           <StatTile label="Dividend yield" value={`${co.dividendYield.toFixed(2)}%`} />
         </div>
       </section>
 
+      {/* Interim performance */}
       <section
         className="rounded-2xl p-6 md:p-8"
         style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
       >
         <div className="flex items-baseline justify-between flex-wrap gap-2 mb-5">
           <h2 className="text-[20px] font-semibold" style={{ color: "var(--text-primary)" }}>
-            Interim performance
+            Interim financial performance
           </h2>
           <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
             Restated to BSEC uniform year basis
@@ -937,13 +951,13 @@ function FinancialsTab({ co }: { co: Company }) {
         <div className="overflow-x-auto">
           <table className="w-full text-[13px] tnum">
             <thead>
-              <tr
-                className="text-[11px] uppercase tracking-wider"
-                style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}
-              >
+              <tr className="text-[11px] uppercase tracking-wider"
+                  style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}>
                 <th className="text-left py-2.5 pr-4 font-medium">Metric</th>
                 <th className="text-right py-2.5 px-4 font-medium">Q1</th>
+                <th className="text-right py-2.5 px-4 font-medium">Q2</th>
                 <th className="text-right py-2.5 px-4 font-medium">Half-yearly</th>
+                <th className="text-right py-2.5 px-4 font-medium">Q3</th>
                 <th className="text-right py-2.5 px-4 font-medium">9-month</th>
                 <th className="text-right py-2.5 pl-4 font-medium">Annual</th>
               </tr>
@@ -952,16 +966,92 @@ function FinancialsTab({ co }: { co: Company }) {
               {rows.map((r) => (
                 <tr key={r.metric} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
                   <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.metric}</td>
-                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.q1.toFixed(2)}</td>
-                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.half.toFixed(2)}</td>
-                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.nine.toFixed(2)}</td>
-                  <td className="py-3 pl-4 text-right font-semibold" style={{ color: "var(--text-primary)" }}>{r.annual.toFixed(2)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.q1)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.q2)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.half)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.q3)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.nine)}</td>
+                  <td className="py-3 pl-4 text-right font-semibold" style={{ color: "var(--text-primary)" }}>{fmt(r.annual)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </section>
+
+      {/* Multi-year audited */}
+      {my.length > 0 && (
+        <section
+          className="rounded-2xl p-6 md:p-8"
+          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <h2 className="text-[20px] font-semibold mb-5" style={{ color: "var(--text-primary)" }}>
+            Multi-year audited financials
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-[13px] tnum">
+              <thead>
+                <tr className="text-[11px] uppercase tracking-wider"
+                    style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}>
+                  <th className="text-left py-2.5 pr-4 font-medium">Year</th>
+                  <th className="text-right py-2.5 px-4 font-medium">EPS (Basic)</th>
+                  <th className="text-right py-2.5 px-4 font-medium">NAV / share</th>
+                  <th className="text-right py-2.5 px-4 font-medium">Profit for the year</th>
+                  <th className="text-right py-2.5 px-4 font-medium">Total comprehensive income</th>
+                  <th className="text-right py-2.5 px-4 font-medium">Reserve & surplus</th>
+                  <th className="text-right py-2.5 pl-4 font-medium">OCI</th>
+                </tr>
+              </thead>
+              <tbody>
+                {my.map((r) => (
+                  <tr key={r.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                    <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.year}</td>
+                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.epsBasic)}</td>
+                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.nav)}</td>
+                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.profit)}</td>
+                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.comprehensive)}</td>
+                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.reserve)}</td>
+                    <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.oci)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {/* P/E trend */}
+      {peTrend.length > 0 && (
+        <section
+          className="rounded-2xl p-6 md:p-8"
+          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <div className="flex items-baseline justify-between flex-wrap gap-2 mb-5">
+            <h2 className="text-[20px] font-semibold" style={{ color: "var(--text-primary)" }}>
+              P/E ratio trend
+            </h2>
+            <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+              Last {peTrend.length} trading days · audited vs unaudited
+            </div>
+          </div>
+          <div className="h-[220px] -mx-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={peTrend} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
+                <XAxis dataKey="date" tick={{ fontSize: 11, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} domain={["dataMin - 0.2", "dataMax + 0.2"]} width={40} />
+                <Tooltip
+                  cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
+                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                  formatter={(v: number) => [`${Number(v).toFixed(2)}x`, ""]}
+                />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Line type="monotone" dataKey="audited" name="Audited P/E" stroke="var(--primary)" strokeWidth={1.8} dot={{ r: 2.5 }} />
+                <Line type="monotone" dataKey="unaudited" name="Unaudited P/E" stroke="var(--text-muted)" strokeWidth={1.4} strokeDasharray="4 4" dot={{ r: 2 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
@@ -971,9 +1061,11 @@ function DividendsTab({ co }: { co: Company }) {
   const chartData = [...history].reverse().map((d) => ({ year: String(d.year), cash: d.cash, stock: d.stock }));
   return (
     <div className="space-y-10">
-      <div className="grid lg:grid-cols-[1.2fr_1fr] gap-6">
-        <StatTile label="Last AGM" value="12 June 2025" />
-        <StatTile label="Record date" value="in 18 days" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatTile label="Last AGM" value={co.agmDate ?? "12 June 2025"} />
+        <StatTile label="Financial year-end" value={co.yearEnd ?? "31 December"} />
+        <StatTile label="Latest cash dividend" value={history[0] ? `${history[0].cash}% (${history[0].year})` : "—"} />
+        <StatTile label="Latest stock dividend" value={history[0] && history[0].stock > 0 ? `${history[0].stock}% (${history[0].year})` : "n/a"} />
       </div>
 
       <section
@@ -986,14 +1078,13 @@ function DividendsTab({ co }: { co: Company }) {
         <div className="overflow-x-auto">
           <table className="w-full text-[13px] tnum">
             <thead>
-              <tr
-                className="text-[11px] uppercase tracking-wider"
-                style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}
-              >
+              <tr className="text-[11px] uppercase tracking-wider"
+                  style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}>
                 <th className="text-left py-2.5 pr-4 font-medium">Year</th>
                 <th className="text-right py-2.5 px-4 font-medium">Cash %</th>
                 <th className="text-right py-2.5 px-4 font-medium">Bonus / Stock %</th>
-                <th className="text-right py-2.5 pl-4 font-medium">Rights</th>
+                <th className="text-right py-2.5 px-4 font-medium">Rights</th>
+                <th className="text-right py-2.5 pl-4 font-medium">Yield %</th>
               </tr>
             </thead>
             <tbody>
@@ -1001,12 +1092,13 @@ function DividendsTab({ co }: { co: Company }) {
                 <tr key={d.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
                   <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{d.year}</td>
                   <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.cash > 0 ? `${d.cash}%` : "—"}</td>
-                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}%` : "—"}</td>
-                  <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>—</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}%` : "n/a"}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.rights ?? "n/a"}</td>
+                  <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.yieldPct !== undefined ? `${d.yieldPct.toFixed(2)}%` : "—"}</td>
                 </tr>
               ))}
               {!history.length && (
-                <tr><td colSpan={4} className="py-8 text-center" style={{ color: "var(--text-muted)" }}>No dividend history.</td></tr>
+                <tr><td colSpan={5} className="py-8 text-center" style={{ color: "var(--text-muted)" }}>No dividend history.</td></tr>
               )}
             </tbody>
           </table>
