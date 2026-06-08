@@ -198,14 +198,14 @@
 
   --ov: 255 255 255;
   --ov-inv: 0 0 0;
-  --surface-rgb: 14 26 44;
+  --surface-rgb: 10 13 20;
 
-  /* Tint resolves to #142640 panel territory */
-  --brand-tint: 20 38 64;
+  /* Tint resolves to #0E1626 panel territory — near-black with faint cool tint */
+  --brand-tint: 14 22 38;
   --brand-tint-strong: 90 162 236;
 
   --body-bg-img:
-    linear-gradient(180deg, #081424 0%, #0A1828 60%, #081424 100%);
+    radial-gradient(120% 80% at 50% 0%, #0A1426 0%, #04060A 45%, #000000 100%);
 }
 
 
