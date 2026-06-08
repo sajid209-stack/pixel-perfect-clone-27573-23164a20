@@ -538,7 +538,7 @@ function AboutCard({ co }: { co: Company }) {
           target="_blank"
           rel="noreferrer"
           className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium"
-          style={{ color: "var(--green-up)" }}
+          style={{ color: "var(--primary)" }}
         >
           {co.website}
           <ExternalLink className="w-3 h-3" />
