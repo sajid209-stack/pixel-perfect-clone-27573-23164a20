@@ -619,7 +619,7 @@ function BondsPage() {
                       </div>
                       <div
                         className="text-right text-[13px] tnum font-semibold"
-                        style={{ color: "var(--green-up)" }}
+                        style={{ color: "var(--primary)" }}
                       >
                         {b.ytm.toFixed(2)}%
                       </div>
@@ -703,7 +703,7 @@ function BondsPage() {
                   {
                     l: "Yield to maturity",
                     v: `${selected.ytm.toFixed(2)}%`,
-                    c: "var(--green-up)",
+                    c: "var(--primary)",
                   },
                   { l: "Clean price", v: selected.price.toFixed(2) },
                   {
@@ -746,7 +746,7 @@ function BondsPage() {
                   border: "1px solid rgb(var(--brand-tint) / 0.20)",
                 }}
               >
-                <Calendar className="w-3.5 h-3.5" style={{ color: "var(--green-up)" }} />
+                <Calendar className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} />
                 <div
                   className="text-[11.5px]"
                   style={{ color: "var(--text-secondary)" }}
@@ -761,8 +761,8 @@ function BondsPage() {
               <a
                 className="inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-[13.5px] font-semibold cursor-pointer hover:scale-[1.02] transition"
                 style={{
-                  background: "var(--green-up)",
-                  color: "#07090A",
+                  background: "var(--primary)",
+                  color: "var(--primary-foreground)",
                   boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
                 }}
               >

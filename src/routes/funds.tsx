@@ -717,8 +717,8 @@ function FundsPage() {
               <a
                 className="inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-[13.5px] font-semibold cursor-pointer hover:scale-[1.02] transition"
                 style={{
-                  background: "var(--green-up)",
-                  color: "#07090A",
+                  background: "var(--primary)",
+                  color: "var(--primary-foreground)",
                   boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
                 }}
               >
@@ -782,7 +782,7 @@ function FundsPage() {
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                 style={{
                   background: "rgb(var(--brand-tint) / 0.10)",
-                  color: "var(--green-up)",
+                  color: "var(--primary)",
                 }}
               >
                 <b.icon className="w-5 h-5" />
