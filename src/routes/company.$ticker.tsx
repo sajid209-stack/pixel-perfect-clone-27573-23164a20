@@ -164,9 +164,9 @@ function CompanyPage() {
               style={{ color: "var(--text-muted)" }}>
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                  style={{ background: "var(--green-up)" }} />
+                  style={{ background: "var(--primary)" }} />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5"
-                  style={{ background: "var(--green-up)" }} />
+                  style={{ background: "var(--primary)" }} />
               </span>
               Live · 13:42:08 BST
             </div>
