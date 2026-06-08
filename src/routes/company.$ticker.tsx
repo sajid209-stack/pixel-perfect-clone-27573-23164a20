@@ -344,6 +344,12 @@ function KeyStatsStrip({ co }: { co: Company }) {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <StatTile label="Market cap" value={formatBDT(co.marketCap)} />
         <StatTile
+          label="Free float market cap"
+          value={co.freeFloatMarketCap ? formatBDT(co.freeFloatMarketCap) : formatBDT(co.marketCap * (co.freeFloat / 100))}
+          tooltip="Market value of shares available for public trading."
+        />
+        <StatTile label="NAV per share" value={`৳ ${co.nav.toFixed(2)}`} />
+        <StatTile
           label="P/E (audited)"
           value={`${co.pe.toFixed(2)}x`}
           tooltip="Based on latest audited annual EPS, BSEC uniform-year basis."
