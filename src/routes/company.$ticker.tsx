@@ -3,14 +3,17 @@ import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Area,
+  Bar,
+  BarChart,
   ComposedChart,
+  Legend,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronDown, ExternalLink, Info } from "lucide-react";
 
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
@@ -60,10 +63,10 @@ type Period = (typeof periods)[number];
 
 const tabs = [
   { id: "overview", label: "Overview" },
-  { id: "price", label: "Price & Charts" },
   { id: "financials", label: "Financials" },
+  { id: "dividends", label: "Dividends" },
+  { id: "price", label: "Price & Charts" },
   { id: "announcements", label: "Announcements" },
-  { id: "similar", label: "Similar companies" },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
 
@@ -154,6 +157,7 @@ function CompanyPage() {
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <Pill>{co.sector}</Pill>
               <Pill>DSE {co.board}</Pill>
+              <Pill>Listed: DSE · CSE</Pill>
               {co.hq && <Pill>HQ · {co.hq}</Pill>}
             </div>
           </div>
@@ -178,8 +182,9 @@ function CompanyPage() {
               style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}>
               {up ? "▲" : "▼"} {Math.abs(co.change).toFixed(2)} ({up ? "+" : ""}{co.changePct.toFixed(2)}%) today
             </div>
-            <div className="mt-1 text-[13px] tnum" style={{ color: "var(--text-muted)" }}>
-              Prev close ৳ {co.prevClose.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+            <div className="mt-2 text-[12px] tnum flex flex-wrap gap-x-4 gap-y-1 lg:justify-end" style={{ color: "var(--text-muted)" }}>
+              <span>Closing ৳ {co.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              <span>Yesterday's close ৳ {co.prevClose.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </div>
           </div>
         </div>
@@ -228,15 +233,7 @@ function CompanyPage() {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            {tab === "overview" && (
-              <OverviewTab
-                co={co}
-                period={period}
-                setPeriod={setPeriod}
-                series={series}
-                up={up}
-              />
-            )}
+            {tab === "overview" && <OverviewTab co={co} />}
             {tab === "price" && (
               <div className="grid lg:grid-cols-[2fr_1fr] gap-8">
                 <PriceCard co={co} period={period} setPeriod={setPeriod} series={series} up={up} />
@@ -244,8 +241,8 @@ function CompanyPage() {
               </div>
             )}
             {tab === "financials" && <FinancialsTab co={co} />}
+            {tab === "dividends" && <DividendsTab co={co} />}
             {tab === "announcements" && <AnnouncementsTab co={co} />}
-            {tab === "similar" && <SimilarTab co={co} />}
           </motion.div>
         </AnimatePresence>
       </main>
@@ -255,38 +252,231 @@ function CompanyPage() {
   );
 }
 
+/* ---- sample-data derivations (deterministic from co) ---- */
+
+function bandLimits(co: Company) {
+  // DSE circuit breaker — simplified band (±10% generic)
+  return { upper: +(co.prevClose * 1.10).toFixed(2), lower: +(co.prevClose * 0.90).toFixed(2) };
+}
+
+function basics(co: Company) {
+  const totalShares = Math.round(co.paidUpCapital / co.faceValue);
+  return {
+    listingYear: (co.founded ?? 1996) + 4,
+    authorisedCapital: co.paidUpCapital * 2,
+    paidUpCapital: co.paidUpCapital,
+    faceValue: co.faceValue,
+    marketLot: 1,
+    electronicShare: "Yes",
+    totalShares,
+  };
+}
+
+function interimRows(co: Company) {
+  const eps = co.eps;
+  const nav = co.nav;
+  const nocfps = +(eps * 1.35).toFixed(2);
+  return [
+    { metric: "EPS (basic)",   q1: +(eps * 0.22).toFixed(2), half: +(eps * 0.46).toFixed(2), nine: +(eps * 0.72).toFixed(2), annual: +eps.toFixed(2) },
+    { metric: "EPS (diluted)", q1: +(eps * 0.21).toFixed(2), half: +(eps * 0.45).toFixed(2), nine: +(eps * 0.71).toFixed(2), annual: +(eps * 0.98).toFixed(2) },
+    { metric: "NAV per share", q1: +(nav * 0.96).toFixed(2), half: +(nav * 0.98).toFixed(2), nine: +(nav * 0.99).toFixed(2), annual: +nav.toFixed(2) },
+    { metric: "NOCFPS",        q1: +(nocfps * 0.20).toFixed(2), half: +(nocfps * 0.48).toFixed(2), nine: +(nocfps * 0.75).toFixed(2), annual: +nocfps.toFixed(2) },
+  ];
+}
+
+function companyDetails(co: Company) {
+  return {
+    office: `${co.hq} office, Bangladesh`,
+    phone: "+880 2 5566 7788",
+    email: `investors@${(co.website ?? "company.com.bd").replace(/^https?:\/\//, "")}`,
+    website: co.website ?? "—",
+    secretary: "Md. Sirajul Islam, FCS",
+    lastAgm: "12 June 2025",
+    yearEnd: "31 December",
+  };
+}
+
 /* ----------------- Overview ----------------- */
 
-function OverviewTab({
-  co,
-  period,
-  setPeriod,
-  series,
-  up,
-}: {
-  co: Company;
-  period: Period;
-  setPeriod: (p: Period) => void;
-  series: { t: string; v: number }[];
-  up: boolean;
-}) {
+function OverviewTab({ co }: { co: Company }) {
   return (
-    <div className="grid lg:grid-cols-[1.85fr_1fr] gap-10">
-      {/* Left col */}
-      <div className="space-y-10">
-        <PriceCard co={co} period={period} setPeriod={setPeriod} series={series} up={up} />
-        <StatsGrid co={co} />
+    <div className="space-y-10">
+      <KeyStatsStrip co={co} />
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
+        <BasicsCard co={co} />
+        <ShareholdingPatternCard co={co} />
+      </div>
+      <CompanyDetailsCard co={co} />
+      <AboutCard co={co} />
+    </div>
+  );
+}
+
+function KeyStatsStrip({ co }: { co: Company }) {
+  const band = bandLimits(co);
+  const dayValueMn = +(co.price * co.volume / 1_000_000).toFixed(1);
+  const trades = Math.max(120, Math.round(co.volume / 850));
+  const dayPct = Math.max(0, Math.min(100, ((co.price - co.low) / Math.max(0.0001, co.high - co.low)) * 100));
+  const yrPct = Math.max(0, Math.min(100, ((co.price - co.weekLow52) / Math.max(0.0001, co.weekHigh52 - co.weekLow52)) * 100));
+  return (
+    <section
+      className="rounded-2xl p-6 md:p-8"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-5" style={{ color: "var(--text-muted)" }}>
+        Key statistics
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <StatTile label="Market cap" value={formatBDT(co.marketCap)} />
+        <StatTile
+          label="P/E (audited)"
+          value={`${co.pe.toFixed(2)}x`}
+          tooltip="Based on latest audited annual EPS, BSEC uniform-year basis."
+        />
+        <StatTile
+          label="P/E (unaudited)"
+          value={`${(co.pe * 0.96).toFixed(2)}x`}
+          tooltip="Based on most recent unaudited interim EPS (annualised)."
+        />
+        <StatTile label="Day's value" value={`৳ ${dayValueMn} mn`} />
+        <StatTile label="Day's volume" value={formatVolume(co.volume)} />
+        <StatTile label="Day's trades" value={trades.toLocaleString()} />
+        <StatTile label="Opening price" value={`৳ ${co.open.toFixed(2)}`} />
+        <StatTile label="Adjusted opening" value={`৳ ${(co.open * 0.998).toFixed(2)}`} />
       </div>
 
-      {/* Right col */}
-      <div className="space-y-6">
-        <AboutCard co={co} />
-        <ShareholdingPatternCard co={co} />
-        <RecentAnnouncementsCard co={co} />
+      <div className="grid md:grid-cols-2 gap-5 mt-6">
+        <RangeBar
+          label="Day's range"
+          low={co.low}
+          high={co.high}
+          pct={dayPct}
+          current={co.price}
+        />
+        <RangeBar
+          label="52-week range"
+          low={co.weekLow52}
+          high={co.weekHigh52}
+          pct={yrPct}
+          current={co.price}
+        />
+      </div>
+
+      <div
+        className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4 pt-5 border-t"
+        style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
+      >
+        <Stat label="Circuit upper" value={`৳ ${band.upper}`} accent="var(--green-up)" />
+        <Stat label="Circuit lower" value={`৳ ${band.lower}`} accent="var(--red-down)" />
+        <Stat label="Today's band" value={`৳ ${band.lower} – ৳ ${band.upper}`} />
+      </div>
+    </section>
+  );
+}
+
+function RangeBar({ label, low, high, pct, current }: { label: string; low: number; high: number; pct: number; current: number }) {
+  return (
+    <div className="p-5 rounded-xl" style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
+      <div className="flex items-baseline justify-between mb-3">
+        <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{label}</div>
+        <div className="text-[12px] tnum" style={{ color: "var(--text-secondary)" }}>
+          Current ৳ {current.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+        </div>
+      </div>
+      <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.08)" }}>
+        <div
+          className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
+          style={{
+            left: `calc(${pct}% - 5px)`,
+            background: "var(--primary)",
+            boxShadow: "0 0 0 3px rgb(var(--brand-tint) / 0.25)",
+          }}
+        />
+      </div>
+      <div className="mt-2 flex items-center justify-between text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+        <span>৳ {low.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+        <span>৳ {high.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
       </div>
     </div>
   );
 }
+
+function BasicsCard({ co }: { co: Company }) {
+  const b = basics(co);
+  const rows: [string, string][] = [
+    ["Listing year", String(b.listingYear)],
+    ["Authorised capital", formatBDT(b.authorisedCapital)],
+    ["Paid-up capital", formatBDT(b.paidUpCapital)],
+    ["Face value", `৳ ${b.faceValue.toFixed(2)}`],
+    ["Market lot", String(b.marketLot)],
+    ["Electronic share", b.electronicShare],
+    ["Total outstanding securities", b.totalShares.toLocaleString()],
+  ];
+  return (
+    <section
+      className="rounded-2xl p-6 md:p-8"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-4" style={{ color: "var(--text-muted)" }}>
+        Basics
+      </div>
+      <dl className="divide-y" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
+        {rows.map(([k, v]) => (
+          <div key={k} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
+            <dt className="text-[13px]" style={{ color: "var(--text-secondary)" }}>{k}</dt>
+            <dd className="text-[13px] tnum font-medium" style={{ color: "var(--text-primary)" }}>{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
+function CompanyDetailsCard({ co }: { co: Company }) {
+  const [open, setOpen] = useState(false);
+  const d = companyDetails(co);
+  const rows: [string, string][] = [
+    ["Registered office", d.office],
+    ["Phone", d.phone],
+    ["Email", d.email],
+    ["Website", d.website],
+    ["Company secretary", d.secretary],
+    ["Last AGM", d.lastAgm],
+    ["Year-end", d.yearEnd],
+  ];
+  return (
+    <section
+      className="rounded-2xl"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between p-6 md:px-8"
+      >
+        <span className="text-[13px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--text-primary)" }}>
+          Company details
+        </span>
+        <ChevronDown
+          className="w-4 h-4 transition-transform"
+          style={{ color: "var(--text-secondary)", transform: open ? "rotate(180deg)" : "none" }}
+        />
+      </button>
+      {open && (
+        <div className="px-6 md:px-8 pb-6">
+          <dl className="grid sm:grid-cols-2 gap-x-8 divide-y sm:divide-y-0" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
+            {rows.map(([k, v]) => (
+              <div key={k} className="py-2.5">
+                <dt className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{k}</dt>
+                <dd className="mt-1 text-[13px]" style={{ color: "var(--text-primary)" }}>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+    </section>
+  );
+}
+
 
 function PriceCard({
   co,
@@ -504,14 +694,19 @@ function StatsGrid({ co }: { co: Company }) {
   );
 }
 
-function StatTile({ label, value }: { label: string; value: string }) {
+function StatTile({ label, value, tooltip }: { label: string; value: string; tooltip?: string }) {
   return (
     <div
       className="p-5 rounded-xl"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
-        {label}
+      <div className="text-[11px] uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--text-muted)" }}>
+        <span>{label}</span>
+        {tooltip && (
+          <span title={tooltip} className="inline-flex cursor-help" aria-label={tooltip}>
+            <Info className="w-3 h-3 opacity-70" />
+          </span>
+        )}
       </div>
       <div className="mt-2 text-[18px] font-medium tnum tracking-tight" style={{ color: "var(--text-primary)" }}>
         {value}
@@ -561,6 +756,9 @@ function ShareholdingPatternCard({ co }: { co: Company }) {
   const sp = co.sharePattern;
   return (
     <SidebarCard title="Shareholding pattern">
+      <div className="text-[11px] mb-4" style={{ color: "var(--text-muted)" }}>
+        as on 31 May 2026
+      </div>
       <div className="space-y-3">
         {SHAREHOLDING_ROWS.map((r, i) => {
           const pct = sp[r.key] ?? 0;
@@ -661,31 +859,139 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
 /* ----------------- Other tabs ----------------- */
 
 function FinancialsTab({ co }: { co: Company }) {
+  const rows = interimRows(co);
+  const reserve = +(co.nav * co.paidUpCapital / co.faceValue / 1_000_000).toFixed(1);
   return (
-    <div className="grid lg:grid-cols-[2fr_1fr] gap-8">
-      <div className="space-y-8">
-        <section
-          className="rounded-2xl p-6 md:p-8"
-          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
-        >
-          <h2 className="text-[20px] font-semibold mb-6" style={{ color: "var(--text-primary)" }}>
-            Per-share metrics
+    <div className="space-y-10">
+      <section
+        className="rounded-2xl p-6 md:p-8"
+        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+      >
+        <h2 className="text-[20px] font-semibold mb-6" style={{ color: "var(--text-primary)" }}>
+          Financial snapshot
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <StatTile label="Reserve & surplus (incl. OCI)" value={`৳ ${reserve.toLocaleString()} mn`} />
+          <StatTile label="Reserve & surplus (excl. OCI)" value={`৳ ${(reserve * 0.97).toFixed(1)} mn`} />
+          <StatTile label="Loan status" value="Long-term: ৳ 480 mn · Short-term: ৳ 920 mn" />
+          <StatTile label="EPS (TTM)" value={`৳ ${co.eps.toFixed(2)}`} />
+          <StatTile label="NAV / share" value={`৳ ${co.nav.toFixed(2)}`} />
+          <StatTile label="Dividend yield" value={`${co.dividendYield.toFixed(2)}%`} />
+        </div>
+      </section>
+
+      <section
+        className="rounded-2xl p-6 md:p-8"
+        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+      >
+        <div className="flex items-baseline justify-between flex-wrap gap-2 mb-5">
+          <h2 className="text-[20px] font-semibold" style={{ color: "var(--text-primary)" }}>
+            Interim performance
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <StatTile label="EPS (TTM)" value={`৳ ${co.eps.toFixed(2)}`} />
-            <StatTile label="NAV / Share" value={`৳ ${co.nav.toFixed(2)}`} />
-            <StatTile label="Face Value" value={`৳ ${co.faceValue.toFixed(2)}`} />
-            <StatTile label="Dividend Yield" value={`${co.dividendYield.toFixed(2)}%`} />
-            <StatTile label="P/E Ratio" value={`${co.pe.toFixed(1)}x`} />
-            <StatTile label="Paid-up Capital" value={formatBDT(co.paidUpCapital)} />
+          <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+            Restated to BSEC uniform year basis
           </div>
-        </section>
-        <DividendHistoryCard co={co} />
-      </div>
-      <ShareholdingPatternCard co={co} />
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px] tnum">
+            <thead>
+              <tr
+                className="text-[11px] uppercase tracking-wider"
+                style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}
+              >
+                <th className="text-left py-2.5 pr-4 font-medium">Metric</th>
+                <th className="text-right py-2.5 px-4 font-medium">Q1</th>
+                <th className="text-right py-2.5 px-4 font-medium">Half-yearly</th>
+                <th className="text-right py-2.5 px-4 font-medium">9-month</th>
+                <th className="text-right py-2.5 pl-4 font-medium">Annual</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.metric} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                  <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.metric}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.q1.toFixed(2)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.half.toFixed(2)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.nine.toFixed(2)}</td>
+                  <td className="py-3 pl-4 text-right font-semibold" style={{ color: "var(--text-primary)" }}>{r.annual.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
   );
 }
+
+function DividendsTab({ co }: { co: Company }) {
+  const history = co.dividendHistory ?? [];
+  const chartData = [...history].reverse().map((d) => ({ year: String(d.year), cash: d.cash, stock: d.stock }));
+  return (
+    <div className="space-y-10">
+      <div className="grid lg:grid-cols-[1.2fr_1fr] gap-6">
+        <StatTile label="Last AGM" value="12 June 2025" />
+        <StatTile label="Record date" value="in 18 days" />
+      </div>
+
+      <section
+        className="rounded-2xl p-6 md:p-8"
+        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+      >
+        <h2 className="text-[20px] font-semibold mb-5" style={{ color: "var(--text-primary)" }}>
+          Dividend history
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px] tnum">
+            <thead>
+              <tr
+                className="text-[11px] uppercase tracking-wider"
+                style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}
+              >
+                <th className="text-left py-2.5 pr-4 font-medium">Year</th>
+                <th className="text-right py-2.5 px-4 font-medium">Cash %</th>
+                <th className="text-right py-2.5 px-4 font-medium">Bonus / Stock %</th>
+                <th className="text-right py-2.5 pl-4 font-medium">Rights</th>
+              </tr>
+            </thead>
+            <tbody>
+              {history.map((d) => (
+                <tr key={d.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                  <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{d.year}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.cash > 0 ? `${d.cash}%` : "—"}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}%` : "—"}</td>
+                  <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>—</td>
+                </tr>
+              ))}
+              {!history.length && (
+                <tr><td colSpan={4} className="py-8 text-center" style={{ color: "var(--text-muted)" }}>No dividend history.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {chartData.length > 0 && (
+          <div className="mt-8 h-[240px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <XAxis dataKey="year" tick={{ fontSize: 11, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
+                <Tooltip
+                  cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
+                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Bar dataKey="cash" name="Cash %" fill="var(--primary)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="stock" name="Stock %" fill="rgb(var(--brand-tint) / 0.6)" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+
 
 
 function AnnouncementsTab({ co }: { co: Company }) {
