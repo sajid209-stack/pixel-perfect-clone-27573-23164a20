@@ -8,7 +8,29 @@ export type SharePattern = {
   public: number;
 };
 
-export type DividendRow = { year: number; cash: number; stock: number };
+export type DividendRow = { year: number; cash: number; stock: number; yieldPct?: number; rights?: string };
+
+export type InterimRow = {
+  metric: string;
+  q1?: number | null;
+  q2?: number | null;
+  half?: number | null;
+  q3?: number | null;
+  nine?: number | null;
+  annual?: number | null;
+};
+
+export type AnnualRow = {
+  year: number;
+  epsBasic?: number | null;
+  nav?: number | null;
+  profit?: number | null;        // mn BDT
+  comprehensive?: number | null; // mn BDT
+  reserve?: number | null;       // mn BDT
+  oci?: number | null;           // mn BDT
+};
+
+export type PeTrendRow = { date: string; audited: number; unaudited: number };
 
 export type Company = {
   code: string;
@@ -32,9 +54,9 @@ export type Company = {
   freeFloat: number;
   weekHigh52: number;
   weekLow52: number;
-  faceValue: number;        // per share, BDT
-  paidUpCapital: number;    // BDT
-  nav: number;              // NAV per share, BDT
+  faceValue: number;
+  paidUpCapital: number;
+  nav: number;
   description: string;
   founded?: number;
   hq: string;
@@ -43,7 +65,29 @@ export type Company = {
   sharePattern?: SharePattern;
   dividendHistory?: DividendRow[];
   recentAnnouncements?: { type: string; date: string; summary: string }[];
-  // legacy / unused in UI
+  // Extended DSE fields (optional)
+  scripCode?: number;
+  instrumentType?: string;
+  debutDate?: string;
+  listingYear?: number;
+  freeFloatMarketCap?: number;
+  operationalStatus?: string;
+  loanStatus?: { shortTerm?: number; longTerm?: number };
+  creditRating?: { shortTerm?: string; longTerm?: string };
+  companySecretary?: { name: string; email?: string; phone?: string };
+  registeredOffice?: string;
+  factoryAddress?: string;
+  phone?: string;
+  fax?: string;
+  email?: string;
+  psiUrl?: string;
+  financialStatementsUrl?: string;
+  agmDate?: string;
+  yearEnd?: string;
+  interimFinancials?: InterimRow[];
+  multiYearFinancials?: AnnualRow[];
+  peTrend?: PeTrendRow[];
+  // legacy
   financials?: { revenue: string; netProfit: string; netMargin: string; roe: string; debtEquity: string };
   shareholders?: { name: string; pct: number }[];
 };
