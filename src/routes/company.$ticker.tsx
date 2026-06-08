@@ -262,7 +262,7 @@ function bandLimits(co: Company) {
 function basics(co: Company) {
   const totalShares = Math.round(co.paidUpCapital / co.faceValue);
   return {
-    listingYear: (co.founded ?? 1996) + 4,
+    listingYear: co.listingYear ?? (co.founded ?? 1996) + 4,
     authorisedCapital: co.paidUpCapital * 2,
     paidUpCapital: co.paidUpCapital,
     faceValue: co.faceValue,
@@ -272,27 +272,37 @@ function basics(co: Company) {
   };
 }
 
-function interimRows(co: Company) {
+function interimRowsFallback(co: Company) {
   const eps = co.eps;
   const nav = co.nav;
-  const nocfps = +(eps * 1.35).toFixed(2);
   return [
-    { metric: "EPS (basic)",   q1: +(eps * 0.22).toFixed(2), half: +(eps * 0.46).toFixed(2), nine: +(eps * 0.72).toFixed(2), annual: +eps.toFixed(2) },
-    { metric: "EPS (diluted)", q1: +(eps * 0.21).toFixed(2), half: +(eps * 0.45).toFixed(2), nine: +(eps * 0.71).toFixed(2), annual: +(eps * 0.98).toFixed(2) },
-    { metric: "NAV per share", q1: +(nav * 0.96).toFixed(2), half: +(nav * 0.98).toFixed(2), nine: +(nav * 0.99).toFixed(2), annual: +nav.toFixed(2) },
-    { metric: "NOCFPS",        q1: +(nocfps * 0.20).toFixed(2), half: +(nocfps * 0.48).toFixed(2), nine: +(nocfps * 0.75).toFixed(2), annual: +nocfps.toFixed(2) },
-  ];
+    { metric: "Basic EPS",            q1: +(eps * 0.22).toFixed(2), q2: +(eps * 0.24).toFixed(2), half: +(eps * 0.46).toFixed(2), q3: +(eps * 0.26).toFixed(2), nine: +(eps * 0.72).toFixed(2), annual: +eps.toFixed(2) },
+    { metric: "Diluted EPS",          q1: +(eps * 0.21).toFixed(2), q2: +(eps * 0.23).toFixed(2), half: +(eps * 0.44).toFixed(2), q3: +(eps * 0.25).toFixed(2), nine: +(eps * 0.69).toFixed(2), annual: +(eps * 0.98).toFixed(2) },
+    { metric: "EPS (continuing ops)", q1: +(eps * 0.22).toFixed(2), q2: +(eps * 0.24).toFixed(2), half: +(eps * 0.46).toFixed(2), q3: +(eps * 0.26).toFixed(2), nine: +(eps * 0.72).toFixed(2), annual: +eps.toFixed(2) },
+    { metric: "Market price (period-end)", q1: +(nav * 1.9).toFixed(2), q2: +(nav * 1.95).toFixed(2), half: +(nav * 1.95).toFixed(2), q3: +(nav * 2.0).toFixed(2), nine: +(nav * 2.0).toFixed(2), annual: +(co.price).toFixed(2) },
+  ] as NonNullable<Company["interimFinancials"]>;
 }
 
 function companyDetails(co: Company) {
   return {
-    office: `${co.hq} office, Bangladesh`,
-    phone: "+880 2 5566 7788",
-    email: `investors@${(co.website ?? "company.com.bd").replace(/^https?:\/\//, "")}`,
+    office: co.registeredOffice ?? `${co.hq} office, Bangladesh`,
+    factory: co.factoryAddress ?? "—",
+    phone: co.phone ?? "+880 2 5566 7788",
+    fax: co.fax ?? "—",
+    email: co.email ?? `investors@${(co.website ?? "company.com.bd").replace(/^https?:\/\//, "")}`,
     website: co.website ?? "—",
-    secretary: "Md. Sirajul Islam, FCS",
-    lastAgm: "12 June 2025",
-    yearEnd: "31 December",
+    secretary: co.companySecretary?.name ?? "Md. Sirajul Islam, FCS",
+    secretaryEmail: co.companySecretary?.email ?? "—",
+    secretaryPhone: co.companySecretary?.phone ?? "—",
+    lastAgm: co.agmDate ?? "12 June 2025",
+    yearEnd: co.yearEnd ?? "31 December",
+    operationalStatus: co.operationalStatus ?? "Active",
+    loanShort: co.loanStatus?.shortTerm,
+    loanLong: co.loanStatus?.longTerm,
+    creditShort: co.creditRating?.shortTerm ?? "—",
+    creditLong: co.creditRating?.longTerm ?? "—",
+    psiUrl: co.psiUrl,
+    fsUrl: co.financialStatementsUrl,
   };
 }
 
