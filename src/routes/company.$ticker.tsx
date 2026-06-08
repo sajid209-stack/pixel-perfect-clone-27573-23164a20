@@ -748,7 +748,7 @@ function SimilarTab({ co }: { co: Company }) {
                 {c.code}
               </span>
               <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition"
-                style={{ color: "var(--green-up)" }} />
+                style={{ color: "var(--primary)" }} />
             </div>
             <div className="text-[12px] truncate" style={{ color: "var(--text-muted)" }}>{c.name}</div>
             <div className="mt-4 flex items-baseline justify-between tnum">
