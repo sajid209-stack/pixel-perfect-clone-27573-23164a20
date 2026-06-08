@@ -154,6 +154,7 @@ function CompanyPage() {
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <Pill>{co.sector}</Pill>
               <Pill>DSE {co.board}</Pill>
+              <Pill>Listed: DSE · CSE</Pill>
               {co.hq && <Pill>HQ · {co.hq}</Pill>}
             </div>
           </div>
