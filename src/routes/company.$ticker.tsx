@@ -859,31 +859,139 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
 /* ----------------- Other tabs ----------------- */
 
 function FinancialsTab({ co }: { co: Company }) {
+  const rows = interimRows(co);
+  const reserve = +(co.nav * co.paidUpCapital / co.faceValue / 1_000_000).toFixed(1);
   return (
-    <div className="grid lg:grid-cols-[2fr_1fr] gap-8">
-      <div className="space-y-8">
-        <section
-          className="rounded-2xl p-6 md:p-8"
-          style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
-        >
-          <h2 className="text-[20px] font-semibold mb-6" style={{ color: "var(--text-primary)" }}>
-            Per-share metrics
+    <div className="space-y-10">
+      <section
+        className="rounded-2xl p-6 md:p-8"
+        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+      >
+        <h2 className="text-[20px] font-semibold mb-6" style={{ color: "var(--text-primary)" }}>
+          Financial snapshot
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <StatTile label="Reserve & surplus (incl. OCI)" value={`৳ ${reserve.toLocaleString()} mn`} />
+          <StatTile label="Reserve & surplus (excl. OCI)" value={`৳ ${(reserve * 0.97).toFixed(1)} mn`} />
+          <StatTile label="Loan status" value="Long-term: ৳ 480 mn · Short-term: ৳ 920 mn" />
+          <StatTile label="EPS (TTM)" value={`৳ ${co.eps.toFixed(2)}`} />
+          <StatTile label="NAV / share" value={`৳ ${co.nav.toFixed(2)}`} />
+          <StatTile label="Dividend yield" value={`${co.dividendYield.toFixed(2)}%`} />
+        </div>
+      </section>
+
+      <section
+        className="rounded-2xl p-6 md:p-8"
+        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+      >
+        <div className="flex items-baseline justify-between flex-wrap gap-2 mb-5">
+          <h2 className="text-[20px] font-semibold" style={{ color: "var(--text-primary)" }}>
+            Interim performance
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <StatTile label="EPS (TTM)" value={`৳ ${co.eps.toFixed(2)}`} />
-            <StatTile label="NAV / Share" value={`৳ ${co.nav.toFixed(2)}`} />
-            <StatTile label="Face Value" value={`৳ ${co.faceValue.toFixed(2)}`} />
-            <StatTile label="Dividend Yield" value={`${co.dividendYield.toFixed(2)}%`} />
-            <StatTile label="P/E Ratio" value={`${co.pe.toFixed(1)}x`} />
-            <StatTile label="Paid-up Capital" value={formatBDT(co.paidUpCapital)} />
+          <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+            Restated to BSEC uniform year basis
           </div>
-        </section>
-        <DividendHistoryCard co={co} />
-      </div>
-      <ShareholdingPatternCard co={co} />
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px] tnum">
+            <thead>
+              <tr
+                className="text-[11px] uppercase tracking-wider"
+                style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}
+              >
+                <th className="text-left py-2.5 pr-4 font-medium">Metric</th>
+                <th className="text-right py-2.5 px-4 font-medium">Q1</th>
+                <th className="text-right py-2.5 px-4 font-medium">Half-yearly</th>
+                <th className="text-right py-2.5 px-4 font-medium">9-month</th>
+                <th className="text-right py-2.5 pl-4 font-medium">Annual</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.metric} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                  <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.metric}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.q1.toFixed(2)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.half.toFixed(2)}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{r.nine.toFixed(2)}</td>
+                  <td className="py-3 pl-4 text-right font-semibold" style={{ color: "var(--text-primary)" }}>{r.annual.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
   );
 }
+
+function DividendsTab({ co }: { co: Company }) {
+  const history = co.dividendHistory ?? [];
+  const chartData = [...history].reverse().map((d) => ({ year: String(d.year), cash: d.cash, stock: d.stock }));
+  return (
+    <div className="space-y-10">
+      <div className="grid lg:grid-cols-[1.2fr_1fr] gap-6">
+        <StatTile label="Last AGM" value="12 June 2025" />
+        <StatTile label="Record date" value="in 18 days" />
+      </div>
+
+      <section
+        className="rounded-2xl p-6 md:p-8"
+        style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+      >
+        <h2 className="text-[20px] font-semibold mb-5" style={{ color: "var(--text-primary)" }}>
+          Dividend history
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px] tnum">
+            <thead>
+              <tr
+                className="text-[11px] uppercase tracking-wider"
+                style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}
+              >
+                <th className="text-left py-2.5 pr-4 font-medium">Year</th>
+                <th className="text-right py-2.5 px-4 font-medium">Cash %</th>
+                <th className="text-right py-2.5 px-4 font-medium">Bonus / Stock %</th>
+                <th className="text-right py-2.5 pl-4 font-medium">Rights</th>
+              </tr>
+            </thead>
+            <tbody>
+              {history.map((d) => (
+                <tr key={d.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                  <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{d.year}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.cash > 0 ? `${d.cash}%` : "—"}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}%` : "—"}</td>
+                  <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>—</td>
+                </tr>
+              ))}
+              {!history.length && (
+                <tr><td colSpan={4} className="py-8 text-center" style={{ color: "var(--text-muted)" }}>No dividend history.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {chartData.length > 0 && (
+          <div className="mt-8 h-[240px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <XAxis dataKey="year" tick={{ fontSize: 11, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
+                <Tooltip
+                  cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
+                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Bar dataKey="cash" name="Cash %" fill="var(--primary)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="stock" name="Stock %" fill="rgb(var(--brand-tint) / 0.6)" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+
 
 
 function AnnouncementsTab({ co }: { co: Company }) {
