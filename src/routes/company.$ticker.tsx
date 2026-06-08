@@ -138,7 +138,7 @@ function CompanyPage() {
             <div className="flex items-center gap-2">
               <div
                 className="text-[14px] font-bold tnum tracking-wide"
-                style={{ color: "var(--green-up)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
+                style={{ color: "var(--primary)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
               >
                 {co.code}
               </div>
