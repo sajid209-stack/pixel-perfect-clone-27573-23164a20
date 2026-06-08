@@ -796,15 +796,16 @@
 
 /* Homepage section spacing — uniform across content sections */
 .home-section {
-  padding-top: 40px !important;
-  padding-bottom: 40px !important;
+  padding-top: 28px !important;
+  padding-bottom: 28px !important;
   padding-left: 24px !important;
   padding-right: 24px !important;
 }
+.home-section .mb-5 { margin-bottom: 0.85rem !important; }
 @media (max-width: 768px) {
   .home-section {
-    padding-top: 32px !important;
-    padding-bottom: 32px !important;
+    padding-top: 22px !important;
+    padding-bottom: 22px !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
