@@ -482,7 +482,7 @@ function CompanyDetailsCard({ co }: { co: Company }) {
         className="w-full flex items-center justify-between p-6 md:px-8"
       >
         <span className="text-[13px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--text-primary)" }}>
-          Company details
+          Corporate & contact
         </span>
         <ChevronDown
           className="w-4 h-4 transition-transform"
