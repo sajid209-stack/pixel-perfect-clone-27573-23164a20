@@ -316,7 +316,7 @@ function DisclosuresCell() {
               onClick={() => setFilter(f)}
               className="px-2 py-0.5 rounded-full text-[10px] font-medium whitespace-nowrap transition"
               style={{
-                color: active ? "#07090A" : "var(--text-secondary)",
+                color: active ? "var(--primary-foreground)" : "var(--text-secondary)",
                 background: active ? "var(--primary)" : "rgb(var(--ov) / 0.04)",
               }}
             >
@@ -441,8 +441,8 @@ function IndexCell() {
   const series = makeSeries(idx, period);
   const high = Math.max(...series.map((d) => d.v));
   const low = Math.min(...series.map((d) => d.v));
-  const lineColor = up ? "var(--green-up)" : "var(--red-down)";
-  const lineColorRaw = up ? "rgba(22,169,116,1)" : "rgba(217,65,94,1)";
+  const lineColor = up ? "var(--primary)" : "var(--red-down)";
+  const lineColorRaw = up ? "var(--primary)" : "rgba(217,65,94,1)";
   const others = (Object.keys(indexMeta) as IndexKey[]).filter((k) => k !== idx);
   const gradId = `idxC-${idx}`;
 
@@ -458,7 +458,7 @@ function IndexCell() {
                 onClick={() => setIdx(k)}
                 className="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide transition"
                 style={{
-                  color: active ? "#07090A" : "var(--text-muted)",
+                  color: active ? "var(--primary-foreground)" : "var(--text-muted)",
                   background: active ? "var(--primary)" : "transparent",
                 }}
               >

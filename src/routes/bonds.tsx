@@ -231,7 +231,7 @@ const yieldCurve = [
 const typeMeta: Record<BondType, { bg: string; fg: string; icon: typeof Landmark }> = {
   Treasury: {
     bg: "rgb(var(--brand-tint) / 0.10)",
-    fg: "var(--green-up)",
+    fg: "var(--primary)",
     icon: Landmark,
   },
   Sukuk: {
@@ -404,7 +404,7 @@ function BondsPage() {
               <div className="flex items-center gap-1.5">
                 <span
                   className="w-2 h-2 rounded-full"
-                  style={{ background: "var(--green-up)" }}
+                  style={{ background: "var(--primary)" }}
                 />
                 Indicative mid-yield
               </div>
@@ -452,9 +452,9 @@ function BondsPage() {
                 <Line
                   type="monotone"
                   dataKey="yield"
-                  stroke="var(--green-up)"
+                  stroke="var(--primary)"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: "var(--green-up)" }}
+                  dot={{ r: 3, fill: "var(--primary)" }}
                   activeDot={{ r: 5 }}
                 />
               </LineChart>
@@ -496,14 +496,14 @@ function BondsPage() {
                 key={t}
                 onClick={() => setType(t)}
                 className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                style={{ color: type === t ? "#07090A" : "var(--text-secondary)" }}
+                style={{ color: type === t ? "var(--primary-foreground)" : "var(--text-secondary)" }}
               >
                 {type === t && (
                   <motion.span
                     layoutId="bondTypePill"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                   />
                 )}
                 <span className="relative">{t}</span>

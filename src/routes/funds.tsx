@@ -231,7 +231,7 @@ const catTint: Record<Cat, string> = {
   Index: "rgba(94,234,212,0.14)",
 };
 const catFg: Record<Cat, string> = {
-  Equity: "var(--green-up)",
+  Equity: "var(--primary)",
   Balanced: "#74AAFF",
   Income: "#C9A84C",
   Shariah: "#A78BFA",
@@ -381,14 +381,14 @@ function FundsPage() {
                 key={c}
                 onClick={() => setCat(c)}
                 className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                style={{ color: cat === c ? "#07090A" : "var(--text-secondary)" }}
+                style={{ color: cat === c ? "var(--primary-foreground)" : "var(--text-secondary)" }}
               >
                 {cat === c && (
                   <motion.span
                     layoutId="fundCatPill"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                   />
                 )}
                 <span className="relative">{c}</span>
