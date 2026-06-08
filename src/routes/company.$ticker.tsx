@@ -333,7 +333,7 @@ function PriceCard({
                   <motion.span
                     layoutId="coPeriod"
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                     transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
                   />
                 )}
