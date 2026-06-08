@@ -499,6 +499,18 @@ function CompanyDetailsCard({ co }: { co: Company }) {
               </div>
             ))}
           </dl>
+          <div className="mt-5 flex flex-wrap gap-4 text-[13px]">
+            {d.fsUrl && (
+              <a href={d.fsUrl} className="inline-flex items-center gap-1.5" style={{ color: "var(--primary)" }}>
+                Financial statements <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
+            {d.psiUrl && (
+              <a href={d.psiUrl} className="inline-flex items-center gap-1.5" style={{ color: "var(--primary)" }}>
+                Price Sensitive Information (PSI) <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
+          </div>
         </div>
       )}
     </section>
