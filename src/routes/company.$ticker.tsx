@@ -489,7 +489,7 @@ function StatsGrid({ co }: { co: Company }) {
               className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
               style={{
                 left: `calc(${pct}% - 5px)`,
-                background: "var(--green-up)",
+                background: "var(--primary)",
                 boxShadow: "0 0 0 3px rgb(var(--brand-tint) / 0.25)",
               }}
             />
