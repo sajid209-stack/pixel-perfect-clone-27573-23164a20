@@ -252,38 +252,231 @@ function CompanyPage() {
   );
 }
 
+/* ---- sample-data derivations (deterministic from co) ---- */
+
+function bandLimits(co: Company) {
+  // DSE circuit breaker — simplified band (±10% generic)
+  return { upper: +(co.prevClose * 1.10).toFixed(2), lower: +(co.prevClose * 0.90).toFixed(2) };
+}
+
+function basics(co: Company) {
+  const totalShares = Math.round(co.paidUpCapital / co.faceValue);
+  return {
+    listingYear: (co.founded ?? 1996) + 4,
+    authorisedCapital: co.paidUpCapital * 2,
+    paidUpCapital: co.paidUpCapital,
+    faceValue: co.faceValue,
+    marketLot: 1,
+    electronicShare: "Yes",
+    totalShares,
+  };
+}
+
+function interimRows(co: Company) {
+  const eps = co.eps;
+  const nav = co.nav;
+  const nocfps = +(eps * 1.35).toFixed(2);
+  return [
+    { metric: "EPS (basic)",   q1: +(eps * 0.22).toFixed(2), half: +(eps * 0.46).toFixed(2), nine: +(eps * 0.72).toFixed(2), annual: +eps.toFixed(2) },
+    { metric: "EPS (diluted)", q1: +(eps * 0.21).toFixed(2), half: +(eps * 0.45).toFixed(2), nine: +(eps * 0.71).toFixed(2), annual: +(eps * 0.98).toFixed(2) },
+    { metric: "NAV per share", q1: +(nav * 0.96).toFixed(2), half: +(nav * 0.98).toFixed(2), nine: +(nav * 0.99).toFixed(2), annual: +nav.toFixed(2) },
+    { metric: "NOCFPS",        q1: +(nocfps * 0.20).toFixed(2), half: +(nocfps * 0.48).toFixed(2), nine: +(nocfps * 0.75).toFixed(2), annual: +nocfps.toFixed(2) },
+  ];
+}
+
+function companyDetails(co: Company) {
+  return {
+    office: `${co.hq} office, Bangladesh`,
+    phone: "+880 2 5566 7788",
+    email: `investors@${(co.website ?? "company.com.bd").replace(/^https?:\/\//, "")}`,
+    website: co.website ?? "—",
+    secretary: "Md. Sirajul Islam, FCS",
+    lastAgm: "12 June 2025",
+    yearEnd: "31 December",
+  };
+}
+
 /* ----------------- Overview ----------------- */
 
-function OverviewTab({
-  co,
-  period,
-  setPeriod,
-  series,
-  up,
-}: {
-  co: Company;
-  period: Period;
-  setPeriod: (p: Period) => void;
-  series: { t: string; v: number }[];
-  up: boolean;
-}) {
+function OverviewTab({ co }: { co: Company }) {
   return (
-    <div className="grid lg:grid-cols-[1.85fr_1fr] gap-10">
-      {/* Left col */}
-      <div className="space-y-10">
-        <PriceCard co={co} period={period} setPeriod={setPeriod} series={series} up={up} />
-        <StatsGrid co={co} />
+    <div className="space-y-10">
+      <KeyStatsStrip co={co} />
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
+        <BasicsCard co={co} />
+        <ShareholdingPatternCard co={co} />
+      </div>
+      <CompanyDetailsCard co={co} />
+      <AboutCard co={co} />
+    </div>
+  );
+}
+
+function KeyStatsStrip({ co }: { co: Company }) {
+  const band = bandLimits(co);
+  const dayValueMn = +(co.price * co.volume / 1_000_000).toFixed(1);
+  const trades = Math.max(120, Math.round(co.volume / 850));
+  const dayPct = Math.max(0, Math.min(100, ((co.price - co.low) / Math.max(0.0001, co.high - co.low)) * 100));
+  const yrPct = Math.max(0, Math.min(100, ((co.price - co.weekLow52) / Math.max(0.0001, co.weekHigh52 - co.weekLow52)) * 100));
+  return (
+    <section
+      className="rounded-2xl p-6 md:p-8"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-5" style={{ color: "var(--text-muted)" }}>
+        Key statistics
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <StatTile label="Market cap" value={formatBDT(co.marketCap)} />
+        <StatTile
+          label="P/E (audited)"
+          value={`${co.pe.toFixed(2)}x`}
+          tooltip="Based on latest audited annual EPS, BSEC uniform-year basis."
+        />
+        <StatTile
+          label="P/E (unaudited)"
+          value={`${(co.pe * 0.96).toFixed(2)}x`}
+          tooltip="Based on most recent unaudited interim EPS (annualised)."
+        />
+        <StatTile label="Day's value" value={`৳ ${dayValueMn} mn`} />
+        <StatTile label="Day's volume" value={formatVolume(co.volume)} />
+        <StatTile label="Day's trades" value={trades.toLocaleString()} />
+        <StatTile label="Opening price" value={`৳ ${co.open.toFixed(2)}`} />
+        <StatTile label="Adjusted opening" value={`৳ ${(co.open * 0.998).toFixed(2)}`} />
       </div>
 
-      {/* Right col */}
-      <div className="space-y-6">
-        <AboutCard co={co} />
-        <ShareholdingPatternCard co={co} />
-        <RecentAnnouncementsCard co={co} />
+      <div className="grid md:grid-cols-2 gap-5 mt-6">
+        <RangeBar
+          label="Day's range"
+          low={co.low}
+          high={co.high}
+          pct={dayPct}
+          current={co.price}
+        />
+        <RangeBar
+          label="52-week range"
+          low={co.weekLow52}
+          high={co.weekHigh52}
+          pct={yrPct}
+          current={co.price}
+        />
+      </div>
+
+      <div
+        className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4 pt-5 border-t"
+        style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
+      >
+        <Stat label="Circuit upper" value={`৳ ${band.upper}`} accent="var(--green-up)" />
+        <Stat label="Circuit lower" value={`৳ ${band.lower}`} accent="var(--red-down)" />
+        <Stat label="Today's band" value={`৳ ${band.lower} – ৳ ${band.upper}`} />
+      </div>
+    </section>
+  );
+}
+
+function RangeBar({ label, low, high, pct, current }: { label: string; low: number; high: number; pct: number; current: number }) {
+  return (
+    <div className="p-5 rounded-xl" style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
+      <div className="flex items-baseline justify-between mb-3">
+        <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{label}</div>
+        <div className="text-[12px] tnum" style={{ color: "var(--text-secondary)" }}>
+          Current ৳ {current.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+        </div>
+      </div>
+      <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.08)" }}>
+        <div
+          className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
+          style={{
+            left: `calc(${pct}% - 5px)`,
+            background: "var(--primary)",
+            boxShadow: "0 0 0 3px rgb(var(--brand-tint) / 0.25)",
+          }}
+        />
+      </div>
+      <div className="mt-2 flex items-center justify-between text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+        <span>৳ {low.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+        <span>৳ {high.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
       </div>
     </div>
   );
 }
+
+function BasicsCard({ co }: { co: Company }) {
+  const b = basics(co);
+  const rows: [string, string][] = [
+    ["Listing year", String(b.listingYear)],
+    ["Authorised capital", formatBDT(b.authorisedCapital)],
+    ["Paid-up capital", formatBDT(b.paidUpCapital)],
+    ["Face value", `৳ ${b.faceValue.toFixed(2)}`],
+    ["Market lot", String(b.marketLot)],
+    ["Electronic share", b.electronicShare],
+    ["Total outstanding securities", b.totalShares.toLocaleString()],
+  ];
+  return (
+    <section
+      className="rounded-2xl p-6 md:p-8"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-4" style={{ color: "var(--text-muted)" }}>
+        Basics
+      </div>
+      <dl className="divide-y" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
+        {rows.map(([k, v]) => (
+          <div key={k} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
+            <dt className="text-[13px]" style={{ color: "var(--text-secondary)" }}>{k}</dt>
+            <dd className="text-[13px] tnum font-medium" style={{ color: "var(--text-primary)" }}>{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
+function CompanyDetailsCard({ co }: { co: Company }) {
+  const [open, setOpen] = useState(false);
+  const d = companyDetails(co);
+  const rows: [string, string][] = [
+    ["Registered office", d.office],
+    ["Phone", d.phone],
+    ["Email", d.email],
+    ["Website", d.website],
+    ["Company secretary", d.secretary],
+    ["Last AGM", d.lastAgm],
+    ["Year-end", d.yearEnd],
+  ];
+  return (
+    <section
+      className="rounded-2xl"
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+    >
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between p-6 md:px-8"
+      >
+        <span className="text-[13px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--text-primary)" }}>
+          Company details
+        </span>
+        <ChevronDown
+          className="w-4 h-4 transition-transform"
+          style={{ color: "var(--text-secondary)", transform: open ? "rotate(180deg)" : "none" }}
+        />
+      </button>
+      {open && (
+        <div className="px-6 md:px-8 pb-6">
+          <dl className="grid sm:grid-cols-2 gap-x-8 divide-y sm:divide-y-0" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
+            {rows.map(([k, v]) => (
+              <div key={k} className="py-2.5">
+                <dt className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{k}</dt>
+                <dd className="mt-1 text-[13px]" style={{ color: "var(--text-primary)" }}>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+    </section>
+  );
+}
+
 
 function PriceCard({
   co,
