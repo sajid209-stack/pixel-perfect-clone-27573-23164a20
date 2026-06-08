@@ -44,7 +44,7 @@ const typeStyles: Record<ReportType, { bg: string; fg: string; border: string }>
   Daily: { bg: "rgba(59,130,246,0.12)", fg: "#3b82f6", border: "rgba(59,130,246,0.30)" },
   Weekly: { bg: "rgba(245,158,11,0.12)", fg: "#f59e0b", border: "rgba(245,158,11,0.30)" },
   Monthly: { bg: "rgba(15,27,61,0.12)", fg: "#1e3a5f", border: "rgba(30,58,95,0.35)" },
-  Research: { bg: "rgba(20,184,166,0.12)", fg: "#14b8a6", border: "rgba(20,184,166,0.30)" },
+  Research: { bg: "rgb(var(--brand-tint) / 0.12)", fg: "var(--primary)", border: "rgb(var(--brand-tint) / 0.30)" },
 };
 
 type SessionKind = "Trading day" | "Holiday" | "Weekend";
@@ -117,7 +117,7 @@ function ReportsPage() {
                   className="px-3 h-8 rounded-full text-[12px] font-medium transition"
                   style={{
                     background: active ? "var(--primary)" : "rgb(var(--ov) / 0.04)",
-                    color: active ? "#07090A" : "var(--text-secondary)",
+                    color: active ? "var(--primary-foreground)" : "var(--text-secondary)",
                     border: active ? "1px solid var(--primary)" : "1px solid rgb(var(--ov) / 0.08)",
                   }}
                 >

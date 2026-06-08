@@ -227,7 +227,7 @@ function NewsPage() {
                   key={t}
                   onClick={() => setType(t)}
                   className="relative px-3 h-8 rounded-full text-[12px] font-medium flex items-center gap-1.5 transition"
-                  style={{ color: active ? "#07090A" : "var(--text-secondary)" }}
+                  style={{ color: active ? "var(--primary-foreground)" : "var(--text-secondary)" }}
                 >
                   {active && (
                     <motion.span
@@ -426,7 +426,7 @@ function NewsPage() {
                     to="/company/$ticker"
                     params={{ ticker: selected.code }}
                     className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-semibold"
-                    style={{ background: "var(--primary)", color: "#07090A" }}
+                    style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
                   >
                     Open {selected.code} <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>

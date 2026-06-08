@@ -400,7 +400,7 @@ function LearnPage() {
                   key={c}
                   onClick={() => setCat(c)}
                   className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                  style={{ color: active ? "#07090A" : "var(--text-secondary)" }}
+                  style={{ color: active ? "var(--primary-foreground)" : "var(--text-secondary)" }}
                 >
                   {active && (
                     <motion.span
@@ -475,7 +475,7 @@ function LearnPage() {
             className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14px] font-semibold shrink-0"
             style={{
               background: "var(--primary)",
-              color: "#07090A",
+              color: "var(--primary-foreground)",
               boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
             }}
           >
