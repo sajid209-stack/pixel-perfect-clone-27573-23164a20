@@ -756,6 +756,9 @@ function ShareholdingPatternCard({ co }: { co: Company }) {
   const sp = co.sharePattern;
   return (
     <SidebarCard title="Shareholding pattern">
+      <div className="text-[11px] mb-4" style={{ color: "var(--text-muted)" }}>
+        as on 31 May 2026
+      </div>
       <div className="space-y-3">
         {SHAREHOLDING_ROWS.map((r, i) => {
           const pct = sp[r.key] ?? 0;
