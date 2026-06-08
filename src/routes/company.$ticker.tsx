@@ -154,6 +154,11 @@ function CompanyPage() {
             >
               {co.name}
             </h1>
+            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-[12px] tnum" style={{ color: "var(--text-muted)" }}>
+              {co.scripCode !== undefined && <span>Scrip code · <span style={{ color: "var(--text-secondary)" }}>{co.scripCode}</span></span>}
+              <span>Instrument · <span style={{ color: "var(--text-secondary)" }}>{co.instrumentType ?? "Equity"}</span></span>
+              <span>Debut · <span style={{ color: "var(--text-secondary)" }}>{co.debutDate ?? "—"}</span></span>
+            </div>
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <Pill>{co.sector}</Pill>
               <Pill>DSE {co.board}</Pill>
