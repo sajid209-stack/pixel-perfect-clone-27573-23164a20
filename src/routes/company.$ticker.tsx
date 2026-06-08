@@ -1283,7 +1283,7 @@ function SidebarCard({
         {cta && (
           <button onClick={cta.onClick}
             className="text-[12px] inline-flex items-center gap-1"
-            style={{ color: "var(--green-up)" }}>
+            style={{ color: "var(--primary)" }}>
             {cta.label} <ArrowUpRight className="w-3 h-3" />
           </button>
         )}
