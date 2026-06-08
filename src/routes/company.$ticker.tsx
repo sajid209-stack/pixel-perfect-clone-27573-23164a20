@@ -179,8 +179,9 @@ function CompanyPage() {
               style={{ color: up ? "var(--green-up)" : "var(--red-down)" }}>
               {up ? "▲" : "▼"} {Math.abs(co.change).toFixed(2)} ({up ? "+" : ""}{co.changePct.toFixed(2)}%) today
             </div>
-            <div className="mt-1 text-[13px] tnum" style={{ color: "var(--text-muted)" }}>
-              Prev close ৳ {co.prevClose.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+            <div className="mt-2 text-[12px] tnum flex flex-wrap gap-x-4 gap-y-1 lg:justify-end" style={{ color: "var(--text-muted)" }}>
+              <span>Closing ৳ {co.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              <span>Yesterday's close ৳ {co.prevClose.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </div>
           </div>
         </div>
