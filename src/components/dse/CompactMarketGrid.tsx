@@ -649,14 +649,14 @@ function IpoCell() {
             <span className="relative flex h-2 w-2">
               <span
                 className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                style={{ background: "var(--green-up)" }}
+                style={{ background: "var(--primary)" }}
               />
               <span
                 className="relative inline-flex rounded-full h-2 w-2"
-                style={{ background: "var(--green-up)" }}
+                style={{ background: "var(--primary)" }}
               />
             </span>
-            <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--green-up)" }}>
+            <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--primary)" }}>
               {t("Subscription open")}
             </span>
           </div>
