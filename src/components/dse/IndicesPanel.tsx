@@ -299,8 +299,8 @@ export function IndicesPanel() {
                 <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="mainArea" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--green-up)" stopOpacity={0.30} />
-                      <stop offset="100%" stopColor="var(--green-up)" stopOpacity={0} />
+                      <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.30} />
+                      <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <XAxis
@@ -345,7 +345,7 @@ export function IndicesPanel() {
                   <Area
                     type="monotone"
                     dataKey="v"
-                    stroke="var(--green-up)"
+                    stroke="var(--primary)"
                     strokeWidth={1.8}
                     fill="url(#mainArea)"
                     isAnimationActive

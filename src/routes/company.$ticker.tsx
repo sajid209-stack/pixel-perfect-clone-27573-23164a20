@@ -138,7 +138,7 @@ function CompanyPage() {
             <div className="flex items-center gap-2">
               <div
                 className="text-[14px] font-bold tnum tracking-wide"
-                style={{ color: "var(--green-up)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
+                style={{ color: "var(--primary)", fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
               >
                 {co.code}
               </div>
@@ -164,9 +164,9 @@ function CompanyPage() {
               style={{ color: "var(--text-muted)" }}>
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                  style={{ background: "var(--green-up)" }} />
+                  style={{ background: "var(--primary)" }} />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5"
-                  style={{ background: "var(--green-up)" }} />
+                  style={{ background: "var(--primary)" }} />
               </span>
               Live · 13:42:08 BST
             </div>
@@ -208,7 +208,7 @@ function CompanyPage() {
                   <motion.span
                     layoutId="companyTab"
                     className="absolute left-3 right-3 bottom-0 h-[2px] rounded-full"
-                    style={{ background: "var(--green-up)", boxShadow: "0 0 8px var(--green-up)" }}
+                    style={{ background: "var(--primary)", boxShadow: "0 0 8px var(--primary)" }}
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -301,7 +301,7 @@ function PriceCard({
   series: { t: string; v: number }[];
   up: boolean;
 }) {
-  const stroke = up ? "var(--green-up)" : "var(--red-down)";
+  const stroke = "var(--primary)";
   return (
     <section
       className="rounded-2xl p-6 md:p-8"
@@ -333,7 +333,7 @@ function PriceCard({
                   <motion.span
                     layoutId="coPeriod"
                     className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--green-up)" }}
+                    style={{ background: "var(--primary)" }}
                     transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
                   />
                 )}
@@ -489,7 +489,7 @@ function StatsGrid({ co }: { co: Company }) {
               className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
               style={{
                 left: `calc(${pct}% - 5px)`,
-                background: "var(--green-up)",
+                background: "var(--primary)",
                 boxShadow: "0 0 0 3px rgb(var(--brand-tint) / 0.25)",
               }}
             />
@@ -538,7 +538,7 @@ function AboutCard({ co }: { co: Company }) {
           target="_blank"
           rel="noreferrer"
           className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium"
-          style={{ color: "var(--green-up)" }}
+          style={{ color: "var(--primary)" }}
         >
           {co.website}
           <ExternalLink className="w-3 h-3" />
@@ -549,11 +549,11 @@ function AboutCard({ co }: { co: Company }) {
 }
 
 const SHAREHOLDING_ROWS: { key: keyof NonNullable<Company["sharePattern"]>; label: string; color: string }[] = [
-  { key: "sponsor",     label: "Sponsor / Director", color: "var(--green-up)" },
-  { key: "government",  label: "Government",         color: "#4FD1C5" },
-  { key: "institution", label: "Institution",        color: "#7FD9B0" },
+  { key: "sponsor",     label: "Sponsor / Director", color: "var(--primary)" },
+  { key: "government",  label: "Government",         color: "#5B8DB8" },
+  { key: "institution", label: "Institution",        color: "#88A9C4" },
   { key: "foreign",     label: "Foreign",            color: "#C6A969" },
-  { key: "public",      label: "Public",             color: "#9FB7A6" },
+  { key: "public",      label: "Public",             color: "#9AA7B2" },
 ];
 
 function ShareholdingPatternCard({ co }: { co: Company }) {
@@ -640,7 +640,7 @@ function RecentAnnouncementsCard({ co }: { co: Company }) {
             <div className="flex items-center gap-2 mb-1">
               <span
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
-                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
+                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
               >
                 {a.type}
               </span>
@@ -709,12 +709,12 @@ function AnnouncementsTab({ co }: { co: Company }) {
               <div className="text-[15px] mb-1" style={{ color: "var(--text-primary)" }}>{a.summary}</div>
               <span
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
-                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--green-up)" }}
+                style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
               >
                 {a.type}
               </span>
             </div>
-            <a className="text-[13px] inline-flex items-center gap-1" style={{ color: "var(--green-up)" }}>
+            <a className="text-[13px] inline-flex items-center gap-1" style={{ color: "var(--primary)" }}>
               Read <ArrowUpRight className="w-3 h-3" />
             </a>
           </li>
@@ -748,7 +748,7 @@ function SimilarTab({ co }: { co: Company }) {
                 {c.code}
               </span>
               <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition"
-                style={{ color: "var(--green-up)" }} />
+                style={{ color: "var(--primary)" }} />
             </div>
             <div className="text-[12px] truncate" style={{ color: "var(--text-muted)" }}>{c.name}</div>
             <div className="mt-4 flex items-baseline justify-between tnum">
@@ -1228,7 +1228,7 @@ function Pill({ children }: { children: React.ReactNode }) {
       className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium"
       style={{
         background: "rgb(var(--brand-tint) / 0.10)",
-        color: "var(--green-up)",
+        color: "var(--primary)",
         border: "1px solid rgb(var(--brand-tint) / 0.18)",
       }}
     >
@@ -1283,7 +1283,7 @@ function SidebarCard({
         {cta && (
           <button onClick={cta.onClick}
             className="text-[12px] inline-flex items-center gap-1"
-            style={{ color: "var(--green-up)" }}>
+            style={{ color: "var(--primary)" }}>
             {cta.label} <ArrowUpRight className="w-3 h-3" />
           </button>
         )}
