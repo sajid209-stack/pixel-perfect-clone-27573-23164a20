@@ -86,14 +86,14 @@ function PathCard({ path, i }: { path: Path; i: number }) {
             <AreaChart data={path.data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <defs>
                 <linearGradient id={`pathFill-${i}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--green-up)" stopOpacity={0.18} />
-                  <stop offset="100%" stopColor="var(--green-up)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.18} />
+                  <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <Area
                 type="monotone"
                 dataKey="v"
-                stroke="var(--green-up)"
+                stroke="var(--primary)"
                 strokeOpacity={0.35}
                 strokeWidth={1.2}
                 fill={`url(#pathFill-${i})`}
