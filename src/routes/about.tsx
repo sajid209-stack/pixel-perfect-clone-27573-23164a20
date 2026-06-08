@@ -169,20 +169,24 @@ function AboutPage() {
             subtitle="The DSE board comprises independent directors, shareholder directors, and government nominees as prescribed by the Demutualization Act 2013."
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {directors.map((d) => (
+            {directors.map((d: { name: string; role: string; cat: string; photo?: string }) => (
               <div
                 key={d.name}
-                className="rounded-2xl p-6 flex items-start gap-4"
+                className="rounded-2xl p-4 flex items-start gap-4"
                 style={{
                   background: "rgb(var(--surface-rgb) / 0.6)",
                   border: "1px solid rgb(var(--ov) / 0.06)",
                 }}
               >
                 <div
-                  className="w-14 h-[68px] rounded-lg flex items-center justify-center text-[14px] font-semibold shrink-0 overflow-hidden"
+                  className="w-24 h-28 rounded-lg flex items-center justify-center text-[18px] font-semibold shrink-0 overflow-hidden"
                   style={{ background: "#0f1b3d", color: "#ffffff" }}
                 >
-                  {initials(d.name)}
+                  {d.photo ? (
+                    <img src={d.photo} alt={d.name} className="w-full h-full object-cover rounded-lg" />
+                  ) : (
+                    initials(d.name)
+                  )}
                 </div>
                 <div className="min-w-0">
                   <div className="text-[14.5px] font-semibold truncate">{d.name}</div>
