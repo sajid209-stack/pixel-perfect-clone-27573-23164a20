@@ -416,8 +416,8 @@ function AboutPanel({ close }: { close: () => void }) {
     { title: "Broker directory", desc: "TREC licensed members", to: "/members" },
   ];
   const col3: Item[] = [
+    { title: "Foreign investors", desc: "Rules, tax & repatriation", to: "/foreign-investors" },
     { title: "Market reports", desc: "Daily, weekly, monthly PDFs", to: "/reports" },
-    { title: "Sustainability & ESG", desc: "UN SSE signatory", to: "/about", hash: "sustainability" },
     { title: "Complaints portal", desc: "Investor protection process", to: "/complaints" },
   ];
   return (
