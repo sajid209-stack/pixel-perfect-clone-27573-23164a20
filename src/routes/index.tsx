@@ -7,6 +7,7 @@ import { DualAudience } from "@/components/dse/DualAudience";
 import { CompactMarketGrid } from "@/components/dse/CompactMarketGrid";
 import { Resources } from "@/components/dse/Resources";
 import { NewsScroll } from "@/components/dse/NewsScroll";
+import { ForeignInvestorBand } from "@/components/dse/ForeignInvestorBand";
 import { Footer } from "@/components/dse/Footer";
 import { WatchlistStrip } from "@/components/dse/WatchlistStrip";
 
