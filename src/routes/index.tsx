@@ -33,6 +33,7 @@ function Home() {
       <WatchlistStrip />
       <CompactMarketGrid />
       <NewsScroll />
+      <ForeignInvestorBand />
       <DualAudience />
       <Resources />
       <Footer />
