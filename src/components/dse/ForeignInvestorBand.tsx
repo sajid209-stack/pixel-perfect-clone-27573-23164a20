@@ -1,0 +1,90 @@
+import { Link } from "@tanstack/react-router";
+import { Globe, ArrowRight, ArrowLeftRight, Receipt, FileText } from "lucide-react";
+
+const links = [
+  {
+    Icon: ArrowLeftRight,
+    title: "Trading & repatriation",
+    desc: "NITA channel, eligible securities, FX outflows.",
+    to: "/foreign-investors",
+  },
+  {
+    Icon: Receipt,
+    title: "Tax & withholding",
+    desc: "Dividend, capital gains and DTAA treaty rates.",
+    to: "/foreign-investors",
+  },
+  {
+    Icon: FileText,
+    title: "Regulations & circulars",
+    desc: "BSEC, Bangladesh Bank and DSE rulebook PDFs.",
+    to: "/foreign-investors",
+  },
+];
+
+export function ForeignInvestorBand() {
+  return (
+    <section className="home-section">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div
+          className="rounded-3xl p-6 md:p-8"
+          style={{
+            background:
+              "linear-gradient(135deg, rgb(var(--brand-tint) / 0.10), rgb(var(--surface-rgb) / 0.6))",
+            border: "1px solid rgb(var(--ov) / 0.08)",
+          }}
+        >
+          <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-10 items-start">
+            <div>
+              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--primary)" }}>
+                <Globe className="w-3.5 h-3.5" />
+                For foreign investors
+              </div>
+              <h2 className="mt-3 text-[26px] md:text-[30px] font-semibold tracking-[-0.01em] leading-[1.15]">
+                Rules, tax and repatriation —
+                <br className="hidden md:inline" /> in one place.
+              </h2>
+              <p className="mt-3 text-[13.5px] leading-[1.7] max-w-[420px]" style={{ color: "var(--text-secondary)" }}>
+                Everything a non-resident needs to open a NITA account, trade,
+                repatriate gains and stay compliant with BSEC and Bangladesh Bank.
+              </p>
+              <Link
+                to="/foreign-investors"
+                className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                style={{ color: "var(--primary)" }}
+              >
+                Open the guide
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid sm:grid-cols-3 gap-3">
+              {links.map((l) => (
+                <Link
+                  key={l.title}
+                  to={l.to}
+                  className="group rounded-2xl p-4 transition hover:-translate-y-0.5"
+                  style={{
+                    background: "rgb(var(--surface-rgb) / 0.85)",
+                    border: "1px solid rgb(var(--ov) / 0.06)",
+                  }}
+                >
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+                    style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
+                  >
+                    <l.Icon className="w-4 h-4" />
+                  </div>
+                  <div className="text-[13.5px] font-semibold">{l.title}</div>
+                  <p className="mt-1 text-[12px] leading-[1.6]" style={{ color: "var(--text-secondary)" }}>
+                    {l.desc}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

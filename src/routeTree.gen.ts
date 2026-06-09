@@ -17,6 +17,7 @@ import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IpoRouteImport } from './routes/ipo'
 import { Route as IndicesRouteImport } from './routes/indices'
 import { Route as FundsRouteImport } from './routes/funds'
+import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as BondsRouteImport } from './routes/bonds'
@@ -64,6 +65,11 @@ const FundsRoute = FundsRouteImport.update({
   path: '/funds',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForeignInvestorsRoute = ForeignInvestorsRouteImport.update({
+  id: '/foreign-investors',
+  path: '/foreign-investors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ComplaintsRoute = ComplaintsRouteImport.update({
   id: '/complaints',
   path: '/complaints',
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/bonds': typeof BondsRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
+  '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/bonds': typeof BondsRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
+  '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/bonds': typeof BondsRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
+  '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/bonds'
     | '/companies'
     | '/complaints'
+    | '/foreign-investors'
     | '/funds'
     | '/indices'
     | '/ipo'
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
     | '/bonds'
     | '/companies'
     | '/complaints'
+    | '/foreign-investors'
     | '/funds'
     | '/indices'
     | '/ipo'
@@ -184,6 +195,7 @@ export interface FileRouteTypes {
     | '/bonds'
     | '/companies'
     | '/complaints'
+    | '/foreign-investors'
     | '/funds'
     | '/indices'
     | '/ipo'
@@ -201,6 +213,7 @@ export interface RootRouteChildren {
   BondsRoute: typeof BondsRoute
   CompaniesRoute: typeof CompaniesRoute
   ComplaintsRoute: typeof ComplaintsRoute
+  ForeignInvestorsRoute: typeof ForeignInvestorsRoute
   FundsRoute: typeof FundsRoute
   IndicesRoute: typeof IndicesRoute
   IpoRoute: typeof IpoRoute
@@ -270,6 +283,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FundsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/foreign-investors': {
+      id: '/foreign-investors'
+      path: '/foreign-investors'
+      fullPath: '/foreign-investors'
+      preLoaderRoute: typeof ForeignInvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/complaints': {
       id: '/complaints'
       path: '/complaints'
@@ -321,6 +341,7 @@ const rootRouteChildren: RootRouteChildren = {
   BondsRoute: BondsRoute,
   CompaniesRoute: CompaniesRoute,
   ComplaintsRoute: ComplaintsRoute,
+  ForeignInvestorsRoute: ForeignInvestorsRoute,
   FundsRoute: FundsRoute,
   IndicesRoute: IndicesRoute,
   IpoRoute: IpoRoute,
@@ -334,13 +355,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
