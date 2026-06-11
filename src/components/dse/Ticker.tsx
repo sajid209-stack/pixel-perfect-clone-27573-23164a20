@@ -14,7 +14,7 @@ export function Ticker() {
     >
       <div
         className="shrink-0 px-2.5 ml-4 h-[22px] flex items-center text-[10px] font-semibold tracking-[0.18em] uppercase"
-        style={{ background: "var(--brand)", color: "#ffffff", borderRadius: 2 }}
+        style={{ background: "var(--brand-600, var(--brand))", color: "#ffffff", borderRadius: 2 }}
       >
         ● Live
       </div>

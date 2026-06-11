@@ -15,7 +15,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseSealAsset from "@/assets/dse-seal.png.asset.json";
+import dseSealCoinAsset from "@/assets/dse-seal-coin.png.asset.json";
+import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
 const dseLogo = dseSealAsset.url;
+const dseLogoDark = dseSealCoinAsset.url;
 import { ThemeToggle } from "./ThemeToggle";
 import { companyIndex } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
@@ -47,7 +50,7 @@ type MegaCol = { header: string; links: MegaLink[] };
 type MegaContent = {
   intro: { title: string; desc: string; cta: { label: string; to: string } };
   columns: MegaCol[];
-  promo: { tag: string; title: string; desc: string; to: string };
+  promo: { tag: string; title: string; desc: string; to: string; image?: string };
 };
 
 const megaContent: Record<string, MegaContent> = {
@@ -241,26 +244,30 @@ const megaContent: Record<string, MegaContent> = {
 };
 
 function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
+  const image = content.promo.image ?? heroTowerAsset.url;
   return (
     <div
-      className="grid gap-8"
+      className="grid"
       style={{
-        gridTemplateColumns: "minmax(200px,1fr) repeat(2, minmax(180px,1fr)) minmax(220px,1fr)",
-        width: 880,
+        gridTemplateColumns: "minmax(200px,1fr) repeat(2, minmax(180px,1fr)) minmax(260px,1.2fr)",
+        gap: 34,
       }}
     >
       {/* Intro */}
       <div>
-        <div className="text-[18px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
+        <div className="text-[17px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
           {content.intro.title}
         </div>
-        <p className="mt-2 text-[12.5px] leading-[1.55]" style={{ color: "var(--text-secondary)" }}>
+        <p
+          className="mt-1.5 text-[12.5px] leading-[1.55]"
+          style={{ color: "var(--text-secondary)", maxWidth: 230 }}
+        >
           {content.intro.desc}
         </p>
         <Link
           to={content.intro.cta.to}
           onClick={close}
-          className="mt-4 inline-flex items-center gap-1 text-[12.5px] font-semibold"
+          className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold"
           style={{ color: "var(--brand-600)" }}
         >
           {content.intro.cta.label} →
@@ -271,8 +278,8 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
       {content.columns.map((col) => (
         <div key={col.header}>
           <div
-            className="text-[10px] font-semibold uppercase mb-2"
-            style={{ letterSpacing: "0.14em", color: "var(--text-muted)" }}
+            className="text-[10px] font-semibold uppercase"
+            style={{ letterSpacing: "0.14em", color: "var(--text-muted)", marginBottom: 8 }}
           >
             {col.header}
           </div>
@@ -283,9 +290,11 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
                   to={l.to}
                   hash={l.hash}
                   onClick={close}
-                  className="block py-2 text-[13px] mega-link"
+                  className="block text-[13px] mega-link"
                   style={{
                     color: "var(--ink)",
+                    paddingTop: 6,
+                    paddingBottom: 6,
                     borderTop: idx === 0 ? "none" : "1px solid var(--line)",
                   }}
                 >
@@ -297,27 +306,29 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
         </div>
       ))}
 
-      {/* Promo tile */}
+      {/* Promo tile w/ image */}
       <Link
         to={content.promo.to}
         onClick={close}
-        className="flex flex-col group"
+        className="flex flex-col group overflow-hidden"
         style={{ background: "var(--surface-2)", border: "1px solid var(--line)" }}
       >
         <div
           style={{
-            height: 84,
-            background: "linear-gradient(135deg, var(--brand) 0%, var(--brand-700) 100%)",
+            height: 96,
+            backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.55), rgba(24,95,165,0.15)), url("${image}")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
-        <div className="p-3.5">
+        <div className="p-3">
           <div
             className="text-[10px] font-semibold uppercase mb-1"
             style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
           >
             {content.promo.tag}
           </div>
-          <div className="text-[14px] font-semibold" style={{ color: "var(--ink)" }}>
+          <div className="text-[13.5px] font-semibold" style={{ color: "var(--ink)" }}>
             {content.promo.title}
           </div>
           <p className="mt-1 text-[11.5px] leading-[1.5]" style={{ color: "var(--text-secondary)" }}>
@@ -817,11 +828,18 @@ export function Nav() {
           <img
             src={dseLogo}
             alt="Dhaka Stock Exchange seal"
-            className="object-contain shrink-0"
+            className="object-contain shrink-0 nav-logo-light"
+            style={{ width: 46, height: 46 }}
+          />
+          <img
+            src={dseLogoDark}
+            alt=""
+            aria-hidden="true"
+            className="object-contain shrink-0 nav-logo-dark"
             style={{ width: 46, height: 46 }}
           />
           <div className="hidden md:block leading-tight">
-            <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--brand)" }}>
+            <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--ink)" }}>
               {t("Dhaka Stock Exchange")}
             </div>
             <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
@@ -847,8 +865,7 @@ export function Nav() {
               </>
             );
             const sharedClass = "relative px-3 py-2 text-[14px] font-medium transition flex items-center gap-1";
-            const sharedStyle = { color: isActive ? "var(--brand)" : "var(--text-secondary)" };
-            const Panel = l.mega ? megaPanels[l.mega] : null;
+            const sharedStyle = { color: isActive ? "var(--brand-600)" : "var(--ink)" };
             return (
               <div
                 key={l.label}
@@ -867,34 +884,17 @@ export function Nav() {
                 ) : (
                   <button className={sharedClass} style={sharedStyle}>{inner}</button>
                 )}
-                <AnimatePresence>
-                  {Panel && openMenu === l.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute left-0 top-full pt-1 z-50"
-                    >
-                      <div
-                        style={{
-                          background: "var(--surface)",
-                          border: "1px solid var(--line)",
-                          borderRadius: 2,
-                          boxShadow: "0 14px 32px rgba(0,0,0,0.18)",
-                          padding: 24,
-                          marginTop: 4,
-                        }}
-                      >
-                        <Panel close={() => setOpenMenu(null)} />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             );
           })}
         </nav>
+
+        <style>{`
+          .nav-logo-dark { display: none; }
+          .dark .nav-logo-light { display: none; }
+          .dark .nav-logo-dark { display: block; }
+        `}</style>
+
 
 
         <div className="flex-1" />
@@ -1021,8 +1021,35 @@ export function Nav() {
         </button>
       </div>
 
+      {/* Full-viewport-width mega panel (SCB style) */}
+      <AnimatePresence>
+        {openMenu && megaContent[links.find((l) => l.label === openMenu)?.mega ?? ""] && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15 }}
+            className="hidden lg:block absolute left-0 right-0 top-full z-50"
+            style={{
+              background: "var(--surface)",
+              borderTop: "1px solid var(--line)",
+              borderBottom: "1px solid var(--line)",
+              boxShadow: "0 18px 32px rgba(0,0,0,0.14)",
+            }}
+            onMouseEnter={() => openWith(openMenu)}
+            onMouseLeave={scheduleClose}
+          >
+            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 24px" }}>
+              <MegaPanel
+                content={megaContent[links.find((l) => l.label === openMenu)!.mega!]}
+                close={() => setOpenMenu(null)}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Mobile drawer: portal to body so backdrop-filter on header doesn't trap fixed positioning */}
+
       {typeof document !== "undefined" && createPortal(
         <AnimatePresence>
         {mobileOpen && (
