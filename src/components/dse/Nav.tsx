@@ -878,11 +878,11 @@ export function Nav() {
                     >
                       <div
                         style={{
-                          background: "#FFFFFF",
-                          border: "0.5px solid #E2E8F0",
-                          borderRadius: 12,
-                          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-                          padding: 20,
+                          background: "var(--surface)",
+                          border: "1px solid var(--line)",
+                          borderRadius: 2,
+                          boxShadow: "0 14px 32px rgba(0,0,0,0.18)",
+                          padding: 24,
                           marginTop: 4,
                         }}
                       >
