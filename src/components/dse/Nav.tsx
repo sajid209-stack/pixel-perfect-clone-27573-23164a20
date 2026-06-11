@@ -730,14 +730,14 @@ function AboutPanel({ close }: { close: () => void }) {
   );
 }
 
-const megaPanels = {
-  markets: MarketsPanel,
-  companies: CompaniesPanel,
-  indices: IndicesPanel,
-  ipo: IpoPanel,
-  news: NewsPanel,
-  learn: LearnPanel,
-  about: AboutPanel,
+const megaPanels: Record<string, React.ComponentType<{ close: () => void }>> = {
+  markets: ({ close }) => <MegaPanel content={megaContent.markets} close={close} />,
+  companies: ({ close }) => <MegaPanel content={megaContent.companies} close={close} />,
+  indices: ({ close }) => <MegaPanel content={megaContent.indices} close={close} />,
+  ipo: ({ close }) => <MegaPanel content={megaContent.ipo} close={close} />,
+  news: ({ close }) => <MegaPanel content={megaContent.news} close={close} />,
+  learn: ({ close }) => <MegaPanel content={megaContent.learn} close={close} />,
+  about: ({ close }) => <MegaPanel content={megaContent.about} close={close} />,
 };
 
 /* ─────────────── main Nav ─────────────── */
