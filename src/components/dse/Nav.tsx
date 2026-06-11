@@ -828,11 +828,18 @@ export function Nav() {
           <img
             src={dseLogo}
             alt="Dhaka Stock Exchange seal"
-            className="object-contain shrink-0"
+            className="object-contain shrink-0 nav-logo-light"
+            style={{ width: 46, height: 46 }}
+          />
+          <img
+            src={dseLogoDark}
+            alt=""
+            aria-hidden="true"
+            className="object-contain shrink-0 nav-logo-dark"
             style={{ width: 46, height: 46 }}
           />
           <div className="hidden md:block leading-tight">
-            <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--brand)" }}>
+            <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--ink)" }}>
               {t("Dhaka Stock Exchange")}
             </div>
             <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
@@ -858,8 +865,7 @@ export function Nav() {
               </>
             );
             const sharedClass = "relative px-3 py-2 text-[14px] font-medium transition flex items-center gap-1";
-            const sharedStyle = { color: isActive ? "var(--brand)" : "var(--text-secondary)" };
-            const Panel = l.mega ? megaPanels[l.mega] : null;
+            const sharedStyle = { color: isActive ? "var(--brand-600)" : "var(--ink)" };
             return (
               <div
                 key={l.label}
@@ -878,34 +884,17 @@ export function Nav() {
                 ) : (
                   <button className={sharedClass} style={sharedStyle}>{inner}</button>
                 )}
-                <AnimatePresence>
-                  {Panel && openMenu === l.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute left-0 top-full pt-1 z-50"
-                    >
-                      <div
-                        style={{
-                          background: "var(--surface)",
-                          border: "1px solid var(--line)",
-                          borderRadius: 2,
-                          boxShadow: "0 14px 32px rgba(0,0,0,0.18)",
-                          padding: 24,
-                          marginTop: 4,
-                        }}
-                      >
-                        <Panel close={() => setOpenMenu(null)} />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             );
           })}
         </nav>
+
+        <style>{`
+          .nav-logo-dark { display: none; }
+          .dark .nav-logo-light { display: none; }
+          .dark .nav-logo-dark { display: block; }
+        `}</style>
+
 
 
         <div className="flex-1" />
