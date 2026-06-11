@@ -224,7 +224,7 @@ export function TodaysMarket() {
   const [tab, setTab] = useState<MoverTab>("Gainers");
 
   return (
-    <section className="home-section">
+    <section className="home-section" style={{ background: "var(--surface-2)" }}>
       <div className="max-w-[1180px] mx-auto">
         <div
           className="flex items-center justify-between gap-4 mb-3 pb-2 border-b"
