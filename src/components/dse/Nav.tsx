@@ -830,14 +830,14 @@ export function Nav() {
             src={dseLogo}
             alt="Dhaka Stock Exchange seal"
             className="object-contain shrink-0 nav-logo-light"
-            style={{ width: 46, height: 46 }}
+            style={{ width: 38, height: 38 }}
           />
           <img
             src={dseLogoDark}
             alt=""
             aria-hidden="true"
             className="object-contain shrink-0 nav-logo-dark"
-            style={{ width: 46, height: 46 }}
+            style={{ width: 38, height: 38 }}
           />
           <div className="hidden md:block leading-tight">
             <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--ink)" }}>
