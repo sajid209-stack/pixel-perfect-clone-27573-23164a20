@@ -112,7 +112,7 @@ function RootShell({ children }: { children: ReactNode }) {
   const themeInit = `(function(){try{var t=localStorage.getItem('dse-theme');if(t==='light'){document.documentElement.classList.remove('dark');}else if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}try{var url=new URL(window.location.href);var qp=url.searchParams.get('theme');var vt=${JSON.stringify(viteTheme)};var brand=qp||vt;if(brand==='green'){document.documentElement.dataset.theme='green';}else if(brand==='blue'){document.documentElement.dataset.theme='blue';}}catch(e){}})();`;
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
