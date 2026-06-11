@@ -29,183 +29,185 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-heading: "Poppins", system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-heading: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
   --font-bengali: "Noto Sans Bengali", system-ui, sans-serif;
 }
 
-/* LIGHT THEME (default) */
-:root {
-  --navy-deep: #FFFFFF;
-  --navy-mid: #16A974;
-  --navy-light: #2DBF8A;
-  --sky-50: rgba(0,0,0,0.04);
-  --sky-100: #475569;
-  --green-up: #16A974;
-  --green-up-light: rgba(22,169,116,0.10);
-  --red-down: #D9415E;
-  --red-down-light: rgba(217,65,94,0.10);
-  --amber: #C2913B;
-  --amber-light: rgba(194,145,59,0.10);
-  --surface: transparent;
-  --border: rgba(0,0,0,0.08);
-  --text-primary: #0E1513;
-  --text-secondary: #4A555B;
-  --text-muted: #8A949A;
-
-  --background: #F7F8F7;
-  --foreground: #0E1513;
-  --card: rgba(0,0,0,0.025);
-  --card-foreground: #0E1513;
-  --primary: #16A974;
-  --primary-foreground: #07090A;
-  --muted: rgba(0,0,0,0.03);
-  --muted-foreground: #4A555B;
-  --radius: 1rem;
-
-  /* Theme-aware overlay primitives (space-separated for rgb() syntax) */
-  --ov: 0 0 0;
-  --ov-inv: 255 255 255;
-  --surface-rgb: 247 248 247;
-
-  /* Brand tints (space-separated for rgb(... / a) syntax). Used for brand panels, badges, soft backgrounds. */
-  --brand-tint: 22 169 116;
-  --brand-tint-strong: 22 169 116;
-
-  --body-bg-img:
-    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint-strong) / 0.07), transparent 65%),
-    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint-strong) / 0.04), transparent 65%),
-    linear-gradient(180deg, #F7F8F7 0%, #EEF1EF 60%, #F7F8F7 100%);
-}
-
-
-/* DARK THEME */
-.dark {
-  --navy-deep: #0B0E10;
-  --navy-mid: #7FD9B0;
-  --navy-light: #A8E6C9;
-  --sky-50: rgba(255,255,255,0.05);
-  --sky-100: #94A3B8;
-  --green-up: #7FD9B0;
-  --green-up-light: rgba(127,217,176,0.10);
-  --red-down: #E8889A;
-  --red-down-light: rgba(232,136,154,0.10);
-  --amber: #E8C28A;
-  --amber-light: rgba(232,194,138,0.10);
-  --border: rgba(255,255,255,0.07);
-  --text-primary: #D6DBD8;
-  --text-secondary: #8E969E;
-  --text-muted: #5C656D;
-
-  --background: #0B0E10;
-  --foreground: #D6DBD8;
-  --card: rgba(255,255,255,0.03);
-  --card-foreground: #D6DBD8;
-  --primary: #7FD9B0;
-  --primary-foreground: #0B0E10;
-  --muted: rgba(255,255,255,0.03);
-  --muted-foreground: #8E969E;
-
-  --ov: 255 255 255;
-  --ov-inv: 0 0 0;
-  --surface-rgb: 7 9 10;
-
-  --brand-tint: 127 217 176;
-  --brand-tint-strong: 127 217 176;
-
-  --body-bg-img:
-    radial-gradient(1200px 800px at 80% -10%, rgb(var(--brand-tint) / 0.04), transparent 65%),
-    radial-gradient(1000px 700px at -10% 50%, rgb(var(--brand-tint) / 0.025), transparent 65%),
-    linear-gradient(180deg, #0B0E10 0%, #0C1011 60%, #0B0E10 100%);
-}
-
 /* ============================================================
-   BLUE THEME — opt-in via [data-theme="blue"] on <html>
-   Mirrors :root/.dark with brand greens swapped to a blue
-   palette at the same saturation/lightness intent. Neutrals,
-   amber and ALL price-movement greens/reds are unchanged so
-   gains stay green and losses stay red.
+   GREEN THEME (default) — institutional deep green
    ============================================================ */
+:root {
+  /* Brand */
+  --brand: #16432b;
+  --brand-700: #1c5436;
+  --brand-600: #256b45;
+  --brand-50: #eef4f0;
+  --accent: #0f7a4a;
 
-/* Blue light — brand colors only; page backgrounds stay near-white */
-[data-theme="blue"] {
-  --navy-deep: #0C1E36;        /* deep brand surface (status bar / footer) */
-  --navy-mid: #114E8F;         /* primary brand */
-  --navy-light: #1E6FC2;       /* accent / hover */
-  --sky-50: rgba(0,0,0,0.04);
-  --sky-100: #475569;
-  --green-up: #16A974;         /* SEMANTIC — price up stays green */
-  --green-up-light: rgba(22,169,116,0.10);
-  --red-down: #D9415E;         /* SEMANTIC — price down stays red */
-  --red-down-light: rgba(217,65,94,0.10);
+  /* Data-semantic (SHARED across themes) */
+  --green-up: #1d7a3f;
+  --green-up-light: rgba(29,122,63,0.10);
+  --red-down: #c0392b;
+  --red-down-light: rgba(192,57,43,0.10);
   --amber: #C2913B;
   --amber-light: rgba(194,145,59,0.10);
-  --surface: transparent;
-  --border: rgba(0,0,0,0.08);
-  --text-primary: #0E1513;
-  --text-secondary: #4A555B;
-  --text-muted: #8A949A;
 
-  --background: #FFFFFF;
-  --foreground: #0E1513;
-  --card: rgba(0,0,0,0.025);
-  --card-foreground: #0E1513;
-  --primary: #114E8F;
-  --primary-foreground: #FFFFFF;
-  --muted: rgba(0,0,0,0.03);
-  --muted-foreground: #4A555B;
-  --radius: 1rem;
+  /* Neutrals */
+  --ink: #1a1c1a;
+  --line: #e3e6e3;
+  --surface-2: #f5f7f5;
+  --surface-3: #eef1ee;
+
+  /* Legacy alias tokens (consumed across the app) */
+  --navy-deep: var(--brand);
+  --navy-mid: var(--accent);
+  --navy-light: var(--brand-600);
+  --sky-50: rgba(0,0,0,0.04);
+  --sky-100: #475569;
+  --surface: #ffffff;
+  --border: var(--line);
+  --text-primary: var(--ink);
+  --text-secondary: #5b605c;
+  --text-muted: #8a8f8b;
+
+  --background: var(--surface-2);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --muted: var(--surface-3);
+  --muted-foreground: #5b605c;
+  --radius: 0.5rem;
 
   --ov: 0 0 0;
   --ov-inv: 255 255 255;
   --surface-rgb: 255 255 255;
 
-  /* Brand tint resolves to ice-blue panels (#DEEAF6 ≈ rgb 222 234 246) */
-  --brand-tint: 222 234 246;
-  --brand-tint-strong: 17 78 143;
+  /* Brand tint resolves to a soft brand panel */
+  --brand-tint: 22 67 43;
+  --brand-tint-strong: 22 67 43;
 
-  /* Barely-perceptible cool tint — backgrounds remain effectively white */
-  --body-bg-img:
-    linear-gradient(180deg, #FFFFFF 0%, #F1F6FB 60%, #FFFFFF 100%);
+  --body-bg-img: none;
 }
 
-/* Blue dark — deep navy-black, lighter blue brand */
-[data-theme="blue"].dark {
-  --navy-deep: #0A1220;
-  --navy-mid: #5AA2EC;
-  --navy-light: #7FB5EF;
-  --sky-50: rgba(255,255,255,0.05);
-  --sky-100: #94A3B8;
-  --green-up: #7FD9B0;
-  --green-up-light: rgba(127,217,176,0.10);
-  --red-down: #E8889A;
-  --red-down-light: rgba(232,136,154,0.10);
+
+/* DARK THEME — kept functional, flat near-black canvas */
+.dark {
+  --brand: #1c5436;
+  --brand-700: #256b45;
+  --brand-600: #2f8054;
+  --brand-50: #16261e;
+  --accent: #2f8054;
+
+  --green-up: #4ec27a;
+  --green-up-light: rgba(78,194,122,0.12);
+  --red-down: #e87164;
+  --red-down-light: rgba(232,113,100,0.12);
   --amber: #E8C28A;
   --amber-light: rgba(232,194,138,0.10);
-  --border: rgba(255,255,255,0.07);
-  --text-primary: #D6DBD8;
-  --text-secondary: #8E969E;
-  --text-muted: #5C656D;
 
-  --background: #000000;
-  --foreground: #D6DBD8;
-  --card: #0A0D14;
-  --card-foreground: #D6DBD8;
-  --primary: #5AA2EC;
-  --primary-foreground: #081424;
-  --muted: rgba(255,255,255,0.03);
-  --muted-foreground: #8E969E;
+  --ink: #e7eae8;
+  --line: rgba(255,255,255,0.08);
+  --surface-2: #0d100e;
+  --surface-3: #14181५;
+
+  --navy-deep: var(--brand);
+  --navy-mid: var(--accent);
+  --navy-light: var(--brand-600);
+  --sky-50: rgba(255,255,255,0.05);
+  --sky-100: #94A3B8;
+  --surface: #14181a;
+  --border: var(--line);
+  --text-primary: var(--ink);
+  --text-secondary: #9aa19c;
+  --text-muted: #6a7068;
+
+  --background: var(--surface-2);
+  --foreground: var(--ink);
+  --card: #14181a;
+  --card-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --muted: rgba(255,255,255,0.04);
+  --muted-foreground: #9aa19c;
 
   --ov: 255 255 255;
   --ov-inv: 0 0 0;
-  --surface-rgb: 10 13 20;
+  --surface-rgb: 20 24 26;
 
-  /* Tint resolves to #0E1626 panel territory — near-black with faint cool tint */
-  --brand-tint: 14 22 38;
-  --brand-tint-strong: 90 162 236;
+  --brand-tint: 78 194 122;
+  --brand-tint-strong: 78 194 122;
 
-  --body-bg-img:
-    radial-gradient(120% 80% at 50% 0%, #0A1426 0%, #04060A 45%, #000000 100%);
+  --body-bg-img: none;
+}
+
+/* ============================================================
+   BLUE THEME — opt-in via [data-theme="blue"] on <html>
+   ============================================================ */
+[data-theme="blue"] {
+  --brand: #0c2c53;
+  --brand-700: #0c447c;
+  --brand-600: #185fa5;
+  --brand-50: #eaf1f9;
+  --accent: #185fa5;
+
+  --ink: #161a1f;
+  --line: #e0e5ea;
+  --surface-2: #f4f7fa;
+  --surface-3: #eaeff5;
+
+  --navy-deep: var(--brand);
+  --navy-mid: var(--accent);
+  --navy-light: var(--brand-600);
+
+  --background: var(--surface-2);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --text-primary: var(--ink);
+  --text-secondary: #586068;
+  --text-muted: #8a929b;
+  --border: var(--line);
+  --muted: var(--surface-3);
+
+  --brand-tint: 12 44 83;
+  --brand-tint-strong: 12 44 83;
+
+  --body-bg-img: none;
+}
+
+[data-theme="blue"].dark {
+  --brand: #0e2849;
+  --brand-700: #144074;
+  --brand-600: #2670b8;
+  --brand-50: #11243f;
+  --accent: #2670b8;
+
+  --ink: #e6ebf2;
+  --line: rgba(255,255,255,0.08);
+  --surface-2: #07101e;
+  --surface-3: #0c1a2e;
+
+  --background: var(--surface-2);
+  --foreground: var(--ink);
+  --card: #0c1a2e;
+  --card-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --text-primary: var(--ink);
+  --text-secondary: #9aa6b5;
+  --text-muted: #6a7686;
+  --border: var(--line);
+  --surface-rgb: 12 26 46;
+  --brand-tint: 38 112 184;
+  --brand-tint-strong: 38 112 184;
+
+  --body-bg-img: none;
 }
 
 
@@ -218,40 +220,34 @@
     color: var(--color-foreground);
     background-color: var(--background);
     background-image: var(--body-bg-img);
-    background-attachment: fixed;
-    line-height: 1.7;
+    line-height: 1.5;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
+    font-weight: 600;
   }
-  .tnum { font-variant-numeric: tabular-nums; }
+  .tnum {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
   .bengali { font-family: var(--font-bengali); }
 }
 
+/* Flat panel — replaces former glass utilities (no blur, no shadow) */
 @utility glass {
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(127,217,176,0.035) 0%, transparent 55%),
-    linear-gradient(135deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.01) 100%);
-  border: none;
-  backdrop-filter: blur(24px) saturate(110%);
+  background: var(--card);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.04) inset,
-    0 24px 60px -30px rgba(0,0,0,0.5);
 }
 
 @utility glass-strong {
-  background:
-    radial-gradient(120% 90% at 0% 0%, rgba(127,217,176,0.07) 0%, transparent 60%),
-    linear-gradient(135deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%);
-  border: none;
-  backdrop-filter: blur(28px) saturate(120%);
+  background: var(--card);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.05) inset,
-    0 24px 70px -30px rgba(0,0,0,0.55);
 }
+
+
 
 
 
