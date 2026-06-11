@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import heroDhaka from "@/assets/hero-dhaka.jpg";
-import heroBoardroom from "@/assets/hero-boardroom.jpg";
-import heroTrading from "@/assets/hero-trading.jpg";
+import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
+import heritageCryoutAsset from "@/assets/heritage-cryout-1998.jpg.asset.json";
+
+const heroTower = heroTowerAsset.url;
+const heritageCryout = heritageCryoutAsset.url;
 
 type Slide = {
   image: string;
@@ -16,23 +18,23 @@ type Slide = {
 
 const slides: Slide[] = [
   {
-    image: heroDhaka,
-    alt: "Dhaka Stock Exchange tower",
+    image: heroTower,
+    alt: "Dhaka Stock Exchange tower at Nikunja",
     eyebrow: "Official Market Operator · Est. 1954",
     headline: "Bangladesh's capital market, in one trusted place.",
     subtext: "Real-time prices, disclosures and regulated market data.",
     cta: { label: "Explore the market", to: "/companies" },
   },
   {
-    image: heroTrading,
-    alt: "Heritage of the Dhaka Stock Exchange",
+    image: heritageCryout,
+    alt: "Heritage of the Dhaka Stock Exchange trading floor, 1998",
     eyebrow: "Seven decades of the market",
     headline: "From the trading floor to a national exchange.",
     subtext: "Learn how the DSE has shaped Bangladesh's capital markets since 1954.",
     cta: { label: "Our history", to: "/about" },
   },
   {
-    image: heroBoardroom,
+    image: heroTower,
     alt: "Foreign investor access to Bangladesh",
     eyebrow: "Foreign investor access",
     headline: "Access Bangladesh's growth story.",
@@ -60,7 +62,7 @@ export function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative w-full" style={{ height: 440 }}>
+      <div className="relative w-full" style={{ height: 460 }}>
         {slides.map((s, i) => (
           <div
             key={i}
@@ -73,34 +75,30 @@ export function Hero() {
               alt={s.alt}
               className="absolute inset-0 w-full h-full object-cover"
             />
-            {/* Navy scrim on left for legibility */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(12,44,83,0.78) 0%, rgba(12,44,83,0.55) 40%, rgba(12,44,83,0.10) 75%, rgba(12,44,83,0) 100%)",
+                  "linear-gradient(90deg, rgba(12,44,83,0.82) 0%, rgba(12,44,83,0.58) 42%, rgba(12,44,83,0.10) 78%, rgba(12,44,83,0) 100%)",
               }}
             />
             <div className="relative h-full max-w-[1200px] mx-auto px-7 flex items-center">
-              <div style={{ maxWidth: 560 }}>
+              <div style={{ maxWidth: 580 }}>
                 <div
                   className="text-[11px] font-semibold uppercase mb-3"
-                  style={{ letterSpacing: "0.14em", color: "rgba(255,255,255,0.85)" }}
+                  style={{ letterSpacing: "0.14em", color: "rgba(255,255,255,0.88)" }}
                 >
                   {s.eyebrow}
                 </div>
                 <h1
-                  className="font-semibold tracking-tight leading-[1.15] text-white"
-                  style={{
-                    fontSize: "clamp(26px, 3.4vw, 38px)",
-                    fontFamily: "var(--font-heading)",
-                  }}
+                  className="font-semibold tracking-tight leading-[1.12] text-white"
+                  style={{ fontSize: "clamp(26px, 3.4vw, 38px)" }}
                 >
                   {s.headline}
                 </h1>
                 <p
                   className="mt-3 text-[14.5px] leading-[1.55]"
-                  style={{ color: "rgba(255,255,255,0.88)" }}
+                  style={{ color: "rgba(255,255,255,0.9)" }}
                 >
                   {s.subtext}
                 </p>
@@ -108,11 +106,7 @@ export function Hero() {
                   <Link
                     to={s.cta.to}
                     className="inline-flex items-center gap-2 px-4 h-10 text-[13.5px] font-semibold"
-                    style={{
-                      background: "#ffffff",
-                      color: "var(--brand)",
-                      borderRadius: 2,
-                    }}
+                    style={{ background: "#ffffff", color: "var(--brand)", borderRadius: 2 }}
                   >
                     {s.cta.label}
                     <ArrowRight className="w-4 h-4" />
@@ -123,7 +117,6 @@ export function Hero() {
           </div>
         ))}
 
-        {/* Arrows */}
         <button
           aria-label="Previous slide"
           onClick={() => go(idx - 1)}
@@ -151,7 +144,6 @@ export function Hero() {
           <ChevronRight className="w-5 h-5" />
         </button>
 
-        {/* Dots */}
         <div className="absolute left-1/2 -translate-x-1/2 bottom-4 flex items-center gap-2">
           {slides.map((_, i) => (
             <button
