@@ -72,7 +72,7 @@ export function NewsScroll() {
               key={i}
               className="news-card flex flex-col h-full transition"
               style={{
-                background: "#ffffff",
+                background: "var(--surface)",
                 border: "1px solid var(--line)",
                 borderLeft: i > 0 ? "none" : "1px solid var(--line)",
               }}
