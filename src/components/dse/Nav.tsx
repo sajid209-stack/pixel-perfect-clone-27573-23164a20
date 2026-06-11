@@ -841,7 +841,7 @@ export function Nav() {
                     layoutId="navActive"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     className="absolute left-3 right-3 -bottom-[20px] h-[3px]"
-                    style={{ background: "var(--brand)" }}
+                    style={{ background: "var(--brand-600)" }}
                   />
                 )}
               </>
