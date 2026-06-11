@@ -5,9 +5,7 @@ import { useLang } from "@/i18n/LanguageContext";
 
 function computeMarketState() {
   const h = new Date().getHours();
-  // Open between 10:00 and 14:30 (treat anything in [10, 14] as open during this demo window)
-  const isOpen = h >= 10 && h < 14;
-  return isOpen;
+  return h >= 10 && h < 14;
 }
 
 export function TopBar() {
@@ -28,7 +26,6 @@ export function TopBar() {
     return () => clearInterval(id);
   }, []);
 
-  const dotColor = isOpen ? "var(--green-up)" : "var(--text-muted)";
   const label = isOpen ? t("Market open") : t("Market closed");
   const sub = isOpen ? t("· closes 14:30") : t("· Opens Jun 8 at 10:00 AM");
 
@@ -36,11 +33,11 @@ export function TopBar() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="sticky top-0 z-50 h-[34px] flex items-center px-6 text-[12.5px]"
+      className="sticky top-0 z-50 h-[36px] flex items-center px-6 text-[12.5px]"
       style={{
-        background: "var(--brand)",
-        color: "#ffffff",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        background: "#ffffff",
+        color: "var(--text-secondary)",
+        borderBottom: "1px solid var(--line)",
       }}
     >
       <div className="flex items-center gap-5 flex-1 min-w-0">
@@ -49,50 +46,49 @@ export function TopBar() {
             {isOpen && (
               <span
                 className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                style={{ background: "#7ee6a8" }}
+                style={{ background: "var(--up, #1d7a3f)" }}
               />
             )}
             <span
               className="relative inline-flex rounded-full h-1.5 w-1.5"
-              style={{ background: isOpen ? "#7ee6a8" : "rgba(255,255,255,0.5)" }}
+              style={{ background: isOpen ? "var(--up, #1d7a3f)" : "var(--text-muted)" }}
             />
           </span>
-          <span style={{ color: "#ffffff" }}>{label}</span>
-          <span style={{ color: "rgba(255,255,255,0.65)" }}>{sub}</span>
+          <span style={{ color: "var(--text-secondary)" }}>{label}</span>
+          <span style={{ color: "var(--ink)" }}>{sub}</span>
         </div>
-        <span className="hidden sm:inline tnum" style={{ color: "rgba(255,255,255,0.65)" }}>{time}</span>
+        <span className="hidden sm:inline tnum" style={{ color: "var(--text-muted)" }}>{time}</span>
+        <span className="hidden md:inline tnum" style={{ color: "var(--text-muted)" }}>·</span>
+        <span className="hidden md:inline-flex items-center gap-1.5 tnum">
+          <span style={{ color: "var(--text-muted)" }}>DSEX</span>
+          <span style={{ color: "var(--ink)" }}>6,241.30</span>
+          <span style={{ color: "var(--up, #1d7a3f)" }}>+0.30%</span>
+        </span>
       </div>
 
-      <div className="hidden md:flex items-center gap-4 tnum">
-        <span className="inline-flex items-center gap-1.5">
-          <span style={{ color: "rgba(255,255,255,0.65)" }}>DSEX</span>
-          <span style={{ color: "#ffffff" }}>6,241.30</span>
-          <span style={{ color: isOpen ? "#7ee6a8" : "rgba(255,255,255,0.65)" }}>+0.30%</span>
-        </span>
-        <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+      <div className="hidden md:flex items-center gap-4">
         <button
           onClick={toggle}
           aria-label="Toggle language"
           className="inline-flex items-center gap-1 transition cursor-pointer"
-          style={{ color: "rgba(255,255,255,0.85)" }}
         >
-          <span style={{ color: lang === "en" ? "#ffffff" : "rgba(255,255,255,0.55)", fontWeight: lang === "en" ? 600 : 400 }}>EN</span>
-          <span style={{ color: "rgba(255,255,255,0.35)" }}>/</span>
-          <span className="bengali" style={{ color: lang === "bn" ? "#ffffff" : "rgba(255,255,255,0.55)", fontWeight: lang === "bn" ? 600 : 400 }}>বাং</span>
+          <span style={{ color: lang === "en" ? "var(--ink)" : "var(--text-muted)", fontWeight: lang === "en" ? 600 : 400 }}>EN</span>
+          <span style={{ color: "var(--text-muted)" }}>/</span>
+          <span className="bengali" style={{ color: lang === "bn" ? "var(--ink)" : "var(--text-muted)", fontWeight: lang === "bn" ? 600 : 400 }}>বাং</span>
         </button>
-        <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
-        <span style={{ color: "rgba(255,255,255,0.85)" }}>
-          <span style={{ color: "rgba(255,255,255,0.6)" }}>Helpline </span>+880 9612-345678
+        <span style={{ color: "var(--line)" }}>·</span>
+        <span style={{ color: "var(--text-secondary)" }}>
+          <span style={{ color: "var(--text-muted)" }}>Helpline </span>+880 9612-345678
         </span>
-        <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+        <span style={{ color: "var(--line)" }}>·</span>
         <a
           href="#"
           className="inline-flex items-center gap-1"
-          style={{ color: "#ffffff", fontWeight: 600 }}
+          style={{ color: "var(--brand-600, var(--brand))", fontWeight: 600 }}
         >
           Investor login
         </a>
-        <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+        <span style={{ color: "var(--line)" }}>·</span>
         <ThemeToggle />
       </div>
     </motion.div>
