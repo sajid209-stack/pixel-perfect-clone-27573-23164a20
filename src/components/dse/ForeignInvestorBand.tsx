@@ -35,7 +35,7 @@ export function ForeignInvestorBand() {
         >
           <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-10 items-start">
             <div>
-              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--brand)" }}>
+              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--brand-600)" }}>
                 <Globe className="w-3.5 h-3.5" />
                 For foreign investors
               </div>
@@ -50,7 +50,7 @@ export function ForeignInvestorBand() {
               <Link
                 to="/foreign-investors"
                 className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{ color: "var(--primary)" }}
+                style={{ color: "var(--brand-600)" }}
               >
                 Open the guide
                 <ArrowRight className="w-3.5 h-3.5" />
