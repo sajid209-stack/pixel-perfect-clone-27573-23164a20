@@ -311,7 +311,7 @@
     grid-column: auto !important;
     grid-row: auto !important;
   }
-  .mobile-swipe-hint { display: block !important; }
+  .mobile-swipe-hint { display: none !important; }
 
   /* Movers above heatmap */
   .market-overview-grid .movers-section { order: -1; }

@@ -770,12 +770,12 @@ export function CompactMarketGrid() {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--green-up)" }} />
-              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>142</span>
+              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>188</span>
               <span>{t("Adv")}</span>
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--red-down)" }} />
-              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>188</span>
+              <span className="tnum font-semibold" style={{ color: "var(--text-primary)" }}>142</span>
               <span>{t("Dec")}</span>
             </span>
             <span className="inline-flex items-center gap-1.5">
