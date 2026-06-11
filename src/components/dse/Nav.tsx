@@ -244,26 +244,30 @@ const megaContent: Record<string, MegaContent> = {
 };
 
 function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
+  const image = content.promo.image ?? heroTowerAsset.url;
   return (
     <div
-      className="grid gap-8"
+      className="grid"
       style={{
-        gridTemplateColumns: "minmax(200px,1fr) repeat(2, minmax(180px,1fr)) minmax(220px,1fr)",
-        width: 880,
+        gridTemplateColumns: "minmax(200px,1fr) repeat(2, minmax(180px,1fr)) minmax(260px,1.2fr)",
+        gap: 34,
       }}
     >
       {/* Intro */}
       <div>
-        <div className="text-[18px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
+        <div className="text-[17px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
           {content.intro.title}
         </div>
-        <p className="mt-2 text-[12.5px] leading-[1.55]" style={{ color: "var(--text-secondary)" }}>
+        <p
+          className="mt-1.5 text-[12.5px] leading-[1.55]"
+          style={{ color: "var(--text-secondary)", maxWidth: 230 }}
+        >
           {content.intro.desc}
         </p>
         <Link
           to={content.intro.cta.to}
           onClick={close}
-          className="mt-4 inline-flex items-center gap-1 text-[12.5px] font-semibold"
+          className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold"
           style={{ color: "var(--brand-600)" }}
         >
           {content.intro.cta.label} →
@@ -274,8 +278,8 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
       {content.columns.map((col) => (
         <div key={col.header}>
           <div
-            className="text-[10px] font-semibold uppercase mb-2"
-            style={{ letterSpacing: "0.14em", color: "var(--text-muted)" }}
+            className="text-[10px] font-semibold uppercase"
+            style={{ letterSpacing: "0.14em", color: "var(--text-muted)", marginBottom: 8 }}
           >
             {col.header}
           </div>
@@ -286,9 +290,11 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
                   to={l.to}
                   hash={l.hash}
                   onClick={close}
-                  className="block py-2 text-[13px] mega-link"
+                  className="block text-[13px] mega-link"
                   style={{
                     color: "var(--ink)",
+                    paddingTop: 6,
+                    paddingBottom: 6,
                     borderTop: idx === 0 ? "none" : "1px solid var(--line)",
                   }}
                 >
@@ -300,27 +306,29 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
         </div>
       ))}
 
-      {/* Promo tile */}
+      {/* Promo tile w/ image */}
       <Link
         to={content.promo.to}
         onClick={close}
-        className="flex flex-col group"
+        className="flex flex-col group overflow-hidden"
         style={{ background: "var(--surface-2)", border: "1px solid var(--line)" }}
       >
         <div
           style={{
-            height: 84,
-            background: "linear-gradient(135deg, var(--brand) 0%, var(--brand-700) 100%)",
+            height: 96,
+            backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.55), rgba(24,95,165,0.15)), url("${image}")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
-        <div className="p-3.5">
+        <div className="p-3">
           <div
             className="text-[10px] font-semibold uppercase mb-1"
             style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
           >
             {content.promo.tag}
           </div>
-          <div className="text-[14px] font-semibold" style={{ color: "var(--ink)" }}>
+          <div className="text-[13.5px] font-semibold" style={{ color: "var(--ink)" }}>
             {content.promo.title}
           </div>
           <p className="mt-1 text-[11.5px] leading-[1.5]" style={{ color: "var(--text-secondary)" }}>
