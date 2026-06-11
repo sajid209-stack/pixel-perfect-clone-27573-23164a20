@@ -50,7 +50,7 @@ type MegaCol = { header: string; links: MegaLink[] };
 type MegaContent = {
   intro: { title: string; desc: string; cta: { label: string; to: string } };
   columns: MegaCol[];
-  promo: { tag: string; title: string; desc: string; to: string };
+  promo: { tag: string; title: string; desc: string; to: string; image?: string };
 };
 
 const megaContent: Record<string, MegaContent> = {
