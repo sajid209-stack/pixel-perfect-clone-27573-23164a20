@@ -106,8 +106,8 @@ export function NewsScroll() {
                   <span
                     className="px-1.5 py-0.5 font-semibold"
                     style={{
-                      background: "var(--surface-2)",
-                      color: "var(--brand)",
+                      background: "var(--surface-3)",
+                      color: "var(--brand-600)",
                       border: "1px solid var(--line)",
                     }}
                   >
