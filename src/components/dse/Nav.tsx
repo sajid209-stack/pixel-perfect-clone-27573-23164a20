@@ -14,7 +14,8 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import dseLogo from "@/assets/dse-logo.png";
+import dseSealAsset from "@/assets/dse-seal.png.asset.json";
+const dseLogo = dseSealAsset.url;
 import { ThemeToggle } from "./ThemeToggle";
 import { companyIndex } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
@@ -522,17 +523,17 @@ export function Nav() {
     >
       <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8 relative">
         <Link to="/" className="flex items-center gap-3 cursor-pointer group shrink-0">
-          <div
-            className="w-9 h-9 flex items-center justify-center text-[12px] font-bold tracking-tight"
-            style={{ background: "var(--brand)", color: "#ffffff", borderRadius: 6 }}
-          >
-            DSE
-          </div>
+          <img
+            src={dseLogo}
+            alt="Dhaka Stock Exchange seal"
+            className="object-contain shrink-0"
+            style={{ width: 46, height: 46 }}
+          />
           <div className="hidden md:block leading-tight">
-            <div className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--ink)" }}>
+            <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--brand)" }}>
               {t("Dhaka Stock Exchange")}
             </div>
-            <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+            <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
               Bangladesh's Premier Capital Market
             </div>
           </div>

@@ -3,14 +3,15 @@ import { Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageContext";
 import newsPharma from "@/assets/news-pharma.jpg";
 import newsIpo from "@/assets/news-ipo.jpg";
+import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
 
 type NewsItem = {
   category: string;
   date: string;
   title: string;
   excerpt: string;
-  image?: string;
-  alt?: string;
+  image: string;
+  alt: string;
 };
 
 const news: NewsItem[] = [
@@ -35,6 +36,8 @@ const news: NewsItem[] = [
     date: "Jun 04",
     title: "BSEC clarifies new margin rules for retail",
     excerpt: "Revised circular caps exposure ratios and tightens disclosure timelines for brokers.",
+    image: heroTowerAsset.url,
+    alt: "Dhaka Stock Exchange tower exterior",
   },
 ];
 
