@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { sectors, topGainers, topLosers, mostActive } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
+import { Sparkline, makeSeries } from "./Sparkline";
+import { DsexTrendCard } from "./DsexTrendCard";
 
 type IndexKey = "DSEX" | "DS30" | "DSES";
 
@@ -12,11 +14,30 @@ const indexMeta: Record<IndexKey, {
   high: string;
   low: string;
   volume: string;
+  series: number[];
 }> = {
-  DSEX: { value: "6,241.30", change: 0.30, open: "6,225.10", high: "6,248.20", low: "6,219.80", volume: "312.4M" },
-  DS30: { value: "2,118.40", change: 0.18, open: "2,114.60", high: "2,121.10", low: "2,110.40", volume: "98.2M" },
-  DSES: { value: "1,340.20", change: -0.05, open: "1,341.50", high: "1,343.10", low: "1,338.20", volume: "41.7M" },
+  DSEX: { value: "6,241.30", change: 0.30, open: "6,225.10", high: "6,248.20", low: "6,219.80", volume: "312.4M", series: makeSeries(1, 32, true) },
+  DS30: { value: "2,118.40", change: 0.18, open: "2,114.60", high: "2,121.10", low: "2,110.40", volume: "98.2M", series: makeSeries(4, 32, true) },
+  DSES: { value: "1,340.20", change: -0.05, open: "1,341.50", high: "1,343.10", low: "1,338.20", volume: "41.7M", series: makeSeries(7, 32, false) },
 };
+
+function HoverCardShell({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="absolute z-30 left-3 top-full mt-1 p-3"
+      style={{
+        background: "var(--surface)",
+        color: "var(--ink)",
+        border: "1px solid var(--line)",
+        width: 260,
+        borderRadius: 2,
+        boxShadow: "0 6px 20px rgba(0,0,0,0.18)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 function IndexCell({ name }: { name: IndexKey }) {
   const [open, setOpen] = useState(false);
@@ -42,23 +63,24 @@ function IndexCell({ name }: { name: IndexKey }) {
         {up ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
       </div>
       {open && (
-        <div
-          className="absolute left-3 top-full mt-1 z-30 p-3 text-[11px] tnum"
-          style={{
-            background: "var(--brand)",
-            color: "#fff",
-            minWidth: 180,
-            borderRadius: 2,
-            boxShadow: "0 4px 12px rgba(0,0,0,0.18)",
-          }}
-        >
-          <div className="grid grid-cols-2 gap-y-1 gap-x-4">
-            <span style={{ color: "rgba(255,255,255,0.65)" }}>Open</span><span className="text-right">{m.open}</span>
-            <span style={{ color: "rgba(255,255,255,0.65)" }}>High</span><span className="text-right">{m.high}</span>
-            <span style={{ color: "rgba(255,255,255,0.65)" }}>Low</span><span className="text-right">{m.low}</span>
-            <span style={{ color: "rgba(255,255,255,0.65)" }}>Volume</span><span className="text-right">{m.volume}</span>
+        <HoverCardShell>
+          <div className="flex items-baseline justify-between mb-1">
+            <span className="text-[12px] font-semibold" style={{ color: "var(--ink)" }}>{name}</span>
+            <span className="tnum text-[11.5px] font-semibold" style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}>
+              {up ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
+            </span>
           </div>
-        </div>
+          <Sparkline points={m.series} up={up} height={54} />
+          <div className="flex justify-between text-[9.5px] mt-0.5 mb-2" style={{ color: "var(--text-muted)" }}>
+            <span>09:30</span><span>Intraday</span><span>14:30</span>
+          </div>
+          <div className="grid grid-cols-2 gap-y-0.5 gap-x-4 text-[11px] tnum">
+            <span style={{ color: "var(--text-muted)" }}>Open</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.open}</span>
+            <span style={{ color: "var(--text-muted)" }}>High</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.high}</span>
+            <span style={{ color: "var(--text-muted)" }}>Low</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.low}</span>
+            <span style={{ color: "var(--text-muted)" }}>Volume</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.volume}</span>
+          </div>
+        </HoverCardShell>
       )}
     </div>
   );
@@ -104,13 +126,19 @@ function HeatmapTile({ s }: { s: typeof sectors[number] }) {
       {open && (
         <div
           className="absolute z-30 left-1/2 -translate-x-1/2 -top-2 -translate-y-full p-2.5 text-[11px] whitespace-nowrap"
-          style={{ background: "var(--brand)", color: "#fff", borderRadius: 2, boxShadow: "0 4px 12px rgba(0,0,0,0.18)" }}
+          style={{
+            background: "var(--surface)",
+            color: "var(--ink)",
+            border: "1px solid var(--line)",
+            borderRadius: 2,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.18)",
+          }}
         >
           <div className="font-semibold mb-1">{s.name}</div>
-          <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 tnum" style={{ color: "rgba(255,255,255,0.85)" }}>
-            <span>Change</span><span className="text-right">{up ? "+" : ""}{s.change.toFixed(2)}%</span>
-            <span>Turnover</span><span className="text-right">{s.turnover}</span>
-            <span>Direction</span><span className="text-right">{up ? "Advancing" : "Declining"}</span>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 tnum">
+            <span style={{ color: "var(--text-muted)" }}>Change</span><span className="text-right">{up ? "+" : ""}{s.change.toFixed(2)}%</span>
+            <span style={{ color: "var(--text-muted)" }}>Turnover</span><span className="text-right">{s.turnover}</span>
+            <span style={{ color: "var(--text-muted)" }}>Direction</span><span className="text-right">{up ? "Advancing" : "Declining"}</span>
           </div>
         </div>
       )}
@@ -121,9 +149,10 @@ function HeatmapTile({ s }: { s: typeof sectors[number] }) {
 const moverTabs = { Gainers: topGainers, Losers: topLosers, Active: mostActive } as const;
 type MoverTab = keyof typeof moverTabs;
 
-function MoverRow({ r, showVol }: { r: typeof topGainers[number]; showVol: boolean }) {
+function MoverRow({ r, showVol, idx }: { r: typeof topGainers[number]; showVol: boolean; idx: number }) {
   const [open, setOpen] = useState(false);
   const up = r.change >= 0;
+  const series = makeSeries(idx + r.code.length, 28, up);
   return (
     <div
       className="relative"
@@ -153,16 +182,36 @@ function MoverRow({ r, showVol }: { r: typeof topGainers[number]; showVol: boole
       </Link>
       {open && (
         <div
-          className="absolute z-30 right-3 top-full mt-1 p-2.5 text-[11px] whitespace-nowrap tnum"
-          style={{ background: "var(--brand)", color: "#fff", borderRadius: 2, boxShadow: "0 4px 12px rgba(0,0,0,0.18)" }}
+          className="absolute z-30 right-3 top-full mt-1 p-3"
+          style={{
+            background: "var(--surface)",
+            color: "var(--ink)",
+            border: "1px solid var(--line)",
+            width: 260,
+            borderRadius: 2,
+            boxShadow: "0 6px 20px rgba(0,0,0,0.18)",
+          }}
         >
-          <div className="grid grid-cols-2 gap-x-4 gap-y-0.5">
-            <span style={{ color: "rgba(255,255,255,0.65)" }}>Volume</span>
-            <span className="text-right">{"volume" in r ? (r as { volume: string }).volume : "—"}</span>
-            <span style={{ color: "rgba(255,255,255,0.65)" }}>Value</span>
-            <span className="text-right">{(r.price * 1000).toLocaleString()}</span>
-            <span style={{ color: "rgba(255,255,255,0.65)" }}>Day range</span>
-            <span className="text-right">{(r.price * 0.98).toFixed(2)}–{(r.price * 1.02).toFixed(2)}</span>
+          <div className="flex items-baseline justify-between mb-1">
+            <div>
+              <div className="text-[12px] font-semibold" style={{ color: "var(--ink)" }}>{r.code}</div>
+              <div className="text-[10px]" style={{ color: "var(--text-muted)" }}>{r.name}</div>
+            </div>
+            <span className="tnum text-[11.5px] font-semibold" style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}>
+              {up ? "▲" : "▼"} {Math.abs(r.change).toFixed(2)}%
+            </span>
+          </div>
+          <Sparkline points={series} up={up} height={54} />
+          <div className="flex justify-between text-[9.5px] mt-0.5 mb-2" style={{ color: "var(--text-muted)" }}>
+            <span>09:30</span><span>Intraday</span><span>14:30</span>
+          </div>
+          <div className="grid grid-cols-2 gap-y-0.5 gap-x-4 text-[11px] tnum">
+            <span style={{ color: "var(--text-muted)" }}>Volume</span>
+            <span className="text-right" style={{ color: "var(--ink)" }}>{"volume" in r ? (r as { volume: string }).volume : "—"}</span>
+            <span style={{ color: "var(--text-muted)" }}>Value</span>
+            <span className="text-right" style={{ color: "var(--ink)" }}>{(r.price * 1000).toLocaleString()}</span>
+            <span style={{ color: "var(--text-muted)" }}>Day range</span>
+            <span className="text-right" style={{ color: "var(--ink)" }}>{(r.price * 0.98).toFixed(2)}–{(r.price * 1.02).toFixed(2)}</span>
           </div>
         </div>
       )}
@@ -192,24 +241,26 @@ export function TodaysMarket() {
           </span>
         </div>
 
-        {/* Merged index snapshot row */}
-        <div
-          className="grid grid-cols-2 md:grid-cols-5 mb-4"
-          style={{ background: "#fff", border: "1px solid var(--line)" }}
-        >
-          <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
-          <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
-          <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
-          <div style={{ borderRight: "1px solid var(--line)" }}>
-            <StatCell label="Turnover" value="৳1,124 Cr" sub="312.4M shares" />
+        {/* Snapshot row + compact DSEX trend chart */}
+        <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4">
+          <div
+            className="grid grid-cols-2 md:grid-cols-5"
+            style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
+          >
+            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
+            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
+            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
+            <div style={{ borderRight: "1px solid var(--line)" }}>
+              <StatCell label="Turnover" value="৳1,124 Cr" sub="312.4M shares" />
+            </div>
+            <StatCell label="Breadth" value="188 / 142" sub="adv / dec" />
           </div>
-          <StatCell label="Breadth" value="188 / 142" sub="adv / dec" />
+          <DsexTrendCard />
         </div>
 
         {/* Heatmap + Movers */}
         <div className="grid md:grid-cols-2 gap-4">
-          {/* Heatmap */}
-          <div style={{ background: "#fff", border: "1px solid var(--line)" }}>
+          <div style={{ background: "var(--surface)", border: "1px solid var(--line)" }}>
             <div
               className="flex items-center justify-between px-3 py-2"
               style={{ borderBottom: "1px solid var(--line)" }}
@@ -230,8 +281,7 @@ export function TodaysMarket() {
             </div>
           </div>
 
-          {/* Movers */}
-          <div style={{ background: "#fff", border: "1px solid var(--line)" }}>
+          <div style={{ background: "var(--surface)", border: "1px solid var(--line)" }}>
             <div
               className="flex items-center justify-between px-3 py-2"
               style={{ borderBottom: "1px solid var(--line)" }}
@@ -250,6 +300,7 @@ export function TodaysMarket() {
                       style={{
                         background: active ? "var(--brand)" : "transparent",
                         color: active ? "#fff" : "var(--text-muted)",
+                        border: active ? "none" : "1px solid var(--line)",
                         borderRadius: 2,
                       }}
                     >
@@ -260,8 +311,8 @@ export function TodaysMarket() {
               </div>
             </div>
             <div>
-              {moverTabs[tab].slice(0, 6).map((r) => (
-                <MoverRow key={r.code} r={r} showVol={tab === "Active"} />
+              {moverTabs[tab].slice(0, 6).map((r, i) => (
+                <MoverRow key={r.code} r={r} showVol={tab === "Active"} idx={i} />
               ))}
             </div>
           </div>

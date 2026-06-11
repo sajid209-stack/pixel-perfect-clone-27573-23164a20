@@ -35,7 +35,7 @@ export function TopBar() {
       animate={{ opacity: 1 }}
       className="sticky top-0 z-50 h-[36px] flex items-center px-6 text-[12.5px]"
       style={{
-        background: "#ffffff",
+        background: "var(--surface)",
         color: "var(--text-secondary)",
         borderBottom: "1px solid var(--line)",
       }}

@@ -64,7 +64,7 @@ export function ForeignInvestorBand() {
                   to={l.to}
                   className="group p-4 transition"
                   style={{
-                    background: "#ffffff",
+                    background: "var(--surface)",
                     border: "1px solid var(--line)",
                     borderRadius: 2,
                   }}
