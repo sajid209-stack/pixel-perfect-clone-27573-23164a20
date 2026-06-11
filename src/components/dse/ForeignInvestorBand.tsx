@@ -36,17 +36,17 @@ export function ForeignInvestorBand() {
         >
           <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-10 items-start">
             <div>
-              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--primary)" }}>
+              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--brand)" }}>
                 <Globe className="w-3.5 h-3.5" />
                 For foreign investors
               </div>
-              <h2 className="mt-3 text-[26px] md:text-[30px] font-semibold tracking-[-0.01em] leading-[1.15]">
-                Rules, tax and repatriation —
-                <br className="hidden md:inline" /> in one place.
+              <h2 className="mt-3 text-[24px] md:text-[28px] font-semibold tracking-tight leading-[1.15]" style={{ color: "var(--ink)" }}>
+                Foreign Investor Guide
               </h2>
-              <p className="mt-3 text-[13.5px] leading-[1.7] max-w-[420px]" style={{ color: "var(--text-secondary)" }}>
-                Everything a non-resident needs to open a NITA account, trade,
-                repatriate gains and stay compliant with BSEC and Bangladesh Bank.
+              <p className="mt-3 text-[13.5px] leading-[1.65] max-w-[460px]" style={{ color: "var(--text-secondary)" }}>
+                Operational guidance for non-resident participants — NITA account
+                procedure, eligible securities, capital repatriation, applicable
+                taxation and the relevant BSEC and Bangladesh Bank circulars.
               </p>
               <Link
                 to="/foreign-investors"

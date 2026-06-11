@@ -31,7 +31,7 @@ const paths: Path[] = [
   {
     index: "01",
     eyebrow: "For first-time investors",
-    title: "Begin with the basics.",
+    title: "Begin with the basics",
     body: "Understand how the stock market works, open a BO account, and place your first thoughtful trade.",
     cta: "Start the guide",
     ctaTo: "/learn",
@@ -46,7 +46,7 @@ const paths: Path[] = [
   {
     index: "02",
     eyebrow: "For active traders",
-    title: "Go deeper into the data.",
+    title: "Go deeper into the data",
     body: "Sector heatmaps, index analytics, full equities screener, and detailed company financials — all in one place.",
     cta: "Open the markets",
     ctaTo: "/companies",
@@ -115,14 +115,14 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 
         <div className="relative flex items-start justify-between mb-4">
           <span
-            className="text-[11px] tracking-[0.22em] uppercase tnum"
-            style={{ color: "var(--text-muted)" }}
+            className="text-[11px] uppercase font-semibold"
+            style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}
           >
-            {path.index} — {t(path.eyebrow)}
+            {t(path.eyebrow)}
           </span>
           <div
-            className="w-8 h-8 rounded-full flex items-center justify-center"
-            style={{ background: "rgb(var(--brand-tint) / 0.08)" }}
+            className="w-8 h-8 flex items-center justify-center"
+            style={{ background: "rgb(var(--brand-tint) / 0.08)", borderRadius: 6 }}
           >
             <Icon style={{ color: "var(--primary)", width: 16, height: 16 }} />
           </div>
@@ -130,7 +130,7 @@ function PathCard({ path, i }: { path: Path; i: number }) {
 
         <div className="relative">
           <h3
-            className="text-[20px] md:text-[24px] font-semibold leading-[1.2] tracking-tight max-w-[18ch]"
+            className="text-[18px] md:text-[20px] font-semibold leading-[1.2] tracking-tight max-w-[22ch]"
             style={{ color: "var(--text-primary)" }}
           >
             {t(path.title)}
@@ -190,16 +190,16 @@ export function DualAudience() {
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-6 mb-3 items-end">
           <div>
             <div
-              className="text-[11px] uppercase tracking-[0.22em] mb-1.5"
-              style={{ color: "var(--text-muted)" }}
+              className="text-[11px] uppercase font-semibold mb-1.5"
+              style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}
             >
-              {t("Get started")}
+              {t("Getting started")}
             </div>
             <h2
-              className="text-[26px] md:text-[32px] font-semibold tracking-tight leading-[1.1]"
+              className="text-[24px] md:text-[28px] font-semibold tracking-tight leading-[1.1]"
               style={{ color: "var(--text-primary)" }}
             >
-              {t("Two paths into the market.")}
+              {t("Getting Started")}
             </h2>
           </div>
         </div>
