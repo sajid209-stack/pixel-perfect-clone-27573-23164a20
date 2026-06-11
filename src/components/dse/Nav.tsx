@@ -514,24 +514,26 @@ export function Nav() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.1 }}
-      className="sticky top-8 z-40 transition-all"
+      className="sticky top-[34px] z-40 transition-all"
       style={{
-        background: scrolled ? "rgb(var(--surface-rgb) / 0.75)" : "rgb(var(--surface-rgb) / 0.4)",
-        backdropFilter: "blur(24px) saturate(180%)",
-        borderBottom: scrolled ? "1px solid rgb(var(--ov) / 0.06)" : "1px solid transparent",
+        background: "#ffffff",
+        borderBottom: "1px solid var(--line)",
       }}
     >
       <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8 relative">
-        <Link to="/" className="flex items-center gap-2.5 cursor-pointer group shrink-0">
-          <img
-            src={dseLogo}
-            alt="Dhaka Stock Exchange"
-            className="w-9 h-9 object-contain transition group-hover:scale-105"
-            style={{ filter: "drop-shadow(0 0 10px rgb(var(--brand-tint) / 0.25))" }}
-          />
+        <Link to="/" className="flex items-center gap-3 cursor-pointer group shrink-0">
+          <div
+            className="w-9 h-9 flex items-center justify-center text-[12px] font-bold tracking-tight"
+            style={{ background: "var(--brand)", color: "#ffffff", borderRadius: 6 }}
+          >
+            DSE
+          </div>
           <div className="hidden md:block leading-tight">
-            <div className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--text-primary)" }}>
+            <div className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--ink)" }}>
               {t("Dhaka Stock Exchange")}
+            </div>
+            <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+              Bangladesh's Premier Capital Market
             </div>
           </div>
         </Link>
@@ -546,14 +548,14 @@ export function Nav() {
                   <motion.span
                     layoutId="navActive"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    className="absolute left-3 right-3 -bottom-[18px] h-[2px] rounded-full"
-                    style={{ background: "var(--primary)", boxShadow: "0 0 8px var(--primary)" }}
+                    className="absolute left-3 right-3 -bottom-[20px] h-[3px]"
+                    style={{ background: "var(--brand)" }}
                   />
                 )}
               </>
             );
-            const sharedClass = "relative px-3 py-2 text-[13.5px] font-medium transition flex items-center gap-1";
-            const sharedStyle = { color: isActive ? "var(--text-primary)" : "var(--text-secondary)" };
+            const sharedClass = "relative px-3 py-2 text-[14px] font-medium transition flex items-center gap-1";
+            const sharedStyle = { color: isActive ? "var(--brand)" : "var(--text-secondary)" };
             const Panel = l.mega ? megaPanels[l.mega] : null;
             return (
               <div
