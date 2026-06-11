@@ -817,13 +817,14 @@ export function Nav() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.1 }}
-      className="sticky top-[34px] z-40 transition-all"
+      className="sticky z-40 transition-all"
       style={{
+        top: 66,
         background: "var(--surface)",
         borderBottom: "1px solid var(--line)",
       }}
     >
-      <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8 relative">
+      <div className="max-w-[1440px] mx-auto h-[56px] flex items-center px-6 gap-8 relative">
         <Link to="/" className="flex items-center gap-3 cursor-pointer group shrink-0">
           <img
             src={dseLogo}
