@@ -160,7 +160,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Tool", title: "IPO calendar", desc: "Open and upcoming subscription windows.", to: "/ipo" },
+    promo: { tag: "Tool", title: "IPO calendar", desc: "Open and upcoming subscription windows.", to: "/ipo", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=70" },
   },
   news: {
     intro: {
