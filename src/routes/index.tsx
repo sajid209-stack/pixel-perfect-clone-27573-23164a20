@@ -37,7 +37,7 @@ function Home() {
       <LiveMarketStrip />
       <WatchlistStrip />
       <CompactMarketGrid />
-      <IpoPipeline />
+      
       <NewsScroll />
       <ForeignInvestorBand />
       <DualAudience />
