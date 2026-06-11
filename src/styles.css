@@ -746,19 +746,32 @@
   h2 br, h3 br { display: none !important; }
 }
 
-/* Homepage section spacing — uniform across content sections */
+/* Homepage section spacing — tightened */
 .home-section {
-  padding-top: 28px !important;
-  padding-bottom: 28px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
   padding-left: 24px !important;
   padding-right: 24px !important;
 }
-.home-section .mb-5 { margin-bottom: 0.85rem !important; }
+.home-section .mb-5 { margin-bottom: 0.75rem !important; }
 @media (max-width: 768px) {
   .home-section {
-    padding-top: 22px !important;
-    padding-bottom: 22px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
 }
+
+/* ============================================================
+   SQUARE EDGES — global override (Standard Chartered feel)
+   Live-status dot keeps roundness via .live-dot exception
+   ============================================================ */
+.rounded, .rounded-sm, .rounded-md, .rounded-lg,
+.rounded-xl, .rounded-2xl, .rounded-3xl {
+  border-radius: 2px !important;
+}
+.rounded-full { border-radius: 2px !important; }
+.live-dot, .live-dot * { border-radius: 9999px !important; }
+button, input, select, textarea, .card { border-radius: 2px !important; }
+
