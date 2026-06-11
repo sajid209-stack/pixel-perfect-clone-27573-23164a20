@@ -5,8 +5,9 @@ export function Ticker() {
   const items = [...tickerStocks, ...tickerStocks];
   return (
     <div
-      className="h-[38px] overflow-hidden relative ticker-wrap flex items-center"
+      className="h-[30px] overflow-hidden relative ticker-wrap flex items-center sticky z-40"
       style={{
+        top: 36,
         background: "var(--surface-3, #eef1ee)",
         color: "var(--ink)",
         borderBottom: "1px solid var(--line)",
