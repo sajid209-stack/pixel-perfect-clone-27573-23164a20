@@ -211,7 +211,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Featured", title: "Investor education", desc: "BICM-curated courses and primers.", to: "/learn" },
+    promo: { tag: "Featured", title: "Investor education", desc: "BICM-curated courses and primers.", to: "/learn", image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=70" },
   },
   about: {
     intro: {
