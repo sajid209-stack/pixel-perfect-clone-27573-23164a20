@@ -7,7 +7,7 @@ export function Ticker() {
     <div
       className="h-[38px] overflow-hidden relative ticker-wrap flex items-center"
       style={{
-        background: "var(--brand-700)",
+        background: "var(--brand-600)",
         color: "#ffffff",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}
