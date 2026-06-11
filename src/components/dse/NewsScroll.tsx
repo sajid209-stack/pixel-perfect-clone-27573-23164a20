@@ -59,7 +59,7 @@ export function NewsScroll() {
           <Link
             to="/news"
             className="text-[11px] font-semibold inline-flex items-center gap-1"
-            style={{ color: "var(--brand)" }}
+            style={{ color: "var(--brand-600)" }}
           >
             {t("All news")}
             <ArrowUpRight className="w-3 h-3" />
