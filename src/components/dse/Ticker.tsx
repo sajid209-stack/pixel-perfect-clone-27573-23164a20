@@ -7,14 +7,14 @@ export function Ticker() {
     <div
       className="h-[38px] overflow-hidden relative ticker-wrap flex items-center"
       style={{
-        background: "var(--brand-600)",
-        color: "#ffffff",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        background: "var(--surface-3, #eef1ee)",
+        color: "var(--ink)",
+        borderBottom: "1px solid var(--line)",
       }}
     >
       <div
-        className="shrink-0 px-3 ml-4 h-[20px] flex items-center text-[10px] font-semibold tracking-[0.18em] uppercase rounded-sm"
-        style={{ background: "rgba(255,255,255,0.14)", color: "#ffffff" }}
+        className="shrink-0 px-2.5 ml-4 h-[22px] flex items-center text-[10px] font-semibold tracking-[0.18em] uppercase"
+        style={{ background: "var(--brand)", color: "#ffffff", borderRadius: 2 }}
       >
         ● Live
       </div>
@@ -38,14 +38,14 @@ export function Ticker() {
                 params={{ ticker: s.code }}
                 aria-hidden={isClone ? "true" : undefined}
                 tabIndex={isClone ? -1 : undefined}
-                className="px-5 text-[13px] tnum inline-flex items-center gap-2 hover:opacity-100 opacity-95 transition"
+                className="px-5 text-[13px] tnum inline-flex items-center gap-2 transition"
               >
-                <span className="font-semibold" style={{ color: "#ffffff" }}>{s.code}</span>
-                <span style={{ color: "rgba(255,255,255,0.78)" }}>{s.price}</span>
-                <span style={{ color: up ? "#7ee6a8" : "#f3a6a0" }}>
+                <span className="font-semibold" style={{ color: "var(--ink)" }}>{s.code}</span>
+                <span style={{ color: "var(--text-secondary)" }}>{s.price}</span>
+                <span style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}>
                   {up ? "▲" : "▼"}{Math.abs(s.change)}%
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+                <span style={{ color: "var(--line)" }}>·</span>
               </Link>
             );
           })}
