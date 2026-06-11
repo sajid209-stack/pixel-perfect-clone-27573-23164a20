@@ -4,15 +4,10 @@ import { Nav } from "@/components/dse/Nav";
 import { Hero } from "@/components/dse/Hero";
 import { Ticker } from "@/components/dse/Ticker";
 import { QuickAccessTiles } from "@/components/dse/QuickAccessTiles";
-import { LiveMarketStrip } from "@/components/dse/LiveMarketStrip";
-import { DualAudience } from "@/components/dse/DualAudience";
-import { CompactMarketGrid } from "@/components/dse/CompactMarketGrid";
-
-import { Resources } from "@/components/dse/Resources";
+import { TodaysMarket } from "@/components/dse/TodaysMarket";
 import { NewsScroll } from "@/components/dse/NewsScroll";
 import { ForeignInvestorBand } from "@/components/dse/ForeignInvestorBand";
 import { Footer } from "@/components/dse/Footer";
-import { WatchlistStrip } from "@/components/dse/WatchlistStrip";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,14 +29,9 @@ function Home() {
       <Ticker />
       <Hero />
       <QuickAccessTiles />
-      <LiveMarketStrip />
-      <WatchlistStrip />
-      <CompactMarketGrid />
-      
+      <TodaysMarket />
       <NewsScroll />
       <ForeignInvestorBand />
-      <DualAudience />
-      <Resources />
       <Footer />
     </div>
   );

@@ -1,6 +1,7 @@
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import dseLogo from "@/assets/dse-logo.png";
+import dseSealCoinAsset from "@/assets/dse-seal-coin.png.asset.json";
+const dseLogoCoin = dseSealCoinAsset.url;
 import { useLang } from "@/i18n/LanguageContext";
 
 type FooterLink = { label: string; to: string; hash?: string };
@@ -81,12 +82,12 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 flex items-center justify-center text-[13px] font-bold"
-              style={{ background: "#ffffff", color: "var(--brand)", borderRadius: 6 }}
-            >
-              DSE
-            </div>
+            <img
+              src={dseLogoCoin}
+              alt="Dhaka Stock Exchange seal"
+              className="object-contain"
+              style={{ width: 64, height: 64 }}
+            />
             <div className="font-semibold" style={{ color: "#ffffff" }}>{t("Dhaka Stock Exchange")}</div>
           </div>
           <p className="text-sm mt-3" style={{ color: "rgba(255,255,255,0.75)" }}>{t("Bangladesh's Premier Capital Market")}</p>
