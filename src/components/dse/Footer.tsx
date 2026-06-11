@@ -73,20 +73,24 @@ export function Footer() {
     <footer
       id="footer"
       style={{
-        background: "rgb(var(--ov) / 0.04)",
-        color: "var(--text-primary)",
-        borderTop: "1px solid var(--border)",
-        backdropFilter: "blur(14px)",
+        background: "var(--brand)",
+        color: "#ffffff",
+        borderTop: "1px solid rgba(255,255,255,0.08)",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-3">
-            <img src={dseLogo} alt="Dhaka Stock Exchange" className="w-12 h-12 object-contain bg-white rounded-lg p-1" />
-            <div className="font-semibold">{t("Dhaka Stock Exchange")}</div>
+            <div
+              className="w-10 h-10 flex items-center justify-center text-[13px] font-bold"
+              style={{ background: "#ffffff", color: "var(--brand)", borderRadius: 6 }}
+            >
+              DSE
+            </div>
+            <div className="font-semibold" style={{ color: "#ffffff" }}>{t("Dhaka Stock Exchange")}</div>
           </div>
-          <p className="text-sm mt-3" style={{ color: "var(--text-secondary)" }}>{t("Bangladesh's Premier Capital Market")}</p>
-          <p className="text-xs mt-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+          <p className="text-sm mt-3" style={{ color: "rgba(255,255,255,0.75)" }}>{t("Bangladesh's Premier Capital Market")}</p>
+          <p className="text-xs mt-3 leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
             DSE Tower, Plot 46, Road 21<br />Nikunja-2, Dhaka-1229<br />+880 2 5566 9100
           </p>
           <div className="flex gap-3 mt-4">
@@ -94,7 +98,7 @@ export function Footer() {
               <a
                 key={i}
                 className="w-8 h-8 rounded-full flex items-center justify-center transition"
-                style={{ border: "1px solid rgb(var(--ov) / 0.15)", color: "var(--text-secondary)" }}
+                style={{ border: "1px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)" }}
               >
                 <Icon className="w-4 h-4" />
               </a>
@@ -102,13 +106,18 @@ export function Footer() {
           </div>
         </div>
         {cols.map((c) => (
-          <FooterColumn key={c.title} col={c} />
+          <div className="footer-col" key={c.title}>
+            <div className="text-sm font-semibold mb-3" style={{ color: "#ffffff" }}>{t(c.title)}</div>
+            <ul className="space-y-2 text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>
+              {c.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
+            </ul>
+          </div>
         ))}
       </div>
-      <div style={{ borderTop: "1px solid rgb(var(--ov) / 0.08)" }}>
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div
           className="max-w-7xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-xs"
-          style={{ color: "var(--text-muted)" }}
+          style={{ color: "rgba(255,255,255,0.6)" }}
         >
           <div>{t("© 2026 Dhaka Stock Exchange PLC. Regulated by Bangladesh Securities and Exchange Commission.")}</div>
           <div className="flex gap-4">
