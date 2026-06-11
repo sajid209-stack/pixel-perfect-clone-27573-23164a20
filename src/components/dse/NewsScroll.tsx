@@ -51,10 +51,10 @@ export function NewsScroll() {
             {t("Newsroom")}
           </div>
           <h2
-            className="text-[28px] md:text-[36px] font-semibold tracking-tight leading-[1.05]"
+            className="text-[24px] md:text-[28px] font-semibold tracking-tight leading-[1.1]"
             style={{ color: "var(--text-primary)" }}
           >
-            {t("Latest from the market.")}
+            {t("Newsroom")}
           </h2>
         </div>
         <Link

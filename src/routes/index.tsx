@@ -3,8 +3,11 @@ import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Hero } from "@/components/dse/Hero";
 import { Ticker } from "@/components/dse/Ticker";
+import { QuickAccessTiles } from "@/components/dse/QuickAccessTiles";
+import { LiveMarketStrip } from "@/components/dse/LiveMarketStrip";
 import { DualAudience } from "@/components/dse/DualAudience";
 import { CompactMarketGrid } from "@/components/dse/CompactMarketGrid";
+import { IpoPipeline } from "@/components/dse/IpoPipeline";
 import { Resources } from "@/components/dse/Resources";
 import { NewsScroll } from "@/components/dse/NewsScroll";
 import { ForeignInvestorBand } from "@/components/dse/ForeignInvestorBand";
@@ -30,8 +33,11 @@ function Home() {
       <Nav />
       <Ticker />
       <Hero />
+      <QuickAccessTiles />
+      <LiveMarketStrip />
       <WatchlistStrip />
       <CompactMarketGrid />
+      <IpoPipeline />
       <NewsScroll />
       <ForeignInvestorBand />
       <DualAudience />
