@@ -40,7 +40,298 @@ const links: NavItem[] = [
   
 ];
 
-/* ─────────────── shared dropdown atoms ─────────────── */
+/* ─────────────── SCB-style mega panel ─────────────── */
+
+type MegaLink = { label: string; to?: string; hash?: string };
+type MegaCol = { header: string; links: MegaLink[] };
+type MegaContent = {
+  intro: { title: string; desc: string; cta: { label: string; to: string } };
+  columns: MegaCol[];
+  promo: { tag: string; title: string; desc: string; to: string };
+};
+
+const megaContent: Record<string, MegaContent> = {
+  markets: {
+    intro: {
+      title: "Markets",
+      desc: "Live equities, instruments, sector heatmap and trading reports.",
+      cta: { label: "Explore all markets", to: "/" },
+    },
+    columns: [
+      {
+        header: "Equity markets",
+        links: [
+          { label: "Live equities", to: "/companies" },
+          { label: "Main board", to: "/companies" },
+          { label: "SME board", to: "/companies" },
+          { label: "Block market", to: "/companies" },
+          { label: "Odd lot", to: "/companies" },
+        ],
+      },
+      {
+        header: "Other instruments",
+        links: [
+          { label: "Bonds & debentures", to: "/bonds" },
+          { label: "Mutual funds", to: "/funds" },
+          { label: "Treasury bonds", to: "/bonds" },
+          { label: "ETFs", to: "/funds" },
+        ],
+      },
+    ],
+    promo: { tag: "Featured", title: "Sector heatmap", desc: "Daily % change across all 10 sectors.", to: "/" },
+  },
+  companies: {
+    intro: {
+      title: "Companies",
+      desc: "356 listed issuers — browse by sector, board or performance.",
+      cta: { label: "Browse all companies", to: "/companies" },
+    },
+    columns: [
+      {
+        header: "Browse",
+        links: [
+          { label: "All listed companies", to: "/companies" },
+          { label: "By sector", to: "/companies" },
+          { label: "By board", to: "/companies" },
+          { label: "Newly listed", to: "/companies" },
+        ],
+      },
+      {
+        header: "Data",
+        links: [
+          { label: "Financials", to: "/companies" },
+          { label: "Disclosures", to: "/news" },
+          { label: "Dividends", to: "/news" },
+        ],
+      },
+    ],
+    promo: { tag: "Tool", title: "Company screener", desc: "Filter by sector, market cap and yield.", to: "/companies" },
+  },
+  indices: {
+    intro: {
+      title: "Indices",
+      desc: "DSE benchmark indices, constituents and analytics.",
+      cta: { label: "View index analytics", to: "/indices" },
+    },
+    columns: [
+      {
+        header: "Indices",
+        links: [
+          { label: "DSEX", to: "/indices" },
+          { label: "DS30", to: "/indices" },
+          { label: "DSES", to: "/indices" },
+          { label: "Shariah", to: "/indices" },
+        ],
+      },
+      {
+        header: "Analytics",
+        links: [
+          { label: "Historical data", to: "/reports" },
+          { label: "Constituents", to: "/indices" },
+          { label: "Methodology", to: "/indices" },
+        ],
+      },
+    ],
+    promo: { tag: "Featured", title: "Index analytics", desc: "Trend, breadth and constituent weights.", to: "/indices" },
+  },
+  ipo: {
+    intro: {
+      title: "IPO",
+      desc: "Subscription pipeline, application guidance and prospectuses.",
+      cta: { label: "Open the IPO desk", to: "/ipo" },
+    },
+    columns: [
+      {
+        header: "Pipeline",
+        links: [
+          { label: "Subscription open", to: "/ipo" },
+          { label: "Upcoming", to: "/ipo" },
+          { label: "Recently listed", to: "/ipo" },
+        ],
+      },
+      {
+        header: "Resources",
+        links: [
+          { label: "How to apply", to: "/ipo" },
+          { label: "Prospectuses", to: "/ipo" },
+        ],
+      },
+    ],
+    promo: { tag: "Tool", title: "IPO calendar", desc: "Open and upcoming subscription windows.", to: "/ipo" },
+  },
+  news: {
+    intro: {
+      title: "News",
+      desc: "Market news, price-sensitive disclosures and official notices.",
+      cta: { label: "Visit the newsroom", to: "/news" },
+    },
+    columns: [
+      {
+        header: "Newsroom",
+        links: [
+          { label: "Latest news", to: "/news" },
+          { label: "Price-sensitive", to: "/news" },
+          { label: "Market commentary", to: "/news" },
+        ],
+      },
+      {
+        header: "Media",
+        links: [
+          { label: "Press releases", to: "/news" },
+          { label: "Notices", to: "/news" },
+        ],
+      },
+    ],
+    promo: { tag: "Stay informed", title: "Subscribe to alerts", desc: "Daily summary and PSI alerts by email.", to: "/news" },
+  },
+  learn: {
+    intro: {
+      title: "Learn",
+      desc: "Investor education for beginners and active market participants.",
+      cta: { label: "Open the learning hub", to: "/learn" },
+    },
+    columns: [
+      {
+        header: "Beginners",
+        links: [
+          { label: "What is a stock?", to: "/learn" },
+          { label: "Open a BO account", to: "/learn" },
+          { label: "Glossary", to: "/learn" },
+        ],
+      },
+      {
+        header: "Active traders",
+        links: [
+          { label: "Screener", to: "/companies" },
+          { label: "Heatmap", to: "/" },
+          { label: "Analytics", to: "/indices" },
+        ],
+      },
+    ],
+    promo: { tag: "Featured", title: "Investor education", desc: "BICM-curated courses and primers.", to: "/learn" },
+  },
+  about: {
+    intro: {
+      title: "About DSE",
+      desc: "Organisation, governance, listing rules and member directory.",
+      cta: { label: "About the exchange", to: "/about" },
+    },
+    columns: [
+      {
+        header: "Organisation",
+        links: [
+          { label: "About us", to: "/about" },
+          { label: "Board of directors", to: "/about" },
+          { label: "Leadership", to: "/about" },
+          { label: "Members", to: "/members" },
+        ],
+      },
+      {
+        header: "Governance",
+        links: [
+          { label: "Heritage", to: "/about" },
+          { label: "Regulations", to: "/listing" },
+          { label: "Annual reports", to: "/reports" },
+          { label: "Foreign investors", to: "/foreign-investors" },
+        ],
+      },
+    ],
+    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about" },
+  },
+};
+
+function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
+  return (
+    <div
+      className="grid gap-8"
+      style={{
+        gridTemplateColumns: "minmax(200px,1fr) repeat(2, minmax(180px,1fr)) minmax(220px,1fr)",
+        width: 880,
+      }}
+    >
+      {/* Intro */}
+      <div>
+        <div className="text-[18px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
+          {content.intro.title}
+        </div>
+        <p className="mt-2 text-[12.5px] leading-[1.55]" style={{ color: "var(--text-secondary)" }}>
+          {content.intro.desc}
+        </p>
+        <Link
+          to={content.intro.cta.to}
+          onClick={close}
+          className="mt-4 inline-flex items-center gap-1 text-[12.5px] font-semibold"
+          style={{ color: "var(--brand-600)" }}
+        >
+          {content.intro.cta.label} →
+        </Link>
+      </div>
+
+      {/* Category columns */}
+      {content.columns.map((col) => (
+        <div key={col.header}>
+          <div
+            className="text-[10px] font-semibold uppercase mb-2"
+            style={{ letterSpacing: "0.14em", color: "var(--text-muted)" }}
+          >
+            {col.header}
+          </div>
+          <ul>
+            {col.links.map((l, idx) => (
+              <li key={l.label}>
+                <Link
+                  to={l.to}
+                  hash={l.hash}
+                  onClick={close}
+                  className="block py-2 text-[13px] mega-link"
+                  style={{
+                    color: "var(--ink)",
+                    borderTop: idx === 0 ? "none" : "1px solid var(--line)",
+                  }}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      {/* Promo tile */}
+      <Link
+        to={content.promo.to}
+        onClick={close}
+        className="flex flex-col group"
+        style={{ background: "var(--surface-2)", border: "1px solid var(--line)" }}
+      >
+        <div
+          style={{
+            height: 84,
+            background: "linear-gradient(135deg, var(--brand) 0%, var(--brand-700) 100%)",
+          }}
+        />
+        <div className="p-3.5">
+          <div
+            className="text-[10px] font-semibold uppercase mb-1"
+            style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
+          >
+            {content.promo.tag}
+          </div>
+          <div className="text-[14px] font-semibold" style={{ color: "var(--ink)" }}>
+            {content.promo.title}
+          </div>
+          <p className="mt-1 text-[11.5px] leading-[1.5]" style={{ color: "var(--text-secondary)" }}>
+            {content.promo.desc}
+          </p>
+        </div>
+      </Link>
+
+      <style>{`
+        .mega-link:hover { color: var(--brand-600) !important; }
+      `}</style>
+    </div>
+  );
+}
 
 type Item = { title: string; desc: string; to?: string; hash?: string; soon?: boolean };
 
