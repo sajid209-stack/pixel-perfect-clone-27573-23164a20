@@ -1001,11 +1001,12 @@ export function Nav() {
         </button>
         <a
           href="#footer"
-          className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[13px] font-semibold transition cursor-pointer hover:scale-[1.02]"
+          className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 text-[13px] font-semibold transition cursor-pointer"
           style={{
-            background: "var(--primary)",
-            color: "var(--primary-foreground)",
-            boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
+            background: "transparent",
+            color: "var(--brand-600, var(--brand))",
+            border: "1px solid var(--brand-600, var(--brand))",
+            borderRadius: 2,
           }}
         >
           {t("Contact")}

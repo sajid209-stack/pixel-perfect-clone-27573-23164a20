@@ -62,7 +62,7 @@ export function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative w-full" style={{ height: 460 }}>
+      <div className="relative w-full" style={{ height: 380 }}>
         {slides.map((s, i) => (
           <div
             key={i}
@@ -79,7 +79,7 @@ export function Hero() {
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(12,44,83,0.82) 0%, rgba(12,44,83,0.58) 42%, rgba(12,44,83,0.10) 78%, rgba(12,44,83,0) 100%)",
+                  "linear-gradient(90deg, rgba(8,22,40,0.88) 0%, rgba(8,22,40,0.70) 38%, rgba(8,22,40,0.32) 70%, rgba(8,22,40,0.20) 100%)",
               }}
             />
             <div className="relative h-full max-w-[1200px] mx-auto px-7 flex items-center">

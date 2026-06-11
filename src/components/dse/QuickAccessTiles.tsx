@@ -32,25 +32,25 @@ export function QuickAccessTiles() {
             <Link
               key={t.label}
               to={t.to}
-              className="flex items-center gap-3 px-4 py-5 transition hover:bg-[var(--surface-2)]"
+              className="flex items-center gap-2.5 px-3.5 py-4 transition hover:bg-[var(--surface-2)]"
               style={{
                 borderLeft: i > 0 ? "1px solid var(--line)" : "none",
               }}
             >
               <t.Icon
-                className="w-5 h-5 shrink-0"
+                className="w-[18px] h-[18px] shrink-0"
                 strokeWidth={1.6}
                 style={{ color: "var(--brand-600, var(--brand))" }}
               />
               <div className="min-w-0">
                 <div
-                  className="text-[14px] font-semibold leading-tight"
+                  className="text-[13.5px] font-semibold leading-tight"
                   style={{ color: "var(--ink)" }}
                 >
                   {t.label}
                 </div>
                 <div
-                  className="text-[12px] mt-0.5 leading-tight"
+                  className="text-[11.5px] mt-0.5 leading-tight"
                   style={{ color: "var(--text-muted)" }}
                 >
                   {t.desc}
