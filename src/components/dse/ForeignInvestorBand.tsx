@@ -33,8 +33,8 @@ export function ForeignInvestorBand() {
             border: "1px solid var(--line)",
           }}
         >
-          <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-10 items-start">
-            <div>
+          <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-8 items-stretch">
+            <div className="min-w-0">
               <div className="flex items-center gap-2 text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--brand-600)" }}>
                 <Globe className="w-3.5 h-3.5" />
                 For foreign investors
@@ -42,7 +42,7 @@ export function ForeignInvestorBand() {
               <h2 className="mt-3 text-[24px] md:text-[28px] font-semibold tracking-tight leading-[1.15]" style={{ color: "var(--ink)" }}>
                 Foreign Investor Guide
               </h2>
-              <p className="mt-3 text-[13.5px] leading-[1.65] max-w-[460px]" style={{ color: "var(--text-secondary)" }}>
+              <p className="mt-3 text-[13.5px] leading-[1.65] max-w-[380px]" style={{ color: "var(--text-secondary)" }}>
                 Operational guidance for non-resident participants — NITA account
                 procedure, eligible securities, capital repatriation, applicable
                 taxation and the relevant BSEC and Bangladesh Bank circulars.
@@ -57,12 +57,12 @@ export function ForeignInvestorBand() {
               </Link>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-3 items-stretch">
+            <div className="grid md:grid-cols-3 gap-3 items-stretch min-w-0 w-full h-full">
               {links.map((l) => (
                 <Link
                   key={l.title}
                   to={l.to}
-                  className="group p-4 flex flex-col h-full transition"
+                  className="group p-4 flex flex-col h-full min-h-[142px] min-w-0 transition"
                   style={{
                     background: "var(--surface)",
                     border: "1px solid var(--line)",
