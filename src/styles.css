@@ -36,15 +36,15 @@
 }
 
 /* ============================================================
-   GREEN THEME (default) — institutional deep green
+   BLUE THEME (default) — institutional navy
    ============================================================ */
 :root {
   /* Brand */
-  --brand: #16432b;
-  --brand-700: #1c5436;
-  --brand-600: #256b45;
-  --brand-50: #eef4f0;
-  --accent: #0f7a4a;
+  --brand: #0c2c53;
+  --brand-700: #0c447c;
+  --brand-600: #185fa5;
+  --brand-50: #eaf1f9;
+  --accent: #185fa5;
 
   /* Data-semantic (SHARED across themes) */
   --green-up: #1d7a3f;
@@ -55,12 +55,12 @@
   --amber-light: rgba(194,145,59,0.10);
 
   /* Neutrals */
-  --ink: #1a1c1a;
-  --line: #e3e6e3;
-  --surface-2: #f5f7f5;
-  --surface-3: #eef1ee;
+  --ink: #161a1f;
+  --line: #e0e5ea;
+  --surface-2: #f4f7fa;
+  --surface-3: #eaeff5;
 
-  /* Legacy alias tokens (consumed across the app) */
+  /* Legacy aliases */
   --navy-deep: var(--brand);
   --navy-mid: var(--accent);
   --navy-light: var(--brand-600);
@@ -69,38 +69,59 @@
   --surface: #ffffff;
   --border: var(--line);
   --text-primary: var(--ink);
-  --text-secondary: #5b605c;
-  --text-muted: #8a8f8b;
+  --text-secondary: #586068;
+  --text-muted: #8a929b;
 
-  --background: var(--surface-2);
+  --background: #ffffff;
   --foreground: var(--ink);
   --card: #ffffff;
   --card-foreground: var(--ink);
   --primary: var(--accent);
   --primary-foreground: #ffffff;
   --muted: var(--surface-3);
-  --muted-foreground: #5b605c;
-  --radius: 0.5rem;
+  --muted-foreground: #586068;
+  --radius: 2px;
 
   --ov: 0 0 0;
   --ov-inv: 255 255 255;
   --surface-rgb: 255 255 255;
 
-  /* Brand tint resolves to a soft brand panel */
-  --brand-tint: 22 67 43;
-  --brand-tint-strong: 22 67 43;
+  --brand-tint: 12 44 83;
+  --brand-tint-strong: 12 44 83;
 
   --body-bg-img: none;
 }
 
+/* ============================================================
+   GREEN THEME — opt-in via [data-theme="green"]
+   Lightened, desaturated
+   ============================================================ */
+[data-theme="green"] {
+  --brand: #1f6b46;
+  --brand-700: #25794f;
+  --brand-600: #2e8a5d;
+  --brand-50: #eef5f1;
+  --accent: #2e8a5d;
 
-/* DARK THEME — kept functional, flat near-black canvas */
+  --ink: #1a1c1a;
+  --line: #e3e6e3;
+  --surface-2: #f5f7f5;
+  --surface-3: #eef1ee;
+
+  --text-secondary: #5b605c;
+  --text-muted: #8a8f8b;
+
+  --brand-tint: 31 107 70;
+  --brand-tint-strong: 31 107 70;
+}
+
+/* DARK THEME */
 .dark {
-  --brand: #1c5436;
-  --brand-700: #256b45;
-  --brand-600: #2f8054;
-  --brand-50: #16261e;
-  --accent: #2f8054;
+  --brand: #0e2849;
+  --brand-700: #144074;
+  --brand-600: #2670b8;
+  --brand-50: #11243f;
+  --accent: #2670b8;
 
   --green-up: #4ec27a;
   --green-up-light: rgba(78,194,122,0.12);
@@ -109,92 +130,13 @@
   --amber: #E8C28A;
   --amber-light: rgba(232,194,138,0.10);
 
-  --ink: #e7eae8;
-  --line: rgba(255,255,255,0.08);
-  --surface-2: #0d100e;
-  --surface-3: #14181a;
-
-  --navy-deep: var(--brand);
-  --navy-mid: var(--accent);
-  --navy-light: var(--brand-600);
-  --sky-50: rgba(255,255,255,0.05);
-  --sky-100: #94A3B8;
-  --surface: #14181a;
-  --border: var(--line);
-  --text-primary: var(--ink);
-  --text-secondary: #9aa19c;
-  --text-muted: #6a7068;
-
-  --background: var(--surface-2);
-  --foreground: var(--ink);
-  --card: #14181a;
-  --card-foreground: var(--ink);
-  --primary: var(--accent);
-  --primary-foreground: #ffffff;
-  --muted: rgba(255,255,255,0.04);
-  --muted-foreground: #9aa19c;
-
-  --ov: 255 255 255;
-  --ov-inv: 0 0 0;
-  --surface-rgb: 20 24 26;
-
-  --brand-tint: 78 194 122;
-  --brand-tint-strong: 78 194 122;
-
-  --body-bg-img: none;
-}
-
-/* ============================================================
-   BLUE THEME — opt-in via [data-theme="blue"] on <html>
-   ============================================================ */
-[data-theme="blue"] {
-  --brand: #0c2c53;
-  --brand-700: #0c447c;
-  --brand-600: #185fa5;
-  --brand-50: #eaf1f9;
-  --accent: #185fa5;
-
-  --ink: #161a1f;
-  --line: #e0e5ea;
-  --surface-2: #f4f7fa;
-  --surface-3: #eaeff5;
-
-  --navy-deep: var(--brand);
-  --navy-mid: var(--accent);
-  --navy-light: var(--brand-600);
-
-  --background: var(--surface-2);
-  --foreground: var(--ink);
-  --card: #ffffff;
-  --card-foreground: var(--ink);
-  --primary: var(--accent);
-  --primary-foreground: #ffffff;
-  --text-primary: var(--ink);
-  --text-secondary: #586068;
-  --text-muted: #8a929b;
-  --border: var(--line);
-  --muted: var(--surface-3);
-
-  --brand-tint: 12 44 83;
-  --brand-tint-strong: 12 44 83;
-
-  --body-bg-img: none;
-}
-
-[data-theme="blue"].dark {
-  --brand: #0e2849;
-  --brand-700: #144074;
-  --brand-600: #2670b8;
-  --brand-50: #11243f;
-  --accent: #2670b8;
-
   --ink: #e6ebf2;
   --line: rgba(255,255,255,0.08);
   --surface-2: #07101e;
   --surface-3: #0c1a2e;
 
-  --background: var(--surface-2);
-  --foreground: var(--ink);
+  --surface: #0c1a2e;
+  --background: #07101e;
   --card: #0c1a2e;
   --card-foreground: var(--ink);
   --primary: var(--accent);
@@ -203,11 +145,25 @@
   --text-secondary: #9aa6b5;
   --text-muted: #6a7686;
   --border: var(--line);
+  --muted: rgba(255,255,255,0.04);
+  --muted-foreground: #9aa6b5;
+
+  --ov: 255 255 255;
+  --ov-inv: 0 0 0;
   --surface-rgb: 12 26 46;
   --brand-tint: 38 112 184;
   --brand-tint-strong: 38 112 184;
 
   --body-bg-img: none;
+}
+
+[data-theme="green"].dark {
+  --brand: #1c5436;
+  --brand-700: #256b45;
+  --brand-600: #2f8054;
+  --accent: #2f8054;
+  --brand-tint: 78 194 122;
+  --brand-tint-strong: 78 194 122;
 }
 
 
@@ -790,19 +746,32 @@
   h2 br, h3 br { display: none !important; }
 }
 
-/* Homepage section spacing — uniform across content sections */
+/* Homepage section spacing — tightened */
 .home-section {
-  padding-top: 28px !important;
-  padding-bottom: 28px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
   padding-left: 24px !important;
   padding-right: 24px !important;
 }
-.home-section .mb-5 { margin-bottom: 0.85rem !important; }
+.home-section .mb-5 { margin-bottom: 0.75rem !important; }
 @media (max-width: 768px) {
   .home-section {
-    padding-top: 22px !important;
-    padding-bottom: 22px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
 }
+
+/* ============================================================
+   SQUARE EDGES — global override (Standard Chartered feel)
+   Live-status dot keeps roundness via .live-dot exception
+   ============================================================ */
+.rounded, .rounded-sm, .rounded-md, .rounded-lg,
+.rounded-xl, .rounded-2xl, .rounded-3xl {
+  border-radius: 2px !important;
+}
+.rounded-full { border-radius: 2px !important; }
+.live-dot, .live-dot * { border-radius: 9999px !important; }
+button, input, select, textarea, .card { border-radius: 2px !important; }
+

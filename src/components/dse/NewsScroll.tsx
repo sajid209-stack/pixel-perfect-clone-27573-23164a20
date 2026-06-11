@@ -41,53 +41,44 @@ const news: NewsItem[] = [
 export function NewsScroll() {
   const { t } = useLang();
   return (
-    <section className="home-section relative">
-      <div className="max-w-7xl mx-auto mb-5 flex items-end justify-between gap-6">
-        <div>
+    <section className="home-section">
+      <div className="max-w-[1180px] mx-auto">
+        <div
+          className="flex items-center justify-between gap-4 mb-3 pb-2 border-b"
+          style={{ borderColor: "var(--line)" }}
+        >
           <div
-            className="text-[12px] uppercase tracking-[0.22em] mb-2"
-            style={{ color: "var(--text-muted)" }}
+            className="text-[11px] font-semibold uppercase"
+            style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}
           >
             {t("Newsroom")}
           </div>
-          <h2
-            className="text-[24px] md:text-[28px] font-semibold tracking-tight leading-[1.1]"
-            style={{ color: "var(--text-primary)" }}
+          <Link
+            to="/news"
+            className="text-[11px] font-semibold inline-flex items-center gap-1"
+            style={{ color: "var(--brand)" }}
           >
-            {t("Newsroom")}
-          </h2>
+            {t("All news")}
+            <ArrowUpRight className="w-3 h-3" />
+          </Link>
         </div>
-        <Link
-          to="/news"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap"
-          style={{ color: "var(--primary)" }}
-        >
-          {t("All news")}
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
-      </div>
 
-      <div className="max-w-7xl mx-auto">
-        <div className="news-grid gap-5">
+        <div className="news-grid">
           {news.map((n, i) => (
             <article
               key={i}
-              className="news-card rounded-2xl flex flex-col relative overflow-hidden"
-              style={
-                n.image
-                  ? {
-                      background: "rgb(var(--surface-rgb))",
-                      border: "1px solid rgb(var(--ov) / 0.08)",
-                    }
-                  : {
-                      background:
-                        "linear-gradient(155deg, rgb(var(--brand-tint) / 0.10) 0%, rgb(var(--brand-tint) / 0.03) 60%, rgb(var(--surface-rgb)) 100%)",
-                      border: "1px solid rgb(var(--brand-tint) / 0.18)",
-                    }
-              }
+              className="news-card flex flex-col h-full transition"
+              style={{
+                background: "#ffffff",
+                border: "1px solid var(--line)",
+                borderLeft: i > 0 ? "none" : "1px solid var(--line)",
+              }}
             >
-              {n.image && (
-                <div className="relative w-full aspect-[16/10] overflow-hidden">
+              {n.image ? (
+                <div
+                  className="relative w-full overflow-hidden"
+                  style={{ aspectRatio: "16 / 9", borderBottom: "1px solid var(--line)" }}
+                >
                   <img
                     src={n.image}
                     alt={n.alt ?? ""}
@@ -95,18 +86,26 @@ export function NewsScroll() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              )}
-              <div className="flex flex-col flex-1 p-6">
+              ) : (
                 <div
-                  className="flex items-center justify-between text-[11px] uppercase tracking-[0.18em]"
+                  style={{
+                    aspectRatio: "16 / 9",
+                    background: "var(--surface-2)",
+                    borderBottom: "1px solid var(--line)",
+                  }}
+                />
+              )}
+              <div className="flex flex-col flex-1 p-3.5">
+                <div
+                  className="flex items-center justify-between text-[10px] uppercase tracking-[0.14em] mb-2"
                   style={{ color: "var(--text-muted)" }}
                 >
                   <span
-                    className="px-2 py-0.5 rounded-full font-semibold"
+                    className="px-1.5 py-0.5 font-semibold"
                     style={{
-                      background: "rgb(var(--brand-tint) / 0.12)",
-                      color: "var(--primary)",
-                      letterSpacing: "0.14em",
+                      background: "var(--surface-2)",
+                      color: "var(--brand)",
+                      border: "1px solid var(--line)",
                     }}
                   >
                     {t(n.category)}
@@ -114,24 +113,24 @@ export function NewsScroll() {
                   <span className="tnum">{n.date}</span>
                 </div>
                 <h3
-                  className="mt-5 text-[19px] md:text-[20px] leading-[1.3] font-semibold tracking-tight"
-                  style={{ color: "var(--text-primary)" }}
+                  className="text-[14.5px] leading-[1.35] font-semibold tracking-tight"
+                  style={{ color: "var(--ink)" }}
                 >
                   {t(n.title)}
                 </h3>
                 <p
-                  className="mt-2 text-[13.5px] leading-[1.6]"
+                  className="mt-1.5 text-[12.5px] leading-[1.5]"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {t(n.excerpt)}
                 </p>
                 <Link
                   to="/news"
-                  className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold"
-                  style={{ color: "var(--primary)" }}
+                  className="mt-auto pt-3 inline-flex items-center gap-1 text-[12px] font-semibold"
+                  style={{ color: "var(--brand)" }}
                 >
                   {t("Read story")}
-                  <ArrowUpRight className="w-4 h-4" />
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </article>
@@ -144,24 +143,12 @@ export function NewsScroll() {
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
         @media (max-width: 768px) {
-          .news-grid {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            margin: 0 -16px;
-            padding: 0 16px 8px;
-          }
-          .news-grid::-webkit-scrollbar { display: none; }
-          .news-card {
-            flex: 0 0 86%;
-            max-width: 320px;
-            min-height: 220px;
-            scroll-snap-align: start;
-          }
+          .news-grid { grid-template-columns: 1fr; }
+          .news-card { border-left: 1px solid var(--line) !important; border-top: none !important; }
+          .news-card:first-child { border-top: 1px solid var(--line) !important; }
         }
       `}</style>
     </section>
   );
 }
+

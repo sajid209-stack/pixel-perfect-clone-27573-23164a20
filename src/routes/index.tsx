@@ -7,7 +7,7 @@ import { QuickAccessTiles } from "@/components/dse/QuickAccessTiles";
 import { LiveMarketStrip } from "@/components/dse/LiveMarketStrip";
 import { DualAudience } from "@/components/dse/DualAudience";
 import { CompactMarketGrid } from "@/components/dse/CompactMarketGrid";
-import { IpoPipeline } from "@/components/dse/IpoPipeline";
+
 import { Resources } from "@/components/dse/Resources";
 import { NewsScroll } from "@/components/dse/NewsScroll";
 import { ForeignInvestorBand } from "@/components/dse/ForeignInvestorBand";
@@ -37,7 +37,7 @@ function Home() {
       <LiveMarketStrip />
       <WatchlistStrip />
       <CompactMarketGrid />
-      <IpoPipeline />
+      
       <NewsScroll />
       <ForeignInvestorBand />
       <DualAudience />
