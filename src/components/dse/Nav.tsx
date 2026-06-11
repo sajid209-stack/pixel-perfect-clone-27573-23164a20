@@ -81,7 +81,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Featured", title: "Sector heatmap", desc: "Daily % change across all 10 sectors.", to: "/" },
+    promo: { tag: "Featured", title: "Sector heatmap", desc: "Daily % change across all 10 sectors.", to: "/", image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=70" },
   },
   companies: {
     intro: {
