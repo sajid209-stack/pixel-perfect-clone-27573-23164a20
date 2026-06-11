@@ -35,7 +35,7 @@ export function ForeignInvestorBand() {
         >
           <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-10 items-start">
             <div>
-              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--brand)" }}>
+              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--brand-600)" }}>
                 <Globe className="w-3.5 h-3.5" />
                 For foreign investors
               </div>
@@ -50,19 +50,19 @@ export function ForeignInvestorBand() {
               <Link
                 to="/foreign-investors"
                 className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{ color: "var(--primary)" }}
+                style={{ color: "var(--brand-600)" }}
               >
                 Open the guide
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-3">
+            <div className="grid sm:grid-cols-3 gap-3 items-stretch">
               {links.map((l) => (
                 <Link
                   key={l.title}
                   to={l.to}
-                  className="group p-4 transition"
+                  className="group p-4 flex flex-col h-full transition"
                   style={{
                     background: "var(--surface)",
                     border: "1px solid var(--line)",
@@ -70,8 +70,15 @@ export function ForeignInvestorBand() {
                   }}
                 >
                   <div
-                    className="w-9 h-9 flex items-center justify-center mb-3"
-                    style={{ background: "var(--brand-50, var(--surface-3))", color: "var(--brand)", borderRadius: 2 }}
+                    className="flex items-center justify-center mb-3"
+                    style={{
+                      width: 34,
+                      height: 34,
+                      background: "var(--surface-3)",
+                      border: "1px solid var(--line)",
+                      color: "var(--brand-600)",
+                      borderRadius: 2,
+                    }}
                   >
                     <l.Icon className="w-4 h-4" />
                   </div>

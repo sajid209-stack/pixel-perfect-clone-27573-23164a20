@@ -59,7 +59,7 @@ export function NewsScroll() {
           <Link
             to="/news"
             className="text-[11px] font-semibold inline-flex items-center gap-1"
-            style={{ color: "var(--brand)" }}
+            style={{ color: "var(--brand-600)" }}
           >
             {t("All news")}
             <ArrowUpRight className="w-3 h-3" />
@@ -106,8 +106,8 @@ export function NewsScroll() {
                   <span
                     className="px-1.5 py-0.5 font-semibold"
                     style={{
-                      background: "var(--surface-2)",
-                      color: "var(--brand)",
+                      background: "var(--surface-3)",
+                      color: "var(--brand-600)",
                       border: "1px solid var(--line)",
                     }}
                   >
@@ -130,7 +130,7 @@ export function NewsScroll() {
                 <Link
                   to="/news"
                   className="mt-auto pt-3 inline-flex items-center gap-1 text-[12px] font-semibold"
-                  style={{ color: "var(--brand)" }}
+                  style={{ color: "var(--brand-600)" }}
                 >
                   {t("Read story")}
                   <ArrowUpRight className="w-3.5 h-3.5" />
