@@ -119,9 +119,9 @@
 .dark {
   --brand: #0e2849;
   --brand-700: #144074;
-  --brand-600: #2670b8;
+  --brand-600: #4d9fe6;
   --brand-50: #11243f;
-  --accent: #2670b8;
+  --accent: #4d9fe6;
 
   --green-up: #4ec27a;
   --green-up-light: rgba(78,194,122,0.12);
@@ -130,23 +130,23 @@
   --amber: #E8C28A;
   --amber-light: rgba(232,194,138,0.10);
 
-  --ink: #e6ebf2;
-  --line: rgba(255,255,255,0.08);
-  --surface-2: #07101e;
-  --surface-3: #0c1a2e;
+  --ink: #eef2f7;
+  --line: rgba(255,255,255,0.12);
+  --surface-2: #0b1828;
+  --surface-3: #12233a;
 
-  --surface: #0c1a2e;
+  --surface: #0f1f33;
   --background: #07101e;
-  --card: #0c1a2e;
+  --card: #0f1f33;
   --card-foreground: var(--ink);
   --primary: var(--accent);
   --primary-foreground: #ffffff;
   --text-primary: var(--ink);
-  --text-secondary: #9aa6b5;
-  --text-muted: #6a7686;
+  --text-secondary: #9fb0c3;
+  --text-muted: #7a8798;
   --border: var(--line);
   --muted: rgba(255,255,255,0.04);
-  --muted-foreground: #9aa6b5;
+  --muted-foreground: #9fb0c3;
 
   --ov: 255 255 255;
   --ov-inv: 0 0 0;
