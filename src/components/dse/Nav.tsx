@@ -33,7 +33,7 @@ type NavItem = {
 };
 
 const links: NavItem[] = [
-  { label: "Markets", to: "/", mega: "markets", activePaths: ["/"] },
+  { label: "Markets", to: "/markets", mega: "markets", activePaths: ["/markets"] },
   { label: "Companies", to: "/companies", mega: "companies", activePaths: ["/companies", "/company"] },
   { label: "Indices", to: "/indices", mega: "indices", activePaths: ["/indices"] },
   { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
