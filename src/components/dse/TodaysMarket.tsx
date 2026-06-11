@@ -108,9 +108,9 @@ function HeatmapTile({ s }: { s: typeof sectors[number] }) {
         >
           <div className="font-semibold mb-1">{s.name}</div>
           <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 tnum" style={{ color: "rgba(255,255,255,0.85)" }}>
+            <span>Change</span><span className="text-right">{up ? "+" : ""}{s.change.toFixed(2)}%</span>
             <span>Turnover</span><span className="text-right">{s.turnover}</span>
-            <span>Adv / Dec</span><span className="text-right">{s.advancers}/{s.decliners}</span>
-            <span>Leader</span><span className="text-right">{s.leader ?? "—"}</span>
+            <span>Direction</span><span className="text-right">{up ? "Advancing" : "Declining"}</span>
           </div>
         </div>
       )}
