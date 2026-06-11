@@ -1021,8 +1021,35 @@ export function Nav() {
         </button>
       </div>
 
+      {/* Full-viewport-width mega panel (SCB style) */}
+      <AnimatePresence>
+        {openMenu && megaContent[links.find((l) => l.label === openMenu)?.mega ?? ""] && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15 }}
+            className="hidden lg:block absolute left-0 right-0 top-full z-50"
+            style={{
+              background: "var(--surface)",
+              borderTop: "1px solid var(--line)",
+              borderBottom: "1px solid var(--line)",
+              boxShadow: "0 18px 32px rgba(0,0,0,0.14)",
+            }}
+            onMouseEnter={() => openWith(openMenu)}
+            onMouseLeave={scheduleClose}
+          >
+            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 24px" }}>
+              <MegaPanel
+                content={megaContent[links.find((l) => l.label === openMenu)!.mega!]}
+                close={() => setOpenMenu(null)}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Mobile drawer: portal to body so backdrop-filter on header doesn't trap fixed positioning */}
+
       {typeof document !== "undefined" && createPortal(
         <AnimatePresence>
         {mobileOpen && (
