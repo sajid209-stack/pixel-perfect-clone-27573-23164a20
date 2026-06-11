@@ -25,8 +25,8 @@ function Home() {
   return (
     <div className="min-h-screen">
       <TopBar />
-      <Nav />
       <Ticker />
+      <Nav />
       <Hero />
       <QuickAccessTiles />
       <TodaysMarket />

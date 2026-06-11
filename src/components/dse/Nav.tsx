@@ -81,7 +81,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Featured", title: "Sector heatmap", desc: "Daily % change across all 10 sectors.", to: "/" },
+    promo: { tag: "Featured", title: "Sector heatmap", desc: "Daily % change across all 10 sectors.", to: "/", image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=70" },
   },
   companies: {
     intro: {
@@ -108,7 +108,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Tool", title: "Company screener", desc: "Filter by sector, market cap and yield.", to: "/companies" },
+    promo: { tag: "Tool", title: "Company screener", desc: "Filter by sector, market cap and yield.", to: "/companies", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=70" },
   },
   indices: {
     intro: {
@@ -135,7 +135,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Featured", title: "Index analytics", desc: "Trend, breadth and constituent weights.", to: "/indices" },
+    promo: { tag: "Featured", title: "Index analytics", desc: "Trend, breadth and constituent weights.", to: "/indices", image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=70" },
   },
   ipo: {
     intro: {
@@ -160,7 +160,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Tool", title: "IPO calendar", desc: "Open and upcoming subscription windows.", to: "/ipo" },
+    promo: { tag: "Tool", title: "IPO calendar", desc: "Open and upcoming subscription windows.", to: "/ipo", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=70" },
   },
   news: {
     intro: {
@@ -185,7 +185,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Stay informed", title: "Subscribe to alerts", desc: "Daily summary and PSI alerts by email.", to: "/news" },
+    promo: { tag: "Stay informed", title: "Subscribe to alerts", desc: "Daily summary and PSI alerts by email.", to: "/news", image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=70" },
   },
   learn: {
     intro: {
@@ -211,7 +211,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Featured", title: "Investor education", desc: "BICM-curated courses and primers.", to: "/learn" },
+    promo: { tag: "Featured", title: "Investor education", desc: "BICM-curated courses and primers.", to: "/learn", image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=70" },
   },
   about: {
     intro: {
@@ -817,26 +817,27 @@ export function Nav() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.1 }}
-      className="sticky top-[34px] z-40 transition-all"
+      className="sticky z-40 transition-all"
       style={{
+        top: 66,
         background: "var(--surface)",
         borderBottom: "1px solid var(--line)",
       }}
     >
-      <div className="max-w-[1440px] mx-auto h-[64px] flex items-center px-6 gap-8 relative">
+      <div className="max-w-[1440px] mx-auto h-[56px] flex items-center px-6 gap-8 relative">
         <Link to="/" className="flex items-center gap-3 cursor-pointer group shrink-0">
           <img
             src={dseLogo}
             alt="Dhaka Stock Exchange seal"
             className="object-contain shrink-0 nav-logo-light"
-            style={{ width: 46, height: 46 }}
+            style={{ width: 38, height: 38 }}
           />
           <img
             src={dseLogoDark}
             alt=""
             aria-hidden="true"
             className="object-contain shrink-0 nav-logo-dark"
-            style={{ width: 46, height: 46 }}
+            style={{ width: 38, height: 38 }}
           />
           <div className="hidden md:block leading-tight">
             <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--ink)" }}>
