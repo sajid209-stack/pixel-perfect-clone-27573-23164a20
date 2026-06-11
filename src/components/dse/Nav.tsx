@@ -808,7 +808,7 @@ export function Nav() {
       transition={{ delay: 0.1 }}
       className="sticky top-[34px] z-40 transition-all"
       style={{
-        background: "#ffffff",
+        background: "var(--surface)",
         borderBottom: "1px solid var(--line)",
       }}
     >
