@@ -1,236 +1,83 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
-import { useLang } from "@/i18n/LanguageContext";
+import { ArrowRight } from "lucide-react";
 import heroDhaka from "@/assets/hero-dhaka.jpg";
-import heroTrading from "@/assets/hero-trading.jpg";
-import heroBoardroom from "@/assets/hero-boardroom.jpg";
-
-type Story = {
-  eyebrow: string;
-  title: string;
-  desc: string;
-  cta: string;
-  ctaTo: string;
-  image: string;
-  alt: string;
-  accent: string;
-};
-
-// Accent is theme-aware via CSS var; in green theme this resolves to brand green,
-// in blue theme to navy/primary. Per-story differentiation is achieved via opacity layering.
-const ACCENT = "var(--primary)";
-const OVERLAY = "var(--navy-deep)";
-
-const stories: Story[] = [
-  {
-    eyebrow: "Listing",
-    title: "Walton Hi-Tech debuts new bond on DSE Mainboard",
-    desc: "Bangladesh's homegrown electronics leader raises BDT 8.5B through a sustainability-linked bond — the largest of its kind on the exchange.",
-    cta: "View company",
-    ctaTo: "/company/WALTONHIL",
-    image: heroBoardroom,
-    alt: "Executives in a corporate boardroom reviewing listing documents",
-    accent: ACCENT,
-  },
-  {
-    eyebrow: "Market data",
-    title: "DSEX FTSE South Asia Index futures open for trading",
-    desc: "A new benchmark instrument designed to give regional and institutional investors transparent exposure to Bangladesh's blue-chip equities.",
-    cta: "Explore the index",
-    ctaTo: "/indices",
-    image: heroTrading,
-    alt: "Stock market candlestick chart on a trading terminal",
-    accent: ACCENT,
-  },
-  {
-    eyebrow: "Investor education",
-    title: "Unlocking shareholder value for listed companies",
-    desc: "A new DSE programme helping issuers improve disclosure quality, investor relations, and long-term capital formation.",
-    cta: "Browse market reports",
-    ctaTo: "/reports",
-    image: heroDhaka,
-    alt: "Dhaka city skyline at sunrise with modern financial buildings",
-    accent: ACCENT,
-  },
-];
-
 
 export function Hero() {
-  const [active, setActive] = useState(0);
-  const { t } = useLang();
-
-  // auto-advance
-  useEffect(() => {
-    const t = setInterval(() => setActive((i) => (i + 1) % stories.length), 7000);
-    return () => clearInterval(t);
-  }, []);
-
-  const story = stories[active];
-
   return (
-    <section className="relative">
-      <div className="max-w-[1440px] mx-auto px-6 pt-0 pb-16">
+    <section
+      className="relative w-full overflow-hidden"
+      style={{ background: "var(--brand)", color: "#ffffff" }}
+    >
+      {/* Background photo at ~20% */}
+      <img
+        src={heroDhaka}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ opacity: 0.2 }}
+      />
+      {/* Subtle brand scrim for legibility on right edge */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(90deg, var(--brand) 0%, color-mix(in oklab, var(--brand) 90%, transparent) 55%, color-mix(in oklab, var(--brand) 70%, transparent) 100%)",
+        }}
+      />
 
-        {/* Featured carousel */}
+      <div className="relative max-w-[1180px] mx-auto px-7 py-12 md:py-[46px]">
         <div
-          className="relative overflow-hidden rounded-2xl"
+          className="text-[11px] font-semibold uppercase mb-5"
+          style={{ letterSpacing: "0.12em", color: "rgba(255,255,255,0.75)" }}
+        >
+          Official Market Operator · Est. 1954
+        </div>
+
+        <h1
+          className="font-bold tracking-tight leading-[1.12]"
           style={{
-            border: "1px solid rgb(var(--ov) / 0.08)",
-            background: "rgb(var(--surface-rgb) / 0.6)",
+            color: "#ffffff",
+            fontSize: "clamp(26px, 4.2vw, 34px)",
+            maxWidth: 680,
+            fontFamily: "var(--font-heading)",
           }}
         >
-          <div className="relative h-[460px] md:h-[520px]">
-            {/* Background image crossfade */}
-            <AnimatePresence mode="sync">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, scale: 1.04 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0"
-              >
-                <img
-                  src={story.image}
-                  alt={story.alt}
-                  className="w-full h-full object-cover"
-                />
-                {/* Brand tint overlay — theme-aware (navy in blue, deep-green in green) */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(105deg, ${OVERLAY} 0%, transparent 55%)`,
-                    opacity: 0.2,
-                  }}
-                />
-                {/* Readability gradient */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(7,9,10,0.78) 0%, rgba(7,9,10,0.45) 45%, rgba(7,9,10,0) 70%)",
-                  }}
-                />
-              </motion.div>
-            </AnimatePresence>
+          Bangladesh's capital market, in one trusted place
+        </h1>
 
-            {/* Overlay card */}
-            <div className="relative h-full flex items-center">
-              <div className="px-6 md:px-12 max-w-[640px] w-full">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="p-7 md:p-9 rounded-xl"
-                    style={{
-                      background: "rgba(11, 14, 16, 0.72)",
-                      backdropFilter: "blur(20px) saturate(160%)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                    }}
-                  >
-                    <div
-                      className="text-[11px] uppercase tracking-[0.22em] mb-4 inline-flex items-center gap-2"
-                      style={{ color: story.accent }}
-                    >
-                      <span
-                        className="inline-block w-1.5 h-1.5 rounded-full"
-                        style={{ background: story.accent }}
-                      />
-                      {t(story.eyebrow)}
-                    </div>
-                    <h2 className="text-[20px] md:text-[34px] font-semibold tracking-tight leading-[1.15] text-white">
-                      {t(story.title)}
-                    </h2>
-                    <p className="mt-4 text-[13px] md:text-[15.5px] leading-[1.65] text-white/70">
-                      {t(story.desc)}
-                    </p>
-                    <Link
-                      to={story.ctaTo}
-                      className="mt-7 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13.5px] font-semibold transition hover:scale-[1.02]"
-                      style={{
-                        background: story.accent,
-                        color: "var(--primary-foreground)",
-                        boxShadow: `0 8px 24px -8px ${story.accent}88`,
-                      }}
-                    >
-                      {t(story.cta)}
-                      <ArrowUpRight className="w-4 h-4" />
-                    </Link>
+        <p
+          className="mt-4 text-[15px] leading-[1.6]"
+          style={{ color: "rgba(255,255,255,0.78)", maxWidth: 560 }}
+        >
+          Real-time prices, company disclosures, IPO pipeline and regulated market
+          data from the Dhaka Stock Exchange.
+        </p>
 
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-
-          {/* Tabs */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-3 border-t"
+        <div className="mt-7 flex flex-wrap items-center gap-3">
+          <Link
+            to="/companies"
+            className="inline-flex items-center gap-2 px-4 h-10 text-[13.5px] font-semibold transition"
             style={{
-              borderColor: "rgb(var(--ov) / 0.08)",
-              background: "rgb(var(--surface-rgb) / 0.85)",
-              backdropFilter: "blur(14px)",
+              background: "#ffffff",
+              color: "var(--brand)",
+              borderRadius: 6,
             }}
           >
-            {stories.map((s, i) => {
-              const isActive = i === active;
-              return (
-                <button
-                  key={s.title}
-                  onClick={() => setActive(i)}
-                  className="relative text-left px-5 md:px-7 py-5 md:py-6 transition group"
-                  style={{
-                    borderRight:
-                      i < stories.length - 1
-                        ? "1px solid rgb(var(--ov) / 0.06)"
-                        : "none",
-                  }}
-                >
-                  {/* progress / active bar */}
-                  <span
-                    className="absolute left-0 right-0 bottom-0 h-[3px] overflow-hidden"
-                    style={{ background: "rgb(var(--ov) / 0.06)" }}
-                  >
-                    {isActive && (
-                      <motion.span
-                        key={`bar-${active}`}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 7, ease: "linear" }}
-                        className="block h-full origin-left"
-                        style={{ background: s.accent }}
-                      />
-                    )}
-                  </span>
-
-                  <div
-                    className="text-[10px] uppercase tracking-[0.22em] mb-2"
-                    style={{
-                      color: isActive ? s.accent : "var(--text-muted)",
-                    }}
-                  >
-                    {t(s.eyebrow)}
-                  </div>
-                  <div
-                    className="text-[14px] md:text-[15px] font-semibold leading-snug line-clamp-2 transition"
-                    style={{
-                      color: isActive
-                        ? "var(--text-primary)"
-                        : "var(--text-secondary)",
-                    }}
-                  >
-                    {t(s.title)}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
+            Explore the market
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            to="/foreign-investors"
+            className="inline-flex items-center gap-2 px-4 h-10 text-[13.5px] font-semibold transition"
+            style={{
+              background: "transparent",
+              color: "#ffffff",
+              border: "1.5px solid rgba(255,255,255,0.6)",
+              borderRadius: 6,
+            }}
+          >
+            For foreign investors
+          </Link>
         </div>
       </div>
     </section>
