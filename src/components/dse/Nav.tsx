@@ -135,7 +135,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Featured", title: "Index analytics", desc: "Trend, breadth and constituent weights.", to: "/indices" },
+    promo: { tag: "Featured", title: "Index analytics", desc: "Trend, breadth and constituent weights.", to: "/indices", image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=70" },
   },
   ipo: {
     intro: {
