@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 const tiles = [
-  { Icon: LineChart, label: "Markets", desc: "Live equities & indices", to: "/" },
+  { Icon: LineChart, label: "Markets", desc: "Live equities & indices", to: "/markets" },
   { Icon: Building2, label: "Companies", desc: "750+ listed", to: "/companies" },
   { Icon: FileText, label: "Disclosures", desc: "47 filed today", to: "/news" },
   { Icon: Rocket, label: "IPO Pipeline", desc: "Open & upcoming", to: "/ipo" },
