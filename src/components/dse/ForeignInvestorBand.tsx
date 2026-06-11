@@ -62,19 +62,20 @@ export function ForeignInvestorBand() {
                 <Link
                   key={l.title}
                   to={l.to}
-                  className="group rounded-2xl p-4 transition hover:-translate-y-0.5"
+                  className="group p-4 transition"
                   style={{
-                    background: "rgb(var(--surface-rgb) / 0.85)",
-                    border: "1px solid rgb(var(--ov) / 0.06)",
+                    background: "#ffffff",
+                    border: "1px solid var(--line)",
+                    borderRadius: 2,
                   }}
                 >
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
-                    style={{ background: "rgb(var(--brand-tint) / 0.10)", color: "var(--primary)" }}
+                    className="w-9 h-9 flex items-center justify-center mb-3"
+                    style={{ background: "var(--brand-50, var(--surface-3))", color: "var(--brand)", borderRadius: 2 }}
                   >
                     <l.Icon className="w-4 h-4" />
                   </div>
-                  <div className="text-[13.5px] font-semibold">{l.title}</div>
+                  <div className="text-[13.5px] font-semibold" style={{ color: "var(--ink)" }}>{l.title}</div>
                   <p className="mt-1 text-[12px] leading-[1.6]" style={{ color: "var(--text-secondary)" }}>
                     {l.desc}
                   </p>
