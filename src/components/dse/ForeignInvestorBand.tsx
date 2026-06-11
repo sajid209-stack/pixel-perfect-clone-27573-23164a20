@@ -33,7 +33,7 @@ export function ForeignInvestorBand() {
             border: "1px solid var(--line)",
           }}
         >
-          <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-8 items-start">
+          <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-8 items-stretch">
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--brand-600)" }}>
                 <Globe className="w-3.5 h-3.5" />
@@ -57,7 +57,7 @@ export function ForeignInvestorBand() {
               </Link>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-3 items-stretch self-start min-w-0 w-full">
+            <div className="grid md:grid-cols-3 gap-3 items-stretch min-w-0 w-full h-full">
               {links.map((l) => (
                 <Link
                   key={l.title}
