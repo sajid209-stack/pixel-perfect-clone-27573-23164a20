@@ -73,13 +73,25 @@ export function TopBar() {
         <button
           onClick={toggle}
           aria-label="Toggle language"
-          className="inline-flex items-center gap-1 px-2 py-0.5 transition cursor-pointer"
+          className="inline-flex items-center gap-1 transition cursor-pointer"
           style={{ color: "rgba(255,255,255,0.85)" }}
         >
           <span style={{ color: lang === "en" ? "#ffffff" : "rgba(255,255,255,0.55)", fontWeight: lang === "en" ? 600 : 400 }}>EN</span>
           <span style={{ color: "rgba(255,255,255,0.35)" }}>/</span>
           <span className="bengali" style={{ color: lang === "bn" ? "#ffffff" : "rgba(255,255,255,0.55)", fontWeight: lang === "bn" ? 600 : 400 }}>বাং</span>
         </button>
+        <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+        <span style={{ color: "rgba(255,255,255,0.85)" }}>
+          <span style={{ color: "rgba(255,255,255,0.6)" }}>Helpline </span>+880 9612-345678
+        </span>
+        <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+        <a
+          href="#"
+          className="inline-flex items-center gap-1"
+          style={{ color: "#ffffff", fontWeight: 600 }}
+        >
+          Investor login
+        </a>
         <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
         <ThemeToggle />
       </div>

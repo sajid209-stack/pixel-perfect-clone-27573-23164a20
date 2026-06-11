@@ -311,7 +311,7 @@
     grid-column: auto !important;
     grid-row: auto !important;
   }
-  .mobile-swipe-hint { display: block !important; }
+  .mobile-swipe-hint { display: none !important; }
 
   /* Movers above heatmap */
   .market-overview-grid .movers-section { order: -1; }
@@ -418,7 +418,7 @@
     gap: 8px;
   }
   .compact-cell { padding: 12px !important; border-radius: 10px !important; }
-  .mobile-swipe-hint { display: block !important; }
+  .mobile-swipe-hint { display: none !important; }
 
   /* Heatmap → horizontal scroll on mobile */
   .compact-market-grid .heatmap-grid {
