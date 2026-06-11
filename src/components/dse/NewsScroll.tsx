@@ -130,7 +130,7 @@ export function NewsScroll() {
                 <Link
                   to="/news"
                   className="mt-auto pt-3 inline-flex items-center gap-1 text-[12px] font-semibold"
-                  style={{ color: "var(--brand)" }}
+                  style={{ color: "var(--brand-600)" }}
                 >
                   {t("Read story")}
                   <ArrowUpRight className="w-3.5 h-3.5" />
