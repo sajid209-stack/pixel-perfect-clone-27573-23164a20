@@ -27,11 +27,10 @@ export function ForeignInvestorBand() {
     <section className="home-section">
       <div className="max-w-[1200px] mx-auto px-6">
         <div
-          className="rounded-3xl p-6 md:p-8"
+          className="p-6 md:p-8"
           style={{
-            background:
-              "linear-gradient(135deg, rgb(var(--brand-tint) / 0.10), rgb(var(--surface-rgb) / 0.6))",
-            border: "1px solid rgb(var(--ov) / 0.08)",
+            background: "var(--surface-2)",
+            border: "1px solid var(--line)",
           }}
         >
           <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-10 items-start">
