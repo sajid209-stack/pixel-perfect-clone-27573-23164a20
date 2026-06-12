@@ -300,8 +300,9 @@ function FundsPage() {
             className="text-[44px] md:text-[56px] leading-[1.04] tracking-[-0.02em] font-semibold max-w-3xl"
             style={{ color: "var(--text-primary)" }}
           >
-            Diversify with one ticket.
+            Mutual Funds &amp; ETFs
           </h1>
+
           <p
             className="mt-4 text-[16px] max-w-2xl"
             style={{ color: "var(--text-secondary)" }}
