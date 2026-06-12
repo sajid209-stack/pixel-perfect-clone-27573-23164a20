@@ -264,7 +264,7 @@ export function TodaysMarket() {
         </div>
 
         {/* Heatmap + Movers */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4 items-start">
           <div style={{ background: "var(--surface)", border: "1px solid var(--line)" }}>
             <div
               className="flex items-center justify-between px-3 py-2"
