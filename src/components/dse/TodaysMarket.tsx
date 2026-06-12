@@ -169,8 +169,8 @@ function MoverRow({ r, showVol, idx, maxAbs }: { r: typeof topGainers[number]; s
         style={{ borderTop: "1px solid var(--line)" }}
       >
         <div className="min-w-0">
-          <div className="text-[12.5px] font-semibold" style={{ color: "var(--ink)" }}>{r.code}</div>
-          <div className="text-[11px] truncate" style={{ color: "var(--text-muted)" }}>{r.name}</div>
+          <div className="text-[16px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>{r.code}</div>
+          <div className="text-[12px] truncate mt-0.5" style={{ color: "var(--text-muted)" }}>{r.name}</div>
         </div>
         <div
           className="relative h-1.5 w-full"
@@ -182,11 +182,11 @@ function MoverRow({ r, showVol, idx, maxAbs }: { r: typeof topGainers[number]; s
             style={{ width: `${barPct}%`, background: barColor, opacity: 0.55, borderRadius: 1 }}
           />
         </div>
-        <div className="text-[12.5px] tnum text-right" style={{ color: "var(--ink)" }}>
+        <div className="text-[13.5px] tnum text-right" style={{ color: "var(--ink)" }}>
           {showVol && "volume" in r ? (r as { volume: string }).volume : r.price.toLocaleString()}
         </div>
         <div
-          className="text-[11px] tnum font-semibold text-right"
+          className="text-[12.5px] tnum font-semibold text-right"
           style={{ color: barColor }}
         >
           {up ? "▲" : "▼"} {Math.abs(r.change).toFixed(2)}%
