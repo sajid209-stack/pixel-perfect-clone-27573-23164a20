@@ -263,8 +263,9 @@ function LearnPage() {
           <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
             <div>
               <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
-                Plain-language<br />guides for investors.
+                Investor Education
               </h1>
+
               <p className="mt-4 text-[15px] max-w-[560px]" style={{ color: "var(--text-secondary)" }}>
                 Whether you're opening your first BO account or modelling a discounted-cash-flow on
                 a listed bank, every guide here is written by working professionals — no fluff, no

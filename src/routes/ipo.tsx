@@ -225,8 +225,9 @@ function IpoPage() {
           <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
             <div>
               <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
-                New listings,<br />from book to bell.
+                IPO Pipeline
               </h1>
+
               <p className="mt-4 text-[15px] max-w-[560px]" style={{ color: "var(--text-secondary)" }}>
                 Every offering on the Dhaka Stock Exchange — currently open for subscription,
                 scheduled in the coming weeks, or freshly trading. Read the prospectus, check the

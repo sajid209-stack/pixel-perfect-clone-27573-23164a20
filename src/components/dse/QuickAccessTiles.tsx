@@ -6,6 +6,7 @@ import {
   Rocket,
   FolderOpen,
   Globe,
+  ChevronRight,
 } from "lucide-react";
 
 const tiles = [
@@ -32,7 +33,7 @@ export function QuickAccessTiles() {
             <Link
               key={t.label}
               to={t.to}
-              className="flex items-center gap-2.5 px-3.5 py-4 transition hover:bg-[var(--surface-2)]"
+              className="qa-tile group flex items-center gap-2.5 px-3.5 py-4 transition"
               style={{
                 borderLeft: i > 0 ? "1px solid var(--line)" : "none",
               }}
@@ -42,9 +43,9 @@ export function QuickAccessTiles() {
                 strokeWidth={1.6}
                 style={{ color: "var(--brand-600, var(--brand))" }}
               />
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <div
-                  className="text-[13.5px] font-semibold leading-tight"
+                  className="qa-title text-[13.5px] font-semibold leading-tight"
                   style={{ color: "var(--ink)" }}
                 >
                   {t.label}
@@ -56,10 +57,20 @@ export function QuickAccessTiles() {
                   {t.desc}
                 </div>
               </div>
+              <ChevronRight
+                className="qa-chev w-[14px] h-[14px] shrink-0 opacity-0 transition-opacity"
+                strokeWidth={1.8}
+                style={{ color: "var(--brand-600, var(--brand))" }}
+              />
             </Link>
           ))}
         </div>
       </div>
+      <style>{`
+        .qa-tile:hover { background: var(--surface-2); }
+        .qa-tile:hover .qa-title { color: var(--brand-600); }
+        .qa-tile:hover .qa-chev { opacity: 1; }
+      `}</style>
     </section>
   );
 }
