@@ -124,8 +124,8 @@ export function NewsScroll() {
               )}
               <div className="flex flex-col flex-1 p-3.5">
                 <div
-                  className="flex items-center justify-between text-[10px] uppercase tracking-[0.14em] mb-2"
-                  style={{ color: "var(--text-muted)" }}
+                  className="flex items-center justify-between text-[11.5px] uppercase mb-2"
+                  style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}
                 >
                   <span
                     className="px-1.5 py-0.5 font-semibold"
