@@ -53,7 +53,7 @@ function IndexCell({ name }: { name: IndexKey }) {
       <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
         {name}
       </div>
-      <div className="mt-1 tnum text-[18px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
         {m.value}
       </div>
       <div
@@ -92,7 +92,7 @@ function StatCell({ label, value, sub }: { label: string; value: string; sub: st
       <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
         {label}
       </div>
-      <div className="mt-1 tnum text-[18px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
         {value}
       </div>
       <div className="mt-1.5 text-[11px]" style={{ color: "var(--text-muted)" }}>{sub}</div>
@@ -149,10 +149,12 @@ function HeatmapTile({ s }: { s: typeof sectors[number] }) {
 const moverTabs = { Gainers: topGainers, Losers: topLosers, Active: mostActive } as const;
 type MoverTab = keyof typeof moverTabs;
 
-function MoverRow({ r, showVol, idx }: { r: typeof topGainers[number]; showVol: boolean; idx: number }) {
+function MoverRow({ r, showVol, idx, maxAbs }: { r: typeof topGainers[number]; showVol: boolean; idx: number; maxAbs: number }) {
   const [open, setOpen] = useState(false);
   const up = r.change >= 0;
   const series = makeSeries(idx + r.code.length, 28, up);
+  const barPct = maxAbs > 0 ? Math.min(100, (Math.abs(r.change) / maxAbs) * 100) : 0;
+  const barColor = up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)";
   return (
     <div
       className="relative"
@@ -163,19 +165,29 @@ function MoverRow({ r, showVol, idx }: { r: typeof topGainers[number]; showVol: 
       <Link
         to="/company/$ticker"
         params={{ ticker: r.code }}
-        className="grid grid-cols-[1fr_auto_auto] items-center gap-2 py-2 px-3"
+        className="grid grid-cols-[190px_1fr_72px_64px] items-center gap-3 py-2 px-3"
         style={{ borderTop: "1px solid var(--line)" }}
       >
         <div className="min-w-0">
           <div className="text-[12.5px] font-semibold" style={{ color: "var(--ink)" }}>{r.code}</div>
           <div className="text-[11px] truncate" style={{ color: "var(--text-muted)" }}>{r.name}</div>
         </div>
+        <div
+          className="relative h-1.5 w-full"
+          style={{ background: "var(--surface-2)", borderRadius: 1 }}
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-y-0 left-0"
+            style={{ width: `${barPct}%`, background: barColor, opacity: 0.55, borderRadius: 1 }}
+          />
+        </div>
         <div className="text-[12.5px] tnum text-right" style={{ color: "var(--ink)" }}>
           {showVol && "volume" in r ? (r as { volume: string }).volume : r.price.toLocaleString()}
         </div>
         <div
-          className="text-[11px] tnum font-semibold w-16 text-right"
-          style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}
+          className="text-[11px] tnum font-semibold text-right"
+          style={{ color: barColor }}
         >
           {up ? "▲" : "▼"} {Math.abs(r.change).toFixed(2)}%
         </div>
@@ -247,7 +259,7 @@ export function TodaysMarket() {
 
 
         {/* Snapshot row + compact DSEX trend chart */}
-        <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4">
+        <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4 items-center">
           <div
             className="grid grid-cols-2 md:grid-cols-5"
             style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
@@ -264,7 +276,7 @@ export function TodaysMarket() {
         </div>
 
         {/* Heatmap + Movers */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4 items-start">
           <div style={{ background: "var(--surface)", border: "1px solid var(--line)" }}>
             <div
               className="flex items-center justify-between px-3 py-2"
@@ -316,9 +328,13 @@ export function TodaysMarket() {
               </div>
             </div>
             <div>
-              {moverTabs[tab].slice(0, 6).map((r, i) => (
-                <MoverRow key={r.code} r={r} showVol={tab === "Active"} idx={i} />
-              ))}
+              {(() => {
+                const rows = moverTabs[tab].slice(0, 6);
+                const maxAbs = Math.max(...rows.map((r) => Math.abs(r.change)));
+                return rows.map((r, i) => (
+                  <MoverRow key={r.code} r={r} showVol={tab === "Active"} idx={i} maxAbs={maxAbs} />
+                ));
+              })()}
             </div>
             <Link
               to="/markets"

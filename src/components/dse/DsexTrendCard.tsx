@@ -57,8 +57,8 @@ export function DsexTrendCard() {
           })}
         </div>
       </div>
-      <div className="px-2 py-2">
-        <Sparkline points={points} up={up} height={96} />
+      <div className="px-2 py-1.5">
+        <Sparkline points={points} up={up} height={56} />
       </div>
     </div>
   );
