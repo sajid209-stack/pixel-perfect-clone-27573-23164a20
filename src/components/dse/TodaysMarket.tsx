@@ -277,8 +277,8 @@ export function TodaysMarket() {
         </div>
 
         {/* Heatmap + Movers */}
-        <div className="grid md:grid-cols-2 gap-4 items-start">
-          <div style={{ background: "var(--surface)", border: "1px solid var(--line)" }}>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="flex flex-col" style={{ background: "var(--surface)", border: "1px solid var(--line)" }}>
             <div
               className="flex items-center justify-between px-3 py-2"
               style={{ borderBottom: "1px solid var(--line)" }}
@@ -292,8 +292,8 @@ export function TodaysMarket() {
               </span>
             </div>
             <div
-              className="grid gap-[2px] p-2"
-              style={{ gridTemplateColumns: "repeat(6, 1fr)", gridAutoRows: "46px", gridAutoFlow: "dense" }}
+              className="grid gap-[2px] p-2 flex-1"
+              style={{ gridTemplateColumns: "repeat(6, 1fr)", gridTemplateRows: "repeat(3, 1fr)", gridAutoRows: "1fr", gridAutoFlow: "dense", minHeight: 240 }}
             >
               {sectors.map((s) => <HeatmapTile key={s.name} s={s} />)}
             </div>
