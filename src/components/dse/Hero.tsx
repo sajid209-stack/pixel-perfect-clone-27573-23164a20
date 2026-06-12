@@ -97,7 +97,7 @@ export function Hero() {
                   {s.headline}
                 </h1>
                 <p
-                  className="mt-3 text-[14.5px] leading-[1.55]"
+                  className="hero-sub mt-3 text-[14.5px] leading-[1.55]"
                   style={{ color: "rgba(255,255,255,0.9)" }}
                 >
                   {s.subtext}
