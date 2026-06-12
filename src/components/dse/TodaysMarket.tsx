@@ -236,10 +236,15 @@ export function TodaysMarket() {
           >
             {t("Today's market")}
           </div>
-          <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>
-            {t("Hover or tap a cell for detail")}
-          </span>
+          <Link
+            to="/markets"
+            className="text-[11px] font-semibold inline-flex items-center gap-1"
+            style={{ color: "var(--brand-600)" }}
+          >
+            {t("View full market statistics")} →
+          </Link>
         </div>
+
 
         {/* Snapshot row + compact DSEX trend chart */}
         <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4">
