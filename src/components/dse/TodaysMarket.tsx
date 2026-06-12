@@ -282,10 +282,10 @@ export function TodaysMarket() {
               className="flex items-center justify-between px-3 py-2"
               style={{ borderBottom: "1px solid var(--line)" }}
             >
-              <div className="text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}>
+              <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}>
                 {t("Sector heatmap")}
               </div>
-              <span className="text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+              <span className="text-[12px] tnum" style={{ color: "var(--text-muted)" }}>
                 <span style={{ color: "var(--up, #1d7a3f)" }}>{sectors.filter((s) => s.change > 0).length}</span> adv ·{" "}
                 <span style={{ color: "var(--down, #c0392b)" }}>{sectors.filter((s) => s.change < 0).length}</span> dec
               </span>
