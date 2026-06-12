@@ -51,14 +51,14 @@ export function NewsScroll() {
           style={{ borderColor: "var(--line)" }}
         >
           <div
-            className="text-[11px] font-semibold uppercase"
-            style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}
+            className="text-[11.5px] font-semibold uppercase"
+            style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}
           >
             {t("Newsroom")}
           </div>
           <Link
             to="/news"
-            className="text-[11px] font-semibold inline-flex items-center gap-1"
+            className="text-[12.5px] font-semibold inline-flex items-center gap-1"
             style={{ color: "var(--brand-600)" }}
           >
             {t("All news")}
@@ -124,8 +124,8 @@ export function NewsScroll() {
               )}
               <div className="flex flex-col flex-1 p-3.5">
                 <div
-                  className="flex items-center justify-between text-[10px] uppercase tracking-[0.14em] mb-2"
-                  style={{ color: "var(--text-muted)" }}
+                  className="flex items-center justify-between text-[11.5px] uppercase mb-2"
+                  style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}
                 >
                   <span
                     className="px-1.5 py-0.5 font-semibold"
@@ -140,13 +140,13 @@ export function NewsScroll() {
                   <span className="tnum">{n.date}</span>
                 </div>
                 <h3
-                  className="text-[14.5px] leading-[1.35] font-semibold tracking-tight"
+                  className="text-[16px] leading-[1.3] font-semibold tracking-tight"
                   style={{ color: "var(--ink)" }}
                 >
                   {t(n.title)}
                 </h3>
                 <p
-                  className="mt-1.5 text-[12.5px] leading-[1.5]"
+                  className="mt-1.5 text-[14px] leading-[1.5]"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {t(n.excerpt)}

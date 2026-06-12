@@ -50,14 +50,14 @@ function IndexCell({ name }: { name: IndexKey }) {
       onMouseLeave={() => setOpen(false)}
       onClick={() => setOpen((o) => !o)}
     >
-      <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
+      <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}>
         {name}
       </div>
-      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>
         {m.value}
       </div>
       <div
-        className="mt-1.5 tnum text-[12px] font-semibold"
+        className="mt-1.5 tnum text-[12.5px] font-semibold"
         style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}
       >
         {up ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
@@ -89,13 +89,13 @@ function IndexCell({ name }: { name: IndexKey }) {
 function StatCell({ label, value, sub }: { label: string; value: string; sub: string }) {
   return (
     <div className="px-4 py-3.5">
-      <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
+      <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}>
         {label}
       </div>
-      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>
         {value}
       </div>
-      <div className="mt-1.5 text-[11px]" style={{ color: "var(--text-muted)" }}>{sub}</div>
+      <div className="mt-1.5 text-[12px]" style={{ color: "var(--text-muted)" }}>{sub}</div>
     </div>
   );
 }
@@ -120,8 +120,8 @@ function HeatmapTile({ s }: { s: typeof sectors[number] }) {
       style={{ background: bg, borderRadius: 0 }}
     >
       <div className="absolute inset-0 p-1.5 flex flex-col justify-between text-white">
-        <div className="text-[10px] leading-tight font-medium truncate">{s.name}</div>
-        <div className="text-[11px] font-bold tnum">{up ? "+" : ""}{s.change.toFixed(1)}%</div>
+        <div className="text-[12px] leading-tight font-medium truncate">{s.name}</div>
+        <div className="text-[12px] font-bold tnum">{up ? "+" : ""}{s.change.toFixed(1)}%</div>
       </div>
       {open && (
         <div
@@ -169,8 +169,8 @@ function MoverRow({ r, showVol, idx, maxAbs }: { r: typeof topGainers[number]; s
         style={{ borderTop: "1px solid var(--line)" }}
       >
         <div className="min-w-0">
-          <div className="text-[12.5px] font-semibold" style={{ color: "var(--ink)" }}>{r.code}</div>
-          <div className="text-[11px] truncate" style={{ color: "var(--text-muted)" }}>{r.name}</div>
+          <div className="text-[16px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>{r.code}</div>
+          <div className="text-[12px] truncate mt-0.5" style={{ color: "var(--text-muted)" }}>{r.name}</div>
         </div>
         <div
           className="relative h-1.5 w-full"
@@ -182,11 +182,11 @@ function MoverRow({ r, showVol, idx, maxAbs }: { r: typeof topGainers[number]; s
             style={{ width: `${barPct}%`, background: barColor, opacity: 0.55, borderRadius: 1 }}
           />
         </div>
-        <div className="text-[12.5px] tnum text-right" style={{ color: "var(--ink)" }}>
+        <div className="text-[13.5px] tnum text-right" style={{ color: "var(--ink)" }}>
           {showVol && "volume" in r ? (r as { volume: string }).volume : r.price.toLocaleString()}
         </div>
         <div
-          className="text-[11px] tnum font-semibold text-right"
+          className="text-[12.5px] tnum font-semibold text-right"
           style={{ color: barColor }}
         >
           {up ? "▲" : "▼"} {Math.abs(r.change).toFixed(2)}%
@@ -243,14 +243,14 @@ export function TodaysMarket() {
           style={{ borderColor: "var(--line)" }}
         >
           <div
-            className="text-[11px] font-semibold uppercase"
-            style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}
+            className="text-[11.5px] font-semibold uppercase"
+            style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}
           >
             {t("Today's market")}
           </div>
           <Link
             to="/markets"
-            className="text-[11px] font-semibold inline-flex items-center gap-1"
+            className="text-[12.5px] font-semibold inline-flex items-center gap-1"
             style={{ color: "var(--brand-600)" }}
           >
             {t("View full market statistics")} →
@@ -282,10 +282,10 @@ export function TodaysMarket() {
               className="flex items-center justify-between px-3 py-2"
               style={{ borderBottom: "1px solid var(--line)" }}
             >
-              <div className="text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}>
+              <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}>
                 {t("Sector heatmap")}
               </div>
-              <span className="text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+              <span className="text-[12px] tnum" style={{ color: "var(--text-muted)" }}>
                 <span style={{ color: "var(--up, #1d7a3f)" }}>{sectors.filter((s) => s.change > 0).length}</span> adv ·{" "}
                 <span style={{ color: "var(--down, #c0392b)" }}>{sectors.filter((s) => s.change < 0).length}</span> dec
               </span>
@@ -303,7 +303,7 @@ export function TodaysMarket() {
               className="flex items-center justify-between px-3 py-2"
               style={{ borderBottom: "1px solid var(--line)" }}
             >
-              <div className="text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}>
+              <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}>
                 {t("Top movers")}
               </div>
               <div className="flex gap-0.5">
@@ -339,7 +339,7 @@ export function TodaysMarket() {
             <Link
               to="/markets"
               hash="movers"
-              className="flex items-center justify-between px-3 py-2 text-[11px] font-semibold"
+              className="flex items-center justify-between px-3 py-2 text-[12.5px] font-semibold"
               style={{ borderTop: "1px solid var(--line)", color: "var(--brand-600)" }}
             >
               <span>{t("View all movers")}</span>

@@ -141,13 +141,13 @@ export function ForeignInvestorBand() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div
-                    className="text-[14px] font-semibold leading-tight"
+                    className="text-[16px] font-semibold leading-tight"
                     style={{ color: "var(--ink)" }}
                   >
                     {l.title}
                   </div>
                   <p
-                    className="mt-1 text-[12.5px] leading-[1.5] truncate"
+                    className="mt-1 text-[14px] leading-[1.5] truncate"
                     style={{ color: "var(--text-secondary)" }}
                   >
                     {l.desc}
