@@ -754,14 +754,99 @@
   padding-right: 24px !important;
 }
 .home-section .mb-5 { margin-bottom: 0.75rem !important; }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .home-section {
-    padding-top: 16px !important;
-    padding-bottom: 16px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
 }
+
+/* ============================================================
+   MOBILE SNAP RAILS (<768px only) — desktop untouched
+   ============================================================ */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media (max-width: 767px) {
+  /* Quick access tiles → horizontal rail */
+  .qa-rail {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+  .qa-rail::-webkit-scrollbar { display: none; }
+  .qa-rail > .qa-tile {
+    flex: 0 0 128px;
+    scroll-snap-align: start;
+    border-left: 1px solid var(--line) !important;
+    min-height: 64px;
+  }
+  .qa-rail > .qa-tile:first-child { border-left: 1px solid var(--line) !important; }
+
+  /* Index tiles → horizontal rail */
+  .idx-rail {
+    display: flex !important;
+    grid-template-columns: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 0 -16px;
+    padding: 0 16px;
+    border: none !important;
+  }
+  .idx-rail::-webkit-scrollbar { display: none; }
+  .idx-rail > .idx-cell {
+    flex: 0 0 150px;
+    scroll-snap-align: start;
+    background: var(--surface);
+    border: 1px solid var(--line) !important;
+    border-right: 1px solid var(--line) !important;
+    margin-right: 8px;
+    min-height: 92px;
+  }
+  .idx-rail > .idx-cell:last-child { margin-right: 0; }
+
+  /* Newsroom → horizontal card rail */
+  .news-grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+  .news-grid::-webkit-scrollbar { display: none; }
+  .news-grid > .news-card {
+    flex: 0 0 300px !important;
+    scroll-snap-align: start;
+    margin-right: 10px;
+    border: 1px solid var(--line) !important;
+    border-top: 1px solid var(--line) !important;
+    border-left: 1px solid var(--line) !important;
+  }
+  .news-grid > .news-card:last-child { margin-right: 0; }
+
+  /* Hero — compact */
+  .hero-frame { height: 230px !important; }
+  .hero-frame h1 { font-size: 27px !important; line-height: 1.15 !important; }
+  .hero-frame .hero-sub { font-size: 13px !important; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Min 44px tap targets on chrome elements */
+  .tap44 { min-height: 44px; min-width: 44px; }
+}
+
 
 /* ============================================================
    SQUARE EDGES — global override (Standard Chartered feel)
