@@ -140,13 +140,13 @@ export function NewsScroll() {
                   <span className="tnum">{n.date}</span>
                 </div>
                 <h3
-                  className="text-[14.5px] leading-[1.35] font-semibold tracking-tight"
+                  className="text-[16px] leading-[1.3] font-semibold tracking-tight"
                   style={{ color: "var(--ink)" }}
                 >
                   {t(n.title)}
                 </h3>
                 <p
-                  className="mt-1.5 text-[12.5px] leading-[1.5]"
+                  className="mt-1.5 text-[14px] leading-[1.5]"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {t(n.excerpt)}
