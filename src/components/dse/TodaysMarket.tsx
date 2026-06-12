@@ -320,7 +320,17 @@ export function TodaysMarket() {
                 <MoverRow key={r.code} r={r} showVol={tab === "Active"} idx={i} />
               ))}
             </div>
+            <Link
+              to="/markets"
+              hash="movers"
+              className="flex items-center justify-between px-3 py-2 text-[11px] font-semibold"
+              style={{ borderTop: "1px solid var(--line)", color: "var(--brand-600)" }}
+            >
+              <span>{t("View all movers")}</span>
+              <span>→</span>
+            </Link>
           </div>
+
         </div>
       </div>
     </section>
