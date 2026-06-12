@@ -177,8 +177,9 @@ function NewsPage() {
           </div>
           <div>
             <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
-              The newsroom<br />of the exchange.
+              Newsroom
             </h1>
+
             <p className="mt-4 text-[15px] max-w-[560px]" style={{ color: "var(--text-secondary)" }}>
               Every price-sensitive disclosure, dividend declaration, AGM notice and regulatory
               filing from listed companies — as it arrives at the exchange.
