@@ -92,7 +92,7 @@ function StatCell({ label, value, sub }: { label: string; value: string; sub: st
       <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
         {label}
       </div>
-      <div className="mt-1 tnum text-[18px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
         {value}
       </div>
       <div className="mt-1.5 text-[11px]" style={{ color: "var(--text-muted)" }}>{sub}</div>
