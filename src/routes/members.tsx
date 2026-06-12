@@ -299,8 +299,9 @@ function MembersPage() {
             className="text-[44px] md:text-[56px] leading-[1.04] tracking-[-0.02em] font-semibold max-w-3xl"
             style={{ color: "var(--text-primary)" }}
           >
-            Find a trading member you can trust.
+            TREC Holder Directory
           </h1>
+
           <p
             className="mt-4 text-[16px] max-w-2xl"
             style={{ color: "var(--text-secondary)" }}
