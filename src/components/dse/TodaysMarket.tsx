@@ -53,7 +53,7 @@ function IndexCell({ name }: { name: IndexKey }) {
       <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
         {name}
       </div>
-      <div className="mt-1 tnum text-[18px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
         {m.value}
       </div>
       <div
