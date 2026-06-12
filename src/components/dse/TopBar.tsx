@@ -3,14 +3,38 @@ import { useEffect, useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLang } from "@/i18n/LanguageContext";
 
-function computeMarketState() {
-  const h = new Date().getHours();
-  return h >= 10 && h < 14;
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+// Trading days: Sun(0) – Thu(4), 10:00 – 14:30 BST
+function isTradingDay(d: Date) {
+  const dow = d.getDay();
+  return dow >= 0 && dow <= 4;
+}
+function nextOpen(from: Date): Date {
+  const d = new Date(from);
+  d.setHours(10, 0, 0, 0);
+  if (d.getTime() <= from.getTime() || !isTradingDay(d)) {
+    d.setDate(d.getDate() + 1);
+    d.setHours(10, 0, 0, 0);
+  }
+  while (!isTradingDay(d)) {
+    d.setDate(d.getDate() + 1);
+  }
+  return d;
+}
+function fmtDelta(ms: number) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  if (h >= 1) return `${h}h ${String(m).padStart(2, "0")}m`;
+  const s = total % 60;
+  return `${m}m ${String(s).padStart(2, "0")}s`;
 }
 
 export function TopBar() {
   const [time, setTime] = useState("");
   const [isOpen, setIsOpen] = useState(true);
+  const [countdown, setCountdown] = useState("");
+  const [targetLabel, setTargetLabel] = useState("");
   const { lang, toggle, t } = useLang();
 
   useEffect(() => {
@@ -19,15 +43,27 @@ export function TopBar() {
       setTime(
         d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false }) + " BST"
       );
-      setIsOpen(computeMarketState());
+      const mins = d.getHours() * 60 + d.getMinutes();
+      const open = isTradingDay(d) && mins >= 600 && mins < 870;
+      setIsOpen(open);
+      if (open) {
+        const close = new Date(d);
+        close.setHours(14, 30, 0, 0);
+        setCountdown(fmtDelta(close.getTime() - d.getTime()));
+        setTargetLabel("Closes 14:30");
+      } else {
+        const no = nextOpen(d);
+        setCountdown(fmtDelta(no.getTime() - d.getTime()));
+        const sameDay = no.toDateString() === d.toDateString();
+        setTargetLabel(sameDay ? "Opens 10:00" : `Opens ${DAY_NAMES[no.getDay()]} 10:00`);
+      }
     };
     update();
-    const id = setInterval(update, 30_000);
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, []);
 
   const label = isOpen ? t("Market open") : t("Market closed");
-  const sub = isOpen ? t("· closes 14:30") : t("· Opens Jun 8 at 10:00 AM");
 
   return (
     <motion.div
@@ -55,7 +91,9 @@ export function TopBar() {
             />
           </span>
           <span style={{ color: "var(--text-secondary)" }}>{label}</span>
-          <span style={{ color: "var(--ink)" }}>{sub}</span>
+          <span className="tnum text-[11.5px]" style={{ color: "var(--text-muted)" }}>
+            · {targetLabel} · in {countdown}
+          </span>
         </div>
         <span className="hidden sm:inline tnum" style={{ color: "var(--text-muted)" }}>{time}</span>
         <span className="hidden md:inline tnum" style={{ color: "var(--text-muted)" }}>·</span>
