@@ -27,13 +27,13 @@ export function QuickAccessTiles() {
         borderBottom: "1px solid var(--line)",
       }}
     >
-      <div className="max-w-[1180px] mx-auto px-7">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6">
+      <div className="max-w-[1180px] mx-auto md:px-7">
+        <div className="qa-rail grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6">
           {tiles.map((t, i) => (
             <Link
               key={t.label}
               to={t.to}
-              className="qa-tile group flex items-center gap-2.5 px-3.5 py-4 transition"
+              className="qa-tile group flex items-center gap-2.5 px-3.5 py-4 transition tap44"
               style={{
                 borderLeft: i > 0 ? "1px solid var(--line)" : "none",
               }}
@@ -51,14 +51,14 @@ export function QuickAccessTiles() {
                   {t.label}
                 </div>
                 <div
-                  className="text-[12px] mt-0.5 leading-tight"
+                  className="text-[12px] mt-0.5 leading-tight truncate"
                   style={{ color: "var(--text-muted)" }}
                 >
                   {t.desc}
                 </div>
               </div>
               <ChevronRight
-                className="qa-chev w-[14px] h-[14px] shrink-0 opacity-0 transition-opacity"
+                className="qa-chev w-[14px] h-[14px] shrink-0 opacity-0 transition-opacity hidden md:inline-block"
                 strokeWidth={1.8}
                 style={{ color: "var(--brand-600, var(--brand))" }}
               />
