@@ -89,13 +89,13 @@ function IndexCell({ name }: { name: IndexKey }) {
 function StatCell({ label, value, sub }: { label: string; value: string; sub: string }) {
   return (
     <div className="px-4 py-3.5">
-      <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
+      <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}>
         {label}
       </div>
-      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>
         {value}
       </div>
-      <div className="mt-1.5 text-[11px]" style={{ color: "var(--text-muted)" }}>{sub}</div>
+      <div className="mt-1.5 text-[12px]" style={{ color: "var(--text-muted)" }}>{sub}</div>
     </div>
   );
 }
