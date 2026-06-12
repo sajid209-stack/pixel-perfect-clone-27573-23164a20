@@ -51,10 +51,11 @@ export function NewsScroll() {
           style={{ borderColor: "var(--line)" }}
         >
           <div
-            className="text-[11.5px] font-semibold uppercase"
+            className="text-[11.5px] font-semibold uppercase flex items-center gap-2"
             style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}
           >
-            {t("Newsroom")}
+            <span>{t("Newsroom")}</span>
+            <span className="md:hidden font-normal normal-case tracking-normal text-[11px]" style={{ color: "var(--text-muted)" }}>swipe →</span>
           </div>
           <Link
             to="/news"

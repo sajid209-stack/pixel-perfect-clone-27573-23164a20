@@ -62,7 +62,7 @@ export function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative w-full" style={{ height: 380 }}>
+      <div className="hero-frame relative w-full" style={{ height: 380 }}>
         {slides.map((s, i) => (
           <div
             key={i}
@@ -97,7 +97,7 @@ export function Hero() {
                   {s.headline}
                 </h1>
                 <p
-                  className="mt-3 text-[14.5px] leading-[1.55]"
+                  className="hero-sub mt-3 text-[14.5px] leading-[1.55]"
                   style={{ color: "rgba(255,255,255,0.9)" }}
                 >
                   {s.subtext}

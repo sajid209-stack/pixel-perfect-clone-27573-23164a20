@@ -243,10 +243,11 @@ export function TodaysMarket() {
           style={{ borderColor: "var(--line)" }}
         >
           <div
-            className="text-[11.5px] font-semibold uppercase"
+            className="text-[11.5px] font-semibold uppercase flex items-center gap-2"
             style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}
           >
-            {t("Today's market")}
+            <span>{t("Today's market")}</span>
+            <span className="md:hidden font-normal normal-case tracking-normal text-[11px]" style={{ color: "var(--text-muted)" }}>swipe →</span>
           </div>
           <Link
             to="/markets"
@@ -261,16 +262,16 @@ export function TodaysMarket() {
         {/* Snapshot row + compact DSEX trend chart */}
         <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4 items-center">
           <div
-            className="grid grid-cols-2 md:grid-cols-5"
+            className="idx-rail grid grid-cols-2 md:grid-cols-5"
             style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
           >
-            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
-            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
-            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
-            <div style={{ borderRight: "1px solid var(--line)" }}>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}>
               <StatCell label="Turnover" value="৳1,124 Cr" sub="312.4M shares" />
             </div>
-            <StatCell label="Breadth" value="188 / 142" sub="adv / dec" />
+            <div className="idx-cell"><StatCell label="Breadth" value="188 / 142" sub="adv / dec" /></div>
           </div>
           <DsexTrendCard />
         </div>
@@ -329,7 +330,7 @@ export function TodaysMarket() {
             </div>
             <div>
               {(() => {
-                const rows = moverTabs[tab].slice(0, 6);
+                const rows = moverTabs[tab].slice(0, 5);
                 const maxAbs = Math.max(...rows.map((r) => Math.abs(r.change)));
                 return rows.map((r, i) => (
                   <MoverRow key={r.code} r={r} showVol={tab === "Active"} idx={i} maxAbs={maxAbs} />
