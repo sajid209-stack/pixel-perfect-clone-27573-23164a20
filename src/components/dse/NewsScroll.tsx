@@ -51,14 +51,14 @@ export function NewsScroll() {
           style={{ borderColor: "var(--line)" }}
         >
           <div
-            className="text-[11px] font-semibold uppercase"
-            style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}
+            className="text-[11.5px] font-semibold uppercase"
+            style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}
           >
             {t("Newsroom")}
           </div>
           <Link
             to="/news"
-            className="text-[11px] font-semibold inline-flex items-center gap-1"
+            className="text-[12.5px] font-semibold inline-flex items-center gap-1"
             style={{ color: "var(--brand-600)" }}
           >
             {t("All news")}
