@@ -303,7 +303,7 @@ export function TodaysMarket() {
               className="flex items-center justify-between px-3 py-2"
               style={{ borderBottom: "1px solid var(--line)" }}
             >
-              <div className="text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-secondary)" }}>
+              <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-secondary)" }}>
                 {t("Top movers")}
               </div>
               <div className="flex gap-0.5">
