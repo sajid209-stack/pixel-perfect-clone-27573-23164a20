@@ -328,9 +328,13 @@ export function TodaysMarket() {
               </div>
             </div>
             <div>
-              {moverTabs[tab].slice(0, 6).map((r, i) => (
-                <MoverRow key={r.code} r={r} showVol={tab === "Active"} idx={i} />
-              ))}
+              {(() => {
+                const rows = moverTabs[tab].slice(0, 6);
+                const maxAbs = Math.max(...rows.map((r) => Math.abs(r.change)));
+                return rows.map((r, i) => (
+                  <MoverRow key={r.code} r={r} showVol={tab === "Active"} idx={i} maxAbs={maxAbs} />
+                ));
+              })()}
             </div>
             <Link
               to="/markets"
