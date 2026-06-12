@@ -247,7 +247,7 @@ export function TodaysMarket() {
 
 
         {/* Snapshot row + compact DSEX trend chart */}
-        <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4">
+        <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4 items-center">
           <div
             className="grid grid-cols-2 md:grid-cols-5"
             style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
