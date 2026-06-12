@@ -50,14 +50,14 @@ function IndexCell({ name }: { name: IndexKey }) {
       onMouseLeave={() => setOpen(false)}
       onClick={() => setOpen((o) => !o)}
     >
-      <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
+      <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}>
         {name}
       </div>
-      <div className="mt-1 tnum text-[20px] font-semibold leading-none" style={{ color: "var(--ink)" }}>
+      <div className="mt-1 tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>
         {m.value}
       </div>
       <div
-        className="mt-1.5 tnum text-[12px] font-semibold"
+        className="mt-1.5 tnum text-[12.5px] font-semibold"
         style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}
       >
         {up ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
