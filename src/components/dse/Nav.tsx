@@ -17,6 +17,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import dseSealAsset from "@/assets/dse-seal.png.asset.json";
 import dseSealCoinAsset from "@/assets/dse-seal-coin.png.asset.json";
 import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
+import aboutDseMegaAsset from "@/assets/about-dse-mega.jpg.asset.json";
 const dseLogo = dseSealAsset.url;
 const dseLogoDark = dseSealCoinAsset.url;
 import { ThemeToggle } from "./ThemeToggle";
@@ -239,7 +240,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about" },
+    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about", image: aboutDseMegaAsset.url },
   },
 };
 
@@ -315,23 +316,23 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
       >
         <div
           style={{
-            height: 96,
-            backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.55), rgba(24,95,165,0.15)), url("${image}")`,
+            height: 180,
+            backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.35), rgba(24,95,165,0.05)), url("${image}")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
-        <div className="p-3">
+        <div className="px-3 py-2">
           <div
-            className="text-[10px] font-semibold uppercase mb-1"
+            className="text-[10px] font-semibold uppercase mb-0.5"
             style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
           >
             {content.promo.tag}
           </div>
-          <div className="text-[13.5px] font-semibold" style={{ color: "var(--ink)" }}>
+          <div className="text-[13px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
             {content.promo.title}
           </div>
-          <p className="mt-1 text-[11.5px] leading-[1.5]" style={{ color: "var(--text-secondary)" }}>
+          <p className="mt-0.5 text-[11px] leading-[1.4]" style={{ color: "var(--text-secondary)" }}>
             {content.promo.desc}
           </p>
         </div>
