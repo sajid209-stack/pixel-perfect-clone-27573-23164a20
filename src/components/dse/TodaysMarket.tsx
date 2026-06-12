@@ -120,8 +120,8 @@ function HeatmapTile({ s }: { s: typeof sectors[number] }) {
       style={{ background: bg, borderRadius: 0 }}
     >
       <div className="absolute inset-0 p-1.5 flex flex-col justify-between text-white">
-        <div className="text-[10px] leading-tight font-medium truncate">{s.name}</div>
-        <div className="text-[11px] font-bold tnum">{up ? "+" : ""}{s.change.toFixed(1)}%</div>
+        <div className="text-[12px] leading-tight font-medium truncate">{s.name}</div>
+        <div className="text-[12px] font-bold tnum">{up ? "+" : ""}{s.change.toFixed(1)}%</div>
       </div>
       {open && (
         <div
