@@ -261,16 +261,16 @@ export function TodaysMarket() {
         {/* Snapshot row + compact DSEX trend chart */}
         <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4 items-center">
           <div
-            className="grid grid-cols-2 md:grid-cols-5"
+            className="idx-rail grid grid-cols-2 md:grid-cols-5"
             style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
           >
-            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
-            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
-            <div style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
-            <div style={{ borderRight: "1px solid var(--line)" }}>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}>
               <StatCell label="Turnover" value="৳1,124 Cr" sub="312.4M shares" />
             </div>
-            <StatCell label="Breadth" value="188 / 142" sub="adv / dec" />
+            <div className="idx-cell"><StatCell label="Breadth" value="188 / 142" sub="adv / dec" /></div>
           </div>
           <DsexTrendCard />
         </div>
