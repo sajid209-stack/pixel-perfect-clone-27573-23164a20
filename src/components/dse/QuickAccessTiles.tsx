@@ -45,13 +45,13 @@ export function QuickAccessTiles() {
               />
               <div className="min-w-0 flex-1">
                 <div
-                  className="qa-title text-[13.5px] font-semibold leading-tight"
+                  className="qa-title text-[16px] font-semibold leading-tight"
                   style={{ color: "var(--ink)" }}
                 >
                   {t.label}
                 </div>
                 <div
-                  className="text-[11.5px] mt-0.5 leading-tight"
+                  className="text-[12px] mt-0.5 leading-tight"
                   style={{ color: "var(--text-muted)" }}
                 >
                   {t.desc}
