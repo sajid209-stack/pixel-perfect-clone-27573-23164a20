@@ -339,7 +339,7 @@ export function TodaysMarket() {
             <Link
               to="/markets"
               hash="movers"
-              className="flex items-center justify-between px-3 py-2 text-[11px] font-semibold"
+              className="flex items-center justify-between px-3 py-2 text-[12.5px] font-semibold"
               style={{ borderTop: "1px solid var(--line)", color: "var(--brand-600)" }}
             >
               <span>{t("View all movers")}</span>
