@@ -68,14 +68,13 @@ export function NewsScroll() {
 
         <div className="flex flex-wrap gap-1.5 mb-3">
           {[
-            { label: "All", search: undefined },
-            { label: "Price sensitive", search: { filter: "price-sensitive" } },
-            { label: "Notices", search: { filter: "notices" } },
+            { label: "All", href: "/news" },
+            { label: "Price sensitive", href: "/news?filter=price-sensitive" },
+            { label: "Notices", href: "/news?filter=notices" },
           ].map((c) => (
-            <Link
+            <a
               key={c.label}
-              to="/news"
-              search={c.search as never}
+              href={c.href}
               className="px-2.5 h-7 inline-flex items-center text-[11.5px] font-semibold"
               style={{
                 border: "1px solid var(--line)",
@@ -85,9 +84,10 @@ export function NewsScroll() {
               }}
             >
               {t(c.label)}
-            </Link>
+            </a>
           ))}
         </div>
+
 
 
         <div className="news-grid">
