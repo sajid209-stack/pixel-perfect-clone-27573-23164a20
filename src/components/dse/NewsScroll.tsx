@@ -66,6 +66,30 @@ export function NewsScroll() {
           </Link>
         </div>
 
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {[
+            { label: "All", search: undefined },
+            { label: "Price sensitive", search: { filter: "price-sensitive" } },
+            { label: "Notices", search: { filter: "notices" } },
+          ].map((c) => (
+            <Link
+              key={c.label}
+              to="/news"
+              search={c.search as never}
+              className="px-2.5 h-7 inline-flex items-center text-[11.5px] font-semibold"
+              style={{
+                border: "1px solid var(--line)",
+                background: "var(--surface)",
+                color: "var(--text-secondary)",
+                borderRadius: 2,
+              }}
+            >
+              {t(c.label)}
+            </Link>
+          ))}
+        </div>
+
+
         <div className="news-grid">
           {news.map((n, i) => (
             <article
