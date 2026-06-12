@@ -117,6 +117,25 @@ export function Footer() {
       </div>
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div
+          className="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-[12px]"
+          style={{ color: "rgba(255,255,255,0.75)" }}
+        >
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <Link to="/markets" hash="circuit" className="hover:opacity-100 opacity-85">{t("Circuit breakers")}</Link>
+            <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+            <Link to="/markets" hash="margin" className="hover:opacity-100 opacity-85">{t("Margin securities")}</Link>
+            <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+            <Link to="/markets" hash="pe" className="hover:opacity-100 opacity-85">{t("P/E at a glance")}</Link>
+            <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+            <Link to="/markets" hash="sessions" className="hover:opacity-100 opacity-85">{t("Holiday calendar")}</Link>
+          </div>
+          <div className="text-[11.5px] uppercase tracking-[0.14em]" style={{ color: "rgba(255,255,255,0.6)" }}>
+            {t("Regulated by BSEC")}
+          </div>
+        </div>
+      </div>
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+        <div
           className="max-w-7xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-xs"
           style={{ color: "rgba(255,255,255,0.6)" }}
         >
@@ -127,6 +146,7 @@ export function Footer() {
             <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Accessibility")}</a>
           </div>
         </div>
+
       </div>
     </footer>
   );
