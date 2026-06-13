@@ -40,7 +40,7 @@ const links: NavItem[] = [
   { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
   { label: "News", to: "/news", mega: "news", activePaths: ["/news"] },
   { label: "Learn", to: "/learn", mega: "learn", activePaths: ["/learn"] },
-  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/complaints", "/members", "/foreign-investors"] },
+  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/complaints", "/members", "/foreign-investors", "/regulations"] },
   
 ];
 
