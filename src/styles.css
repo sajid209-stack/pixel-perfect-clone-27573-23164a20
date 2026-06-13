@@ -623,9 +623,9 @@
   .compact-market-grid .cell-c { order: 4 !important; }
   .compact-market-grid .cell-e { order: 5 !important; }
 
-  /* Heatmap horizontal scroll */
-  [class*="heatmap-grid"],
-  [class*="sectors-grid"] {
+  /* Heatmap horizontal scroll (compact grid only) */
+  .compact-market-grid [class*="heatmap-grid"],
+  .compact-market-grid [class*="sectors-grid"] {
     display: flex !important;
     flex-direction: row !important;
     overflow-x: auto !important;
@@ -637,9 +637,9 @@
     grid-template-columns: unset !important;
     grid-auto-rows: auto !important;
   }
-  [class*="heatmap-grid"]::-webkit-scrollbar { display: none !important; }
-  [class*="heatmap-cell"],
-  [class*="sector-cell"] {
+  .compact-market-grid [class*="heatmap-grid"]::-webkit-scrollbar { display: none !important; }
+  .compact-market-grid [class*="heatmap-cell"],
+  .compact-market-grid [class*="sector-cell"] {
     flex-shrink: 0 !important;
     min-width: 84px !important;
     width: 84px !important;
