@@ -59,7 +59,7 @@ const megaContent: Record<string, MegaContent> = {
     intro: {
       title: "Markets",
       desc: "Live equities, instruments, sector heatmap and trading reports.",
-      cta: { label: "Explore all markets", to: "/" },
+      cta: { label: "Products & Services", to: "/products" },
     },
     columns: [
       {
