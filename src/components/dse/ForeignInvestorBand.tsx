@@ -147,7 +147,7 @@ export function ForeignInvestorBand() {
                     {l.title}
                   </div>
                   <p
-                    className="mt-1 text-[14px] leading-[1.5] truncate"
+                    className="mt-1 text-[14px] leading-[1.5]"
                     style={{ color: "var(--text-secondary)" }}
                   >
                     {l.desc}
