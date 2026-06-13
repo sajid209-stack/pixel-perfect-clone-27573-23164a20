@@ -27,6 +27,7 @@ const aboutLinks: FooterLink[] = [
 const servicesLinks: FooterLink[] = [
   { label: "Broker directory", to: "/members" },
   { label: "Listing requirements", to: "/listing" },
+  { label: "Regulations & Rulebook", to: "/regulations" },
   { label: "BICM", to: "/about", hash: "bicm" },
   { label: "Investor education", to: "/learn" },
   { label: "Complaints portal", to: "/complaints" },

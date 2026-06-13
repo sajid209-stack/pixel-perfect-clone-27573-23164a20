@@ -40,7 +40,7 @@ const links: NavItem[] = [
   { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
   { label: "News", to: "/news", mega: "news", activePaths: ["/news"] },
   { label: "Learn", to: "/learn", mega: "learn", activePaths: ["/learn"] },
-  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/complaints", "/members", "/foreign-investors"] },
+  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/complaints", "/members", "/foreign-investors", "/regulations"] },
   
 ];
 
@@ -234,7 +234,7 @@ const megaContent: Record<string, MegaContent> = {
         header: "Governance",
         links: [
           { label: "Heritage", to: "/about" },
-          { label: "Regulations", to: "/listing" },
+          { label: "Regulations & Rulebook", to: "/regulations" },
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
         ],
@@ -716,7 +716,7 @@ function AboutPanel({ close }: { close: () => void }) {
   ];
   const col2: Item[] = [
     { title: "List on DSE", desc: "Main board, SME, bonds", to: "/listing" },
-    { title: "Listing regulations", desc: "Full rulebook PDF downloads", to: "/listing", hash: "documents" },
+    { title: "Regulations & Rulebook", desc: "Rules, circulars & PDFs", to: "/regulations" },
     { title: "Broker directory", desc: "TREC licensed members", to: "/members" },
   ];
   const col3: Item[] = [
@@ -1246,6 +1246,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
   ],
   "About DSE": [
     { label: "About us", to: "/about" },
+    { label: "Regulations & Rulebook", to: "/regulations" },
     { label: "Broker directory", to: "/members" },
     { label: "List on DSE", to: "/listing" },
   ],
