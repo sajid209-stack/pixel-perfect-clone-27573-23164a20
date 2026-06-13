@@ -7,7 +7,8 @@ import { DsexTrendCard } from "./DsexTrendCard";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 
-type IndexKey = "DSEX" | "DS30" | "DSES";
+type IndexKey = "DSEX" | "DS30" | "DSES" | "CDSET";
+
 
 const indexMeta: Record<IndexKey, {
   value: string;
