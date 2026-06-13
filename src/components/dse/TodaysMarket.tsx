@@ -4,6 +4,8 @@ import { sectors, topGainers, topLosers, mostActive } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
 import { Sparkline, makeSeries } from "./Sparkline";
 import { DsexTrendCard } from "./DsexTrendCard";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+
 
 type IndexKey = "DSEX" | "DS30" | "DSES";
 
