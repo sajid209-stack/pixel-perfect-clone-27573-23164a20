@@ -73,9 +73,9 @@ function GlobeGraphic() {
 export function ForeignInvestorBand() {
   return (
     <section className="home-section">
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6">
         <div
-          className="grid md:grid-cols-[42%_58%] overflow-hidden"
+          className="grid grid-cols-1 md:grid-cols-[42%_58%] overflow-hidden"
           style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
         >
           {/* Left: branded image panel */}
@@ -147,7 +147,7 @@ export function ForeignInvestorBand() {
                     {l.title}
                   </div>
                   <p
-                    className="mt-1 text-[14px] leading-[1.5] truncate"
+                    className="mt-1 text-[14px] leading-[1.5]"
                     style={{ color: "var(--text-secondary)" }}
                   >
                     {l.desc}
