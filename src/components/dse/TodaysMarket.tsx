@@ -246,67 +246,6 @@ function IndexSwitcher() {
           })}
         </div>
 
-        {/* Stats strip: Turnover · Volume · Trades · Breadth */}
-        <div
-          className="grid grid-cols-2 md:[grid-template-columns:auto_auto_auto_1fr]"
-          style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
-        >
-          <div className="py-2 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", minWidth: 140 }}>
-            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Turnover</div>
-            <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
-          </div>
-          <div className="py-2 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", minWidth: 96 }}>
-            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
-            <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>312.4M</div>
-          </div>
-          <div className="py-2" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", minWidth: 96 }}>
-            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Trades</div>
-            <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>87,412</div>
-          </div>
-          <HoverCard openDelay={80} closeDelay={60}>
-            <HoverCardTrigger asChild>
-              <button type="button" className="py-2 text-left focus:outline-none" style={{ paddingLeft: 16, paddingRight: 16, minWidth: 160 }}>
-                <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
-                <div className="mt-1 flex h-[5px] w-full overflow-hidden" style={{ borderRadius: 1, background: "var(--surface-2)" }}>
-                  <div style={{ width: `${advPct}%`, background: upColor }} />
-                  <div style={{ width: `${decPct}%`, background: downColor }} />
-                  <div style={{ width: `${unchPct}%`, background: "var(--text-muted)", opacity: 0.45 }} />
-                </div>
-                <div className="tnum text-[11.5px] font-semibold mt-1 whitespace-nowrap" style={{ color: "var(--ink)" }}>
-                  <span style={{ color: upColor }}>{breadth.adv}</span>
-                  <span style={{ color: "var(--text-muted)" }}> / </span>
-                  <span style={{ color: downColor }}>{breadth.dec}</span>
-                </div>
-              </button>
-            </HoverCardTrigger>
-            <HoverCardContent
-              side="top"
-              align="end"
-              sideOffset={6}
-              collisionPadding={12}
-              avoidCollisions
-              className="z-50 p-0 w-auto rounded-none shadow-md"
-              style={{
-                width: 200,
-                padding: "12px 14px",
-                background: "var(--surface)",
-                color: "var(--ink)",
-                border: "1px solid var(--line)",
-                borderRadius: 2,
-              }}
-            >
-              <div className="text-[11px] font-semibold uppercase mb-2" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
-              <div className="grid items-center text-[12px]" style={{ gridTemplateColumns: "auto 1fr", columnGap: 16, rowGap: 4 }}>
-                <span style={{ color: "var(--text-muted)" }}>Advanced</span>
-                <span className="text-right tnum font-semibold" style={{ color: upColor }}>{breadth.adv}</span>
-                <span style={{ color: "var(--text-muted)" }}>Declined</span>
-                <span className="text-right tnum font-semibold" style={{ color: downColor }}>{breadth.dec}</span>
-                <span style={{ color: "var(--text-muted)" }}>Unchanged</span>
-                <span className="text-right tnum font-semibold" style={{ color: "var(--ink)" }}>{breadth.unch}</span>
-              </div>
-            </HoverCardContent>
-          </HoverCard>
-        </div>
       </div>
 
       {/* Right: chart card */}
