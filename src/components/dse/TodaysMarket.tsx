@@ -109,44 +109,69 @@ function spanCls(size: "lg" | "md" | "sm") {
 }
 
 function HeatmapTile({ s }: { s: typeof sectors[number] }) {
-  const [open, setOpen] = useState(false);
   const up = s.change >= 0;
   const alpha = 0.55 + Math.min(1, Math.abs(s.change) / 2) * 0.35;
   const bg = up ? `rgba(29,122,63,${alpha})` : `rgba(192,57,43,${alpha})`;
   return (
-    <div
-      className={`relative ${spanCls(s.size)}`}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onClick={() => setOpen((o) => !o)}
-      style={{ background: bg, borderRadius: 0 }}
-    >
-      <div className="absolute inset-0 p-1.5 flex flex-col justify-between text-white">
-        <div className="text-[12px] leading-tight font-medium truncate">{s.name}</div>
-        <div className="text-[12px] font-bold tnum">{up ? "+" : ""}{s.change.toFixed(1)}%</div>
-      </div>
-      {open && (
+    <HoverCard openDelay={80} closeDelay={60}>
+      <HoverCardTrigger asChild>
         <div
-          className="absolute z-30 left-1/2 -translate-x-1/2 -top-2 -translate-y-full p-2.5 text-[11px] whitespace-nowrap"
-          style={{
-            background: "var(--surface)",
-            color: "var(--ink)",
-            border: "1px solid var(--line)",
-            borderRadius: 2,
-            boxShadow: "0 4px 12px rgba(0,0,0,0.18)",
-          }}
+          className={`relative ${spanCls(s.size)} cursor-default`}
+          style={{ background: bg, borderRadius: 0 }}
         >
-          <div className="font-semibold mb-1">{s.name}</div>
-          <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 tnum">
-            <span style={{ color: "var(--text-muted)" }}>Change</span><span className="text-right">{up ? "+" : ""}{s.change.toFixed(2)}%</span>
-            <span style={{ color: "var(--text-muted)" }}>Turnover</span><span className="text-right">{s.turnover}</span>
-            <span style={{ color: "var(--text-muted)" }}>Direction</span><span className="text-right">{up ? "Advancing" : "Declining"}</span>
+          <div className="absolute inset-0 p-1.5 flex flex-col justify-between text-white">
+            <div className="text-[12px] leading-tight font-medium truncate">{s.name}</div>
+            <div className="text-[12px] font-bold tnum">{up ? "+" : ""}{s.change.toFixed(1)}%</div>
           </div>
         </div>
-      )}
-    </div>
+      </HoverCardTrigger>
+      <HoverCardContent
+        side="top"
+        align="center"
+        sideOffset={6}
+        collisionPadding={12}
+        avoidCollisions
+        className="z-50 p-0 w-auto rounded-none shadow-md"
+        style={{
+          width: 210,
+          padding: "12px 14px",
+          background: "var(--surface)",
+          color: "var(--ink)",
+          border: "1px solid var(--line)",
+          borderRadius: 2,
+        }}
+      >
+        <div className="text-[14px] font-semibold mb-2" style={{ color: "var(--ink)" }}>
+          {s.name}
+        </div>
+        <div
+          className="grid items-center text-[12px]"
+          style={{ gridTemplateColumns: "auto 1fr", columnGap: 16, rowGap: 4 }}
+        >
+          <span style={{ color: "var(--text-muted)" }}>Change</span>
+          <span
+            className="text-right tnum font-semibold"
+            style={{ fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)", color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}
+          >
+            {up ? "+" : ""}{s.change.toFixed(2)}%
+          </span>
+          <span style={{ color: "var(--text-muted)" }}>Turnover</span>
+          <span
+            className="text-right tnum"
+            style={{ fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)", color: "var(--ink)" }}
+          >
+            {s.turnover}
+          </span>
+          <span style={{ color: "var(--text-muted)" }}>Direction</span>
+          <span className="text-right" style={{ color: "var(--ink)" }}>
+            {up ? "Advancing" : "Declining"}
+          </span>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
   );
 }
+
 
 const moverTabs = { Gainers: topGainers, Losers: topLosers, Active: mostActive } as const;
 type MoverTab = keyof typeof moverTabs;
