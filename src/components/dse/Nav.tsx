@@ -716,7 +716,7 @@ function AboutPanel({ close }: { close: () => void }) {
   ];
   const col2: Item[] = [
     { title: "List on DSE", desc: "Main board, SME, bonds", to: "/listing" },
-    { title: "Listing regulations", desc: "Full rulebook PDF downloads", to: "/listing", hash: "documents" },
+    { title: "Regulations & Rulebook", desc: "Rules, circulars & PDFs", to: "/regulations" },
     { title: "Broker directory", desc: "TREC licensed members", to: "/members" },
   ];
   const col3: Item[] = [
