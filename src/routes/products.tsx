@@ -32,7 +32,7 @@ export const Route = createFileRoute("/products")({
 
 type Product = {
   id: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   name: string;
   desc: string;
   to?: string;
