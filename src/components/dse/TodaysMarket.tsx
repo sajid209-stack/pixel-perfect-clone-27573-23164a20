@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { sectors, topGainers, topLosers, mostActive } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
@@ -24,6 +24,126 @@ const indexMeta: Record<IndexKey, {
 const ranges = ["1D", "1W", "1M"] as const;
 type Range = typeof ranges[number];
 
+const parseNum = (s: string) => parseFloat(s.replace(/,/g, "")) || 0;
+const fmtAbs = (n: number) => n.toFixed(2);
+
+const breadth = { adv: 157, dec: 189, unch: 45 };
+
+type ChartPoint = { x: number; y: number; t: string };
+
+function InteractiveChart({
+  points,
+  up,
+  baseValue,
+  height = 140,
+}: {
+  points: number[];
+  up: boolean;
+  baseValue: number;
+  height?: number;
+}) {
+  const width = 600;
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+
+  const { coords, minY, maxY, range } = useMemo(() => {
+    const min = Math.min(...points);
+    const max = Math.max(...points);
+    const r = max - min || 1;
+    const stepX = width / (points.length - 1);
+    const cs: ChartPoint[] = points.map((p, i) => {
+      const minutes = Math.round((i / (points.length - 1)) * 300); // 09:30 → 14:30
+      const hh = String(9 + Math.floor((30 + minutes) / 60)).padStart(2, "0");
+      const mm = String((30 + minutes) % 60).padStart(2, "0");
+      return {
+        x: i * stepX,
+        y: height - ((p - min) / r) * (height - 8) - 4,
+        t: `${hh}:${mm}`,
+      };
+    });
+    return { coords: cs, minY: min, maxY: max, range: r };
+  }, [points, height]);
+
+  void minY; void maxY; void range;
+
+  const linePath = coords.map((c, i) => `${i === 0 ? "M" : "L"}${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(" ");
+  const areaPath = `${linePath} L${width},${height} L0,${height} Z`;
+  const color = up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)";
+  const fillId = "chart-fill";
+
+  const handleMove = (clientX: number) => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const idx = Math.round(ratio * (points.length - 1));
+    setHoverIdx(idx);
+  };
+
+  const active = hoverIdx != null ? coords[hoverIdx] : null;
+  const activeVal = hoverIdx != null ? points[hoverIdx] : null;
+  const open = points[0];
+  const deltaFromOpen = activeVal != null ? ((activeVal - open) / open) * 100 : 0;
+  const indexValAtCursor = activeVal != null ? baseValue * (activeVal / open) : null;
+
+  // tooltip position with clamp
+  const tipW = 110;
+  const tipX = active ? Math.max(4, Math.min(width - tipW - 4, active.x - tipW / 2)) : 0;
+  const tipPctLeft = active ? (tipX / width) * 100 : 0;
+
+  return (
+    <div
+      ref={wrapRef}
+      className="relative w-full select-none"
+      style={{ height }}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onMouseLeave={() => setHoverIdx(null)}
+      onTouchStart={(e) => handleMove(e.touches[0].clientX)}
+      onTouchMove={(e) => { e.preventDefault(); handleMove(e.touches[0].clientX); }}
+      onTouchEnd={() => setHoverIdx(null)}
+    >
+      <svg viewBox={`0 0 ${width} ${height}`} width="100%" height={height} preserveAspectRatio="none">
+        <defs>
+          <linearGradient id={fillId} x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity={0.3} />
+            <stop offset="100%" stopColor={color} stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <path d={areaPath} fill={`url(#${fillId})`} />
+        <path d={linePath} fill="none" stroke={color} strokeWidth={1.4} />
+        {active && (
+          <>
+            <line x1={active.x} x2={active.x} y1={0} y2={height} stroke="var(--text-muted)" strokeWidth={0.75} strokeDasharray="2 2" />
+            <circle cx={active.x} cy={active.y} r={3} fill="var(--surface)" stroke={color} strokeWidth={1.5} />
+          </>
+        )}
+      </svg>
+      {active && indexValAtCursor != null && (
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            left: `${tipPctLeft}%`,
+            top: 4,
+            width: tipW,
+            background: "var(--surface)",
+            border: "1px solid var(--line)",
+            borderRadius: 2,
+            padding: "4px 6px",
+          }}
+        >
+          <div className="text-[10px]" style={{ color: "var(--text-muted)" }}>{active.t}</div>
+          <div className="tnum text-[12px] font-semibold" style={{ color: "var(--ink)" }}>
+            {indexValAtCursor.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+          <div className="tnum text-[10px] font-semibold" style={{ color: deltaFromOpen >= 0 ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}>
+            {deltaFromOpen >= 0 ? "+" : ""}{deltaFromOpen.toFixed(2)}%
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function IndexSwitcher() {
   const [selected, setSelected] = useState<IndexKey>("DSEX");
   const [range, setRange] = useState<Range>("1D");
@@ -36,12 +156,19 @@ function IndexSwitcher() {
   const up = trendChg >= 0;
   const upColor = "var(--up, #1d7a3f)";
   const downColor = "var(--down, #c0392b)";
+  const selBase = parseNum(sel.value);
+  const selAbs = (selBase * trendChg) / 100;
+
+  const breadthTotal = breadth.adv + breadth.dec + breadth.unch;
+  const advPct = (breadth.adv / breadthTotal) * 100;
+  const decPct = (breadth.dec / breadthTotal) * 100;
+  const unchPct = 100 - advPct - decPct;
 
   return (
     <div className="grid md:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-4 mb-4">
       {/* Left column: switcher + stats */}
       <div className="flex flex-col gap-3 min-w-0">
-        {/* Desktop list / Mobile rail */}
+        {/* Desktop list */}
         <div
           className="hidden md:block"
           style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
@@ -50,6 +177,8 @@ function IndexSwitcher() {
             const m = indexMeta[k];
             const rowUp = m.change >= 0;
             const active = k === selected;
+            const rowBase = parseNum(m.value);
+            const rowAbs = (rowBase * m.change) / 100;
             return (
               <button
                 key={k}
@@ -71,8 +200,8 @@ function IndexSwitcher() {
                 </div>
                 <div className="text-right">
                   <div className="tnum text-[14.5px] font-semibold" style={{ color: "var(--ink)" }}>{m.value}</div>
-                  <div className="tnum text-[11.5px] font-semibold" style={{ color: rowUp ? upColor : downColor }}>
-                    {rowUp ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
+                  <div className="tnum text-[11.5px] font-semibold whitespace-nowrap" style={{ color: rowUp ? upColor : downColor }}>
+                    {rowUp ? "▲" : "▼"} <span style={{ opacity: 0.78 }}>{fmtAbs(Math.abs(rowAbs))}</span> · {rowUp ? "+" : "−"}{Math.abs(m.change).toFixed(2)}%
                   </div>
                 </div>
               </button>
@@ -89,13 +218,14 @@ function IndexSwitcher() {
             const m = indexMeta[k];
             const rowUp = m.change >= 0;
             const active = k === selected;
+            const rowAbs = (parseNum(m.value) * m.change) / 100;
             return (
               <button
                 key={k}
                 onClick={() => setSelected(k)}
                 className="shrink-0 text-left px-3 py-2"
                 style={{
-                  width: 160,
+                  width: 168,
                   scrollSnapAlign: "start",
                   background: "var(--surface)",
                   border: "1px solid " + (active ? "var(--brand-600)" : "var(--line)"),
@@ -105,8 +235,8 @@ function IndexSwitcher() {
               >
                 <div className="flex items-baseline justify-between">
                   <span className="text-[13px] font-semibold" style={{ color: "var(--ink)" }}>{k}</span>
-                  <span className="tnum text-[11px] font-semibold" style={{ color: rowUp ? upColor : downColor }}>
-                    {rowUp ? "▲" : "▼"}{Math.abs(m.change).toFixed(2)}%
+                  <span className="tnum text-[11px] font-semibold whitespace-nowrap" style={{ color: rowUp ? upColor : downColor }}>
+                    {rowUp ? "▲" : "▼"}{fmtAbs(Math.abs(rowAbs))} · {rowUp ? "+" : "−"}{Math.abs(m.change).toFixed(2)}%
                   </span>
                 </div>
                 <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>{m.value}</div>
@@ -116,22 +246,33 @@ function IndexSwitcher() {
           })}
         </div>
 
-        {/* Stats strip */}
+        {/* Stats strip: Turnover · Volume · Trades · Breadth */}
         <div
-          className="grid grid-cols-3"
+          className="grid grid-cols-2 md:grid-cols-4"
           style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
         >
-          <div className="px-3 py-2" style={{ borderRight: "1px solid var(--line)" }}>
+          <div className="px-3 py-2" style={{ borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
             <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Turnover</div>
-            <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
+            <div className="tnum text-[15px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
+          </div>
+          <div className="px-3 py-2" style={{ borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
+            <div className="tnum text-[15px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>312.4M</div>
           </div>
           <div className="px-3 py-2" style={{ borderRight: "1px solid var(--line)" }}>
-            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
-            <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>312.4M</div>
+            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Trades</div>
+            <div className="tnum text-[15px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>87,412</div>
           </div>
           <div className="px-3 py-2">
             <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
-            <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>188 / 142</div>
+            <div className="mt-1 flex h-[5px] w-full overflow-hidden" style={{ borderRadius: 1, background: "var(--surface-2)" }}>
+              <div style={{ width: `${advPct}%`, background: upColor }} />
+              <div style={{ width: `${decPct}%`, background: downColor }} />
+              <div style={{ width: `${unchPct}%`, background: "var(--text-muted)", opacity: 0.45 }} />
+            </div>
+            <div className="tnum text-[10.5px] font-semibold mt-1 whitespace-nowrap" style={{ color: "var(--text-muted)" }}>
+              <span style={{ color: upColor }}>{breadth.adv}</span> adv · <span style={{ color: downColor }}>{breadth.dec}</span> dec · {breadth.unch} unch
+            </div>
           </div>
         </div>
       </div>
@@ -149,10 +290,11 @@ function IndexSwitcher() {
             <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
               {selected} · {sel.descriptor}
             </div>
-            <div className="mt-0.5 flex items-baseline gap-2">
+            <div className="mt-0.5 flex items-baseline gap-2 flex-wrap">
               <span className="tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>{sel.value}</span>
-              <span className="tnum text-[12.5px] font-semibold" style={{ color: up ? upColor : downColor }}>
-                {up ? "▲" : "▼"} {Math.abs(trendChg).toFixed(2)}%
+              <span className="tnum text-[12.5px] font-semibold whitespace-nowrap" style={{ color: up ? upColor : downColor }}>
+                {up ? "▲" : "▼"} <span style={{ opacity: 0.78 }}>{fmtAbs(Math.abs(selAbs))}</span>{"  "}
+                <span>{up ? "+" : "−"}{Math.abs(trendChg).toFixed(2)}%</span>
               </span>
             </div>
           </div>
@@ -177,7 +319,7 @@ function IndexSwitcher() {
           </div>
         </div>
         <div className="px-2 py-2 flex-1">
-          <Sparkline points={points} up={up} height={140} />
+          <InteractiveChart points={points} up={up} baseValue={selBase} height={140} />
         </div>
         <div className="px-3 pb-2 text-[10.5px] italic" style={{ color: "var(--text-muted)" }}>
           Indicative — pending live feed
