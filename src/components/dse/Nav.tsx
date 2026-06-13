@@ -183,6 +183,7 @@ const megaContent: Record<string, MegaContent> = {
         links: [
           { label: "Press releases", to: "/news" },
           { label: "Notices", to: "/news" },
+          { label: "Gallery", to: "/gallery" },
         ],
       },
     ],
