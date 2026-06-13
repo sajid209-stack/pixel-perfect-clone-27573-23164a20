@@ -234,7 +234,7 @@ const megaContent: Record<string, MegaContent> = {
         header: "Governance",
         links: [
           { label: "Heritage", to: "/about" },
-          { label: "Regulations", to: "/listing" },
+          { label: "Regulations & Rulebook", to: "/regulations" },
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
         ],
