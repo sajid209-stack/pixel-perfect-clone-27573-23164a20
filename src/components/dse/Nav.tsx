@@ -1246,6 +1246,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
   ],
   "About DSE": [
     { label: "About us", to: "/about" },
+    { label: "Regulations & Rulebook", to: "/regulations" },
     { label: "Broker directory", to: "/members" },
     { label: "List on DSE", to: "/listing" },
   ],
