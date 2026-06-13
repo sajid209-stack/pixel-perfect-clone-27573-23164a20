@@ -7,7 +7,8 @@ import { DsexTrendCard } from "./DsexTrendCard";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 
-type IndexKey = "DSEX" | "DS30" | "DSES";
+type IndexKey = "DSEX" | "DS30" | "DSES" | "CDSET";
+
 
 const indexMeta: Record<IndexKey, {
   value: string;
@@ -21,6 +22,7 @@ const indexMeta: Record<IndexKey, {
   DSEX: { value: "6,241.30", change: 0.30, open: "6,225.10", high: "6,248.20", low: "6,219.80", volume: "312.4M", series: makeSeries(1, 32, true) },
   DS30: { value: "2,118.40", change: 0.18, open: "2,114.60", high: "2,121.10", low: "2,110.40", volume: "98.2M", series: makeSeries(4, 32, true) },
   DSES: { value: "1,340.20", change: -0.05, open: "1,341.50", high: "1,343.10", low: "1,338.20", volume: "41.7M", series: makeSeries(7, 32, false) },
+  CDSET: { value: "1,285.60", change: 0.22, open: "1,282.80", high: "1,288.40", low: "1,280.10", volume: "62.3M", series: makeSeries(3, 32, true) },
 };
 
 function HoverCardShell({ children }: { children: React.ReactNode }) {
@@ -289,12 +291,13 @@ export function TodaysMarket() {
         {/* Snapshot row + compact DSEX trend chart */}
         <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4 items-center">
           <div
-            className="idx-rail grid grid-cols-2 md:grid-cols-5"
+            className="idx-rail grid grid-cols-2 md:grid-cols-6"
             style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
           >
             <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
             <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
             <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
+            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="CDSET" /></div>
             <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}>
               <StatCell label="Turnover" value="৳1,124 Cr" sub="312.4M shares" />
             </div>

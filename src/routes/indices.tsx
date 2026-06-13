@@ -24,13 +24,13 @@ import { companies } from "@/data/companies";
 export const Route = createFileRoute("/indices")({
   head: () => ({
     meta: [
-      { title: "Indices — DSEX, DS30, DSES | Dhaka Stock Exchange" },
+      { title: "Indices — DSEX, DS30, DSES, CDSET | Dhaka Stock Exchange" },
       {
         name: "description",
         content:
-          "Live levels, intraday charts, constituents and sector contribution for the DSEX broad market, DS30 blue-chip, and DSES Shariah indices.",
+          "Live levels, intraday charts, constituents and sector contribution for the DSEX broad market, DS30 blue-chip, DSES Shariah and CDSET large-cap select indices.",
       },
-      { property: "og:title", content: "Indices — DSEX, DS30, DSES | Dhaka Stock Exchange" },
+      { property: "og:title", content: "Indices — DSEX, DS30, DSES, CDSET | Dhaka Stock Exchange" },
       {
         property: "og:description",
         content: "Live charts and constituents for the DSE benchmark indices.",
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/indices")({
   component: IndicesPage,
 });
 
-type IndexKey = "DSEX" | "DS30" | "DSES";
+type IndexKey = "DSEX" | "DS30" | "DSES" | "CDSET";
 
 const indices: {
   key: IndexKey;
@@ -88,6 +88,18 @@ const indices: {
       "The DSE Shariah Index — companies screened on Shariah principles by the Islami Bank Capital Management board, reviewed quarterly.",
     inception: "Jan 2014",
     constituents: 78,
+  },
+  {
+    key: "CDSET",
+    name: "CDSET",
+    sub: "Large-cap select",
+    value: 1285.6,
+    prev: 1282.78,
+    change: 0.22,
+    description:
+      "CNI-DSE Select Index — ~40 large-cap constituents selected by market cap, profitability and liquidity; developed with DSE's strategic partner.",
+    inception: "Jan 2020",
+    constituents: 40,
   },
 ];
 
@@ -300,7 +312,7 @@ function IndicesPage() {
 
       {/* Cards */}
       <section className="max-w-[1440px] mx-auto px-6 pt-8">
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {indices.map((idx, i) => (
             <IndexCard
               key={idx.key}
