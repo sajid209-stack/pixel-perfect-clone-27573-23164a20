@@ -746,6 +746,9 @@
   h2 br, h3 br { display: none !important; }
 }
 
+/* Global overflow guard — prevent any element from forcing horizontal scroll */
+html, body { overflow-x: hidden; max-width: 100%; }
+
 /* Homepage section spacing — tightened */
 .home-section {
   padding-top: 20px !important;
