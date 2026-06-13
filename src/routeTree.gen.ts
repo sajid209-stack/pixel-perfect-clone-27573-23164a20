@@ -22,6 +22,7 @@ import { Route as IndicesRouteImport } from './routes/indices'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FundsRouteImport } from './routes/funds'
 import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors'
+import { Route as CorporateActionsRouteImport } from './routes/corporate-actions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
@@ -95,6 +96,11 @@ const ForeignInvestorsRoute = ForeignInvestorsRouteImport.update({
   path: '/foreign-investors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CorporateActionsRoute = CorporateActionsRouteImport.update({
+  id: '/corporate-actions',
+  path: '/corporate-actions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
+  '/corporate-actions': typeof CorporateActionsRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
+  '/corporate-actions': typeof CorporateActionsRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
@@ -183,6 +191,7 @@ export interface FileRoutesById {
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
+  '/corporate-actions': typeof CorporateActionsRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
@@ -207,6 +216,7 @@ export interface FileRouteTypes {
     | '/companies'
     | '/complaints'
     | '/contact'
+    | '/corporate-actions'
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/companies'
     | '/complaints'
     | '/contact'
+    | '/corporate-actions'
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
@@ -251,6 +262,7 @@ export interface FileRouteTypes {
     | '/companies'
     | '/complaints'
     | '/contact'
+    | '/corporate-actions'
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
@@ -274,6 +286,7 @@ export interface RootRouteChildren {
   CompaniesRoute: typeof CompaniesRoute
   ComplaintsRoute: typeof ComplaintsRoute
   ContactRoute: typeof ContactRoute
+  CorporateActionsRoute: typeof CorporateActionsRoute
   ForeignInvestorsRoute: typeof ForeignInvestorsRoute
   FundsRoute: typeof FundsRoute
   GalleryRoute: typeof GalleryRoute
@@ -383,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForeignInvestorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/corporate-actions': {
+      id: '/corporate-actions'
+      path: '/corporate-actions'
+      fullPath: '/corporate-actions'
+      preLoaderRoute: typeof CorporateActionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -442,6 +462,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompaniesRoute: CompaniesRoute,
   ComplaintsRoute: ComplaintsRoute,
   ContactRoute: ContactRoute,
+  CorporateActionsRoute: CorporateActionsRoute,
   ForeignInvestorsRoute: ForeignInvestorsRoute,
   FundsRoute: FundsRoute,
   GalleryRoute: GalleryRoute,

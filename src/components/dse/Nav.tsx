@@ -35,7 +35,7 @@ type NavItem = {
 
 const links: NavItem[] = [
   { label: "Markets", to: "/markets", mega: "markets", activePaths: ["/markets", "/products", "/bonds", "/funds"] },
-  { label: "Companies", to: "/companies", mega: "companies", activePaths: ["/companies", "/company"] },
+  { label: "Companies", to: "/companies", mega: "companies", activePaths: ["/companies", "/company", "/corporate-actions"] },
   { label: "Indices", to: "/indices", mega: "indices", activePaths: ["/indices"] },
   { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
   { label: "News", to: "/news", mega: "news", activePaths: ["/news"] },
@@ -106,6 +106,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Financials", to: "/companies" },
           { label: "Disclosures", to: "/news" },
           { label: "Dividends", to: "/news" },
+          { label: "Corporate actions", to: "/corporate-actions" },
         ],
       },
     ],

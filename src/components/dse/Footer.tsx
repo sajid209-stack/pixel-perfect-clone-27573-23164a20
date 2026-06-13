@@ -13,6 +13,7 @@ const marketsLinks: FooterLink[] = [
   { label: "Mutual Funds & ETFs", to: "/funds" },
   { label: "SME Board", to: "/companies" },
   { label: "Indices", to: "/indices" },
+  { label: "Corporate actions", to: "/corporate-actions" },
   { label: "Historical data", to: "/reports" },
 ];
 
