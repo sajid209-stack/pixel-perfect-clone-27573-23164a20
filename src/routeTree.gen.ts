@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as RegulationsRouteImport } from './routes/regulations'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as MarketsRouteImport } from './routes/markets'
@@ -30,6 +31,11 @@ import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegulationsRoute = RegulationsRouteImport.update({
+  id: '/regulations',
+  path: '/regulations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewsRoute = NewsRouteImport.update({
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/markets': typeof MarketsRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
+  '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/markets': typeof MarketsRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
+  '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/markets': typeof MarketsRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
+  '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
 }
@@ -189,6 +198,7 @@ export interface FileRouteTypes {
     | '/markets'
     | '/members'
     | '/news'
+    | '/regulations'
     | '/reports'
     | '/company/$ticker'
   fileRoutesByTo: FileRoutesByTo
@@ -208,6 +218,7 @@ export interface FileRouteTypes {
     | '/markets'
     | '/members'
     | '/news'
+    | '/regulations'
     | '/reports'
     | '/company/$ticker'
   id:
@@ -227,6 +238,7 @@ export interface FileRouteTypes {
     | '/markets'
     | '/members'
     | '/news'
+    | '/regulations'
     | '/reports'
     | '/company/$ticker'
   fileRoutesById: FileRoutesById
@@ -247,6 +259,7 @@ export interface RootRouteChildren {
   MarketsRoute: typeof MarketsRoute
   MembersRoute: typeof MembersRoute
   NewsRoute: typeof NewsRoute
+  RegulationsRoute: typeof RegulationsRoute
   ReportsRoute: typeof ReportsRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
 }
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       path: '/reports'
       fullPath: '/reports'
       preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regulations': {
+      id: '/regulations'
+      path: '/regulations'
+      fullPath: '/regulations'
+      preLoaderRoute: typeof RegulationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/news': {
@@ -391,6 +411,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketsRoute: MarketsRoute,
   MembersRoute: MembersRoute,
   NewsRoute: NewsRoute,
+  RegulationsRoute: RegulationsRoute,
   ReportsRoute: ReportsRoute,
   CompanyTickerRoute: CompanyTickerRoute,
 }
