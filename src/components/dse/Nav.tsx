@@ -406,10 +406,10 @@ function MarketsPanel({ close }: { close: () => void }) {
     { title: "Trading calendar", desc: "Sessions, holidays, market hours", to: "/reports", hash: "calendar" },
   ];
   const col2: Item[] = [
+    { title: "Products & Services", desc: "All instruments and how trading works", to: "/products" },
     { title: "Equities", desc: "All 356 listed companies", to: "/companies" },
-    { title: "Bonds & sukuk", desc: "Corporate bonds, green bonds", to: "/companies", soon: true },
-    { title: "Mutual funds", desc: "NAV table, fund directory", to: "/companies", soon: true },
-    { title: "SME board", desc: "Small & medium enterprises", to: "/companies", soon: true },
+    { title: "Bonds & GSec", desc: "Corporate, treasury and sukuk", to: "/bonds" },
+    { title: "Mutual funds & ETFs", desc: "NAV table, fund directory", to: "/funds" },
   ];
   const col3: Item[] = [
     { title: "Circuit breaker list", desc: "Today's upper/lower limits", to: "/reports", soon: true },
