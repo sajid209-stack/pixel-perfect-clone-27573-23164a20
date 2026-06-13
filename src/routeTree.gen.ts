@@ -19,6 +19,7 @@ import { Route as ListingRouteImport } from './routes/listing'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IpoRouteImport } from './routes/ipo'
 import { Route as IndicesRouteImport } from './routes/indices'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FundsRouteImport } from './routes/funds'
 import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -79,6 +80,11 @@ const IndicesRoute = IndicesRouteImport.update({
   path: '/indices',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FundsRoute = FundsRouteImport.update({
   id: '/funds',
   path: '/funds',
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
+  '/gallery': typeof GalleryRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
+  '/gallery': typeof GalleryRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
+  '/gallery': typeof GalleryRoute
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -200,6 +209,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/foreign-investors'
     | '/funds'
+    | '/gallery'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -221,6 +231,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/foreign-investors'
     | '/funds'
+    | '/gallery'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -242,6 +253,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/foreign-investors'
     | '/funds'
+    | '/gallery'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -264,6 +276,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ForeignInvestorsRoute: typeof ForeignInvestorsRoute
   FundsRoute: typeof FundsRoute
+  GalleryRoute: typeof GalleryRoute
   IndicesRoute: typeof IndicesRoute
   IpoRoute: typeof IpoRoute
   LearnRoute: typeof LearnRoute
@@ -349,6 +362,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/funds': {
       id: '/funds'
       path: '/funds'
@@ -424,6 +444,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ForeignInvestorsRoute: ForeignInvestorsRoute,
   FundsRoute: FundsRoute,
+  GalleryRoute: GalleryRoute,
   IndicesRoute: IndicesRoute,
   IpoRoute: IpoRoute,
   LearnRoute: LearnRoute,
