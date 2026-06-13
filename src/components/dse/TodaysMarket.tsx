@@ -3,27 +3,190 @@ import { Link } from "@tanstack/react-router";
 import { sectors, topGainers, topLosers, mostActive } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
 import { Sparkline, makeSeries } from "./Sparkline";
-import { DsexTrendCard } from "./DsexTrendCard";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 
 type IndexKey = "DSEX" | "DS30" | "DSES" | "CDSET";
 
-
 const indexMeta: Record<IndexKey, {
+  descriptor: string;
   value: string;
   change: number;
-  open: string;
-  high: string;
-  low: string;
-  volume: string;
-  series: number[];
+  spark: number[];
+  series: Record<"1D" | "1W" | "1M", number[]>;
 }> = {
-  DSEX: { value: "6,241.30", change: 0.30, open: "6,225.10", high: "6,248.20", low: "6,219.80", volume: "312.4M", series: makeSeries(1, 32, true) },
-  DS30: { value: "2,118.40", change: 0.18, open: "2,114.60", high: "2,121.10", low: "2,110.40", volume: "98.2M", series: makeSeries(4, 32, true) },
-  DSES: { value: "1,340.20", change: -0.05, open: "1,341.50", high: "1,343.10", low: "1,338.20", volume: "41.7M", series: makeSeries(7, 32, false) },
-  CDSET: { value: "1,285.60", change: 0.22, open: "1,282.80", high: "1,288.40", low: "1,280.10", volume: "62.3M", series: makeSeries(3, 32, true) },
+  DSEX:  { descriptor: "Broad index",       value: "6,241.30", change:  0.30, spark: makeSeries(1, 24, true),  series: { "1D": makeSeries(2, 40, true),  "1W": makeSeries(5, 40, true),  "1M": makeSeries(9, 40, true)  } },
+  DS30:  { descriptor: "Blue-chip 30",      value: "2,118.40", change:  0.18, spark: makeSeries(4, 24, true),  series: { "1D": makeSeries(11, 40, true), "1W": makeSeries(13, 40, true), "1M": makeSeries(15, 40, true) } },
+  DSES:  { descriptor: "Shariah",           value: "1,340.20", change: -0.05, spark: makeSeries(7, 24, false), series: { "1D": makeSeries(21, 40, false),"1W": makeSeries(23, 40, false),"1M": makeSeries(25, 40, false)} },
+  CDSET: { descriptor: "Large-cap select",  value: "1,285.60", change:  0.22, spark: makeSeries(3, 24, true),  series: { "1D": makeSeries(31, 40, true), "1W": makeSeries(33, 40, true), "1M": makeSeries(35, 40, true) } },
 };
+
+const ranges = ["1D", "1W", "1M"] as const;
+type Range = typeof ranges[number];
+
+function IndexSwitcher() {
+  const [selected, setSelected] = useState<IndexKey>("DSEX");
+  const [range, setRange] = useState<Range>("1D");
+  const keys = Object.keys(indexMeta) as IndexKey[];
+  const sel = indexMeta[selected];
+  const points = sel.series[range];
+  const first = points[0];
+  const last = points[points.length - 1];
+  const trendChg = ((last - first) / first) * 100;
+  const up = trendChg >= 0;
+  const upColor = "var(--up, #1d7a3f)";
+  const downColor = "var(--down, #c0392b)";
+
+  return (
+    <div className="grid md:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-4 mb-4">
+      {/* Left column: switcher + stats */}
+      <div className="flex flex-col gap-3 min-w-0">
+        {/* Desktop list / Mobile rail */}
+        <div
+          className="hidden md:block"
+          style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+        >
+          {keys.map((k, i) => {
+            const m = indexMeta[k];
+            const rowUp = m.change >= 0;
+            const active = k === selected;
+            return (
+              <button
+                key={k}
+                onClick={() => setSelected(k)}
+                className="w-full text-left grid items-center gap-3 px-3 py-2.5 focus:outline-none"
+                style={{
+                  gridTemplateColumns: "1fr 60px auto",
+                  borderTop: i === 0 ? "none" : "1px solid var(--line)",
+                  background: active ? "var(--brand-50, rgba(24,95,165,0.06))" : "transparent",
+                  borderLeft: active ? "3px solid var(--brand-600)" : "3px solid transparent",
+                }}
+              >
+                <div className="min-w-0">
+                  <div className="text-[15px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>{k}</div>
+                  <div className="text-[11.5px] mt-0.5" style={{ color: "var(--text-muted)" }}>{m.descriptor}</div>
+                </div>
+                <div className="h-6">
+                  <Sparkline points={m.spark} up={rowUp} height={24} />
+                </div>
+                <div className="text-right">
+                  <div className="tnum text-[14.5px] font-semibold" style={{ color: "var(--ink)" }}>{m.value}</div>
+                  <div className="tnum text-[11.5px] font-semibold" style={{ color: rowUp ? upColor : downColor }}>
+                    {rowUp ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Mobile rail */}
+        <div
+          className="md:hidden flex gap-2 overflow-x-auto"
+          style={{ scrollSnapType: "x mandatory", paddingRight: 24 }}
+        >
+          {keys.map((k) => {
+            const m = indexMeta[k];
+            const rowUp = m.change >= 0;
+            const active = k === selected;
+            return (
+              <button
+                key={k}
+                onClick={() => setSelected(k)}
+                className="shrink-0 text-left px-3 py-2"
+                style={{
+                  width: 160,
+                  scrollSnapAlign: "start",
+                  background: "var(--surface)",
+                  border: "1px solid " + (active ? "var(--brand-600)" : "var(--line)"),
+                  borderRadius: 2,
+                  outline: active ? "1px solid var(--brand-600)" : "none",
+                }}
+              >
+                <div className="flex items-baseline justify-between">
+                  <span className="text-[13px] font-semibold" style={{ color: "var(--ink)" }}>{k}</span>
+                  <span className="tnum text-[11px] font-semibold" style={{ color: rowUp ? upColor : downColor }}>
+                    {rowUp ? "▲" : "▼"}{Math.abs(m.change).toFixed(2)}%
+                  </span>
+                </div>
+                <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>{m.value}</div>
+                <div className="h-5 mt-1"><Sparkline points={m.spark} up={rowUp} height={20} /></div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Stats strip */}
+        <div
+          className="grid grid-cols-3"
+          style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+        >
+          <div className="px-3 py-2" style={{ borderRight: "1px solid var(--line)" }}>
+            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Turnover</div>
+            <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
+          </div>
+          <div className="px-3 py-2" style={{ borderRight: "1px solid var(--line)" }}>
+            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
+            <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>312.4M</div>
+          </div>
+          <div className="px-3 py-2">
+            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
+            <div className="tnum text-[14px] font-semibold mt-0.5" style={{ color: "var(--ink)" }}>188 / 142</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: chart card */}
+      <div
+        className="flex flex-col min-w-0"
+        style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+      >
+        <div
+          className="flex items-start justify-between gap-3 px-3 py-2"
+          style={{ borderBottom: "1px solid var(--line)" }}
+        >
+          <div className="min-w-0">
+            <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.12em", color: "var(--text-muted)" }}>
+              {selected} · {sel.descriptor}
+            </div>
+            <div className="mt-0.5 flex items-baseline gap-2">
+              <span className="tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>{sel.value}</span>
+              <span className="tnum text-[12.5px] font-semibold" style={{ color: up ? upColor : downColor }}>
+                {up ? "▲" : "▼"} {Math.abs(trendChg).toFixed(2)}%
+              </span>
+            </div>
+          </div>
+          <div className="flex gap-0.5 shrink-0">
+            {ranges.map((k) => {
+              const active = range === k;
+              return (
+                <button
+                  key={k}
+                  onClick={() => setRange(k)}
+                  className="px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
+                  style={{
+                    background: active ? "var(--brand)" : "transparent",
+                    color: active ? "#fff" : "var(--text-muted)",
+                    borderRadius: 2,
+                  }}
+                >
+                  {k}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        <div className="px-2 py-2 flex-1">
+          <Sparkline points={points} up={up} height={140} />
+        </div>
+        <div className="px-3 pb-2 text-[10.5px] italic" style={{ color: "var(--text-muted)" }}>
+          Indicative — pending live feed
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 function HoverCardShell({ children }: { children: React.ReactNode }) {
   return (
