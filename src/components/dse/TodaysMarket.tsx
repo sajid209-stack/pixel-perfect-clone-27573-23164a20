@@ -188,84 +188,8 @@ function IndexSwitcher() {
 }
 
 
-function HoverCardShell({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="absolute z-30 left-3 top-full mt-1 p-3"
-      style={{
-        background: "var(--surface)",
-        color: "var(--ink)",
-        border: "1px solid var(--line)",
-        width: 260,
-        borderRadius: 2,
-        boxShadow: "0 6px 20px rgba(0,0,0,0.18)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
-function IndexCell({ name }: { name: IndexKey }) {
-  const [open, setOpen] = useState(false);
-  const m = indexMeta[name];
-  const up = m.change >= 0;
-  return (
-    <div
-      className="relative px-4 py-3.5 cursor-default"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onClick={() => setOpen((o) => !o)}
-    >
-      <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}>
-        {name}
-      </div>
-      <div className="mt-1 tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>
-        {m.value}
-      </div>
-      <div
-        className="mt-1.5 tnum text-[12.5px] font-semibold"
-        style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}
-      >
-        {up ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
-      </div>
-      {open && (
-        <HoverCardShell>
-          <div className="flex items-baseline justify-between mb-1">
-            <span className="text-[12px] font-semibold" style={{ color: "var(--ink)" }}>{name}</span>
-            <span className="tnum text-[11.5px] font-semibold" style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}>
-              {up ? "▲" : "▼"} {Math.abs(m.change).toFixed(2)}%
-            </span>
-          </div>
-          <Sparkline points={m.series} up={up} height={54} />
-          <div className="flex justify-between text-[9.5px] mt-0.5 mb-2" style={{ color: "var(--text-muted)" }}>
-            <span>09:30</span><span>Intraday</span><span>14:30</span>
-          </div>
-          <div className="grid grid-cols-2 gap-y-0.5 gap-x-4 text-[11px] tnum">
-            <span style={{ color: "var(--text-muted)" }}>Open</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.open}</span>
-            <span style={{ color: "var(--text-muted)" }}>High</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.high}</span>
-            <span style={{ color: "var(--text-muted)" }}>Low</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.low}</span>
-            <span style={{ color: "var(--text-muted)" }}>Volume</span><span className="text-right" style={{ color: "var(--ink)" }}>{m.volume}</span>
-          </div>
-        </HoverCardShell>
-      )}
-    </div>
-  );
-}
 
-function StatCell({ label, value, sub }: { label: string; value: string; sub: string }) {
-  return (
-    <div className="px-4 py-3.5">
-      <div className="text-[11.5px] font-semibold uppercase" style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}>
-        {label}
-      </div>
-      <div className="mt-1 tnum text-[22px] font-semibold leading-[1.15]" style={{ color: "var(--ink)" }}>
-        {value}
-      </div>
-      <div className="mt-1.5 text-[12px]" style={{ color: "var(--text-muted)" }}>{sub}</div>
-    </div>
-  );
-}
 
 function spanCls(size: "lg" | "md" | "sm") {
   if (size === "lg") return "col-span-2 row-span-2";
