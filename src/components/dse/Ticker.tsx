@@ -32,6 +32,11 @@ export function Ticker() {
           {items.map((s, i) => {
             const up = s.change >= 0;
             const isClone = i >= tickerStocks.length;
+            const priceNum = parseFloat(s.price.replace(/,/g, ""));
+            const abs = (priceNum * s.change) / 100;
+            const absStr = Math.abs(abs).toFixed(2);
+            const sign = up ? "+" : "−";
+            const deltaColor = up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)";
             return (
               <Link
                 key={i}
@@ -39,12 +44,14 @@ export function Ticker() {
                 params={{ ticker: s.code }}
                 aria-hidden={isClone ? "true" : undefined}
                 tabIndex={isClone ? -1 : undefined}
-                className="px-5 text-[13px] tnum inline-flex items-center gap-2 transition"
+                className="px-6 text-[13px] tnum inline-flex items-center gap-2 transition whitespace-nowrap"
               >
                 <span className="font-semibold" style={{ color: "var(--ink)" }}>{s.code}</span>
                 <span style={{ color: "var(--text-secondary)" }}>{s.price}</span>
-                <span style={{ color: up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)" }}>
-                  {up ? "▲" : "▼"}{Math.abs(s.change)}%
+                <span className="text-[12px] inline-flex items-center gap-1.5" style={{ color: deltaColor }}>
+                  <span>{up ? "▲" : "▼"}</span>
+                  <span>{sign}{absStr}</span>
+                  <span>{sign}{Math.abs(s.change)}%</span>
                 </span>
                 <span style={{ color: "var(--line)" }}>·</span>
               </Link>
