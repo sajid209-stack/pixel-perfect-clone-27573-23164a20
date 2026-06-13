@@ -375,23 +375,8 @@ export function TodaysMarket() {
         </div>
 
 
-        {/* Snapshot row + compact DSEX trend chart */}
-        <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-4 items-center">
-          <div
-            className="idx-rail grid grid-cols-2 md:grid-cols-6"
-            style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
-          >
-            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSEX" /></div>
-            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DS30" /></div>
-            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="DSES" /></div>
-            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}><IndexCell name="CDSET" /></div>
-            <div className="idx-cell" style={{ borderRight: "1px solid var(--line)" }}>
-              <StatCell label="Turnover" value="৳1,124 Cr" sub="312.4M shares" />
-            </div>
-            <div className="idx-cell"><StatCell label="Breadth" value="188 / 142" sub="adv / dec" /></div>
-          </div>
-          <DsexTrendCard />
-        </div>
+        {/* Index switcher + chart */}
+        <IndexSwitcher />
 
         {/* Heatmap + Movers */}
         <div className="grid md:grid-cols-2 gap-4">
