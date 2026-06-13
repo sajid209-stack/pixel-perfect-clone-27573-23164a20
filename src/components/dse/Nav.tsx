@@ -34,7 +34,7 @@ type NavItem = {
 };
 
 const links: NavItem[] = [
-  { label: "Markets", to: "/markets", mega: "markets", activePaths: ["/markets"] },
+  { label: "Markets", to: "/markets", mega: "markets", activePaths: ["/markets", "/products", "/bonds", "/funds"] },
   { label: "Companies", to: "/companies", mega: "companies", activePaths: ["/companies", "/company"] },
   { label: "Indices", to: "/indices", mega: "indices", activePaths: ["/indices"] },
   { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
@@ -59,7 +59,7 @@ const megaContent: Record<string, MegaContent> = {
     intro: {
       title: "Markets",
       desc: "Live equities, instruments, sector heatmap and trading reports.",
-      cta: { label: "Explore all markets", to: "/" },
+      cta: { label: "Products & Services", to: "/products" },
     },
     columns: [
       {
@@ -406,10 +406,10 @@ function MarketsPanel({ close }: { close: () => void }) {
     { title: "Trading calendar", desc: "Sessions, holidays, market hours", to: "/reports", hash: "calendar" },
   ];
   const col2: Item[] = [
+    { title: "Products & Services", desc: "All instruments and how trading works", to: "/products" },
     { title: "Equities", desc: "All 356 listed companies", to: "/companies" },
-    { title: "Bonds & sukuk", desc: "Corporate bonds, green bonds", to: "/companies", soon: true },
-    { title: "Mutual funds", desc: "NAV table, fund directory", to: "/companies", soon: true },
-    { title: "SME board", desc: "Small & medium enterprises", to: "/companies", soon: true },
+    { title: "Bonds & GSec", desc: "Corporate, treasury and sukuk", to: "/bonds" },
+    { title: "Mutual funds & ETFs", desc: "NAV table, fund directory", to: "/funds" },
   ];
   const col3: Item[] = [
     { title: "Circuit breaker list", desc: "Today's upper/lower limits", to: "/reports", soon: true },

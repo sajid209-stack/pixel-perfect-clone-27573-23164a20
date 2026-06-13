@@ -7,9 +7,10 @@ import { useLang } from "@/i18n/LanguageContext";
 type FooterLink = { label: string; to: string; hash?: string };
 
 const marketsLinks: FooterLink[] = [
+  { label: "Products & Services", to: "/products" },
   { label: "Equities", to: "/companies" },
-  { label: "Bonds", to: "/companies" },
-  { label: "Mutual Funds", to: "/companies" },
+  { label: "Bonds & GSec", to: "/bonds" },
+  { label: "Mutual Funds & ETFs", to: "/funds" },
   { label: "SME Board", to: "/companies" },
   { label: "Indices", to: "/indices" },
   { label: "Historical data", to: "/reports" },
