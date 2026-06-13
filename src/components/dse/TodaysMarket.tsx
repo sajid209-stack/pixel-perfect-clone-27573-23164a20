@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { sectors, topGainers, topLosers, mostActive } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
