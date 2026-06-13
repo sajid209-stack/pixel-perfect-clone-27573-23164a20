@@ -676,8 +676,11 @@ function NewsPanel({ close }: { close: () => void }) {
           Transmission of shares following death of Managing Director
         </div>
         <div className="text-[10px] mt-0.5" style={{ color: "#94A3B8" }}>Jun 04 · 14:22</div>
-        <Link to="/news" onClick={close} className="inline-block mt-2 text-[12px] font-semibold" style={{ color: "#0F172A" }}>
+        <Link to="/news" onClick={close} className="inline-block mt-2 mr-3 text-[12px] font-semibold" style={{ color: "#0F172A" }}>
           All disclosures →
+        </Link>
+        <Link to="/gallery" onClick={close} className="inline-block mt-2 text-[12px] font-semibold" style={{ color: "var(--brand-600)" }}>
+          Gallery →
         </Link>
       </div>
     </div>
