@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowLeftRight, Receipt, FileText, ChevronRight } from "lucide-react";
+import fiImage from "@/assets/foreign-investors.jpg.asset.json";
 
 const links = [
   {
@@ -80,7 +81,7 @@ export function ForeignInvestorBand() {
         >
           {/* Left: branded image panel */}
           <div className="relative min-h-[300px] text-white">
-            <GlobeGraphic />
+            <img src={fiImage.url} alt="Foreign investors" className="absolute inset-0 w-full h-full object-cover" />
             <div
               className="absolute inset-0"
               style={{
