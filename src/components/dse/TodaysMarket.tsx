@@ -316,14 +316,14 @@ function IndexSwitcher() {
         </div>
         <HoverCard openDelay={80} closeDelay={60}>
           <HoverCardTrigger asChild>
-            <button type="button" className="py-2 text-left focus:outline-none w-full" style={{ paddingLeft: 16, paddingRight: 16 }}>
-              <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
+            <button type="button" className="py-1.5 text-left focus:outline-none w-full" style={{ paddingLeft: 16, paddingRight: 16 }}>
+              <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
               <div className="mt-1 flex h-[5px] w-full overflow-hidden" style={{ borderRadius: 1, background: "var(--surface-2)" }}>
                 <div style={{ width: `${advPct}%`, background: upColor }} />
                 <div style={{ width: `${decPct}%`, background: downColor }} />
                 <div style={{ width: `${unchPct}%`, background: "var(--text-muted)", opacity: 0.45 }} />
               </div>
-              <div className="tnum text-[11.5px] font-semibold mt-1 whitespace-nowrap" style={{ color: "var(--ink)" }}>
+              <div className="tnum text-[11.5px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>
                 <span style={{ color: upColor }}>{breadth.adv}</span>
                 <span style={{ color: "var(--text-muted)" }}> / </span>
                 <span style={{ color: downColor }}>{breadth.dec}</span>
