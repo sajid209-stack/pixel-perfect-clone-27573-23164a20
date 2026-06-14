@@ -302,17 +302,17 @@ function IndexSwitcher() {
         className="md:col-span-2 grid grid-cols-2 md:[grid-template-columns:1.2fr_1fr_1fr_1.2fr]"
         style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
       >
-        <div className="py-2 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-          <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Turnover</div>
-          <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
+        <div className="py-1.5 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+          <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Turnover</div>
+          <div className="tnum text-[15px] font-semibold leading-tight whitespace-nowrap" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
         </div>
-        <div className="py-2 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-          <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
-          <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>312.4M</div>
+        <div className="py-1.5 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+          <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
+          <div className="tnum text-[15px] font-semibold leading-tight whitespace-nowrap" style={{ color: "var(--ink)" }}>312.4M</div>
         </div>
-        <div className="py-2" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)" }}>
-          <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Trades</div>
-          <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>87,412</div>
+        <div className="py-1.5" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)" }}>
+          <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Trades</div>
+          <div className="tnum text-[15px] font-semibold leading-tight whitespace-nowrap" style={{ color: "var(--ink)" }}>87,412</div>
         </div>
         <HoverCard openDelay={80} closeDelay={60}>
           <HoverCardTrigger asChild>
