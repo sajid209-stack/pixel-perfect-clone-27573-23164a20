@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowLeftRight, Receipt, FileText, ChevronRight } from "lucide-react";
+import fiImage from "@/assets/foreign-investors.jpg.asset.json";
 
 const links = [
   {
