@@ -569,8 +569,8 @@ export function TodaysMarket() {
               </span>
             </div>
             <div
-              className="grid gap-[2px] p-2 flex-1"
-              style={{ gridTemplateColumns: "repeat(6, 1fr)", gridTemplateRows: "repeat(3, 1fr)", gridAutoRows: "1fr", gridAutoFlow: "dense", minHeight: 240 }}
+              className="grid gap-[2px] p-2 flex-1 grid-cols-4 md:grid-cols-6"
+              style={{ gridAutoRows: "minmax(56px, 1fr)", gridAutoFlow: "dense", minHeight: 240 }}
             >
               {sectors.map((s) => <HeatmapTile key={s.name} s={s} />)}
             </div>
