@@ -165,7 +165,7 @@ function IndexSwitcher() {
   const unchPct = 100 - advPct - decPct;
 
   return (
-    <div className="grid md:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-4 mb-4">
+    <div className="grid md:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-x-4 gap-y-2 mb-4">
       {/* Left column: switcher + stats */}
       <div className="flex flex-col gap-3 min-w-0">
         {/* Desktop list */}
