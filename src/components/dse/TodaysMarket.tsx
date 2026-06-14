@@ -165,7 +165,7 @@ function IndexSwitcher() {
   const unchPct = 100 - advPct - decPct;
 
   return (
-    <div className="grid md:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-4 mb-4">
+    <div className="grid md:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-x-4 gap-y-2 mb-4">
       {/* Left column: switcher + stats */}
       <div className="flex flex-col gap-3 min-w-0">
         {/* Desktop list */}
@@ -302,28 +302,28 @@ function IndexSwitcher() {
         className="md:col-span-2 grid grid-cols-2 md:[grid-template-columns:1.2fr_1fr_1fr_1.2fr]"
         style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
       >
-        <div className="py-2 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-          <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Turnover</div>
-          <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
+        <div className="py-1.5 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+          <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Turnover</div>
+          <div className="tnum text-[15px] font-semibold leading-tight whitespace-nowrap" style={{ color: "var(--ink)" }}>৳1,124 Cr</div>
         </div>
-        <div className="py-2 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-          <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
-          <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>312.4M</div>
+        <div className="py-1.5 md:[border-bottom:none]" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+          <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Volume</div>
+          <div className="tnum text-[15px] font-semibold leading-tight whitespace-nowrap" style={{ color: "var(--ink)" }}>312.4M</div>
         </div>
-        <div className="py-2" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)" }}>
-          <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Trades</div>
-          <div className="tnum text-[15px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>87,412</div>
+        <div className="py-1.5" style={{ paddingLeft: 16, paddingRight: 16, borderRight: "1px solid var(--line)" }}>
+          <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Trades</div>
+          <div className="tnum text-[15px] font-semibold leading-tight whitespace-nowrap" style={{ color: "var(--ink)" }}>87,412</div>
         </div>
         <HoverCard openDelay={80} closeDelay={60}>
           <HoverCardTrigger asChild>
-            <button type="button" className="py-2 text-left focus:outline-none w-full" style={{ paddingLeft: 16, paddingRight: 16 }}>
-              <div className="text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
+            <button type="button" className="py-1.5 text-left focus:outline-none w-full" style={{ paddingLeft: 16, paddingRight: 16 }}>
+              <div className="text-[10px] font-semibold uppercase leading-tight" style={{ letterSpacing: "0.08em", color: "var(--text-muted)" }}>Breadth</div>
               <div className="mt-1 flex h-[5px] w-full overflow-hidden" style={{ borderRadius: 1, background: "var(--surface-2)" }}>
                 <div style={{ width: `${advPct}%`, background: upColor }} />
                 <div style={{ width: `${decPct}%`, background: downColor }} />
                 <div style={{ width: `${unchPct}%`, background: "var(--text-muted)", opacity: 0.45 }} />
               </div>
-              <div className="tnum text-[11.5px] font-semibold mt-1 whitespace-nowrap" style={{ color: "var(--ink)" }}>
+              <div className="tnum text-[11.5px] font-semibold mt-0.5 whitespace-nowrap" style={{ color: "var(--ink)" }}>
                 <span style={{ color: upColor }}>{breadth.adv}</span>
                 <span style={{ color: "var(--text-muted)" }}> / </span>
                 <span style={{ color: downColor }}>{breadth.dec}</span>
@@ -456,15 +456,15 @@ function MoverRow({ r, showVol, idx, maxAbs }: { r: typeof topGainers[number]; s
       <Link
         to="/company/$ticker"
         params={{ ticker: r.code }}
-        className="grid grid-cols-[190px_1fr_72px_64px] items-center gap-3 py-2 px-3"
+        className="grid grid-cols-[minmax(0,1fr)_auto_auto] md:grid-cols-[minmax(0,190px)_minmax(0,1fr)_72px_64px] items-center gap-2 md:gap-3 py-2 px-3"
         style={{ borderTop: "1px solid var(--line)" }}
       >
         <div className="min-w-0">
-          <div className="text-[16px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>{r.code}</div>
-          <div className="text-[12px] truncate mt-0.5" style={{ color: "var(--text-muted)" }}>{r.name}</div>
+          <div className="text-[15px] md:text-[16px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>{r.code}</div>
+          <div className="text-[11.5px] md:text-[12px] truncate mt-0.5" style={{ color: "var(--text-muted)" }}>{r.name}</div>
         </div>
         <div
-          className="relative h-1.5 w-full"
+          className="relative h-1.5 w-full hidden md:block"
           style={{ background: "var(--surface-2)", borderRadius: 1 }}
           aria-hidden="true"
         >
@@ -569,8 +569,8 @@ export function TodaysMarket() {
               </span>
             </div>
             <div
-              className="grid gap-[2px] p-2 flex-1"
-              style={{ gridTemplateColumns: "repeat(6, 1fr)", gridTemplateRows: "repeat(3, 1fr)", gridAutoRows: "1fr", gridAutoFlow: "dense", minHeight: 240 }}
+              className="grid gap-[2px] p-2 flex-1 grid-cols-4 md:grid-cols-6"
+              style={{ gridAutoRows: "minmax(56px, 1fr)", gridAutoFlow: "dense", minHeight: 240 }}
             >
               {sectors.map((s) => <HeatmapTile key={s.name} s={s} />)}
             </div>
