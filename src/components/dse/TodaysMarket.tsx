@@ -456,15 +456,15 @@ function MoverRow({ r, showVol, idx, maxAbs }: { r: typeof topGainers[number]; s
       <Link
         to="/company/$ticker"
         params={{ ticker: r.code }}
-        className="grid grid-cols-[190px_1fr_72px_64px] items-center gap-3 py-2 px-3"
+        className="grid grid-cols-[minmax(0,1fr)_auto_auto] md:grid-cols-[minmax(0,190px)_minmax(0,1fr)_72px_64px] items-center gap-2 md:gap-3 py-2 px-3"
         style={{ borderTop: "1px solid var(--line)" }}
       >
         <div className="min-w-0">
-          <div className="text-[16px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>{r.code}</div>
-          <div className="text-[12px] truncate mt-0.5" style={{ color: "var(--text-muted)" }}>{r.name}</div>
+          <div className="text-[15px] md:text-[16px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>{r.code}</div>
+          <div className="text-[11.5px] md:text-[12px] truncate mt-0.5" style={{ color: "var(--text-muted)" }}>{r.name}</div>
         </div>
         <div
-          className="relative h-1.5 w-full"
+          className="relative h-1.5 w-full hidden md:block"
           style={{ background: "var(--surface-2)", borderRadius: 1 }}
           aria-hidden="true"
         >
