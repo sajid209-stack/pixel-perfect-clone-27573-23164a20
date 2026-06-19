@@ -15,7 +15,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ArrowLeft, ArrowUpRight, ChevronDown, ExternalLink, Info } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronDown, ExternalLink, Info, Printer } from "lucide-react";
+import { useLang } from "@/i18n/LanguageContext";
 
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
@@ -102,17 +103,28 @@ function CompanyNotFound() {
 
 function CompanyPage() {
   const { co } = Route.useLoaderData();
-  const [period, setPeriod] = useState<Period>("1D");
+  const { t } = useLang();
   const [tab, setTab] = useState<TabId>("overview");
+  const [printMode, setPrintMode] = useState(false);
   const up = co.change >= 0;
-  const series = useMemo(() => buildSeries(co, period), [co, period]);
   const { push } = useRecentlyViewed();
   useEffect(() => { push(co.code); }, [co.code, push]);
 
+
+  const handlePrint = () => {
+    setPrintMode(true);
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => setPrintMode(false), 300);
+    }, 80);
+  };
+
+
   return (
-    <div className="min-h-screen">
-      <TopBar />
-      <Nav />
+    <div className={`min-h-screen ${printMode ? "is-printing" : ""}`}>
+      <PrintStyles />
+      <div className="no-print"><TopBar /><Nav /></div>
+
 
       {/* Breadcrumb */}
       <div className="max-w-[1440px] mx-auto px-6 pt-8">
@@ -193,12 +205,23 @@ function CompanyPage() {
               <span>Closing ৳ {co.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
               <span>Yesterday's close ৳ {co.prevClose.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </div>
+            <div className="mt-3 flex lg:justify-end no-print">
+              <button
+                onClick={handlePrint}
+                aria-label="Print page"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium transition hover:opacity-80"
+                style={{ background: "rgb(var(--ov) / 0.05)", border: "1px solid rgb(var(--ov) / 0.08)", color: "var(--text-secondary)" }}
+              >
+                <Printer className="w-3.5 h-3.5" /> {t("Print / PDF")}
+              </button>
+            </div>
           </div>
+
         </div>
       </header>
 
       {/* Sticky sub-nav */}
-      <div className="sticky top-[64px] z-30"
+      <div className="sticky top-[64px] z-30 no-print"
         style={{
           background: "rgb(var(--surface-rgb) / 0.85)",
           backdropFilter: "blur(20px) saturate(180%)",
@@ -232,32 +255,110 @@ function CompanyPage() {
 
       {/* Body */}
       <main className="max-w-[1440px] mx-auto px-6 pt-10 pb-24">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {tab === "overview" && <OverviewTab co={co} />}
-            {tab === "price" && (
-              <div className="grid lg:grid-cols-[2fr_1fr] gap-8">
-                <PriceCard co={co} period={period} setPeriod={setPeriod} series={series} up={up} />
-                <StatsGrid co={co} />
-              </div>
-            )}
-            {tab === "financials" && <FinancialsTab co={co} />}
-            {tab === "dividends" && <DividendsTab co={co} />}
-            {tab === "announcements" && <AnnouncementsTab co={co} />}
-          </motion.div>
-        </AnimatePresence>
+        {printMode ? (
+          <div className="space-y-12 print-all">
+            <SectionHeading label="Overview" />
+            <OverviewTab co={co} />
+            <SectionHeading label="Price & Charts" />
+            <ChartsCard co={co} />
+            <StatsGrid co={co} />
+            <SectionHeading label="Financials" />
+            <FinancialsTab co={co} />
+            <SectionHeading label="Disclosures" />
+            <AnnouncementsTab co={co} />
+            <SectionHeading label="Corporate actions" />
+            <DividendsTab co={co} />
+          </div>
+        ) : (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {tab === "overview" && <OverviewTab co={co} />}
+              {tab === "price" && (
+                <div className="space-y-8">
+                  <ChartsCard co={co} />
+                  <StatsGrid co={co} />
+                </div>
+              )}
+              {tab === "financials" && <FinancialsTab co={co} />}
+              {tab === "dividends" && <DividendsTab co={co} />}
+              {tab === "announcements" && <AnnouncementsTab co={co} />}
+            </motion.div>
+          </AnimatePresence>
+        )}
+
+        <PageFooterNotes />
       </main>
 
-      <Footer />
+
+      <div className="no-print"><Footer /></div>
     </div>
   );
 }
+
+/* ----------------- Print / CMS notes / headings ----------------- */
+
+function PrintStyles() {
+  return (
+    <style>{`
+      @media print {
+        .no-print { display: none !important; }
+        .is-printing main { padding-top: 0 !important; }
+        .is-printing { background: #fff !important; }
+        body, html { background: #fff !important; }
+        section, .rounded-2xl { break-inside: avoid; box-shadow: none !important; }
+        .sticky { position: static !important; }
+      }
+    `}</style>
+  );
+}
+
+function SectionHeading({ label }: { label: string }) {
+  return (
+    <div className="pt-6 pb-2 border-b" style={{ borderColor: "rgb(var(--ov) / 0.08)" }}>
+      <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
+        Section
+      </div>
+      <h2 className="mt-1 text-[22px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
+        {label}
+      </h2>
+    </div>
+  );
+}
+
+function TableNote({ id, children }: { id: string; children: React.ReactNode }) {
+  return (
+    <p
+      data-cms={id}
+      contentEditable
+      suppressContentEditableWarning
+      className="mt-3 text-[11px] leading-relaxed outline-none"
+      style={{ color: "var(--text-muted)" }}
+    >
+      {children}
+    </p>
+  );
+}
+
+function PageFooterNotes() {
+  return (
+    <footer className="mt-12 pt-6 border-t space-y-2" style={{ borderColor: "rgb(var(--ov) / 0.08)" }}>
+      <TableNote id="company.footer.notes">
+        (i) Dynamic information is valid for the Public and Debt board only. (ii) Audited figures update after the AGM, except Total Outstanding Securities, which updates on record date.
+      </TableNote>
+      <TableNote id="company.footer.disclaimer">
+        Disclaimer: Information shown is indicative and based on the latest data provided to DSE. Investors should consult official disclosures before making investment decisions.
+      </TableNote>
+    </footer>
+  );
+}
+
+
 
 /* ---- sample-data derivations (deterministic from co) ---- */
 
@@ -520,50 +621,79 @@ function CompanyDetailsCard({ co }: { co: Company }) {
 }
 
 
-function PriceCard({
-  co,
-  period,
-  setPeriod,
-  series,
-  up,
-}: {
-  co: Company;
-  period: Period;
-  setPeriod: (p: Period) => void;
-  series: { t: string; v: number }[];
-  up: boolean;
-}) {
+type ChartType = "price" | "trades" | "volume";
+const chartPeriods = ["1M", "3M", "6M", "1Y"] as const;
+type ChartPeriod = (typeof chartPeriods)[number];
+
+function periodPoints(p: ChartPeriod) {
+  return p === "1M" ? 22 : p === "3M" ? 66 : p === "6M" ? 130 : 250;
+}
+
+function buildChartSeries(co: Company, type: ChartType, period: ChartPeriod) {
+  const n = periodPoints(period);
+  const seed = co.code.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const out: { t: string; v: number }[] = [];
+  const today = new Date();
+  for (let i = n - 1; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const label = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+    const trend = (n - i) / n;
+    const wave = Math.sin((seed + i) * 0.21) * 0.6 + Math.cos((seed + i) * 0.07) * 0.4;
+    let v: number;
+    if (type === "price") {
+      v = +(co.prevClose * (0.93 + trend * 0.12 + wave * 0.02)).toFixed(2);
+    } else if (type === "trades") {
+      const base = Math.max(120, Math.round(co.volume / 850));
+      v = Math.round(base * (0.7 + trend * 0.5 + (wave + 1) * 0.2));
+    } else {
+      v = Math.round(co.volume * (0.6 + trend * 0.6 + (wave + 1) * 0.25));
+    }
+    out.push({ t: label, v });
+  }
+  return out;
+}
+
+function ChartsCard({ co }: { co: Company }) {
+  const [type, setType] = useState<ChartType>("price");
+  const [period, setPeriod] = useState<ChartPeriod>("3M");
+  const series = useMemo(() => buildChartSeries(co, type, period), [co, type, period]);
   const stroke = "var(--primary)";
+
+  const typeLabels: Record<ChartType, string> = {
+    price: "Closing Price",
+    trades: "Total Trade",
+    volume: "Total Volume",
+  };
+  const yFormat = (v: number) =>
+    type === "price" ? `৳${v.toFixed(0)}` : v >= 1_000_000 ? `${(v / 1_000_000).toFixed(1)}M` : v >= 1_000 ? `${(v / 1_000).toFixed(0)}K` : v.toFixed(0);
+  const tipFormat = (v: number) =>
+    type === "price"
+      ? [`৳ ${Number(v).toFixed(2)}`, "Price"] as [string, string]
+      : [v.toLocaleString(), typeLabels[type]] as [string, string];
+
   return (
     <section
       className="rounded-2xl p-6 md:p-8"
-      style={{
-        background: "rgb(var(--ov) / 0.025)",
-        border: "1px solid rgb(var(--ov) / 0.06)",
-      }}
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-        <div className="text-[11px] uppercase tracking-[0.22em]"
-          style={{ color: "var(--text-muted)" }}>
-          Price history · {period}
+      <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+        <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
+          {typeLabels[type]} · {period}
         </div>
-        <div className="flex gap-1 p-1 rounded-full"
-          style={{ background: "rgb(var(--ov) / 0.04)" }}>
-          {periods.map((p) => {
+        <div className="flex gap-1 p-1 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
+          {chartPeriods.map((p) => {
             const active = p === period;
             return (
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
                 className="relative px-3 py-1 text-[12px] tnum rounded-full transition"
-                style={{
-                  color: active ? "var(--navy-deep)" : "var(--text-secondary)",
-                  fontWeight: active ? 600 : 400,
-                }}
+                style={{ color: active ? "var(--navy-deep)" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
               >
                 {active && (
                   <motion.span
-                    layoutId="coPeriod"
+                    layoutId="coChartPeriod"
                     className="absolute inset-0 rounded-full"
                     style={{ background: "var(--primary)" }}
                     transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
@@ -576,75 +706,101 @@ function PriceCard({
         </div>
       </div>
 
+      {/* Chart type selector */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        {(Object.keys(typeLabels) as ChartType[]).map((k) => {
+          const active = k === type;
+          return (
+            <button
+              key={k}
+              onClick={() => setType(k)}
+              className="px-3 py-1.5 text-[12px] rounded-full transition"
+              style={{
+                background: active ? "rgb(var(--brand-tint) / 0.15)" : "rgb(var(--ov) / 0.04)",
+                border: `1px solid ${active ? "var(--primary)" : "rgb(var(--ov) / 0.06)"}`,
+                color: active ? "var(--primary)" : "var(--text-secondary)",
+                fontWeight: active ? 600 : 400,
+              }}
+            >
+              {typeLabels[k]}
+            </button>
+          );
+        })}
+      </div>
+
       <AnimatePresence mode="wait">
         <motion.div
-          key={period}
+          key={`${type}-${period}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.35 }}
+          transition={{ duration: 0.3 }}
           className="h-[320px] -mx-2"
         >
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <defs>
-                <linearGradient id={`coArea-${co.code}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={stroke} stopOpacity={0.28} />
-                  <stop offset="100%" stopColor={stroke} stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
-              <YAxis
-                tick={{ fontSize: 10, fill: "var(--text-muted)" }}
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(v) => v.toFixed(0)}
-                domain={["dataMin - 2", "dataMax + 2"]}
-                orientation="right"
-                width={48}
-              />
-              <Tooltip
-                cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
-                contentStyle={{
-                  borderRadius: 10,
-                  border: "none",
-                  background: "rgba(15,20,18,0.94)",
-                  color: "#fff",
-                  fontSize: 12,
-                  boxShadow: "0 20px 50px -20px rgba(0,0,0,0.5)",
-                }}
-                formatter={(value: number) => [`৳ ${Number(value).toFixed(2)}`, "Price"]}
-              />
-              <ReferenceLine
-                y={co.prevClose}
-                stroke="var(--text-muted)"
-                strokeDasharray="3 6"
-                strokeOpacity={0.6}
-                label={{
-                  value: `Prev close ৳ ${co.prevClose}`,
-                  fontSize: 10,
-                  fill: "var(--text-muted)",
-                  position: "insideTopRight",
-                }}
-              />
-              <Area
-                type="monotone"
-                dataKey="v"
-                stroke={stroke}
-                strokeWidth={1.8}
-                fill={`url(#coArea-${co.code})`}
-                isAnimationActive
-                animationDuration={800}
-              />
-            </ComposedChart>
+            {type === "price" ? (
+              <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id={`coArea-${co.code}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={stroke} stopOpacity={0.28} />
+                    <stop offset="100%" stopColor={stroke} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                <YAxis
+                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={yFormat}
+                  domain={["dataMin - 2", "dataMax + 2"]}
+                  orientation="right"
+                  width={56}
+                />
+                <Tooltip
+                  cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
+                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                  formatter={(value: number) => tipFormat(Number(value))}
+                />
+                <ReferenceLine
+                  y={co.prevClose}
+                  stroke="var(--text-muted)"
+                  strokeDasharray="3 6"
+                  strokeOpacity={0.6}
+                  label={{ value: `Prev close ৳ ${co.prevClose}`, fontSize: 10, fill: "var(--text-muted)", position: "insideTopRight" }}
+                />
+                <Area type="monotone" dataKey="v" stroke={stroke} strokeWidth={1.8} fill={`url(#coArea-${co.code})`} isAnimationActive animationDuration={700} />
+              </ComposedChart>
+            ) : (
+              <BarChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                <YAxis
+                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={yFormat}
+                  orientation="right"
+                  width={56}
+                />
+                <Tooltip
+                  cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
+                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                  formatter={(value: number) => tipFormat(Number(value))}
+                />
+                <Bar dataKey="v" fill={stroke} radius={[3, 3, 0, 0]} isAnimationActive animationDuration={600} />
+              </BarChart>
+            )}
           </ResponsiveContainer>
         </motion.div>
       </AnimatePresence>
 
       <PriceStatsRow co={co} />
+      <TableNote id="company.market.note">
+        Based on yesterday's closing price and last trading price.
+      </TableNote>
     </section>
   );
 }
+
 
 function PriceStatsRow({ co }: { co: Company }) {
   const [loading, setLoading] = useState(true);
@@ -793,13 +949,52 @@ const SHAREHOLDING_ROWS: { key: keyof NonNullable<Company["sharePattern"]>; labe
   { key: "public",      label: "Public",             color: "#9AA7B2" },
 ];
 
+const SHAREHOLDING_DATES = ["31 May 2026", "28 Feb 2026", "30 Nov 2025"] as const;
+type SpDate = (typeof SHAREHOLDING_DATES)[number];
+
+function shiftPattern(sp: NonNullable<Company["sharePattern"]>, idx: number) {
+  // deterministic, small drift across historical snapshots
+  const f = idx === 0 ? 1 : idx === 1 ? 0.985 : 0.97;
+  const drift = (idx * 0.3);
+  return {
+    sponsor: +(sp.sponsor * f).toFixed(2),
+    government: +(sp.government * (1 - 0.01 * idx)).toFixed(2),
+    institution: +(sp.institution * (1 + 0.02 * idx) + drift * 0.2).toFixed(2),
+    foreign: +(sp.foreign * (1 - 0.03 * idx)).toFixed(2),
+    public: +(Math.max(0, sp.public + drift)).toFixed(2),
+  };
+}
+
 function ShareholdingPatternCard({ co }: { co: Company }) {
   if (!co.sharePattern) return null;
-  const sp = co.sharePattern;
+  const [dateIdx, setDateIdx] = useState(0);
+  const sp = useMemo(() => shiftPattern(co.sharePattern!, dateIdx), [co, dateIdx]);
+  const dateLabel: SpDate = SHAREHOLDING_DATES[dateIdx];
   return (
     <SidebarCard title="Shareholding pattern">
-      <div className="text-[11px] mb-4" style={{ color: "var(--text-muted)" }}>
-        as on 31 May 2026
+      <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
+        <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+          as on {dateLabel}
+        </div>
+        <div className="flex gap-1 p-0.5 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
+          {SHAREHOLDING_DATES.map((d, i) => {
+            const active = i === dateIdx;
+            return (
+              <button
+                key={d}
+                onClick={() => setDateIdx(i)}
+                className="px-2 py-0.5 text-[10px] rounded-full transition tnum"
+                style={{
+                  background: active ? "var(--primary)" : "transparent",
+                  color: active ? "var(--navy-deep)" : "var(--text-secondary)",
+                  fontWeight: active ? 600 : 400,
+                }}
+              >
+                {d.split(" ").slice(1).join(" ")}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <div className="space-y-3">
         {SHAREHOLDING_ROWS.map((r, i) => {
@@ -825,9 +1020,13 @@ function ShareholdingPatternCard({ co }: { co: Company }) {
           );
         })}
       </div>
+      <TableNote id="company.shareholding.note">
+        Sponsor/Director holdings reflect regulation 2(1)(r) of the DSE (Listing) Regulations 2015.
+      </TableNote>
     </SidebarCard>
   );
 }
+
 
 function DividendHistoryCard({ co }: { co: Company }) {
   if (!co.dividendHistory?.length) return null;
@@ -976,7 +1175,11 @@ function FinancialsTab({ co }: { co: Company }) {
             </tbody>
           </table>
         </div>
+        <TableNote id="company.interim.note">
+          Per BSEC Directive SEC/CMRRCD/2009-193/64 (21 Sep 2010). ** Continuing operations. *** Bonus-adjusted share count per BSEC Directive, not IAS 33/BAS 33. For detailed statements, see the company's website.
+        </TableNote>
       </section>
+
 
       {/* Multi-year audited */}
       {my.length > 0 && (
@@ -994,30 +1197,46 @@ function FinancialsTab({ co }: { co: Company }) {
                     style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}>
                   <th className="text-left py-2.5 pr-4 font-medium">Year</th>
                   <th className="text-right py-2.5 px-4 font-medium">EPS (Basic)</th>
+                  <th className="text-right py-2.5 px-4 font-medium">EPS (Diluted)</th>
                   <th className="text-right py-2.5 px-4 font-medium">NAV / share</th>
-                  <th className="text-right py-2.5 px-4 font-medium">Profit for the year</th>
-                  <th className="text-right py-2.5 px-4 font-medium">Total comprehensive income</th>
+                  <th className="text-right py-2.5 px-4 font-medium">PCO</th>
+                  <th className="text-right py-2.5 px-4 font-medium">TCI</th>
                   <th className="text-right py-2.5 px-4 font-medium">Reserve & surplus</th>
-                  <th className="text-right py-2.5 pl-4 font-medium">OCI</th>
+                  <th className="text-right py-2.5 px-4 font-medium">OCI</th>
+                  <th className="text-right py-2.5 pl-4 font-medium">Year-end P/E</th>
                 </tr>
               </thead>
               <tbody>
-                {my.map((r) => (
-                  <tr key={r.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
-                    <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.year}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.epsBasic)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.nav)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.profit)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.comprehensive)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.reserve)}</td>
-                    <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.oci)}</td>
-                  </tr>
-                ))}
+                {my.map((r) => {
+                  const diluted = r.epsBasic != null ? +(r.epsBasic * 0.97).toFixed(2) : null;
+                  const yearEndPe = r.epsBasic && r.epsBasic > 0
+                    ? +(co.price * (0.85 + ((r.year % 5) * 0.04)) / r.epsBasic).toFixed(2)
+                    : null;
+                  return (
+                    <tr key={r.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                      <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.year}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.epsBasic)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(diluted)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.nav)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.profit)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.comprehensive)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.reserve)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.oci)}</td>
+                      <td className="py-3 pl-4 text-right font-semibold" style={{ color: "var(--text-primary)" }}>
+                        {yearEndPe !== null ? `${yearEndPe.toFixed(2)}x` : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
+          <TableNote id="company.multiyear.note">
+            PCO = Profit from Continuing Operations (mn). TCI = Total Comprehensive Income for the year (mn).
+          </TableNote>
         </section>
       )}
+
 
       {/* P/E trend */}
       {peTrend.length > 0 && (
@@ -1049,15 +1268,36 @@ function FinancialsTab({ co }: { co: Company }) {
               </LineChart>
             </ResponsiveContainer>
           </div>
+          <TableNote id="company.pe.note">
+            P/E is calculated per annual financial statements on a uniform July–June income year, per the Finance Act 2015 and BSEC Directive SEC/SRMIC/2011/1240/445 (27 Apr 2016).
+          </TableNote>
         </section>
+
       )}
     </div>
   );
 }
 
 function DividendsTab({ co }: { co: Company }) {
-  const history = co.dividendHistory ?? [];
+  const baseHistory = co.dividendHistory ?? [];
+  // Extend to ~10 years with deterministic synthesized older entries
+  const history = useMemo(() => {
+    if (baseHistory.length >= 10) return baseHistory;
+    const earliest = baseHistory.length ? baseHistory[baseHistory.length - 1] : { year: 2025, cash: 10, stock: 0 };
+    const seed = co.code.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+    const extra = [] as typeof baseHistory;
+    const need = 10 - baseHistory.length;
+    for (let i = 1; i <= need; i++) {
+      const year = earliest.year - i;
+      const cash = Math.max(0, +(earliest.cash * (0.85 - i * 0.04) + ((seed + i) % 5)).toFixed(0));
+      const bonus = (seed + i) % 4 === 0 ? 5 + ((seed + i) % 8) : 0;
+      const rights = (seed + i) % 6 === 0 ? `1R:${2 + ((seed + i) % 3)}` : undefined;
+      extra.push({ year, cash, stock: bonus, rights });
+    }
+    return [...baseHistory, ...extra];
+  }, [baseHistory, co.code]);
   const chartData = [...history].reverse().map((d) => ({ year: String(d.year), cash: d.cash, stock: d.stock }));
+
   return (
     <div className="space-y-10">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1091,7 +1331,7 @@ function DividendsTab({ co }: { co: Company }) {
                 <tr key={d.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
                   <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{d.year}</td>
                   <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.cash > 0 ? `${d.cash}%` : "—"}</td>
-                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}%` : "n/a"}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}% B` : "n/a"}</td>
                   <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.rights ?? "n/a"}</td>
                   <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.yieldPct !== undefined ? `${d.yieldPct.toFixed(2)}%` : "—"}</td>
                 </tr>
@@ -1120,7 +1360,11 @@ function DividendsTab({ co }: { co: Company }) {
             </ResponsiveContainer>
           </div>
         )}
+        <TableNote id="company.dividend.note">
+          B = bonus/stock dividend; otherwise cash.
+        </TableNote>
       </section>
+
     </div>
   );
 }
