@@ -218,7 +218,7 @@ function CompanyPage() {
       </header>
 
       {/* Sticky sub-nav */}
-      <div className="sticky top-[64px] z-30"
+      <div className="sticky top-[64px] z-30 no-print"
         style={{
           background: "rgb(var(--surface-rgb) / 0.85)",
           backdropFilter: "blur(20px) saturate(180%)",
@@ -252,27 +252,46 @@ function CompanyPage() {
 
       {/* Body */}
       <main className="max-w-[1440px] mx-auto px-6 pt-10 pb-24">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {tab === "overview" && <OverviewTab co={co} />}
-            {tab === "price" && (
-              <div className="grid lg:grid-cols-[2fr_1fr] gap-8">
-                <PriceCard co={co} period={period} setPeriod={setPeriod} series={series} up={up} />
-                <StatsGrid co={co} />
-              </div>
-            )}
-            {tab === "financials" && <FinancialsTab co={co} />}
-            {tab === "dividends" && <DividendsTab co={co} />}
-            {tab === "announcements" && <AnnouncementsTab co={co} />}
-          </motion.div>
-        </AnimatePresence>
+        {printMode ? (
+          <div className="space-y-12 print-all">
+            <SectionHeading label="Overview" />
+            <OverviewTab co={co} />
+            <SectionHeading label="Price & Charts" />
+            <ChartsCard co={co} />
+            <StatsGrid co={co} />
+            <SectionHeading label="Financials" />
+            <FinancialsTab co={co} />
+            <SectionHeading label="Disclosures" />
+            <AnnouncementsTab co={co} />
+            <SectionHeading label="Corporate actions" />
+            <DividendsTab co={co} />
+          </div>
+        ) : (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {tab === "overview" && <OverviewTab co={co} />}
+              {tab === "price" && (
+                <div className="space-y-8">
+                  <ChartsCard co={co} />
+                  <StatsGrid co={co} />
+                </div>
+              )}
+              {tab === "financials" && <FinancialsTab co={co} />}
+              {tab === "dividends" && <DividendsTab co={co} />}
+              {tab === "announcements" && <AnnouncementsTab co={co} />}
+            </motion.div>
+          </AnimatePresence>
+        )}
+
+        <PageFooterNotes />
       </main>
+
 
       <Footer />
     </div>
