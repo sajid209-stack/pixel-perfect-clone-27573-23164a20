@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Search } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLang } from "@/i18n/LanguageContext";
+import { openSiteSearch } from "./CommandPalette";
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 // Trading days: Sun(0) – Thu(4), 10:00 – 14:30 BST
