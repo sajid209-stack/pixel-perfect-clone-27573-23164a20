@@ -1,827 +1,424 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
+import { ArrowUp, ArrowDown, Search } from "lucide-react";
+import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
-import { motion, AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
-import {
-  Search,
-  ArrowUpRight,
-  Landmark,
-  Building2,
-  ShieldCheck,
-  TrendingUp,
-  Calendar,
-  Percent,
-} from "lucide-react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
+import { useLang } from "@/i18n/LanguageContext";
 
 export const Route = createFileRoute("/bonds")({
   head: () => ({
     meta: [
-      { title: "Bonds & Debt — Dhaka Stock Exchange" },
+      { title: "Bonds & Government Securities | Dhaka Stock Exchange" },
       {
         name: "description",
         content:
-          "Government treasury bonds, sukuk and listed corporate debt on the Dhaka Stock Exchange. Track yields, coupons and maturities.",
+          "Listed corporate debt and Bangladesh government securities traded on the DSE — coupons, yields, maturities and last traded values.",
       },
-      { property: "og:title", content: "DSE Bonds & Debt" },
+      { property: "og:title", content: "Bonds & G-Sec | DSE" },
       {
         property: "og:description",
-        content: "Government, sukuk and corporate debt instruments.",
+        content: "The debt market on the Dhaka Stock Exchange.",
       },
     ],
   }),
   component: BondsPage,
 });
 
-type BondType = "Treasury" | "Sukuk" | "Corporate" | "Subordinated";
-type Rating = "AAA" | "AA+" | "AA" | "AA-" | "A+" | "A" | "BBB";
+type TabKey = "corp" | "gsec";
 
-type Bond = {
-  id: string;
+type BondRow = {
   code: string;
   name: string;
-  issuer: string;
-  type: BondType;
-  coupon: number; // %
-  ytm: number; // %
-  maturity: string; // YYYY-MM
-  faceValue: number;
-  price: number; // dirty/clean per 100
-  rating: Rating;
-  size: number; // crore BDT
-  paymentFreq: "Semi-annual" | "Annual" | "Quarterly";
+  type: string; // Corporate, Sukuk, Subordinated, Debenture, T-Bond, T-Bill, Sukuk-Gov
+  coupon: number | null; // %
+  price: number | null; // per 100
+  yield: number | null; // %
+  maturity: string; // YYYY-MM-DD
+  lastTraded: string; // ISO date
+  volume: number; // BDT (face value notional, lakh)
 };
 
-const bonds: Bond[] = [
-  {
-    id: "b1",
-    code: "BGTB-15Y-2039",
-    name: "15-Year Treasury Bond 2039",
-    issuer: "Bangladesh Bank",
-    type: "Treasury",
-    coupon: 9.45,
-    ytm: 10.12,
-    maturity: "2039-08",
-    faceValue: 100000,
-    price: 96.4,
-    rating: "AAA",
-    size: 5200,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b2",
-    code: "BGTB-10Y-2034",
-    name: "10-Year Treasury Bond 2034",
-    issuer: "Bangladesh Bank",
-    type: "Treasury",
-    coupon: 9.10,
-    ytm: 9.62,
-    maturity: "2034-05",
-    faceValue: 100000,
-    price: 97.8,
-    rating: "AAA",
-    size: 4100,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b3",
-    code: "BGTB-05Y-2029",
-    name: "5-Year Treasury Bond 2029",
-    issuer: "Bangladesh Bank",
-    type: "Treasury",
-    coupon: 8.75,
-    ytm: 8.94,
-    maturity: "2029-11",
-    faceValue: 100000,
-    price: 99.2,
-    rating: "AAA",
-    size: 3600,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b4",
-    code: "BGTB-02Y-2027",
-    name: "2-Year Treasury Bond 2027",
-    issuer: "Bangladesh Bank",
-    type: "Treasury",
-    coupon: 8.20,
-    ytm: 8.31,
-    maturity: "2027-04",
-    faceValue: 100000,
-    price: 99.7,
-    rating: "AAA",
-    size: 2100,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b5",
-    code: "BGIIB-SUKUK-5",
-    name: "Bangladesh Govt Sukuk 5Y",
-    issuer: "Bangladesh Bank",
-    type: "Sukuk",
-    coupon: 8.65,
-    ytm: 8.72,
-    maturity: "2030-02",
-    faceValue: 100000,
-    price: 99.5,
-    rating: "AAA",
-    size: 3000,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b6",
-    code: "BEXBOND-7",
-    name: "Beximco 7-Year Bond",
-    issuer: "Beximco Ltd",
-    type: "Corporate",
-    coupon: 11.20,
-    ytm: 11.85,
-    maturity: "2032-09",
-    faceValue: 5000,
-    price: 96.8,
-    rating: "AA-",
-    size: 750,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b7",
-    code: "SQRBOND-5",
-    name: "Square Pharma 5Y Bond",
-    issuer: "Square Pharmaceuticals",
-    type: "Corporate",
-    coupon: 10.10,
-    ytm: 10.32,
-    maturity: "2030-03",
-    faceValue: 5000,
-    price: 99.0,
-    rating: "AAA",
-    size: 500,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b8",
-    code: "BRACSUB-2",
-    name: "BRAC Bank Subordinated Bond II",
-    issuer: "BRAC Bank",
-    type: "Subordinated",
-    coupon: 10.50,
-    ytm: 10.91,
-    maturity: "2031-06",
-    faceValue: 10000,
-    price: 97.5,
-    rating: "AA",
-    size: 600,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b9",
-    code: "CITYSUB-3",
-    name: "City Bank Subordinated Bond III",
-    issuer: "City Bank",
-    type: "Subordinated",
-    coupon: 10.75,
-    ytm: 11.20,
-    maturity: "2032-12",
-    faceValue: 10000,
-    price: 97.1,
-    rating: "AA-",
-    size: 700,
-    paymentFreq: "Semi-annual",
-  },
-  {
-    id: "b10",
-    code: "ACIBOND-6",
-    name: "ACI Limited 6Y Bond",
-    issuer: "ACI Limited",
-    type: "Corporate",
-    coupon: 11.50,
-    ytm: 12.04,
-    maturity: "2031-07",
-    faceValue: 5000,
-    price: 96.5,
-    rating: "A+",
-    size: 400,
-    paymentFreq: "Semi-annual",
-  },
+const CORP: BondRow[] = [
+  { code: "BEXBOND-7",  name: "Beximco 7-Year Bond",            type: "Corporate",    coupon: 11.20, price: 96.8,  yield: 11.85, maturity: "2032-09-30", lastTraded: "2026-06-18", volume: 425 },
+  { code: "SQRBOND-5",  name: "Square Pharma 5Y Bond",          type: "Corporate",    coupon: 10.10, price: 99.0,  yield: 10.32, maturity: "2030-03-15", lastTraded: "2026-06-18", volume: 310 },
+  { code: "BRACSUB-2",  name: "BRAC Bank Subordinated Bond II", type: "Subordinated", coupon: 10.50, price: 97.5,  yield: 10.91, maturity: "2031-06-30", lastTraded: "2026-06-17", volume: 180 },
+  { code: "CITYSUB-3",  name: "City Bank Subordinated Bond III",type: "Subordinated", coupon: 10.75, price: 97.1,  yield: 11.20, maturity: "2032-12-31", lastTraded: "2026-06-18", volume: 220 },
+  { code: "IBBLSUKUK",  name: "Islami Bank Mudaraba Sukuk",     type: "Sukuk",        coupon:  9.40, price: 100.2, yield:  9.35, maturity: "2029-11-30", lastTraded: "2026-06-16", volume: 540 },
+  { code: "DBHBOND-1",  name: "DBH First Zero-Coupon Bond",     type: "Debenture",    coupon:  0.00, price: 82.4,  yield:  9.80, maturity: "2028-08-31", lastTraded: "2026-06-15", volume:  95 },
 ];
 
-// Yield curve points (tenor in years → yield %)
-const yieldCurve = [
-  { tenor: "3M", years: 0.25, yield: 7.65 },
-  { tenor: "6M", years: 0.5, yield: 7.92 },
-  { tenor: "1Y", years: 1, yield: 8.15 },
-  { tenor: "2Y", years: 2, yield: 8.31 },
-  { tenor: "3Y", years: 3, yield: 8.60 },
-  { tenor: "5Y", years: 5, yield: 8.94 },
-  { tenor: "7Y", years: 7, yield: 9.28 },
-  { tenor: "10Y", years: 10, yield: 9.62 },
-  { tenor: "15Y", years: 15, yield: 10.12 },
-  { tenor: "20Y", years: 20, yield: 10.45 },
+const GSEC: BondRow[] = [
+  { code: "BGTB-02Y-2027", name: "2-Year Treasury Bond 2027",   type: "T-Bond",   coupon: 8.20, price: 99.7, yield: 8.31, maturity: "2027-04-30", lastTraded: "2026-06-18", volume: 2100 },
+  { code: "BGTB-05Y-2029", name: "5-Year Treasury Bond 2029",   type: "T-Bond",   coupon: 8.75, price: 99.2, yield: 8.94, maturity: "2029-11-30", lastTraded: "2026-06-18", volume: 3600 },
+  { code: "BGTB-10Y-2034", name: "10-Year Treasury Bond 2034",  type: "T-Bond",   coupon: 9.10, price: 97.8, yield: 9.62, maturity: "2034-05-31", lastTraded: "2026-06-18", volume: 4100 },
+  { code: "BGTB-15Y-2039", name: "15-Year Treasury Bond 2039",  type: "T-Bond",   coupon: 9.45, price: 96.4, yield: 10.12, maturity: "2039-08-31", lastTraded: "2026-06-18", volume: 5200 },
+  { code: "BGTB-20Y-2044", name: "20-Year Treasury Bond 2044",  type: "T-Bond",   coupon: 9.80, price: 95.1, yield: 10.45, maturity: "2044-02-28", lastTraded: "2026-06-17", volume: 2800 },
+  { code: "BGIIB-SUKUK-5", name: "Bangladesh Govt Sukuk 5Y",    type: "Sukuk",    coupon: 8.65, price: 99.5, yield: 8.72, maturity: "2030-02-28", lastTraded: "2026-06-18", volume: 3000 },
+  { code: "TBILL-364",     name: "364-Day Treasury Bill",       type: "T-Bill",   coupon: null, price: 92.6, yield: 7.95, maturity: "2027-06-15", lastTraded: "2026-06-18", volume: 1500 },
+  { code: "TBILL-182",     name: "182-Day Treasury Bill",       type: "T-Bill",   coupon: null, price: 96.2, yield: 7.62, maturity: "2026-12-18", lastTraded: "2026-06-18", volume: 1200 },
 ];
 
-const typeMeta: Record<BondType, { bg: string; fg: string; icon: typeof Landmark }> = {
-  Treasury: {
-    bg: "rgb(var(--brand-tint) / 0.10)",
-    fg: "var(--primary)",
-    icon: Landmark,
-  },
-  Sukuk: {
-    bg: "rgba(167,139,250,0.14)",
-    fg: "#A78BFA",
-    icon: ShieldCheck,
-  },
-  Corporate: {
-    bg: "rgba(116,170,255,0.10)",
-    fg: "#74AAFF",
-    icon: Building2,
-  },
-  Subordinated: {
-    bg: "rgba(201,168,76,0.12)",
-    fg: "#C9A84C",
-    icon: Building2,
-  },
-};
+type SortKey = "code" | "coupon" | "price" | "yield" | "maturity" | "lastTraded" | "volume";
 
-const types = ["All", "Treasury", "Sukuk", "Corporate", "Subordinated"] as const;
-const sortKeys = ["YTM", "Coupon", "Maturity", "Size"] as const;
-
-function yearsTo(maturity: string) {
-  const [y, m] = maturity.split("-").map(Number);
-  const target = new Date(y, (m ?? 1) - 1, 1).getTime();
-  return (target - Date.now()) / (1000 * 60 * 60 * 24 * 365.25);
+function maturityBucket(iso: string): "<1y" | "1-5y" | "5-10y" | ">10y" {
+  const y = (new Date(iso).getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 365.25);
+  if (y < 1) return "<1y";
+  if (y < 5) return "1-5y";
+  if (y < 10) return "5-10y";
+  return ">10y";
 }
 
-function BondsPage() {
-  const [query, setQuery] = useState("");
-  const [type, setType] = useState<(typeof types)[number]>("All");
-  const [sort, setSort] = useState<(typeof sortKeys)[number]>("YTM");
-  const [selected, setSelected] = useState<Bond>(bonds[0]);
+const fmtPct = (n: number | null) => (n == null ? "—" : `${n.toFixed(2)}%`);
+const fmtNum = (n: number | null, d = 2) => (n == null ? "—" : n.toFixed(d));
+const fmtVol = (n: number) => `৳${n.toLocaleString("en-US")} L`;
+const fmtDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
-  const filtered = useMemo(() => {
+function BondsPage() {
+  const { t } = useLang();
+  const [tab, setTab] = useState<TabKey>("corp");
+  const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState<string>("All");
+  const [maturityFilter, setMaturityFilter] = useState<string>("All");
+  const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({
+    key: "yield",
+    dir: "desc",
+  });
+
+  const source = tab === "corp" ? CORP : GSEC;
+  const typeOptions = useMemo(
+    () => ["All", ...Array.from(new Set(source.map((b) => b.type)))],
+    [source],
+  );
+
+  const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const list = bonds.filter((b) => {
-      if (type !== "All" && b.type !== type) return false;
-      if (
-        q &&
-        !(
-          b.name.toLowerCase().includes(q) ||
-          b.code.toLowerCase().includes(q) ||
-          b.issuer.toLowerCase().includes(q)
-        )
-      )
-        return false;
+    const list = source.filter((b) => {
+      if (typeFilter !== "All" && b.type !== typeFilter) return false;
+      if (maturityFilter !== "All" && maturityBucket(b.maturity) !== maturityFilter) return false;
+      if (q && !(b.code.toLowerCase().includes(q) || b.name.toLowerCase().includes(q))) return false;
       return true;
     });
-    const sortMap: Record<(typeof sortKeys)[number], (b: Bond) => number> = {
-      YTM: (b) => b.ytm,
-      Coupon: (b) => b.coupon,
-      Maturity: (b) => -yearsTo(b.maturity),
-      Size: (b) => b.size,
+    const get = (b: BondRow) => {
+      switch (sort.key) {
+        case "code":       return b.code;
+        case "coupon":     return b.coupon ?? -1;
+        case "price":      return b.price ?? -1;
+        case "yield":      return b.yield ?? -1;
+        case "maturity":   return new Date(b.maturity).getTime();
+        case "lastTraded": return new Date(b.lastTraded).getTime();
+        case "volume":     return b.volume;
+      }
     };
-    return [...list].sort((a, b) => sortMap[sort](b) - sortMap[sort](a));
-  }, [query, type, sort]);
+    return [...list].sort((a, b) => {
+      const va = get(a), vb = get(b);
+      if (va < vb) return sort.dir === "asc" ? -1 : 1;
+      if (va > vb) return sort.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [source, query, typeFilter, maturityFilter, sort]);
 
-  const stats = useMemo(() => {
-    const total = bonds.length;
-    const govt = bonds.filter((b) => b.type === "Treasury" || b.type === "Sukuk").length;
-    const aum = bonds.reduce((a, b) => a + b.size, 0);
-    const avgYtm = bonds.reduce((a, b) => a + b.ytm, 0) / total;
-    return { total, govt, aum, avgYtm: avgYtm.toFixed(2) };
-  }, []);
+  const toggleSort = (key: SortKey) =>
+    setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" } : { key, dir: "desc" }));
+
+  const SortHead = ({ k, label, align = "left" }: { k: SortKey; label: string; align?: "left" | "right" }) => (
+    <th
+      onClick={() => toggleSort(k)}
+      className={`px-3 py-2 cursor-pointer select-none whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.16em] ${align === "right" ? "text-right" : "text-left"}`}
+      style={{ color: "var(--text-muted)", borderBottom: "1px solid var(--line)" }}
+    >
+      <span className="inline-flex items-center gap-1">
+        {label}
+        {sort.key === k &&
+          (sort.dir === "asc" ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />)}
+      </span>
+    </th>
+  );
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+    <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
+      <TopBar />
       <Nav />
 
-      {/* Hero */}
-      <section className="max-w-[1440px] mx-auto px-6 pt-12 pb-8">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+      {/* Header */}
+      <section className="border-b" style={{ borderColor: "var(--line)" }}>
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">
           <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.22em] mb-5"
-            style={{
-              background: "rgba(167,139,250,0.10)",
-              border: "1px solid rgba(167,139,250,0.30)",
-              color: "#A78BFA",
-            }}
+            className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+            style={{ color: "var(--brand-600)" }}
           >
-            <Landmark className="w-3 h-3" />
-            Fixed income
+            {t("Dhaka Stock Exchange")}
           </div>
           <h1
-            className="text-[44px] md:text-[56px] leading-[1.04] tracking-[-0.02em] font-semibold max-w-3xl"
-            style={{ color: "var(--text-primary)" }}
+            className="mt-2 text-[26px] md:text-[34px] font-semibold leading-tight"
+            style={{ color: "var(--ink)" }}
           >
-            Bonds &amp; Government Securities
+            {t("Bonds & Government Securities")}
           </h1>
-
+          {/* CMS-editable intro */}
           <p
-            className="mt-4 text-[16px] max-w-2xl"
+            data-cms="bonds.intro"
+            className="mt-2 text-[14px] md:text-[15px] leading-[1.6] max-w-3xl"
             style={{ color: "var(--text-secondary)" }}
           >
-            Bangladesh Government Treasury Bonds, sukuk and listed corporate debt — all tradable on
-            DSE with transparent yields and coupon schedules.
+            {t(
+              "The debt market on the DSE covers listed corporate bonds, debentures and sukuk, alongside Bangladesh government treasury bonds, T-bills and sovereign sukuk. Prices are quoted per 100 of face value; yields are quoted as yield-to-maturity.",
+            )}
           </p>
-        </motion.div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10">
-          {[
-            { label: "Listed instruments", value: stats.total, icon: Landmark },
-            { label: "Government issues", value: stats.govt, icon: ShieldCheck },
-            {
-              label: "Outstanding size",
-              value: `৳${(stats.aum / 1000).toFixed(1)}k cr`,
-              icon: TrendingUp,
-            },
-            { label: "Avg. YTM", value: `${stats.avgYtm}%`, icon: Percent },
-          ].map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.05 }}
-              className="p-5 rounded-2xl"
-              style={{
-                background: "rgb(var(--surface-rgb) / 0.55)",
-                border: "1px solid rgb(var(--ov) / 0.06)",
-              }}
-            >
-              <s.icon className="w-4 h-4 mb-3" style={{ color: "var(--text-muted)" }} />
-              <div
-                className="text-[28px] font-semibold tnum tracking-tight"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {s.value}
-              </div>
-              <div
-                className="text-[11px] uppercase tracking-[0.18em] mt-1"
-                style={{ color: "var(--text-muted)" }}
-              >
-                {s.label}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Yield curve */}
-      <section className="max-w-[1440px] mx-auto px-6 pb-10">
-        <div
-          className="p-6 rounded-2xl"
-          style={{
-            background: "rgb(var(--surface-rgb) / 0.55)",
-            border: "1px solid rgb(var(--ov) / 0.06)",
-          }}
-        >
-          <div className="flex items-end justify-between mb-5 flex-wrap gap-3">
-            <div>
-              <div
-                className="text-[11px] uppercase tracking-[0.22em] mb-1.5"
-                style={{ color: "var(--text-muted)" }}
-              >
-                Sovereign yield curve
-              </div>
-              <h2
-                className="text-[22px] font-semibold tracking-tight"
-                style={{ color: "var(--text-primary)" }}
-              >
-                Bangladesh Government Treasury Bonds
-              </h2>
-            </div>
-            <div className="flex gap-2 text-[11.5px]" style={{ color: "var(--text-muted)" }}>
-              <div className="flex items-center gap-1.5">
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ background: "var(--primary)" }}
-                />
-                Indicative mid-yield
-              </div>
-              <div>· Updated today</div>
-            </div>
-          </div>
-          <div className="h-64 -mx-2">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={yieldCurve}
-                margin={{ top: 10, right: 16, bottom: 0, left: 0 }}
-              >
-                <CartesianGrid
-                  strokeDasharray="2 4"
-                  stroke="rgb(var(--ov) / 0.06)"
-                  vertical={false}
-                />
-                <XAxis
-                  dataKey="tenor"
-                  stroke="rgb(var(--ov) / 0.3)"
-                  tick={{ fill: "var(--text-muted)", fontSize: 11 }}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <YAxis
-                  stroke="rgb(var(--ov) / 0.3)"
-                  tick={{ fill: "var(--text-muted)", fontSize: 11 }}
-                  tickLine={false}
-                  axisLine={false}
-                  domain={["dataMin - 0.5", "dataMax + 0.5"]}
-                  tickFormatter={(v) => `${v}%`}
-                  width={42}
-                />
-                <Tooltip
-                  contentStyle={{
-                    background: "rgb(var(--surface-rgb) / 0.95)",
-                    border: "1px solid rgb(var(--ov) / 0.10)",
-                    borderRadius: 8,
-                    fontSize: 12,
-                  }}
-                  labelStyle={{ color: "var(--text-muted)" }}
-                  itemStyle={{ color: "var(--text-primary)" }}
-                  formatter={(v: number) => [`${v.toFixed(2)}%`, "Yield"]}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="yield"
-                  stroke="var(--primary)"
-                  strokeWidth={2.5}
-                  dot={{ r: 3, fill: "var(--primary)" }}
-                  activeDot={{ r: 5 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </section>
-
-      {/* Filters */}
-      <section className="max-w-[1440px] mx-auto px-6 pb-6">
-        <div
-          className="sticky top-[88px] z-30 p-3 rounded-2xl flex flex-col lg:flex-row gap-3 lg:items-center"
-          style={{
-            background: "rgb(var(--surface-rgb) / 0.7)",
-            backdropFilter: "blur(18px) saturate(180%)",
-            border: "1px solid rgb(var(--ov) / 0.06)",
-          }}
-        >
           <div
-            className="flex items-center gap-2 px-3 h-10 rounded-xl flex-1"
-            style={{
-              background: "rgb(var(--ov) / 0.04)",
-              border: "1px solid rgb(var(--ov) / 0.06)",
-            }}
+            className="mt-3 inline-flex items-center gap-1.5 text-[11px]"
+            style={{ color: "var(--text-muted)" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--brand-600)" }} />
+            {t("as provided by DSE")} · {t("end-of-day")} {fmtDate("2026-06-18")}
+          </div>
+        </div>
+      </section>
+
+      {/* Tabs */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 pt-6">
+        <div role="tablist" className="flex gap-0 border-b" style={{ borderColor: "var(--line)" }}>
+          {([
+            { k: "corp", label: t("Corporate & debt instruments") },
+            { k: "gsec", label: t("Government securities (G-Sec)") },
+          ] as { k: TabKey; label: string }[]).map((x) => {
+            const active = tab === x.k;
+            return (
+              <button
+                key={x.k}
+                role="tab"
+                aria-selected={active}
+                onClick={() => {
+                  setTab(x.k);
+                  setTypeFilter("All");
+                  setMaturityFilter("All");
+                }}
+                className="px-3 md:px-4 py-2.5 text-[13px] font-semibold -mb-px"
+                style={{
+                  color: active ? "var(--ink)" : "var(--text-secondary)",
+                  borderBottom: `2px solid ${active ? "var(--brand-600)" : "transparent"}`,
+                }}
+              >
+                {x.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Filters */}
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <div
+            className="flex items-center gap-2 px-2.5 py-1.5 flex-1 min-w-[200px]"
+            style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
           >
             <Search className="w-3.5 h-3.5" style={{ color: "var(--text-muted)" }} />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search bond, issuer or code…"
-              className="flex-1 bg-transparent outline-none text-[13.5px] placeholder:opacity-60"
-              style={{ color: "var(--text-primary)" }}
+              placeholder={t("Search by name or code")}
+              className="bg-transparent outline-none text-[13px] w-full"
+              style={{ color: "var(--ink)" }}
             />
           </div>
-
-          <div className="flex gap-1 flex-wrap">
-            {types.map((t) => (
-              <button
-                key={t}
-                onClick={() => setType(t)}
-                className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                style={{ color: type === t ? "var(--primary-foreground)" : "var(--text-secondary)" }}
-              >
-                {type === t && (
-                  <motion.span
-                    layoutId="bondTypePill"
-                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                    className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--primary)" }}
-                  />
-                )}
-                <span className="relative">{t}</span>
-              </button>
-            ))}
-          </div>
-
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as (typeof sortKeys)[number])}
-            className="h-8 px-3 rounded-full text-[12px] font-medium outline-none cursor-pointer"
-            style={{
-              background: "rgb(var(--ov) / 0.06)",
-              color: "var(--text-primary)",
-              border: "1px solid rgb(var(--ov) / 0.08)",
-            }}
-          >
-            {sortKeys.map((k) => (
-              <option key={k} value={k} style={{ background: "var(--bg)" }}>
-                Sort: {k}
-              </option>
-            ))}
-          </select>
+          <FilterSelect
+            label={t("Instrument type")}
+            value={typeFilter}
+            onChange={setTypeFilter}
+            options={typeOptions}
+            t={t}
+          />
+          <FilterSelect
+            label={t("Maturity")}
+            value={maturityFilter}
+            onChange={setMaturityFilter}
+            options={["All", "<1y", "1-5y", "5-10y", ">10y"]}
+            t={t}
+          />
         </div>
       </section>
 
-      {/* Table + detail */}
-      <section className="max-w-[1440px] mx-auto px-6 pb-20">
-        <div className="grid lg:grid-cols-[1fr_400px] gap-5">
-          <div
-            className="rounded-2xl overflow-hidden"
-            style={{
-              background: "rgb(var(--surface-rgb) / 0.55)",
-              border: "1px solid rgb(var(--ov) / 0.06)",
-            }}
-          >
-            <div
-              className="grid grid-cols-[2fr_80px_80px_70px_80px_70px] gap-3 px-5 py-3 text-[10.5px] uppercase tracking-[0.18em]"
-              style={{
-                color: "var(--text-muted)",
-                borderBottom: "1px solid rgb(var(--ov) / 0.06)",
-              }}
-            >
-              <div>Instrument</div>
-              <div className="text-right">Coupon</div>
-              <div className="text-right">YTM</div>
-              <div className="text-right">Price</div>
-              <div className="text-right">Maturity</div>
-              <div className="text-right">Rating</div>
-            </div>
-
-            <div className="max-h-[640px] overflow-auto">
-              <AnimatePresence mode="popLayout">
-                {filtered.map((b, i) => {
-                  const isSel = selected.id === b.id;
-                  const meta = typeMeta[b.type];
-                  const yrs = yearsTo(b.maturity);
-                  return (
-                    <motion.button
-                      key={b.id}
-                      layout
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ delay: i * 0.02 }}
-                      onClick={() => setSelected(b)}
-                      className="w-full text-left grid grid-cols-[2fr_80px_80px_70px_80px_70px] gap-3 px-5 py-3 items-center transition"
-                      style={{
-                        borderBottom: "1px solid rgb(var(--ov) / 0.04)",
-                        background: isSel ? "rgb(var(--ov) / 0.05)" : "transparent",
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!isSel)
-                          e.currentTarget.style.background = "rgb(var(--ov) / 0.03)";
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isSel) e.currentTarget.style.background = "transparent";
-                      }}
-                    >
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 mb-0.5">
-                          <span
-                            className="text-[10px] uppercase tracking-[0.18em] tnum"
-                            style={{ color: "var(--text-muted)" }}
-                          >
-                            {b.code}
-                          </span>
-                          <span
-                            className="px-1.5 py-0.5 rounded text-[9px] uppercase tracking-[0.16em]"
-                            style={{ background: meta.bg, color: meta.fg }}
-                          >
-                            {b.type}
-                          </span>
-                        </div>
-                        <div
-                          className="text-[13.5px] font-semibold truncate"
-                          style={{ color: "var(--text-primary)" }}
-                        >
-                          {b.name}
-                        </div>
-                        <div
-                          className="text-[11px] truncate"
-                          style={{ color: "var(--text-muted)" }}
-                        >
-                          {b.issuer}
-                        </div>
-                      </div>
-                      <div
-                        className="text-right text-[13px] tnum"
-                        style={{ color: "var(--text-primary)" }}
-                      >
-                        {b.coupon.toFixed(2)}%
-                      </div>
-                      <div
-                        className="text-right text-[13px] tnum font-semibold"
-                        style={{ color: "var(--primary)" }}
-                      >
-                        {b.ytm.toFixed(2)}%
-                      </div>
-                      <div
-                        className="text-right text-[12.5px] tnum"
-                        style={{ color: "var(--text-secondary)" }}
-                      >
-                        {b.price.toFixed(2)}
-                      </div>
-                      <div
-                        className="text-right text-[12px] tnum"
-                        style={{ color: "var(--text-secondary)" }}
-                      >
-                        {yrs.toFixed(1)}y
-                      </div>
-                      <div className="text-right">
-                        <span
-                          className="px-1.5 py-0.5 rounded text-[10px] font-semibold tnum"
-                          style={{
-                            background: "rgb(var(--ov) / 0.05)",
-                            color: "var(--text-primary)",
-                            border: "1px solid rgb(var(--ov) / 0.08)",
-                          }}
-                        >
-                          {b.rating}
-                        </span>
-                      </div>
-                    </motion.button>
-                  );
-                })}
-              </AnimatePresence>
-              {filtered.length === 0 && (
-                <div
-                  className="p-12 text-center text-[13px]"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  No instruments match the filters.
-                </div>
+      {/* Table (desktop) */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6">
+        <div
+          className="hidden md:block overflow-x-auto"
+          style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+        >
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr>
+                <SortHead k="code" label={t("Instrument")} />
+                <SortHead k="coupon" label={t("Coupon")} align="right" />
+                <SortHead k="price" label={t("Last price")} align="right" />
+                <SortHead k="yield" label={t("Yield")} align="right" />
+                <SortHead k="maturity" label={t("Maturity")} align="right" />
+                <SortHead k="lastTraded" label={t("Last traded")} align="right" />
+                <SortHead k="volume" label={t("Volume")} align="right" />
+              </tr>
+            </thead>
+            <tbody>
+              {rows.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="px-3 py-8 text-center text-[13px]" style={{ color: "var(--text-muted)" }}>
+                    {t("No matching instruments — showing last available values.")}
+                  </td>
+                </tr>
               )}
-            </div>
-          </div>
-
-          {/* Detail */}
-          <AnimatePresence mode="wait">
-            <motion.aside
-              key={selected.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="rounded-2xl p-6 flex flex-col gap-5 self-start sticky top-[160px]"
-              style={{
-                background: "rgb(var(--surface-rgb) / 0.65)",
-                border: "1px solid rgb(var(--ov) / 0.08)",
-              }}
-            >
-              <div>
-                <div
-                  className="text-[10px] uppercase tracking-[0.22em] mb-1.5"
-                  style={{ color: typeMeta[selected.type].fg }}
+              {rows.map((b, i) => (
+                <tr
+                  key={b.code}
+                  style={{
+                    background: i % 2 === 1 ? "rgba(0,0,0,0.018)" : "transparent",
+                    borderTop: "1px solid var(--line)",
+                  }}
                 >
-                  {selected.code} · {selected.type}
-                </div>
-                <h3
-                  className="text-[20px] font-semibold leading-tight"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  {selected.name}
-                </h3>
-                <div className="text-[12px] mt-1" style={{ color: "var(--text-muted)" }}>
-                  Issued by {selected.issuer}
-                </div>
-              </div>
-
-              <div
-                className="grid grid-cols-2 gap-3 pt-4"
-                style={{ borderTop: "1px solid rgb(var(--ov) / 0.06)" }}
-              >
-                {[
-                  { l: "Coupon", v: `${selected.coupon.toFixed(2)}%` },
-                  {
-                    l: "Yield to maturity",
-                    v: `${selected.ytm.toFixed(2)}%`,
-                    c: "var(--primary)",
-                  },
-                  { l: "Clean price", v: selected.price.toFixed(2) },
-                  {
-                    l: "Face value",
-                    v: `৳${selected.faceValue.toLocaleString()}`,
-                  },
-                  { l: "Maturity", v: selected.maturity },
-                  {
-                    l: "Tenor left",
-                    v: `${yearsTo(selected.maturity).toFixed(1)} yrs`,
-                  },
-                  { l: "Issue size", v: `৳${selected.size} cr` },
-                  { l: "Coupon freq.", v: selected.paymentFreq },
-                  { l: "Credit rating", v: selected.rating },
-                ].map((row, idx) => (
-                  <div key={idx}>
-                    <div
-                      className="text-[10px] uppercase tracking-[0.18em] mb-1"
-                      style={{ color: "var(--text-muted)" }}
-                    >
-                      {row.l}
+                  <td className="px-3 py-2.5">
+                    <div className="font-semibold tnum" style={{ color: "var(--ink)", fontFamily: "var(--font-mono)" }}>
+                      {b.code}
                     </div>
-                    <div
-                      className="text-[14px] font-semibold tnum"
-                      style={{
-                        color:
-                          (row as { c?: string }).c ?? "var(--text-primary)",
-                      }}
-                    >
-                      {row.v}
+                    <div className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
+                      {b.name} · <span style={{ color: "var(--text-muted)" }}>{b.type}</span>
                     </div>
-                  </div>
-                ))}
-              </div>
-
-              <div
-                className="p-3 rounded-xl flex items-center gap-2"
-                style={{
-                  background: "rgb(var(--brand-tint) / 0.06)",
-                  border: "1px solid rgb(var(--brand-tint) / 0.20)",
-                }}
-              >
-                <Calendar className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} />
-                <div
-                  className="text-[11.5px]"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  Next coupon in approx{" "}
-                  <strong style={{ color: "var(--text-primary)" }}>
-                    {Math.round((6 - (new Date().getMonth() % 6)) * 30)} days
-                  </strong>
-                </div>
-              </div>
-
-              <a
-                className="inline-flex items-center justify-center gap-1.5 h-11 rounded-full text-[13.5px] font-semibold cursor-pointer hover:scale-[1.02] transition"
-                style={{
-                  background: "var(--primary)",
-                  color: "var(--primary-foreground)",
-                  boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
-                }}
-              >
-                Buy this bond
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </motion.aside>
-          </AnimatePresence>
+                  </td>
+                  <td className="px-3 py-2.5 text-right tnum" style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}>
+                    {fmtPct(b.coupon)}
+                  </td>
+                  <td className="px-3 py-2.5 text-right tnum" style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}>
+                    {fmtNum(b.price)}
+                  </td>
+                  <td className="px-3 py-2.5 text-right tnum font-semibold" style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}>
+                    {fmtPct(b.yield)}
+                  </td>
+                  <td className="px-3 py-2.5 text-right tnum" style={{ fontFamily: "var(--font-mono)", color: "var(--text-secondary)" }}>
+                    {fmtDate(b.maturity)}
+                  </td>
+                  <td className="px-3 py-2.5 text-right tnum" style={{ fontFamily: "var(--font-mono)", color: "var(--text-secondary)" }}>
+                    {fmtDate(b.lastTraded)}
+                  </td>
+                  <td className="px-3 py-2.5 text-right tnum" style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}>
+                    {fmtVol(b.volume)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </section>
 
-      {/* Education strip */}
-      <section className="max-w-[1440px] mx-auto px-6 pb-24">
-        <div className="grid md:grid-cols-3 gap-4">
-          {[
-            {
-              t: "What is YTM?",
-              d: "Yield to maturity is the total return you'd earn holding a bond until it matures, factoring price, coupons and time.",
-            },
-            {
-              t: "Coupon vs yield",
-              d: "Coupon is fixed at issue. Yield moves with the market price — bonds bought below par yield more than their coupon.",
-            },
-            {
-              t: "Credit ratings",
-              d: "AAA is the safest. Lower-rated issuers pay higher coupons to compensate for credit risk.",
-            },
-          ].map((b, i) => (
-            <motion.div
-              key={b.t}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="p-6 rounded-2xl"
+        {/* Cards (mobile) */}
+        <div className="md:hidden space-y-2">
+          {rows.length === 0 && (
+            <div
+              className="px-3 py-6 text-center text-[13px]"
               style={{
-                background: "rgb(var(--surface-rgb) / 0.55)",
-                border: "1px solid rgb(var(--ov) / 0.06)",
+                background: "var(--surface)",
+                border: "1px solid var(--line)",
+                borderRadius: 2,
+                color: "var(--text-muted)",
               }}
             >
-              <div
-                className="text-[15px] font-semibold mb-1.5"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {b.t}
+              {t("No matching instruments — showing last available values.")}
+            </div>
+          )}
+          {rows.map((b) => (
+            <div
+              key={b.code}
+              className="p-3"
+              style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <div
+                    className="font-semibold tnum text-[13px] truncate"
+                    style={{ color: "var(--ink)", fontFamily: "var(--font-mono)" }}
+                  >
+                    {b.code}
+                  </div>
+                  <div className="text-[12px] truncate" style={{ color: "var(--text-secondary)" }}>
+                    {b.name}
+                  </div>
+                </div>
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-px shrink-0"
+                  style={{ background: "var(--surface-2)", color: "var(--text-secondary)", borderRadius: 2 }}
+                >
+                  {b.type}
+                </span>
               </div>
-              <p
-                className="text-[13px] leading-relaxed"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {b.d}
-              </p>
-            </motion.div>
+              <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12px]">
+                <Cell label={t("Coupon")} value={fmtPct(b.coupon)} />
+                <Cell label={t("Yield")} value={fmtPct(b.yield)} bold />
+                <Cell label={t("Last price")} value={fmtNum(b.price)} />
+                <Cell label={t("Volume")} value={fmtVol(b.volume)} />
+                <Cell label={t("Maturity")} value={fmtDate(b.maturity)} />
+                <Cell label={t("Last traded")} value={fmtDate(b.lastTraded)} />
+              </div>
+            </div>
           ))}
         </div>
+
+        <p className="mt-3 text-[12px] italic" style={{ color: "var(--text-muted)" }}>
+          {t("Indicative values. After-hours / non-trading days display the last available prices.")}
+        </p>
       </section>
 
       <Footer />
     </div>
+  );
+}
+
+function Cell({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+        {label}
+      </span>
+      <span
+        className="tnum"
+        style={{
+          fontFamily: "var(--font-mono)",
+          color: "var(--ink)",
+          fontWeight: bold ? 600 : 400,
+        }}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function FilterSelect({
+  label,
+  value,
+  onChange,
+  options,
+  t,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+  t: (s: string) => string;
+}) {
+  return (
+    <label
+      className="flex items-center gap-1.5 px-2 py-1.5"
+      style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+    >
+      <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+        {label}
+      </span>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="bg-transparent outline-none text-[12px] font-semibold"
+        style={{ color: "var(--ink)" }}
+      >
+        {options.map((o) => (
+          <option key={o} value={o}>
+            {o === "All" ? t("All") : o}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
