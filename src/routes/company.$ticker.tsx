@@ -15,7 +15,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ArrowLeft, ArrowUpRight, ChevronDown, ExternalLink, Info } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronDown, ExternalLink, Info, Printer } from "lucide-react";
+import { useLang } from "@/i18n/LanguageContext";
 
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
