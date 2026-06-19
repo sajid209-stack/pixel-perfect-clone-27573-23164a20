@@ -1173,7 +1173,11 @@ function FinancialsTab({ co }: { co: Company }) {
             </tbody>
           </table>
         </div>
+        <TableNote id="company.interim.note">
+          Per BSEC Directive SEC/CMRRCD/2009-193/64 (21 Sep 2010). ** Continuing operations. *** Bonus-adjusted share count per BSEC Directive, not IAS 33/BAS 33. For detailed statements, see the company's website.
+        </TableNote>
       </section>
+
 
       {/* Multi-year audited */}
       {my.length > 0 && (
