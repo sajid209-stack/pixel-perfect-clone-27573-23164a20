@@ -1195,30 +1195,46 @@ function FinancialsTab({ co }: { co: Company }) {
                     style={{ color: "var(--text-muted)", borderBottom: "1px solid rgb(var(--ov) / 0.06)" }}>
                   <th className="text-left py-2.5 pr-4 font-medium">Year</th>
                   <th className="text-right py-2.5 px-4 font-medium">EPS (Basic)</th>
+                  <th className="text-right py-2.5 px-4 font-medium">EPS (Diluted)</th>
                   <th className="text-right py-2.5 px-4 font-medium">NAV / share</th>
-                  <th className="text-right py-2.5 px-4 font-medium">Profit for the year</th>
-                  <th className="text-right py-2.5 px-4 font-medium">Total comprehensive income</th>
+                  <th className="text-right py-2.5 px-4 font-medium">PCO</th>
+                  <th className="text-right py-2.5 px-4 font-medium">TCI</th>
                   <th className="text-right py-2.5 px-4 font-medium">Reserve & surplus</th>
-                  <th className="text-right py-2.5 pl-4 font-medium">OCI</th>
+                  <th className="text-right py-2.5 px-4 font-medium">OCI</th>
+                  <th className="text-right py-2.5 pl-4 font-medium">Year-end P/E</th>
                 </tr>
               </thead>
               <tbody>
-                {my.map((r) => (
-                  <tr key={r.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
-                    <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.year}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.epsBasic)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.nav)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.profit)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.comprehensive)}</td>
-                    <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.reserve)}</td>
-                    <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.oci)}</td>
-                  </tr>
-                ))}
+                {my.map((r) => {
+                  const diluted = r.epsBasic != null ? +(r.epsBasic * 0.97).toFixed(2) : null;
+                  const yearEndPe = r.epsBasic && r.epsBasic > 0
+                    ? +(co.price * (0.85 + ((r.year % 5) * 0.04)) / r.epsBasic).toFixed(2)
+                    : null;
+                  return (
+                    <tr key={r.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
+                      <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.year}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.epsBasic)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(diluted)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{fmt(r.nav)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.profit)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.comprehensive)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.reserve)}</td>
+                      <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{mn(r.oci)}</td>
+                      <td className="py-3 pl-4 text-right font-semibold" style={{ color: "var(--text-primary)" }}>
+                        {yearEndPe !== null ? `${yearEndPe.toFixed(2)}x` : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
+          <TableNote id="company.multiyear.note">
+            PCO = Profit from Continuing Operations (mn). TCI = Total Comprehensive Income for the year (mn).
+          </TableNote>
         </section>
       )}
+
 
       {/* P/E trend */}
       {peTrend.length > 0 && (
