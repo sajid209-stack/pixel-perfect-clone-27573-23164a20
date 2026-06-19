@@ -103,12 +103,20 @@ function CompanyNotFound() {
 
 function CompanyPage() {
   const { co } = Route.useLoaderData();
-  const [period, setPeriod] = useState<Period>("1D");
   const [tab, setTab] = useState<TabId>("overview");
+  const [printMode, setPrintMode] = useState(false);
   const up = co.change >= 0;
-  const series = useMemo(() => buildSeries(co, period), [co, period]);
   const { push } = useRecentlyViewed();
   useEffect(() => { push(co.code); }, [co.code, push]);
+
+  const handlePrint = () => {
+    setPrintMode(true);
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => setPrintMode(false), 300);
+    }, 80);
+  };
+
 
   return (
     <div className="min-h-screen">
