@@ -947,13 +947,52 @@ const SHAREHOLDING_ROWS: { key: keyof NonNullable<Company["sharePattern"]>; labe
   { key: "public",      label: "Public",             color: "#9AA7B2" },
 ];
 
+const SHAREHOLDING_DATES = ["31 May 2026", "28 Feb 2026", "30 Nov 2025"] as const;
+type SpDate = (typeof SHAREHOLDING_DATES)[number];
+
+function shiftPattern(sp: NonNullable<Company["sharePattern"]>, idx: number) {
+  // deterministic, small drift across historical snapshots
+  const f = idx === 0 ? 1 : idx === 1 ? 0.985 : 0.97;
+  const drift = (idx * 0.3);
+  return {
+    sponsor: +(sp.sponsor * f).toFixed(2),
+    government: +(sp.government * (1 - 0.01 * idx)).toFixed(2),
+    institution: +(sp.institution * (1 + 0.02 * idx) + drift * 0.2).toFixed(2),
+    foreign: +(sp.foreign * (1 - 0.03 * idx)).toFixed(2),
+    public: +(Math.max(0, sp.public + drift)).toFixed(2),
+  };
+}
+
 function ShareholdingPatternCard({ co }: { co: Company }) {
   if (!co.sharePattern) return null;
-  const sp = co.sharePattern;
+  const [dateIdx, setDateIdx] = useState(0);
+  const sp = useMemo(() => shiftPattern(co.sharePattern!, dateIdx), [co, dateIdx]);
+  const dateLabel: SpDate = SHAREHOLDING_DATES[dateIdx];
   return (
     <SidebarCard title="Shareholding pattern">
-      <div className="text-[11px] mb-4" style={{ color: "var(--text-muted)" }}>
-        as on 31 May 2026
+      <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
+        <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+          as on {dateLabel}
+        </div>
+        <div className="flex gap-1 p-0.5 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
+          {SHAREHOLDING_DATES.map((d, i) => {
+            const active = i === dateIdx;
+            return (
+              <button
+                key={d}
+                onClick={() => setDateIdx(i)}
+                className="px-2 py-0.5 text-[10px] rounded-full transition tnum"
+                style={{
+                  background: active ? "var(--primary)" : "transparent",
+                  color: active ? "var(--navy-deep)" : "var(--text-secondary)",
+                  fontWeight: active ? 600 : 400,
+                }}
+              >
+                {d.split(" ").slice(1).join(" ")}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <div className="space-y-3">
         {SHAREHOLDING_ROWS.map((r, i) => {
@@ -979,9 +1018,13 @@ function ShareholdingPatternCard({ co }: { co: Company }) {
           );
         })}
       </div>
+      <TableNote id="company.shareholding.note">
+        Sponsor/Director holdings reflect regulation 2(1)(r) of the DSE (Listing) Regulations 2015.
+      </TableNote>
     </SidebarCard>
   );
 }
+
 
 function DividendHistoryCard({ co }: { co: Company }) {
   if (!co.dividendHistory?.length) return null;
