@@ -294,10 +294,69 @@ function CompanyPage() {
       </main>
 
 
-      <Footer />
+      <div className="no-print"><Footer /></div>
     </div>
   );
 }
+
+/* ----------------- Print / CMS notes / headings ----------------- */
+
+function PrintStyles() {
+  return (
+    <style>{`
+      @media print {
+        .no-print { display: none !important; }
+        .is-printing main { padding-top: 0 !important; }
+        .is-printing { background: #fff !important; }
+        body, html { background: #fff !important; }
+        section, .rounded-2xl { break-inside: avoid; box-shadow: none !important; }
+        .sticky { position: static !important; }
+      }
+    `}</style>
+  );
+}
+
+function SectionHeading({ label }: { label: string }) {
+  return (
+    <div className="pt-6 pb-2 border-b" style={{ borderColor: "rgb(var(--ov) / 0.08)" }}>
+      <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
+        Section
+      </div>
+      <h2 className="mt-1 text-[22px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
+        {label}
+      </h2>
+    </div>
+  );
+}
+
+function TableNote({ id, children }: { id: string; children: React.ReactNode }) {
+  return (
+    <p
+      data-cms={id}
+      contentEditable
+      suppressContentEditableWarning
+      className="mt-3 text-[11px] leading-relaxed outline-none"
+      style={{ color: "var(--text-muted)" }}
+    >
+      {children}
+    </p>
+  );
+}
+
+function PageFooterNotes() {
+  return (
+    <footer className="mt-12 pt-6 border-t space-y-2" style={{ borderColor: "rgb(var(--ov) / 0.08)" }}>
+      <TableNote id="company.footer.notes">
+        (i) Dynamic information is valid for the Public and Debt board only. (ii) Audited figures update after the AGM, except Total Outstanding Securities, which updates on record date.
+      </TableNote>
+      <TableNote id="company.footer.disclaimer">
+        Disclaimer: Information shown is indicative and based on the latest data provided to DSE. Investors should consult official disclosures before making investment decisions.
+      </TableNote>
+    </footer>
+  );
+}
+
+
 
 /* ---- sample-data derivations (deterministic from co) ---- */
 
