@@ -202,7 +202,18 @@ function CompanyPage() {
               <span>Closing ৳ {co.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
               <span>Yesterday's close ৳ {co.prevClose.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </div>
+            <div className="mt-3 flex lg:justify-end no-print">
+              <button
+                onClick={handlePrint}
+                aria-label="Print page"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium transition hover:opacity-80"
+                style={{ background: "rgb(var(--ov) / 0.05)", border: "1px solid rgb(var(--ov) / 0.08)", color: "var(--text-secondary)" }}
+              >
+                <Printer className="w-3.5 h-3.5" /> Print / PDF
+              </button>
+            </div>
           </div>
+
         </div>
       </header>
 
