@@ -212,7 +212,7 @@ function CompanyPage() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium transition hover:opacity-80"
                 style={{ background: "rgb(var(--ov) / 0.05)", border: "1px solid rgb(var(--ov) / 0.08)", color: "var(--text-secondary)" }}
               >
-                <Printer className="w-3.5 h-3.5" /> Print / PDF
+                <Printer className="w-3.5 h-3.5" /> {t("Print / PDF")}
               </button>
             </div>
           </div>
