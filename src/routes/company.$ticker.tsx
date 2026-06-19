@@ -1358,7 +1358,11 @@ function DividendsTab({ co }: { co: Company }) {
             </ResponsiveContainer>
           </div>
         )}
+        <TableNote id="company.dividend.note">
+          B = bonus/stock dividend; otherwise cash.
+        </TableNote>
       </section>
+
     </div>
   );
 }
