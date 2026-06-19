@@ -1329,7 +1329,7 @@ function DividendsTab({ co }: { co: Company }) {
                 <tr key={d.year} style={{ borderBottom: "1px solid rgb(var(--ov) / 0.04)" }}>
                   <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{d.year}</td>
                   <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.cash > 0 ? `${d.cash}%` : "—"}</td>
-                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}%` : "n/a"}</td>
+                  <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.stock > 0 ? `${d.stock}% B` : "n/a"}</td>
                   <td className="py-3 px-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.rights ?? "n/a"}</td>
                   <td className="py-3 pl-4 text-right" style={{ color: "var(--text-secondary)" }}>{d.yieldPct !== undefined ? `${d.yieldPct.toFixed(2)}%` : "—"}</td>
                 </tr>
