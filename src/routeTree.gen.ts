@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RegulationsRouteImport } from './routes/regulations'
+import { Route as PublicationsRouteImport } from './routes/publications'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PeRouteImport } from './routes/pe'
 import { Route as NewsRouteImport } from './routes/news'
@@ -40,6 +41,11 @@ const ReportsRoute = ReportsRouteImport.update({
 const RegulationsRoute = RegulationsRouteImport.update({
   id: '/regulations',
   path: '/regulations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicationsRoute = PublicationsRouteImport.update({
+  id: '/publications',
+  path: '/publications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsRoute = ProductsRouteImport.update({
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/news': typeof NewsRoute
   '/pe': typeof PeRoute
   '/products': typeof ProductsRoute
+  '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByTo {
   '/news': typeof NewsRoute
   '/pe': typeof PeRoute
   '/products': typeof ProductsRoute
+  '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
@@ -212,6 +220,7 @@ export interface FileRoutesById {
   '/news': typeof NewsRoute
   '/pe': typeof PeRoute
   '/products': typeof ProductsRoute
+  '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
@@ -238,6 +247,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/pe'
     | '/products'
+    | '/publications'
     | '/regulations'
     | '/reports'
     | '/company/$ticker'
@@ -262,6 +272,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/pe'
     | '/products'
+    | '/publications'
     | '/regulations'
     | '/reports'
     | '/company/$ticker'
@@ -286,6 +297,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/pe'
     | '/products'
+    | '/publications'
     | '/regulations'
     | '/reports'
     | '/company/$ticker'
@@ -311,6 +323,7 @@ export interface RootRouteChildren {
   NewsRoute: typeof NewsRoute
   PeRoute: typeof PeRoute
   ProductsRoute: typeof ProductsRoute
+  PublicationsRoute: typeof PublicationsRoute
   RegulationsRoute: typeof RegulationsRoute
   ReportsRoute: typeof ReportsRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
@@ -330,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/regulations'
       fullPath: '/regulations'
       preLoaderRoute: typeof RegulationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/publications': {
+      id: '/publications'
+      path: '/publications'
+      fullPath: '/publications'
+      preLoaderRoute: typeof PublicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products': {
@@ -495,6 +515,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewsRoute: NewsRoute,
   PeRoute: PeRoute,
   ProductsRoute: ProductsRoute,
+  PublicationsRoute: PublicationsRoute,
   RegulationsRoute: RegulationsRoute,
   ReportsRoute: ReportsRoute,
   CompanyTickerRoute: CompanyTickerRoute,
@@ -502,13 +523,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
