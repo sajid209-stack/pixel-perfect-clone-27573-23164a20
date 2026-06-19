@@ -103,11 +103,13 @@ function CompanyNotFound() {
 
 function CompanyPage() {
   const { co } = Route.useLoaderData();
+  const { t } = useLang();
   const [tab, setTab] = useState<TabId>("overview");
   const [printMode, setPrintMode] = useState(false);
   const up = co.change >= 0;
   const { push } = useRecentlyViewed();
   useEffect(() => { push(co.code); }, [co.code, push]);
+
 
   const handlePrint = () => {
     setPrintMode(true);
