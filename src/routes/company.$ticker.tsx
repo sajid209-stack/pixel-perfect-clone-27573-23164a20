@@ -1266,7 +1266,11 @@ function FinancialsTab({ co }: { co: Company }) {
               </LineChart>
             </ResponsiveContainer>
           </div>
+          <TableNote id="company.pe.note">
+            P/E is calculated per annual financial statements on a uniform July–June income year, per the Finance Act 2015 and BSEC Directive SEC/SRMIC/2011/1240/445 (27 Apr 2016).
+          </TableNote>
         </section>
+
       )}
     </div>
   );
