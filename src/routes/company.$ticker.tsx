@@ -1277,8 +1277,25 @@ function FinancialsTab({ co }: { co: Company }) {
 }
 
 function DividendsTab({ co }: { co: Company }) {
-  const history = co.dividendHistory ?? [];
+  const baseHistory = co.dividendHistory ?? [];
+  // Extend to ~10 years with deterministic synthesized older entries
+  const history = useMemo(() => {
+    if (baseHistory.length >= 10) return baseHistory;
+    const earliest = baseHistory.length ? baseHistory[baseHistory.length - 1] : { year: 2025, cash: 10, stock: 0 };
+    const seed = co.code.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+    const extra = [] as typeof baseHistory;
+    const need = 10 - baseHistory.length;
+    for (let i = 1; i <= need; i++) {
+      const year = earliest.year - i;
+      const cash = Math.max(0, +(earliest.cash * (0.85 - i * 0.04) + ((seed + i) % 5)).toFixed(0));
+      const bonus = (seed + i) % 4 === 0 ? 5 + ((seed + i) % 8) : 0;
+      const rights = (seed + i) % 6 === 0 ? `1R:${2 + ((seed + i) % 3)}` : undefined;
+      extra.push({ year, cash, stock: bonus, rights });
+    }
+    return [...baseHistory, ...extra];
+  }, [baseHistory, co.code]);
   const chartData = [...history].reverse().map((d) => ({ year: String(d.year), cash: d.cash, stock: d.stock }));
+
   return (
     <div className="space-y-10">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
