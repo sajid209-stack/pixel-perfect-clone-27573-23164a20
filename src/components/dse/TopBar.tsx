@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Search } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLang } from "@/i18n/LanguageContext";
+import { openSiteSearch } from "./CommandPalette";
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 // Trading days: Sun(0) – Thu(4), 10:00 – 14:30 BST
@@ -105,6 +107,16 @@ export function TopBar() {
       </div>
 
       <div className="hidden md:flex items-center gap-4">
+        <button
+          onClick={() => openSiteSearch()}
+          aria-label={lang === "bn" ? "সাইট অনুসন্ধান" : "Open site search"}
+          title={lang === "bn" ? "অনুসন্ধান (Ctrl+K)" : "Search (Ctrl+K)"}
+          className="inline-flex items-center justify-center w-6 h-6 transition cursor-pointer"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          <Search className="w-3.5 h-3.5" />
+        </button>
+        <span style={{ color: "var(--line)" }}>·</span>
         <button
           onClick={toggle}
           aria-label="Toggle language"
