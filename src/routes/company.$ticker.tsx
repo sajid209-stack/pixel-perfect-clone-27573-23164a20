@@ -619,50 +619,79 @@ function CompanyDetailsCard({ co }: { co: Company }) {
 }
 
 
-function PriceCard({
-  co,
-  period,
-  setPeriod,
-  series,
-  up,
-}: {
-  co: Company;
-  period: Period;
-  setPeriod: (p: Period) => void;
-  series: { t: string; v: number }[];
-  up: boolean;
-}) {
+type ChartType = "price" | "trades" | "volume";
+const chartPeriods = ["1M", "3M", "6M", "1Y"] as const;
+type ChartPeriod = (typeof chartPeriods)[number];
+
+function periodPoints(p: ChartPeriod) {
+  return p === "1M" ? 22 : p === "3M" ? 66 : p === "6M" ? 130 : 250;
+}
+
+function buildChartSeries(co: Company, type: ChartType, period: ChartPeriod) {
+  const n = periodPoints(period);
+  const seed = co.code.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const out: { t: string; v: number }[] = [];
+  const today = new Date();
+  for (let i = n - 1; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const label = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+    const trend = (n - i) / n;
+    const wave = Math.sin((seed + i) * 0.21) * 0.6 + Math.cos((seed + i) * 0.07) * 0.4;
+    let v: number;
+    if (type === "price") {
+      v = +(co.prevClose * (0.93 + trend * 0.12 + wave * 0.02)).toFixed(2);
+    } else if (type === "trades") {
+      const base = Math.max(120, Math.round(co.volume / 850));
+      v = Math.round(base * (0.7 + trend * 0.5 + (wave + 1) * 0.2));
+    } else {
+      v = Math.round(co.volume * (0.6 + trend * 0.6 + (wave + 1) * 0.25));
+    }
+    out.push({ t: label, v });
+  }
+  return out;
+}
+
+function ChartsCard({ co }: { co: Company }) {
+  const [type, setType] = useState<ChartType>("price");
+  const [period, setPeriod] = useState<ChartPeriod>("3M");
+  const series = useMemo(() => buildChartSeries(co, type, period), [co, type, period]);
   const stroke = "var(--primary)";
+
+  const typeLabels: Record<ChartType, string> = {
+    price: "Closing Price",
+    trades: "Total Trade",
+    volume: "Total Volume",
+  };
+  const yFormat = (v: number) =>
+    type === "price" ? `৳${v.toFixed(0)}` : v >= 1_000_000 ? `${(v / 1_000_000).toFixed(1)}M` : v >= 1_000 ? `${(v / 1_000).toFixed(0)}K` : v.toFixed(0);
+  const tipFormat = (v: number) =>
+    type === "price"
+      ? [`৳ ${Number(v).toFixed(2)}`, "Price"] as [string, string]
+      : [v.toLocaleString(), typeLabels[type]] as [string, string];
+
   return (
     <section
       className="rounded-2xl p-6 md:p-8"
-      style={{
-        background: "rgb(var(--ov) / 0.025)",
-        border: "1px solid rgb(var(--ov) / 0.06)",
-      }}
+      style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-        <div className="text-[11px] uppercase tracking-[0.22em]"
-          style={{ color: "var(--text-muted)" }}>
-          Price history · {period}
+      <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+        <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
+          {typeLabels[type]} · {period}
         </div>
-        <div className="flex gap-1 p-1 rounded-full"
-          style={{ background: "rgb(var(--ov) / 0.04)" }}>
-          {periods.map((p) => {
+        <div className="flex gap-1 p-1 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
+          {chartPeriods.map((p) => {
             const active = p === period;
             return (
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
                 className="relative px-3 py-1 text-[12px] tnum rounded-full transition"
-                style={{
-                  color: active ? "var(--navy-deep)" : "var(--text-secondary)",
-                  fontWeight: active ? 600 : 400,
-                }}
+                style={{ color: active ? "var(--navy-deep)" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
               >
                 {active && (
                   <motion.span
-                    layoutId="coPeriod"
+                    layoutId="coChartPeriod"
                     className="absolute inset-0 rounded-full"
                     style={{ background: "var(--primary)" }}
                     transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
@@ -675,75 +704,101 @@ function PriceCard({
         </div>
       </div>
 
+      {/* Chart type selector */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        {(Object.keys(typeLabels) as ChartType[]).map((k) => {
+          const active = k === type;
+          return (
+            <button
+              key={k}
+              onClick={() => setType(k)}
+              className="px-3 py-1.5 text-[12px] rounded-full transition"
+              style={{
+                background: active ? "rgb(var(--brand-tint) / 0.15)" : "rgb(var(--ov) / 0.04)",
+                border: `1px solid ${active ? "var(--primary)" : "rgb(var(--ov) / 0.06)"}`,
+                color: active ? "var(--primary)" : "var(--text-secondary)",
+                fontWeight: active ? 600 : 400,
+              }}
+            >
+              {typeLabels[k]}
+            </button>
+          );
+        })}
+      </div>
+
       <AnimatePresence mode="wait">
         <motion.div
-          key={period}
+          key={`${type}-${period}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.35 }}
+          transition={{ duration: 0.3 }}
           className="h-[320px] -mx-2"
         >
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <defs>
-                <linearGradient id={`coArea-${co.code}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={stroke} stopOpacity={0.28} />
-                  <stop offset="100%" stopColor={stroke} stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} />
-              <YAxis
-                tick={{ fontSize: 10, fill: "var(--text-muted)" }}
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(v) => v.toFixed(0)}
-                domain={["dataMin - 2", "dataMax + 2"]}
-                orientation="right"
-                width={48}
-              />
-              <Tooltip
-                cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
-                contentStyle={{
-                  borderRadius: 10,
-                  border: "none",
-                  background: "rgba(15,20,18,0.94)",
-                  color: "#fff",
-                  fontSize: 12,
-                  boxShadow: "0 20px 50px -20px rgba(0,0,0,0.5)",
-                }}
-                formatter={(value: number) => [`৳ ${Number(value).toFixed(2)}`, "Price"]}
-              />
-              <ReferenceLine
-                y={co.prevClose}
-                stroke="var(--text-muted)"
-                strokeDasharray="3 6"
-                strokeOpacity={0.6}
-                label={{
-                  value: `Prev close ৳ ${co.prevClose}`,
-                  fontSize: 10,
-                  fill: "var(--text-muted)",
-                  position: "insideTopRight",
-                }}
-              />
-              <Area
-                type="monotone"
-                dataKey="v"
-                stroke={stroke}
-                strokeWidth={1.8}
-                fill={`url(#coArea-${co.code})`}
-                isAnimationActive
-                animationDuration={800}
-              />
-            </ComposedChart>
+            {type === "price" ? (
+              <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id={`coArea-${co.code}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={stroke} stopOpacity={0.28} />
+                    <stop offset="100%" stopColor={stroke} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                <YAxis
+                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={yFormat}
+                  domain={["dataMin - 2", "dataMax + 2"]}
+                  orientation="right"
+                  width={56}
+                />
+                <Tooltip
+                  cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
+                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                  formatter={(value: number) => tipFormat(Number(value))}
+                />
+                <ReferenceLine
+                  y={co.prevClose}
+                  stroke="var(--text-muted)"
+                  strokeDasharray="3 6"
+                  strokeOpacity={0.6}
+                  label={{ value: `Prev close ৳ ${co.prevClose}`, fontSize: 10, fill: "var(--text-muted)", position: "insideTopRight" }}
+                />
+                <Area type="monotone" dataKey="v" stroke={stroke} strokeWidth={1.8} fill={`url(#coArea-${co.code})`} isAnimationActive animationDuration={700} />
+              </ComposedChart>
+            ) : (
+              <BarChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                <YAxis
+                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={yFormat}
+                  orientation="right"
+                  width={56}
+                />
+                <Tooltip
+                  cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
+                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                  formatter={(value: number) => tipFormat(Number(value))}
+                />
+                <Bar dataKey="v" fill={stroke} radius={[3, 3, 0, 0]} isAnimationActive animationDuration={600} />
+              </BarChart>
+            )}
           </ResponsiveContainer>
         </motion.div>
       </AnimatePresence>
 
       <PriceStatsRow co={co} />
+      <TableNote id="company.market.note">
+        Based on yesterday's closing price and last trading price.
+      </TableNote>
     </section>
   );
 }
+
 
 function PriceStatsRow({ co }: { co: Company }) {
   const [loading, setLoading] = useState(true);
