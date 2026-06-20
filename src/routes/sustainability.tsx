@@ -18,7 +18,7 @@ export const Route = createFileRoute("/sustainability")({
 });
 
 type TabId =
-  | "about" | "sse" | "gri" | "ifc" | "media" | "publications" | "training";
+  | "about" | "sse" | "gri" | "ifc" | "bb-policy" | "media" | "publications" | "training";
 
 const TABS: { id: TabId; label: string }[] = [
   { id: "about", label: "About (GRI)" },
