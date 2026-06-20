@@ -36,6 +36,9 @@ function SurveillancePage() {
           <h1 className="mt-2 text-[26px] md:text-[34px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
             {t("Surveillance at DSE")}
           </h1>
+          <p className="mt-3 text-[14px] max-w-[720px]" style={{ color: "var(--text-secondary)" }}>
+            {t("How DSE monitors trading activity to detect manipulation, ensure fair price discovery and protect investor interest.")}
+          </p>
         </div>
       </section>
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-5">

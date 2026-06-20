@@ -44,6 +44,9 @@ function WhyListPage() {
           <h1 className="mt-2 text-[26px] md:text-[34px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
             {t("Why List with DSE")}
           </h1>
+          <p className="mt-3 text-[14px] max-w-[720px]" style={{ color: "var(--text-secondary)" }}>
+            {t("Benefits of listing on the Dhaka Stock Exchange — access to capital, visibility, liquidity and stronger governance.")}
+          </p>
         </div>
       </section>
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-8">

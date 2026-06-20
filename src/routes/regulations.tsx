@@ -190,9 +190,6 @@ function RegulationsPage() {
             />
           </div>
 
-          <p className="text-[12px] mb-3" style={{ color: "var(--text-muted)" }}>
-            Documents are indicative placeholders pending live feed.
-          </p>
 
           {/* Document table */}
           <div

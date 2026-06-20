@@ -356,9 +356,6 @@ function IndexSwitcher() {
         <div className="px-2 py-2 flex-1">
           <InteractiveChart points={points} up={up} baseValue={selBase} height={140} />
         </div>
-        <div className="px-3 pb-2 text-[10.5px] italic" style={{ color: "var(--text-muted)" }}>
-          Indicative — pending live feed
-        </div>
       </div>
       </div>
     </div>
