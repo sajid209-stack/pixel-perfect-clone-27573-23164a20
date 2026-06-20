@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SustainabilityRouteImport } from './routes/sustainability'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as SectoralPeRouteImport } from './routes/sectoral-pe'
 import { Route as ReportsRouteImport } from './routes/reports'
@@ -59,9 +60,15 @@ import { Route as AboutDepartmentsRouteImport } from './routes/about_.department
 import { Route as AboutDemutualizationRouteImport } from './routes/about_.demutualization'
 import { Route as AboutCommitteesRouteImport } from './routes/about_.committees'
 import { Route as AboutBoardRouteImport } from './routes/about_.board'
+import { Route as AboutBackofficeVendorsRouteImport } from './routes/about_.backoffice-vendors'
 import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
 import { Route as AboutAtAGlanceRouteImport } from './routes/about_.at-a-glance'
 
+const SustainabilityRoute = SustainabilityRouteImport.update({
+  id: '/sustainability',
+  path: '/sustainability',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
   path: '/sitemap',
@@ -314,6 +321,11 @@ const AboutBoardRoute = AboutBoardRouteImport.update({
   path: '/about/board',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutBackofficeVendorsRoute = AboutBackofficeVendorsRouteImport.update({
+  id: '/about_/backoffice-vendors',
+  path: '/about/backoffice-vendors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutAutomationRoute = AboutAutomationRouteImport.update({
   id: '/about_/automation',
   path: '/about/automation',
@@ -363,8 +375,10 @@ export interface FileRoutesByFullPath {
   '/reports': typeof ReportsRoute
   '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
+  '/sustainability': typeof SustainabilityRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
+  '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
   '/about/board': typeof AboutBoardRoute
   '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
@@ -417,8 +431,10 @@ export interface FileRoutesByTo {
   '/reports': typeof ReportsRoute
   '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
+  '/sustainability': typeof SustainabilityRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
+  '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
   '/about/board': typeof AboutBoardRoute
   '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
@@ -472,8 +488,10 @@ export interface FileRoutesById {
   '/reports': typeof ReportsRoute
   '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
+  '/sustainability': typeof SustainabilityRoute
   '/about_/at-a-glance': typeof AboutAtAGlanceRoute
   '/about_/automation': typeof AboutAutomationRoute
+  '/about_/backoffice-vendors': typeof AboutBackofficeVendorsRoute
   '/about_/board': typeof AboutBoardRoute
   '/about_/committees': typeof AboutCommitteesRoute
   '/about_/demutualization': typeof AboutDemutualizationRoute
@@ -528,8 +546,10 @@ export interface FileRouteTypes {
     | '/reports'
     | '/sectoral-pe'
     | '/sitemap'
+    | '/sustainability'
     | '/about/at-a-glance'
     | '/about/automation'
+    | '/about/backoffice-vendors'
     | '/about/board'
     | '/about/committees'
     | '/about/demutualization'
@@ -582,8 +602,10 @@ export interface FileRouteTypes {
     | '/reports'
     | '/sectoral-pe'
     | '/sitemap'
+    | '/sustainability'
     | '/about/at-a-glance'
     | '/about/automation'
+    | '/about/backoffice-vendors'
     | '/about/board'
     | '/about/committees'
     | '/about/demutualization'
@@ -636,8 +658,10 @@ export interface FileRouteTypes {
     | '/reports'
     | '/sectoral-pe'
     | '/sitemap'
+    | '/sustainability'
     | '/about_/at-a-glance'
     | '/about_/automation'
+    | '/about_/backoffice-vendors'
     | '/about_/board'
     | '/about_/committees'
     | '/about_/demutualization'
@@ -691,8 +715,10 @@ export interface RootRouteChildren {
   ReportsRoute: typeof ReportsRoute
   SectoralPeRoute: typeof SectoralPeRoute
   SitemapRoute: typeof SitemapRoute
+  SustainabilityRoute: typeof SustainabilityRoute
   AboutAtAGlanceRoute: typeof AboutAtAGlanceRoute
   AboutAutomationRoute: typeof AboutAutomationRoute
+  AboutBackofficeVendorsRoute: typeof AboutBackofficeVendorsRoute
   AboutBoardRoute: typeof AboutBoardRoute
   AboutCommitteesRoute: typeof AboutCommitteesRoute
   AboutDemutualizationRoute: typeof AboutDemutualizationRoute
@@ -708,6 +734,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sustainability': {
+      id: '/sustainability'
+      path: '/sustainability'
+      fullPath: '/sustainability'
+      preLoaderRoute: typeof SustainabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap': {
       id: '/sitemap'
       path: '/sitemap'
@@ -1058,6 +1091,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutBoardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/backoffice-vendors': {
+      id: '/about_/backoffice-vendors'
+      path: '/about/backoffice-vendors'
+      fullPath: '/about/backoffice-vendors'
+      preLoaderRoute: typeof AboutBackofficeVendorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/automation': {
       id: '/about_/automation'
       path: '/about/automation'
@@ -1136,8 +1176,10 @@ const rootRouteChildren: RootRouteChildren = {
   ReportsRoute: ReportsRoute,
   SectoralPeRoute: SectoralPeRoute,
   SitemapRoute: SitemapRoute,
+  SustainabilityRoute: SustainabilityRoute,
   AboutAtAGlanceRoute: AboutAtAGlanceRoute,
   AboutAutomationRoute: AboutAutomationRoute,
+  AboutBackofficeVendorsRoute: AboutBackofficeVendorsRoute,
   AboutBoardRoute: AboutBoardRoute,
   AboutCommitteesRoute: AboutCommitteesRoute,
   AboutDemutualizationRoute: AboutDemutualizationRoute,
