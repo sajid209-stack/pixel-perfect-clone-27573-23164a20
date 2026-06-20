@@ -893,10 +893,10 @@ function StatsGrid({ co }: { co: Company }) {
 function StatTile({ label, value, tooltip }: { label: string; value: string; tooltip?: string }) {
   return (
     <div
-      className="p-5 rounded-xl"
+      className="p-3 rounded-xl"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--text-muted)" }}>
+      <div className="text-[10.5px] uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--text-muted)" }}>
         <span>{label}</span>
         {tooltip && (
           <span title={tooltip} className="inline-flex cursor-help" aria-label={tooltip}>
@@ -904,7 +904,7 @@ function StatTile({ label, value, tooltip }: { label: string; value: string; too
           </span>
         )}
       </div>
-      <div className="mt-2 text-[18px] font-medium tnum tracking-tight" style={{ color: "var(--text-primary)" }}>
+      <div className="mt-1 text-[15px] font-medium tnum tracking-tight" style={{ color: "var(--text-primary)" }}>
         {value}
       </div>
     </div>
