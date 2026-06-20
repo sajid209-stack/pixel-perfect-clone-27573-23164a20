@@ -232,6 +232,7 @@ const megaContent: Record<string, MegaContent> = {
       {
         header: "Organisation",
         links: [
+          { label: "Introduction to DSE", to: "/about/introduction" },
           { label: "About us", to: "/about" },
           { label: "Board of directors", to: "/about" },
           { label: "Leadership", to: "/about" },
