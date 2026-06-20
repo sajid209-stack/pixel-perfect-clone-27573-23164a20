@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RegulationsRouteImport } from './routes/regulations'
 import { Route as PublicationsRouteImport } from './routes/publications'
@@ -40,6 +41,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -220,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
+  '/sitemap': typeof SitemapRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
 }
@@ -252,6 +259,7 @@ export interface FileRoutesByTo {
   '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
+  '/sitemap': typeof SitemapRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
 }
@@ -285,6 +293,7 @@ export interface FileRoutesById {
   '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
+  '/sitemap': typeof SitemapRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
 }
@@ -319,6 +328,7 @@ export interface FileRouteTypes {
     | '/publications'
     | '/regulations'
     | '/reports'
+    | '/sitemap'
     | '/company/$ticker'
     | '/help-desk/nrb'
   fileRoutesByTo: FileRoutesByTo
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/publications'
     | '/regulations'
     | '/reports'
+    | '/sitemap'
     | '/company/$ticker'
     | '/help-desk/nrb'
   id:
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/publications'
     | '/regulations'
     | '/reports'
+    | '/sitemap'
     | '/company/$ticker'
     | '/help-desk/nrb'
   fileRoutesById: FileRoutesById
@@ -416,11 +428,19 @@ export interface RootRouteChildren {
   PublicationsRoute: typeof PublicationsRoute
   RegulationsRoute: typeof RegulationsRoute
   ReportsRoute: typeof ReportsRoute
+  SitemapRoute: typeof SitemapRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reports': {
       id: '/reports'
       path: '/reports'
@@ -675,6 +695,7 @@ const rootRouteChildren: RootRouteChildren = {
   PublicationsRoute: PublicationsRoute,
   RegulationsRoute: RegulationsRoute,
   ReportsRoute: ReportsRoute,
+  SitemapRoute: SitemapRoute,
   CompanyTickerRoute: CompanyTickerRoute,
 }
 export const routeTree = rootRouteImport
