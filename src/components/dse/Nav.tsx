@@ -774,7 +774,7 @@ function AboutPanel({ close }: { close: () => void }) {
   const col1: Item[] = [
     { title: "About DSE", desc: "Hub of all About sections", to: "/about" },
     { title: "Board of directors", desc: "Independent & shareholder directors", to: "/about/board" },
-    { title: "Press releases", desc: "Official DSE announcements", to: "/news" },
+    { title: "Press releases", desc: "Official DSE announcements", to: "/publications" },
   ];
   const col2: Item[] = [
     { title: "List on DSE", desc: "Main board, SME, bonds", to: "/listing" },
