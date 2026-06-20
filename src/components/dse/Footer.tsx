@@ -70,8 +70,22 @@ const cols: { title: string; items: FooterLink[] }[] = [
   { title: "Investor Services", items: investorServicesLinks },
 ];
 
-function FooterLinkItem({ item }: { item: FooterLink }) {
+function FooterLinkItem({ item }: { item: FooterLinkExt }) {
   const { t } = useLang();
+  if (item.external && item.href) {
+    return (
+      <li>
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition hover:opacity-100 opacity-80 cursor-pointer"
+        >
+          {t(item.label)}
+        </a>
+      </li>
+    );
+  }
   return (
     <li>
       <Link
