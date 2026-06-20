@@ -610,3 +610,237 @@ function TimelinePanel() {
     </div>
   );
 }
+
+/* ---------- Criteria for Listing ---------- */
+
+type CriteriaItem = string | { lead: string; sub: string[] };
+
+const CRITERIA_GENERAL: CriteriaItem[] = [
+  "The issuer must be a public limited company formed for perpetual business and operating as a going concern.",
+  {
+    lead: "Minimum Capital Requirement:",
+    sub: [
+      "Pre-IPO paid-up capital: at least Tk. 30 crore.",
+      "Minimum public offer: 10% of post-IPO paid-up capital.",
+      "Post-IPO paid-up capital must be at least Tk. 50 crore.",
+      "Sponsors and directors must jointly hold minimum 30% of post-IPO paid-up capital at all times.",
+    ],
+  },
+  {
+    lead: "The company must obtain Board approval specifying:",
+    sub: ["Decision to go public.", "Offer size.", "Method of issue."],
+  },
+  {
+    lead: "The issuer must have:",
+    sub: [
+      "Profit in the latest financial year from core business.",
+      "No accumulated retained loss at application date (Relaxed for regulated and greenfield companies, subject to business plan disclosure).",
+    ],
+  },
+  "No material change (including capital increase) is allowed after audited financial statements used in the prospectus.",
+  "At least 90% of proceeds from any previous capital issue must have been utilized.",
+  {
+    lead: "Issue manager and its related parties:",
+    sub: [
+      "Must not be connected with the issuer.",
+      "Must not hold issuer's securities before IPO (Relaxation allowed for bidding under book-building with disclosure).",
+    ],
+  },
+  {
+    lead: "Financial Statements & Audit Compliance:",
+    sub: [
+      "Financial statements must comply with IFRS/IAS.",
+      "Audit must follow ISA, Financial Reporting Act, 2015, Companies Act, 1994.",
+      "CEO & CFO must certify compliance with FRC Standards.",
+      "Auditor must issue compliance certificate and is responsible for audit accuracy.",
+      "Cost audit must be completed as per the Companies Act, 1994.",
+      "Latest financial statements must be audited by BSEC-approved panel auditors.",
+    ],
+  },
+  "The issuer must be regular in holding Annual General Meetings (AGMs).",
+  "Full compliance with BSEC Corporate Governance Code is mandatory.",
+  "The issuer, its directors, and shareholders holding 5% or more shares must not be loan defaulters, as per Bangladesh Bank CIB report.",
+  "At least 35% of the issue must be underwritten on a firm commitment basis.",
+  "The issuer must fully comply with all prospectus preparation requirements under the Rules.",
+  "Asset valuation must follow BSEC-issued valuation guidelines.",
+  {
+    lead: "No paid-up capital increase (cash or non-cash) within last 2 years, except:",
+    sub: [
+      "Bonus shares.",
+      "Approved collaborative investments.",
+      "Rights issue.",
+      "Strategic investor placement.",
+      "PPP or state/foreign-majority companies.",
+    ],
+  },
+  {
+    lead: "Full history of capital raising since incorporation must be submitted, duly attested by the Managing Director or Chief Executive Officer and supported by:",
+    sub: [
+      "Banker's certificate.",
+      "Auditor's certificate.",
+      "Bank statements (last 5 years or applicable period).",
+    ],
+  },
+  "Issuer must declare that it will submit quarterly audited reports on utilization of IPO proceeds within 10 days of quarter end.",
+  "All convertible instruments must be fully converted into ordinary shares before IPO.",
+];
+
+const CRITERIA_FIXED_NON_GREENFIELD: CriteriaItem[] = [
+  "Shares may be offered at par, premium, or discount.",
+  "Post-IPO paid-up capital must not exceed Tk. 125 crore (Relaxed for regulated companies).",
+  {
+    lead: "If issued at premium, the issuer must:",
+    sub: [
+      "Have at least 3 years of commercial operation.",
+      "Earn net profit and positive operating cash flow in last 2 years.",
+      "Obtain minimum single-A credit rating.",
+    ],
+  },
+];
+
+const CRITERIA_FIXED_GREENFIELD: CriteriaItem[] = [
+  "Greenfield companies may issue shares only at par or discount.",
+  "Post-IPO paid-up capital may exceed Tk. 125 crore.",
+  "Must show positive projected net profit within 2 years, verified under ISAE-3400.",
+  "Sponsors, directors, and strategic investors must collectively hold minimum 75% of post-IPO capital until 02 consecutive profitable years after IPO.",
+  "Sponsors must demonstrate successful business history, including profitability and cash flow.",
+  "Management must have adequate skill and experience to run the project.",
+  "Detailed operational plan (including EPC contract, if applicable) must be in place.",
+  "Prospectus cover page must clearly disclose that the company is a greenfield entity and investment risk is significantly higher than operating companies.",
+];
+
+const CRITERIA_BOOK_BUILDING: CriteriaItem[] = [
+  "Shares must be offered only at the cut-off price determined through bidding.",
+  "If pre-IPO paid-up capital or net worth is Tk. 500 crore or more, the company may offer less than 10% but not below 5% of post-IPO paid-up capital.",
+  "The issuer must have at least 3 years of commercial operation.",
+  "The issuer must have net profit after tax and positive net operating cash flow in each of the immediately preceding 2 financial years.",
+  "The profitability and operational history requirements do not apply to PPP companies recognized by PPP Authority, or companies with majority state or foreign ownership.",
+  "The issuer must have minimum single-A long-term credit rating from a BSEC-registered credit rating company.",
+  "The issuer must execute separate agreements with the issue manager for issue management and registrar to the issue.",
+];
+
+const CRITERIA_RPO: CriteriaItem[] = [
+  {
+    lead: "Information on RPO must be disclosed as price sensitive information:",
+    sub: [
+      "Immediately after Board decision.",
+      "After shareholder approval.",
+      "After BSEC approval.",
+    ],
+  },
+  "Initial disclosures must clearly state that the RPO is subject to BSEC approval.",
+  "The RPO must be approved by Board of Directors, Shareholders in General Meeting, and Bangladesh Securities and Exchange Commission.",
+  "At least 90% of proceeds from the previous public offer or rights issue must have been utilized and duly reported to BSEC.",
+  "At least 35% of the RPO must be underwritten on a firm commitment basis.",
+  "The issuer must have at least investment-grade credit rating from a BSEC-registered credit rating company.",
+];
+
+function CriteriaList({ items }: { items: CriteriaItem[] }) {
+  const { t } = useLang();
+  return (
+    <ol className="space-y-3 text-[13.5px] leading-[1.75]" style={{ color: "var(--text-secondary)" }}>
+      {items.map((it, i) => (
+        <li key={i} className="flex gap-3">
+          <span
+            className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-semibold tnum mt-0.5"
+            style={{
+              background: "rgb(var(--brand-tint) / 0.10)",
+              color: "var(--primary)",
+              border: "1px solid rgb(var(--brand-tint) / 0.22)",
+            }}
+          >
+            {i + 1}
+          </span>
+          <div className="min-w-0 flex-1">
+            {typeof it === "string" ? (
+              <span>{t(it)}</span>
+            ) : (
+              <>
+                <div className="font-medium" style={{ color: "var(--text-primary)" }}>
+                  {t(it.lead)}
+                </div>
+                <ul className="mt-2 space-y-1.5">
+                  {it.sub.map((s, j) => (
+                    <li key={j} className="flex gap-2">
+                      <span style={{ color: "var(--primary)" }} className="shrink-0">•</span>
+                      <span>{t(s)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function CriteriaGroup({
+  badge,
+  title,
+  items,
+}: {
+  badge: string;
+  title: string;
+  items: CriteriaItem[];
+}) {
+  const { t } = useLang();
+  return (
+    <Card>
+      <div
+        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10.5px] uppercase tracking-[0.18em] mb-3"
+        style={{
+          background: "rgb(var(--brand-tint) / 0.08)",
+          color: "var(--primary)",
+          border: "1px solid rgb(var(--brand-tint) / 0.20)",
+        }}
+      >
+        {t(badge)}
+      </div>
+      <h3 className="text-[18px] md:text-[20px] font-semibold tracking-tight mb-5 leading-snug">
+        {t(title)}
+      </h3>
+      <CriteriaList items={items} />
+    </Card>
+  );
+}
+
+function CriteriaPanel() {
+  return (
+    <div>
+      <PanelHeader
+        kicker="Listing"
+        title="Criteria for public offer/listing"
+        lead="Eligibility Criteria for being listed at DSE — Public Offer of Equity Securities · Key Application Requirements."
+      />
+      <div className="space-y-6">
+        <CriteriaGroup
+          badge="Rule 4, sub-rule (1)"
+          title="General requirements (as per BSEC (Public Offer of Equity Securities) Rules, 2025)"
+          items={CRITERIA_GENERAL}
+        />
+        <CriteriaGroup
+          badge="Rule 4, sub-rule (2)"
+          title="Additional requirements for companies except green field company under fixed price method"
+          items={CRITERIA_FIXED_NON_GREENFIELD}
+        />
+        <CriteriaGroup
+          badge="Rule 4, sub-rule (3)"
+          title="Additional requirements for green field company under fixed price method"
+          items={CRITERIA_FIXED_GREENFIELD}
+        />
+        <CriteriaGroup
+          badge="Rule 4, sub-rule (4)"
+          title="Additional requirements for book-building method"
+          items={CRITERIA_BOOK_BUILDING}
+        />
+        <CriteriaGroup
+          badge="Rule 4, sub-rule (5)"
+          title="Additional requirements for repeat public offer (RPO)"
+          items={CRITERIA_RPO}
+        />
+      </div>
+    </div>
+  );
+}
