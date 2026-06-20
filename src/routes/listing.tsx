@@ -147,6 +147,40 @@ function ListingHubPage() {
         </AnimatePresence>
       </main>
 
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-10">
+        <div className="rounded-md p-5" style={{ background: "var(--surface)", border: "1px solid var(--line)" }} data-cms="listing.index">
+          <h2 className="text-[16px] font-semibold mb-3" style={{ color: "var(--ink)" }}>All Listing Topics</h2>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[13px]">
+            {[
+              { label: "Benefits of Listing", to: undefined, tab: "benefits" },
+              { label: "Why List With DSE", to: "/listing/why-list" },
+              { label: "Methods of Listing", to: undefined, tab: "procedure" },
+              { label: "Eligibility Criteria", to: undefined, tab: "criteria" },
+              { label: "Listing Procedure / Guidebook", to: undefined, tab: "procedure" },
+              { label: "Listing Time Line", to: undefined, tab: "timeline" },
+              { label: "Listing Fees", to: undefined, tab: "fees" },
+              { label: "Formats Under Listing Regulation", to: undefined, tab: "forms" },
+              { label: "Eligible Investors", to: "/listing/eligible-investors" },
+              { label: "Share Transfer Process", to: "/listing/share-transfer" },
+            ].map((i) => (
+              <li key={i.label}>
+                {i.to ? (
+                  <Link to={i.to} className="hover:underline" style={{ color: "var(--brand-600)" }}>{i.label}</Link>
+                ) : (
+                  <button
+                    onClick={() => setTab(i.tab as TabKey)}
+                    className="text-left hover:underline"
+                    style={{ color: "var(--brand-600)" }}
+                  >
+                    {i.label}
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
