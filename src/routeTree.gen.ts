@@ -28,6 +28,7 @@ import { Route as ListingRouteImport } from './routes/listing'
 import { Route as LinksRouteImport } from './routes/links'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IpoRouteImport } from './routes/ipo'
+import { Route as InvestorProtectionRouteImport } from './routes/investor-protection'
 import { Route as IndicesRouteImport } from './routes/indices'
 import { Route as IndexMethodologyRouteImport } from './routes/index-methodology'
 import { Route as HolidaysRouteImport } from './routes/holidays'
@@ -51,6 +52,7 @@ import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
 import { Route as CircuitBreakerRouteImport } from './routes/circuit-breaker'
+import { Route as CdblRouteImport } from './routes/cdbl'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as ActuarialValuationRouteImport } from './routes/actuarial-valuation'
@@ -183,6 +185,11 @@ const IpoRoute = IpoRouteImport.update({
   path: '/ipo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvestorProtectionRoute = InvestorProtectionRouteImport.update({
+  id: '/investor-protection',
+  path: '/investor-protection',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndicesRoute = IndicesRouteImport.update({
   id: '/indices',
   path: '/indices',
@@ -297,6 +304,11 @@ const CitizenCharterRoute = CitizenCharterRouteImport.update({
 const CircuitBreakerRoute = CircuitBreakerRouteImport.update({
   id: '/circuit-breaker',
   path: '/circuit-breaker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CdblRoute = CdblRouteImport.update({
+  id: '/cdbl',
+  path: '/cdbl',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -488,6 +500,7 @@ export interface FileRoutesByFullPath {
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/careers': typeof CareersRoute
+  '/cdbl': typeof CdblRoute
   '/circuit-breaker': typeof CircuitBreakerRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
@@ -511,6 +524,7 @@ export interface FileRoutesByFullPath {
   '/holidays': typeof HolidaysRoute
   '/index-methodology': typeof IndexMethodologyRoute
   '/indices': typeof IndicesRouteWithChildren
+  '/investor-protection': typeof InvestorProtectionRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
@@ -568,6 +582,7 @@ export interface FileRoutesByTo {
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/careers': typeof CareersRoute
+  '/cdbl': typeof CdblRoute
   '/circuit-breaker': typeof CircuitBreakerRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
@@ -591,6 +606,7 @@ export interface FileRoutesByTo {
   '/holidays': typeof HolidaysRoute
   '/index-methodology': typeof IndexMethodologyRoute
   '/indices': typeof IndicesRouteWithChildren
+  '/investor-protection': typeof InvestorProtectionRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
@@ -649,6 +665,7 @@ export interface FileRoutesById {
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/careers': typeof CareersRoute
+  '/cdbl': typeof CdblRoute
   '/circuit-breaker': typeof CircuitBreakerRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
@@ -672,6 +689,7 @@ export interface FileRoutesById {
   '/holidays': typeof HolidaysRoute
   '/index-methodology': typeof IndexMethodologyRoute
   '/indices': typeof IndicesRouteWithChildren
+  '/investor-protection': typeof InvestorProtectionRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
@@ -731,6 +749,7 @@ export interface FileRouteTypes {
     | '/actuarial-valuation'
     | '/bonds'
     | '/careers'
+    | '/cdbl'
     | '/circuit-breaker'
     | '/citizen-charter'
     | '/companies'
@@ -754,6 +773,7 @@ export interface FileRouteTypes {
     | '/holidays'
     | '/index-methodology'
     | '/indices'
+    | '/investor-protection'
     | '/ipo'
     | '/learn'
     | '/links'
@@ -811,6 +831,7 @@ export interface FileRouteTypes {
     | '/actuarial-valuation'
     | '/bonds'
     | '/careers'
+    | '/cdbl'
     | '/circuit-breaker'
     | '/citizen-charter'
     | '/companies'
@@ -834,6 +855,7 @@ export interface FileRouteTypes {
     | '/holidays'
     | '/index-methodology'
     | '/indices'
+    | '/investor-protection'
     | '/ipo'
     | '/learn'
     | '/links'
@@ -891,6 +913,7 @@ export interface FileRouteTypes {
     | '/actuarial-valuation'
     | '/bonds'
     | '/careers'
+    | '/cdbl'
     | '/circuit-breaker'
     | '/citizen-charter'
     | '/companies'
@@ -914,6 +937,7 @@ export interface FileRouteTypes {
     | '/holidays'
     | '/index-methodology'
     | '/indices'
+    | '/investor-protection'
     | '/ipo'
     | '/learn'
     | '/links'
@@ -972,6 +996,7 @@ export interface RootRouteChildren {
   ActuarialValuationRoute: typeof ActuarialValuationRoute
   BondsRoute: typeof BondsRoute
   CareersRoute: typeof CareersRoute
+  CdblRoute: typeof CdblRoute
   CircuitBreakerRoute: typeof CircuitBreakerRoute
   CitizenCharterRoute: typeof CitizenCharterRoute
   CompaniesRoute: typeof CompaniesRoute
@@ -995,6 +1020,7 @@ export interface RootRouteChildren {
   HolidaysRoute: typeof HolidaysRoute
   IndexMethodologyRoute: typeof IndexMethodologyRoute
   IndicesRoute: typeof IndicesRouteWithChildren
+  InvestorProtectionRoute: typeof InvestorProtectionRoute
   IpoRoute: typeof IpoRoute
   LearnRoute: typeof LearnRoute
   LinksRoute: typeof LinksRoute
@@ -1180,6 +1206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IpoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/investor-protection': {
+      id: '/investor-protection'
+      path: '/investor-protection'
+      fullPath: '/investor-protection'
+      preLoaderRoute: typeof InvestorProtectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/indices': {
       id: '/indices'
       path: '/indices'
@@ -1339,6 +1372,13 @@ declare module '@tanstack/react-router' {
       path: '/circuit-breaker'
       fullPath: '/circuit-breaker'
       preLoaderRoute: typeof CircuitBreakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cdbl': {
+      id: '/cdbl'
+      path: '/cdbl'
+      fullPath: '/cdbl'
+      preLoaderRoute: typeof CdblRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -1625,6 +1665,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActuarialValuationRoute: ActuarialValuationRoute,
   BondsRoute: BondsRoute,
   CareersRoute: CareersRoute,
+  CdblRoute: CdblRoute,
   CircuitBreakerRoute: CircuitBreakerRoute,
   CitizenCharterRoute: CitizenCharterRoute,
   CompaniesRoute: CompaniesRoute,
@@ -1648,6 +1689,7 @@ const rootRouteChildren: RootRouteChildren = {
   HolidaysRoute: HolidaysRoute,
   IndexMethodologyRoute: IndexMethodologyRoute,
   IndicesRoute: IndicesRouteWithChildren,
+  InvestorProtectionRoute: InvestorProtectionRoute,
   IpoRoute: IpoRoute,
   LearnRoute: LearnRoute,
   LinksRoute: LinksRoute,
