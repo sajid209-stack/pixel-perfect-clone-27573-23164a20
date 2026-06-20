@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SustainabilityRouteImport } from './routes/sustainability'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as SectoralPeRouteImport } from './routes/sectoral-pe'
@@ -75,6 +76,11 @@ import { Route as AboutBackofficeVendorsRouteImport } from './routes/about_.back
 import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
 import { Route as AboutAtAGlanceRouteImport } from './routes/about_.at-a-glance'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SustainabilityRoute = SustainabilityRouteImport.update({
   id: '/sustainability',
   path: '/sustainability',
@@ -444,6 +450,7 @@ export interface FileRoutesByFullPath {
   '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
   '/sustainability': typeof SustainabilityRoute
+  '/terms': typeof TermsRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
   '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
@@ -511,6 +518,7 @@ export interface FileRoutesByTo {
   '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
   '/sustainability': typeof SustainabilityRoute
+  '/terms': typeof TermsRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
   '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
@@ -579,6 +587,7 @@ export interface FileRoutesById {
   '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
   '/sustainability': typeof SustainabilityRoute
+  '/terms': typeof TermsRoute
   '/about_/at-a-glance': typeof AboutAtAGlanceRoute
   '/about_/automation': typeof AboutAutomationRoute
   '/about_/backoffice-vendors': typeof AboutBackofficeVendorsRoute
@@ -648,6 +657,7 @@ export interface FileRouteTypes {
     | '/sectoral-pe'
     | '/sitemap'
     | '/sustainability'
+    | '/terms'
     | '/about/at-a-glance'
     | '/about/automation'
     | '/about/backoffice-vendors'
@@ -715,6 +725,7 @@ export interface FileRouteTypes {
     | '/sectoral-pe'
     | '/sitemap'
     | '/sustainability'
+    | '/terms'
     | '/about/at-a-glance'
     | '/about/automation'
     | '/about/backoffice-vendors'
@@ -782,6 +793,7 @@ export interface FileRouteTypes {
     | '/sectoral-pe'
     | '/sitemap'
     | '/sustainability'
+    | '/terms'
     | '/about_/at-a-glance'
     | '/about_/automation'
     | '/about_/backoffice-vendors'
@@ -850,6 +862,7 @@ export interface RootRouteChildren {
   SectoralPeRoute: typeof SectoralPeRoute
   SitemapRoute: typeof SitemapRoute
   SustainabilityRoute: typeof SustainabilityRoute
+  TermsRoute: typeof TermsRoute
   AboutAtAGlanceRoute: typeof AboutAtAGlanceRoute
   AboutAutomationRoute: typeof AboutAutomationRoute
   AboutBackofficeVendorsRoute: typeof AboutBackofficeVendorsRoute
@@ -878,6 +891,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sustainability': {
       id: '/sustainability'
       path: '/sustainability'
@@ -1399,6 +1419,7 @@ const rootRouteChildren: RootRouteChildren = {
   SectoralPeRoute: SectoralPeRoute,
   SitemapRoute: SitemapRoute,
   SustainabilityRoute: SustainabilityRoute,
+  TermsRoute: TermsRoute,
   AboutAtAGlanceRoute: AboutAtAGlanceRoute,
   AboutAutomationRoute: AboutAutomationRoute,
   AboutBackofficeVendorsRoute: AboutBackofficeVendorsRoute,
