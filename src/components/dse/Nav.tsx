@@ -100,6 +100,8 @@ const megaContent: Record<string, MegaContent> = {
           { label: "By sector", to: "/companies" },
           { label: "By board", to: "/companies" },
           { label: "Newly listed", to: "/companies" },
+          { label: "Going Concern Threat List", to: "/going-concern" },
+          { label: "Financial Statement Submission Status", to: "/financial-statement-status" },
         ],
       },
       {
