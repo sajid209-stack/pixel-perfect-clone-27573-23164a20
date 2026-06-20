@@ -85,7 +85,7 @@ function ManagementPage() {
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <Nav />
       <section className="border-b" style={{ borderColor: "var(--line)" }}>
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">
+        <div className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--brand-600)" }}>
             {t("About DSE")}
           </div>
@@ -94,7 +94,7 @@ function ManagementPage() {
           </h1>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {MEMBERS.map((m) => <ProfileCard key={m.name} m={m} />)}
         </div>
