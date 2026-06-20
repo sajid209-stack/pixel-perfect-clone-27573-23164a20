@@ -38,6 +38,7 @@ import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 
@@ -186,6 +187,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndicesCodeRoute = IndicesCodeRouteImport.update({
+  id: '/$code',
+  path: '/$code',
+  getParentRoute: () => IndicesRoute,
+} as any)
 const HelpDeskNrbRoute = HelpDeskNrbRouteImport.update({
   id: '/nrb',
   path: '/nrb',
@@ -212,7 +218,7 @@ export interface FileRoutesByFullPath {
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
-  '/indices': typeof IndicesRoute
+  '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
@@ -229,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/sitemap': typeof SitemapRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
+  '/indices/$code': typeof IndicesCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -245,7 +252,7 @@ export interface FileRoutesByTo {
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
-  '/indices': typeof IndicesRoute
+  '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
@@ -262,6 +269,7 @@ export interface FileRoutesByTo {
   '/sitemap': typeof SitemapRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
+  '/indices/$code': typeof IndicesCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -279,7 +287,7 @@ export interface FileRoutesById {
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
-  '/indices': typeof IndicesRoute
+  '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
@@ -296,6 +304,7 @@ export interface FileRoutesById {
   '/sitemap': typeof SitemapRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
+  '/indices/$code': typeof IndicesCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -331,6 +340,7 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/company/$ticker'
     | '/help-desk/nrb'
+    | '/indices/$code'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -364,6 +374,7 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/company/$ticker'
     | '/help-desk/nrb'
+    | '/indices/$code'
   id:
     | '__root__'
     | '/'
@@ -397,6 +408,7 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/company/$ticker'
     | '/help-desk/nrb'
+    | '/indices/$code'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -414,7 +426,7 @@ export interface RootRouteChildren {
   FundsRoute: typeof FundsRoute
   GalleryRoute: typeof GalleryRoute
   HelpDeskRoute: typeof HelpDeskRouteWithChildren
-  IndicesRoute: typeof IndicesRoute
+  IndicesRoute: typeof IndicesRouteWithChildren
   IpoRoute: typeof IpoRoute
   LearnRoute: typeof LearnRoute
   LinksRoute: typeof LinksRoute
@@ -637,6 +649,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/indices/$code': {
+      id: '/indices/$code'
+      path: '/$code'
+      fullPath: '/indices/$code'
+      preLoaderRoute: typeof IndicesCodeRouteImport
+      parentRoute: typeof IndicesRoute
+    }
     '/help-desk/nrb': {
       id: '/help-desk/nrb'
       path: '/nrb'
@@ -666,6 +685,17 @@ const HelpDeskRouteWithChildren = HelpDeskRoute._addFileChildren(
   HelpDeskRouteChildren,
 )
 
+interface IndicesRouteChildren {
+  IndicesCodeRoute: typeof IndicesCodeRoute
+}
+
+const IndicesRouteChildren: IndicesRouteChildren = {
+  IndicesCodeRoute: IndicesCodeRoute,
+}
+
+const IndicesRouteWithChildren =
+  IndicesRoute._addFileChildren(IndicesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -681,7 +711,7 @@ const rootRouteChildren: RootRouteChildren = {
   FundsRoute: FundsRoute,
   GalleryRoute: GalleryRoute,
   HelpDeskRoute: HelpDeskRouteWithChildren,
-  IndicesRoute: IndicesRoute,
+  IndicesRoute: IndicesRouteWithChildren,
   IpoRoute: IpoRoute,
   LearnRoute: LearnRoute,
   LinksRoute: LinksRoute,
