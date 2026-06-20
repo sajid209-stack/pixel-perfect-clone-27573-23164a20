@@ -301,7 +301,178 @@ function RegulationsPage() {
         </div>
       </div>
 
+      {/* Additional regulatory sub-sections */}
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-12 space-y-6">
+        <DocSection
+          id="ipf"
+          title="Investors' Protection Fund Regulations"
+          docs={[
+            { title: "Investors' Protection Fund Regulations-2014 (Reference)", href: "#" },
+            { title: "Investors' Protection Fund Regulations-1999", href: "#" },
+          ]}
+        />
+
+        <DocSection
+          id="cg"
+          title="Corporate Governance"
+          docs={[
+            { title: "Corporate Governance Code", href: "#" },
+            { title: "Amendments to the Corporate Governance Code-2018 (November 20, 2023)", href: "#" },
+            { title: "Clarification to the Corporate Governance Code-2018 (February 05, 2020)", href: "#" },
+            { title: "Corporate Governance Code (Reference)", href: "#" },
+            {
+              title:
+                "Corporate Governance Guidelines (Repealed) — Corporate Governance Guideline issued by the Bangladesh Securities and Exchange Commission on 07 August, 2012",
+              href: "#",
+            },
+          ]}
+        />
+
+        <DocSection
+          id="margin"
+          title="Margin Rules"
+          docs={[
+            { title: "Margin Rules 2025", href: "#" },
+            { title: "Margin Rules 1999 (Repealed)", href: "#" },
+          ]}
+        />
+
+        <ClearingSettlementSection />
+      </section>
+
+
+
       <Footer />
     </div>
+  );
+}
+
+/* ────────── Sub-section helpers ────────── */
+type SubDoc = { title: string; href: string };
+
+function DocSection({ id, title, docs }: { id: string; title: string; docs: SubDoc[] }) {
+  return (
+    <section id={id} style={{ border: "1px solid var(--line)", background: "var(--surface)" }}>
+      <header
+        className="px-4 md:px-5 py-3"
+        style={{ background: "var(--surface-2)", borderBottom: "1px solid var(--line)" }}
+      >
+        <h2
+          className="text-[15px] md:text-[16px] font-semibold tracking-tight"
+          style={{ color: "var(--ink)" }}
+        >
+          {title}
+        </h2>
+      </header>
+      <ul>
+        {docs.map((d, i) => (
+          <li
+            key={d.title}
+            style={{ borderTop: i === 0 ? "none" : "1px solid var(--line)" }}
+          >
+            <a
+              href={d.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between gap-3 px-4 md:px-5 py-3 text-[13px] hover:bg-[var(--surface-2)]"
+            >
+              <span
+                className="inline-flex items-center gap-2 min-w-0"
+                style={{ color: "var(--brand-600)", fontWeight: 500 }}
+              >
+                <Download className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">{d.title}</span>
+              </span>
+              <span
+                className="px-1.5 py-0.5 text-[11px] font-semibold uppercase shrink-0"
+                style={{
+                  color: "var(--brand-600)",
+                  background: "var(--surface-2)",
+                  border: "1px solid var(--line)",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                PDF
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function ClearingSettlementSection() {
+  return (
+    <section
+      id="clearing"
+      style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
+    >
+      <header
+        className="px-4 md:px-5 py-3"
+        style={{ background: "var(--surface-2)", borderBottom: "1px solid var(--line)" }}
+      >
+        <h2
+          className="text-[15px] md:text-[16px] font-semibold tracking-tight"
+          style={{ color: "var(--ink)" }}
+        >
+          Clearing & Settlement
+        </h2>
+      </header>
+      <div className="px-4 md:px-5 py-4 space-y-3 text-[13px] leading-[1.75]" style={{ color: "var(--text-secondary)" }}>
+        <p>
+          The Automated Clearing and Settlement System (CnS) is developed to automate all post
+          trade activities regarding clearing and settlement. Its main stakeholders are Brokerage
+          houses, CDBL, Clearing Banks and DSE Finance Division.
+        </p>
+        <p>
+          <span className="font-semibold" style={{ color: "var(--ink)" }}>Settlement:</span>{" "}
+          In settlement process DSE receives all charges and AIT from buying and selling brokers.
+          DSE also receives receivable amount from buying brokers and earmark selling shares in
+          selling broker clearing account through CDBL settlement schedule. Regulation 4 of the
+          DHAKA STOCK EXCHANGE (SETTLEMENT OF TRANSACTIONS) REGULATIONS, 2013 has been given
+          effect time to time.
+        </p>
+        <p>
+          <span className="font-semibold" style={{ color: "var(--ink)" }}>Clearing:</span>{" "}
+          In clearing process DSE make payment by credit instruction and deliver share through
+          CDBL clearing schedule to buying broker.
+        </p>
+      </div>
+      <ul style={{ borderTop: "1px solid var(--line)" }}>
+        {[
+          { title: "Settlement Regulations", href: "#" },
+          { title: "DSE (Settlement of Transactions) Regulations, 2013", href: "#" },
+        ].map((d, i) => (
+          <li key={d.title} style={{ borderTop: i === 0 ? "none" : "1px solid var(--line)" }}>
+            <a
+              href={d.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between gap-3 px-4 md:px-5 py-3 text-[13px] hover:bg-[var(--surface-2)]"
+            >
+              <span
+                className="inline-flex items-center gap-2 min-w-0"
+                style={{ color: "var(--brand-600)", fontWeight: 500 }}
+              >
+                <Download className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">{d.title}</span>
+              </span>
+              <span
+                className="px-1.5 py-0.5 text-[11px] font-semibold uppercase shrink-0"
+                style={{
+                  color: "var(--brand-600)",
+                  background: "var(--surface-2)",
+                  border: "1px solid var(--line)",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                PDF
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
