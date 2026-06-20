@@ -416,9 +416,9 @@ function companyDetails(co: Company) {
 
 function OverviewTab({ co }: { co: Company }) {
   return (
-    <div className="space-y-10">
+    <div className="space-y-5">
       <KeyStatsStrip co={co} />
-      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-5">
         <BasicsCard co={co} />
         <ShareholdingPatternCard co={co} />
       </div>
@@ -436,13 +436,13 @@ function KeyStatsStrip({ co }: { co: Company }) {
   const yrPct = Math.max(0, Math.min(100, ((co.price - co.weekLow52) / Math.max(0.0001, co.weekHigh52 - co.weekLow52)) * 100));
   return (
     <section
-      className="rounded-2xl p-6 md:p-8"
+      className="rounded-2xl p-5"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-[0.22em] mb-5" style={{ color: "var(--text-muted)" }}>
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-3" style={{ color: "var(--text-muted)" }}>
         Key statistics
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
         <StatTile label="Market cap" value={formatBDT(co.marketCap)} />
         <StatTile
           label="Free float market cap"
@@ -467,7 +467,7 @@ function KeyStatsStrip({ co }: { co: Company }) {
         <StatTile label="Adjusted opening" value={`৳ ${(co.open * 0.998).toFixed(2)}`} />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-5 mt-6">
+      <div className="grid md:grid-cols-2 gap-2.5 mt-3">
         <RangeBar
           label="Day's range"
           low={co.low}
@@ -485,7 +485,7 @@ function KeyStatsStrip({ co }: { co: Company }) {
       </div>
 
       <div
-        className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4 pt-5 border-t"
+        className="mt-3 grid grid-cols-3 gap-3 pt-3 border-t"
         style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
       >
         <Stat label="Circuit upper" value={`৳ ${band.upper}`} accent="var(--green-up)" />
@@ -498,24 +498,24 @@ function KeyStatsStrip({ co }: { co: Company }) {
 
 function RangeBar({ label, low, high, pct, current }: { label: string; low: number; high: number; pct: number; current: number }) {
   return (
-    <div className="p-5 rounded-xl" style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
-      <div className="flex items-baseline justify-between mb-3">
+    <div className="p-3 rounded-xl" style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
+      <div className="flex items-baseline justify-between mb-2">
         <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{label}</div>
         <div className="text-[12px] tnum" style={{ color: "var(--text-secondary)" }}>
           Current ৳ {current.toLocaleString(undefined, { minimumFractionDigits: 2 })}
         </div>
       </div>
-      <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.08)" }}>
+      <div className="relative h-1 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.08)" }}>
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
+          className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
           style={{
-            left: `calc(${pct}% - 5px)`,
+            left: `calc(${pct}% - 4px)`,
             background: "var(--primary)",
             boxShadow: "0 0 0 3px rgb(var(--brand-tint) / 0.25)",
           }}
         />
       </div>
-      <div className="mt-2 flex items-center justify-between text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+      <div className="mt-1.5 flex items-center justify-between text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
         <span>৳ {low.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
         <span>৳ {high.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
       </div>
@@ -536,15 +536,15 @@ function BasicsCard({ co }: { co: Company }) {
   ];
   return (
     <section
-      className="rounded-2xl p-6 md:p-8"
+      className="rounded-2xl p-5"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-[0.22em] mb-4" style={{ color: "var(--text-muted)" }}>
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-3" style={{ color: "var(--text-muted)" }}>
         Basics
       </div>
       <dl className="divide-y" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
         {rows.map(([k, v]) => (
-          <div key={k} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
+          <div key={k} className="grid grid-cols-[1fr_auto] gap-4 py-1.5">
             <dt className="text-[13px]" style={{ color: "var(--text-secondary)" }}>{k}</dt>
             <dd className="text-[13px] tnum font-medium" style={{ color: "var(--text-primary)" }}>{v}</dd>
           </div>
@@ -893,10 +893,10 @@ function StatsGrid({ co }: { co: Company }) {
 function StatTile({ label, value, tooltip }: { label: string; value: string; tooltip?: string }) {
   return (
     <div
-      className="p-5 rounded-xl"
+      className="p-3 rounded-xl"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--text-muted)" }}>
+      <div className="text-[10.5px] uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--text-muted)" }}>
         <span>{label}</span>
         {tooltip && (
           <span title={tooltip} className="inline-flex cursor-help" aria-label={tooltip}>
@@ -904,7 +904,7 @@ function StatTile({ label, value, tooltip }: { label: string; value: string; too
           </span>
         )}
       </div>
-      <div className="mt-2 text-[18px] font-medium tnum tracking-tight" style={{ color: "var(--text-primary)" }}>
+      <div className="mt-1 text-[15px] font-medium tnum tracking-tight" style={{ color: "var(--text-primary)" }}>
         {value}
       </div>
     </div>
