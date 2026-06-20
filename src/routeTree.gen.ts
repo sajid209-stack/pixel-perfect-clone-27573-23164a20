@@ -36,10 +36,12 @@ import { Route as FundsRouteImport } from './routes/funds'
 import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors'
 import { Route as FinancialStatementStatusRouteImport } from './routes/financial-statement-status'
 import { Route as FilingsRouteImport } from './routes/filings'
+import { Route as FeedbackRouteImport } from './routes/feedback'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DseMobileRouteImport } from './routes/dse-mobile'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as DataArchivesRouteImport } from './routes/data-archives'
 import { Route as CorporateActionsRouteImport } from './routes/corporate-actions'
 import { Route as CopyrightRouteImport } from './routes/copyright'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -214,6 +216,11 @@ const FilingsRoute = FilingsRouteImport.update({
   path: '/filings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeedbackRoute = FeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -232,6 +239,11 @@ const DownloadsRoute = DownloadsRouteImport.update({
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataArchivesRoute = DataArchivesRouteImport.update({
+  id: '/data-archives',
+  path: '/data-archives',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CorporateActionsRoute = CorporateActionsRouteImport.update({
@@ -434,10 +446,12 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/copyright': typeof CopyrightRoute
   '/corporate-actions': typeof CorporateActionsRoute
+  '/data-archives': typeof DataArchivesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/downloads': typeof DownloadsRoute
   '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
+  '/feedback': typeof FeedbackRoute
   '/filings': typeof FilingsRoute
   '/financial-statement-status': typeof FinancialStatementStatusRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
@@ -504,10 +518,12 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/copyright': typeof CopyrightRoute
   '/corporate-actions': typeof CorporateActionsRoute
+  '/data-archives': typeof DataArchivesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/downloads': typeof DownloadsRoute
   '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
+  '/feedback': typeof FeedbackRoute
   '/filings': typeof FilingsRoute
   '/financial-statement-status': typeof FinancialStatementStatusRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
@@ -575,10 +591,12 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/copyright': typeof CopyrightRoute
   '/corporate-actions': typeof CorporateActionsRoute
+  '/data-archives': typeof DataArchivesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/downloads': typeof DownloadsRoute
   '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
+  '/feedback': typeof FeedbackRoute
   '/filings': typeof FilingsRoute
   '/financial-statement-status': typeof FinancialStatementStatusRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
@@ -647,10 +665,12 @@ export interface FileRouteTypes {
     | '/contact'
     | '/copyright'
     | '/corporate-actions'
+    | '/data-archives'
     | '/disclaimer'
     | '/downloads'
     | '/dse-mobile'
     | '/faq'
+    | '/feedback'
     | '/filings'
     | '/financial-statement-status'
     | '/foreign-investors'
@@ -717,10 +737,12 @@ export interface FileRouteTypes {
     | '/contact'
     | '/copyright'
     | '/corporate-actions'
+    | '/data-archives'
     | '/disclaimer'
     | '/downloads'
     | '/dse-mobile'
     | '/faq'
+    | '/feedback'
     | '/filings'
     | '/financial-statement-status'
     | '/foreign-investors'
@@ -787,10 +809,12 @@ export interface FileRouteTypes {
     | '/contact'
     | '/copyright'
     | '/corporate-actions'
+    | '/data-archives'
     | '/disclaimer'
     | '/downloads'
     | '/dse-mobile'
     | '/faq'
+    | '/feedback'
     | '/filings'
     | '/financial-statement-status'
     | '/foreign-investors'
@@ -858,10 +882,12 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CopyrightRoute: typeof CopyrightRoute
   CorporateActionsRoute: typeof CorporateActionsRoute
+  DataArchivesRoute: typeof DataArchivesRoute
   DisclaimerRoute: typeof DisclaimerRoute
   DownloadsRoute: typeof DownloadsRoute
   DseMobileRoute: typeof DseMobileRoute
   FaqRoute: typeof FaqRoute
+  FeedbackRoute: typeof FeedbackRoute
   FilingsRoute: typeof FilingsRoute
   FinancialStatementStatusRoute: typeof FinancialStatementStatusRoute
   ForeignInvestorsRoute: typeof ForeignInvestorsRoute
@@ -1106,6 +1132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FilingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/feedback': {
+      id: '/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof FeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
@@ -1132,6 +1165,13 @@ declare module '@tanstack/react-router' {
       path: '/disclaimer'
       fullPath: '/disclaimer'
       preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data-archives': {
+      id: '/data-archives'
+      path: '/data-archives'
+      fullPath: '/data-archives'
+      preLoaderRoute: typeof DataArchivesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/corporate-actions': {
@@ -1431,10 +1471,12 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CopyrightRoute: CopyrightRoute,
   CorporateActionsRoute: CorporateActionsRoute,
+  DataArchivesRoute: DataArchivesRoute,
   DisclaimerRoute: DisclaimerRoute,
   DownloadsRoute: DownloadsRoute,
   DseMobileRoute: DseMobileRoute,
   FaqRoute: FaqRoute,
+  FeedbackRoute: FeedbackRoute,
   FilingsRoute: FilingsRoute,
   FinancialStatementStatusRoute: FinancialStatementStatusRoute,
   ForeignInvestorsRoute: ForeignInvestorsRoute,

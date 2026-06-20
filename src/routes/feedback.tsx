@@ -93,7 +93,7 @@ function FeedbackPage() {
                 type={k === "email" ? "email" : "text"}
                 value={values[k]}
                 onChange={onChange(k)}
-                maxLength={k === "message" ? 2000 : k === "email" ? 255 : k === "subject" ? 150 : 100}
+                maxLength={k === "email" ? 255 : k === "subject" ? 150 : 100}
                 className="w-full rounded-md px-3 py-2 text-[14px] outline-none"
                 style={inputStyle}
               />
