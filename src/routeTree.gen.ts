@@ -47,8 +47,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
+import { Route as AboutVisionRouteImport } from './routes/about_.vision'
+import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
 import { Route as AboutMajorEventsRouteImport } from './routes/about_.major-events'
+import { Route as AboutDemutualizationRouteImport } from './routes/about_.demutualization'
 import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
+import { Route as AboutAtAGlanceRouteImport } from './routes/about_.at-a-glance'
 
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
@@ -241,14 +245,34 @@ const CompanyTickerRoute = CompanyTickerRouteImport.update({
   path: '/company/$ticker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutVisionRoute = AboutVisionRouteImport.update({
+  id: '/about_/vision',
+  path: '/about/vision',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutSurveillanceRoute = AboutSurveillanceRouteImport.update({
+  id: '/about_/surveillance',
+  path: '/about/surveillance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutMajorEventsRoute = AboutMajorEventsRouteImport.update({
   id: '/about_/major-events',
   path: '/about/major-events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutDemutualizationRoute = AboutDemutualizationRouteImport.update({
+  id: '/about_/demutualization',
+  path: '/about/demutualization',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutAutomationRoute = AboutAutomationRouteImport.update({
   id: '/about_/automation',
   path: '/about/automation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutAtAGlanceRoute = AboutAtAGlanceRouteImport.update({
+  id: '/about_/at-a-glance',
+  path: '/about/at-a-glance',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -288,8 +312,12 @@ export interface FileRoutesByFullPath {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sitemap': typeof SitemapRoute
+  '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
+  '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/major-events': typeof AboutMajorEventsRoute
+  '/about/surveillance': typeof AboutSurveillanceRoute
+  '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
@@ -330,8 +358,12 @@ export interface FileRoutesByTo {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sitemap': typeof SitemapRoute
+  '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
+  '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/major-events': typeof AboutMajorEventsRoute
+  '/about/surveillance': typeof AboutSurveillanceRoute
+  '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
@@ -373,8 +405,12 @@ export interface FileRoutesById {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sitemap': typeof SitemapRoute
+  '/about_/at-a-glance': typeof AboutAtAGlanceRoute
   '/about_/automation': typeof AboutAutomationRoute
+  '/about_/demutualization': typeof AboutDemutualizationRoute
   '/about_/major-events': typeof AboutMajorEventsRoute
+  '/about_/surveillance': typeof AboutSurveillanceRoute
+  '/about_/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
@@ -417,8 +453,12 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/sitemap'
+    | '/about/at-a-glance'
     | '/about/automation'
+    | '/about/demutualization'
     | '/about/major-events'
+    | '/about/surveillance'
+    | '/about/vision'
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
@@ -459,8 +499,12 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/sitemap'
+    | '/about/at-a-glance'
     | '/about/automation'
+    | '/about/demutualization'
     | '/about/major-events'
+    | '/about/surveillance'
+    | '/about/vision'
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
@@ -501,8 +545,12 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/sitemap'
+    | '/about_/at-a-glance'
     | '/about_/automation'
+    | '/about_/demutualization'
     | '/about_/major-events'
+    | '/about_/surveillance'
+    | '/about_/vision'
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
@@ -544,8 +592,12 @@ export interface RootRouteChildren {
   RegulationsRoute: typeof RegulationsRoute
   ReportsRoute: typeof ReportsRoute
   SitemapRoute: typeof SitemapRoute
+  AboutAtAGlanceRoute: typeof AboutAtAGlanceRoute
   AboutAutomationRoute: typeof AboutAutomationRoute
+  AboutDemutualizationRoute: typeof AboutDemutualizationRoute
   AboutMajorEventsRoute: typeof AboutMajorEventsRoute
+  AboutSurveillanceRoute: typeof AboutSurveillanceRoute
+  AboutVisionRoute: typeof AboutVisionRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
 }
 
@@ -817,6 +869,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompanyTickerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/vision': {
+      id: '/about_/vision'
+      path: '/about/vision'
+      fullPath: '/about/vision'
+      preLoaderRoute: typeof AboutVisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about_/surveillance': {
+      id: '/about_/surveillance'
+      path: '/about/surveillance'
+      fullPath: '/about/surveillance'
+      preLoaderRoute: typeof AboutSurveillanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/major-events': {
       id: '/about_/major-events'
       path: '/about/major-events'
@@ -824,11 +890,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutMajorEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/demutualization': {
+      id: '/about_/demutualization'
+      path: '/about/demutualization'
+      fullPath: '/about/demutualization'
+      preLoaderRoute: typeof AboutDemutualizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/automation': {
       id: '/about_/automation'
       path: '/about/automation'
       fullPath: '/about/automation'
       preLoaderRoute: typeof AboutAutomationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about_/at-a-glance': {
+      id: '/about_/at-a-glance'
+      path: '/about/at-a-glance'
+      fullPath: '/about/at-a-glance'
+      preLoaderRoute: typeof AboutAtAGlanceRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -893,20 +973,14 @@ const rootRouteChildren: RootRouteChildren = {
   RegulationsRoute: RegulationsRoute,
   ReportsRoute: ReportsRoute,
   SitemapRoute: SitemapRoute,
+  AboutAtAGlanceRoute: AboutAtAGlanceRoute,
   AboutAutomationRoute: AboutAutomationRoute,
+  AboutDemutualizationRoute: AboutDemutualizationRoute,
   AboutMajorEventsRoute: AboutMajorEventsRoute,
+  AboutSurveillanceRoute: AboutSurveillanceRoute,
+  AboutVisionRoute: AboutVisionRoute,
   CompanyTickerRoute: CompanyTickerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
