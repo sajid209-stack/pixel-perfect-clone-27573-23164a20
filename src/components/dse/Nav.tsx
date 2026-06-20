@@ -236,6 +236,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "About us", to: "/about" },
           { label: "Board of directors", to: "/about" },
           { label: "Leadership", to: "/about" },
+          { label: "DSE Presidents / Chairmen", to: "/about/chairmen" },
           { label: "Members", to: "/members" },
           { label: "Major Events", to: "/about/major-events" },
           { label: "Citizen Charter", to: "/citizen-charter" },
