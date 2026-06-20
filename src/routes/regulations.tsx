@@ -335,7 +335,44 @@ function RegulationsPage() {
         <ClearingSettlementSection />
       </section>
 
-
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-10">
+        <div className="mt-6 rounded-md p-5" style={{ background: "var(--surface)", border: "1px solid var(--line)" }} data-cms="regulations.index">
+          <h2 className="text-[16px] font-semibold mb-3" style={{ color: "var(--ink)" }}>All Regulations</h2>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[13px]">
+            {[
+              { label: "TREC Regulations", href: "#trec" },
+              { label: "Listing Regulations", href: "#listing" },
+              { label: "Corporate Governance Code", href: "#cg" },
+              { label: "Settlement Regulations", href: "#clearing-settlement" },
+              { label: "Settlement Guarantee Fund Regulations", href: "#sgf" },
+              { label: "Settlement of Dispute Regulations", href: "#dispute" },
+              { label: "Short-Sale Regulations", href: "#short-sale" },
+              { label: "Automated Trading Regulations", href: "#ats" },
+              { label: "Investors' Protection Fund Regulations", href: "#ipf" },
+              { label: "Margin Rules", href: "#margin" },
+              { label: "TREC Holder Margin Regulations", href: "#trec-margin" },
+              { label: "Board & Administration Regulations", href: "#board-admin" },
+              { label: "The Exchanges Demutualization Act 2013", href: "#demut-act" },
+              { label: "Demutualization Scheme", href: "#demut-scheme" },
+              { label: "Memorandum & Articles of Association", href: "#moa" },
+              { label: "Securities Related Laws", href: "https://www.sec.gov.bd", external: true },
+            ].map((i) => (
+              <li key={i.label}>
+                <a
+                  href={i.href}
+                  target={i.external ? "_blank" : undefined}
+                  rel={i.external ? "noopener noreferrer" : undefined}
+                  id={i.href.startsWith("#") ? i.href.slice(1) : undefined}
+                  className="hover:underline"
+                  style={{ color: "var(--brand-600)" }}
+                >
+                  {i.label}{i.external ? " ↗" : ""}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <Footer />
     </div>
