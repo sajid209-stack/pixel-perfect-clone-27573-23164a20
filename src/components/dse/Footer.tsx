@@ -171,17 +171,15 @@ export function Footer() {
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-[12px]" style={{ color: "rgba(255,255,255,0.78)" }}>
             {[
               { label: "BSEC", href: "https://www.sec.gov.bd" },
+              { label: "Nationwide Financial Literacy", href: "https://nfls.gov.bd" },
+              { label: "Customer Complaint Address Module", href: "https://ccam.sec.gov.bd" },
+              { label: "Electronic Subscription System (ESS)", href: "https://ess.sec.gov.bd" },
+              { label: "DBA", href: "https://dsebd.com.bd" },
+              { label: "V-Next", href: "https://vnext.com.bd" },
               { label: "CDBL", href: "https://www.cdbl.com.bd" },
-              { label: "Bangladesh Bank", href: "https://www.bb.org.bd" },
               { label: "BIDA", href: "https://bida.gov.bd" },
-              { label: "BICM", href: "https://www.bicm.ac.bd" },
-              { label: "NASDAQ", href: "#" },
-              { label: "London Stock Exchange", href: "#" },
-              { label: "Singapore Exchange", href: "#" },
-              { label: "Tokyo Stock Exchange", href: "#" },
-              { label: "Hong Kong Stock Exchange", href: "#" },
-              { label: "Bombay Stock Exchange", href: "#" },
-              { label: "NSE India", href: "#" },
+              { label: "Global Reporting Initiative (GRI)", href: "https://www.globalreporting.org" },
+              { label: "Other Links", href: "/links" },
             ].map((l) => (
               <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-100 opacity-85">
                 {t(l.label)}
