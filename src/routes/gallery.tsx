@@ -194,12 +194,6 @@ function GalleryPage() {
             </div>
           )}
 
-          <p
-            className="mt-6 text-[11px] italic"
-            style={{ color: "var(--text-muted)" }}
-          >
-            Images are indicative placeholders pending the official DSE photo library.
-          </p>
         </section>
       </main>
 
