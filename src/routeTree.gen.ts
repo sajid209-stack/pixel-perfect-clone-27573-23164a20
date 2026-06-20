@@ -22,6 +22,7 @@ import { Route as ListingRouteImport } from './routes/listing'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IpoRouteImport } from './routes/ipo'
 import { Route as IndicesRouteImport } from './routes/indices'
+import { Route as HelpDeskRouteImport } from './routes/help-desk'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FundsRouteImport } from './routes/funds'
 import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors'
@@ -33,6 +34,7 @@ import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 
 const ReportsRoute = ReportsRouteImport.update({
@@ -100,6 +102,11 @@ const IndicesRoute = IndicesRouteImport.update({
   path: '/indices',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HelpDeskRoute = HelpDeskRouteImport.update({
+  id: '/help-desk',
+  path: '/help-desk',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -155,6 +162,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HelpDeskNrbRoute = HelpDeskNrbRouteImport.update({
+  id: '/nrb',
+  path: '/nrb',
+  getParentRoute: () => HelpDeskRoute,
+} as any)
 const CompanyTickerRoute = CompanyTickerRouteImport.update({
   id: '/company/$ticker',
   path: '/company/$ticker',
@@ -173,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
+  '/help-desk': typeof HelpDeskRouteWithChildren
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -187,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/help-desk/nrb': typeof HelpDeskNrbRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -200,6 +214,7 @@ export interface FileRoutesByTo {
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
+  '/help-desk': typeof HelpDeskRouteWithChildren
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -214,6 +229,7 @@ export interface FileRoutesByTo {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/help-desk/nrb': typeof HelpDeskNrbRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -228,6 +244,7 @@ export interface FileRoutesById {
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
+  '/help-desk': typeof HelpDeskRouteWithChildren
   '/indices': typeof IndicesRoute
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -242,6 +259,7 @@ export interface FileRoutesById {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/help-desk/nrb': typeof HelpDeskNrbRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -257,6 +275,7 @@ export interface FileRouteTypes {
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
+    | '/help-desk'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -271,6 +290,7 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/company/$ticker'
+    | '/help-desk/nrb'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -284,6 +304,7 @@ export interface FileRouteTypes {
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
+    | '/help-desk'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -298,6 +319,7 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/company/$ticker'
+    | '/help-desk/nrb'
   id:
     | '__root__'
     | '/'
@@ -311,6 +333,7 @@ export interface FileRouteTypes {
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
+    | '/help-desk'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -325,6 +348,7 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/company/$ticker'
+    | '/help-desk/nrb'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -339,6 +363,7 @@ export interface RootRouteChildren {
   ForeignInvestorsRoute: typeof ForeignInvestorsRoute
   FundsRoute: typeof FundsRoute
   GalleryRoute: typeof GalleryRoute
+  HelpDeskRoute: typeof HelpDeskRouteWithChildren
   IndicesRoute: typeof IndicesRoute
   IpoRoute: typeof IpoRoute
   LearnRoute: typeof LearnRoute
@@ -448,6 +473,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/help-desk': {
+      id: '/help-desk'
+      path: '/help-desk'
+      fullPath: '/help-desk'
+      preLoaderRoute: typeof HelpDeskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -525,6 +557,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/help-desk/nrb': {
+      id: '/help-desk/nrb'
+      path: '/nrb'
+      fullPath: '/help-desk/nrb'
+      preLoaderRoute: typeof HelpDeskNrbRouteImport
+      parentRoute: typeof HelpDeskRoute
+    }
     '/company/$ticker': {
       id: '/company/$ticker'
       path: '/company/$ticker'
@@ -534,6 +573,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface HelpDeskRouteChildren {
+  HelpDeskNrbRoute: typeof HelpDeskNrbRoute
+}
+
+const HelpDeskRouteChildren: HelpDeskRouteChildren = {
+  HelpDeskNrbRoute: HelpDeskNrbRoute,
+}
+
+const HelpDeskRouteWithChildren = HelpDeskRoute._addFileChildren(
+  HelpDeskRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -547,6 +598,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForeignInvestorsRoute: ForeignInvestorsRoute,
   FundsRoute: FundsRoute,
   GalleryRoute: GalleryRoute,
+  HelpDeskRoute: HelpDeskRouteWithChildren,
   IndicesRoute: IndicesRoute,
   IpoRoute: IpoRoute,
   LearnRoute: LearnRoute,
