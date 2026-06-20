@@ -37,7 +37,7 @@ function WhyListPage() {
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <Nav />
       <section className="border-b" style={{ borderColor: "var(--line)" }}>
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">
+        <div className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--brand-600)" }}>
             {t("Listing")}
           </div>
@@ -46,7 +46,7 @@ function WhyListPage() {
           </h1>
         </div>
       </section>
-      <section className="max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-14 space-y-8">
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-8">
         <ul className="space-y-2 list-disc pl-5 text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
           {BULLETS.map((b) => <li key={b}>{t(b)}</li>)}
         </ul>

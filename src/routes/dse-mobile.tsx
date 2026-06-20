@@ -29,7 +29,7 @@ function DseMobilePage() {
       <Nav />
 
       <section className="border-b" style={{ borderColor: "var(--line)" }}>
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">
+        <div className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--brand-600)" }}>
             {t("Dhaka Stock Exchange")}
           </div>
@@ -39,7 +39,7 @@ function DseMobilePage() {
         </div>
       </section>
 
-      <section className="max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-14 space-y-5">
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-5">
         <p className={para} style={paraStyle}>
           {t(
             "DHAKA STOCK EXCHANGE PLC. (DSE) has implemented a Centralized Order Management System 'DSE-FlexTP' for the TREC holders of the Exchange to manage their orders. DSE-Mobile is a platform of DSE-FlexTP by which investors of DSE can get real-time market updates and as well as can trade (if TREC permitted). DSE-Mobile service was launched on March 09, 2016. This is connecting investors to the state-of-the-art technology of trading.",

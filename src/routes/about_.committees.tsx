@@ -89,7 +89,7 @@ function CommitteesPage() {
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <Nav />
       <section className="border-b" style={{ borderColor: "var(--line)" }}>
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">
+        <div className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--brand-600)" }}>
             {t("About DSE")}
           </div>
@@ -98,7 +98,7 @@ function CommitteesPage() {
           </h1>
         </div>
       </section>
-      <section className="max-w-4xl mx-auto px-4 md:px-6 py-10 md:py-14 space-y-3">
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-3">
         {COMMITTEES.map((c) => <Row key={c.id} c={c} />)}
       </section>
       <Footer />
