@@ -4,19 +4,16 @@ import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
-export const Route = createFileRoute("/indices/methodology")({
+export const Route = createFileRoute("/index-methodology")({
   head: () => ({
     meta: [
-      { title: "Index Methodology (Algorithm of DSE Indices) | Dhaka Stock Exchange" },
+      { title: "Algorithm of DSE Indices | Dhaka Stock Exchange" },
       {
         name: "description",
         content:
           "Algorithm of DSE indices following IOSCO Index Methodology: current and closing index formulas, market capitalisation calculation, and abbreviations.",
       },
-      {
-        property: "og:title",
-        content: "Index Methodology (Algorithm of DSE Indices)",
-      },
+      { property: "og:title", content: "Algorithm of DSE Indices" },
       {
         property: "og:description",
         content:
@@ -48,7 +45,7 @@ function MethodologyPage() {
             · Methodology
           </div>
           <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
-            Index Methodology (Algorithm of DSE Indices)
+            Algorithm of DSE Indices
           </h1>
         </div>
       </section>
@@ -65,19 +62,12 @@ function MethodologyPage() {
             Index Calculation Algorithm (according to IOSCO Index Methodology):
           </p>
           <ul className="space-y-3 text-[14px] font-mono leading-relaxed">
-            <li>
-              Current Index = ( Yesterday's Closing Index × Current M.Cap ) / Opening M.Cap
-            </li>
-            <li>
-              Closing Index = ( Yesterday's Closing Index × Closing M.Cap ) / Opening M.Cap
-            </li>
+            <li>Current Index = ( Yesterday's Closing Index × Current M.Cap ) / Opening M.Cap</li>
+            <li>Closing Index = ( Yesterday's Closing Index × Closing M.Cap ) / Opening M.Cap</li>
             <li>Current M.Cap = ∑ ( LTP × Total no. of indexed shares )</li>
             <li>Closing M.Cap = ∑ ( CP × Total no. of indexed shares )</li>
           </ul>
-          <p
-            className="mt-6 text-[13px]"
-            style={{ color: "var(--text-secondary)" }}
-          >
+          <p className="mt-6 text-[13px]" style={{ color: "var(--text-secondary)" }}>
             <span className="font-medium" style={{ color: "var(--text-primary)" }}>
               Abbreviations:
             </span>{" "}

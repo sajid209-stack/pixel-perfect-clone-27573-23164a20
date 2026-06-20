@@ -24,6 +24,7 @@ import { Route as LinksRouteImport } from './routes/links'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IpoRouteImport } from './routes/ipo'
 import { Route as IndicesRouteImport } from './routes/indices'
+import { Route as IndexMethodologyRouteImport } from './routes/index-methodology'
 import { Route as HolidaysRouteImport } from './routes/holidays'
 import { Route as HelpDeskRouteImport } from './routes/help-desk'
 import { Route as GoingConcernRouteImport } from './routes/going-concern'
@@ -43,7 +44,6 @@ import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as IndicesMethodologyRouteImport } from './routes/indices.methodology'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
@@ -123,6 +123,11 @@ const IpoRoute = IpoRouteImport.update({
 const IndicesRoute = IndicesRouteImport.update({
   id: '/indices',
   path: '/indices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexMethodologyRoute = IndexMethodologyRouteImport.update({
+  id: '/index-methodology',
+  path: '/index-methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HolidaysRoute = HolidaysRouteImport.update({
@@ -221,11 +226,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndicesMethodologyRoute = IndicesMethodologyRouteImport.update({
-  id: '/methodology',
-  path: '/methodology',
-  getParentRoute: () => IndicesRoute,
-} as any)
 const IndicesCodeRoute = IndicesCodeRouteImport.update({
   id: '/$code',
   path: '/$code',
@@ -272,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/going-concern': typeof GoingConcernRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
   '/holidays': typeof HolidaysRoute
+  '/index-methodology': typeof IndexMethodologyRoute
   '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -292,7 +293,6 @@ export interface FileRoutesByFullPath {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
-  '/indices/methodology': typeof IndicesMethodologyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -314,6 +314,7 @@ export interface FileRoutesByTo {
   '/going-concern': typeof GoingConcernRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
   '/holidays': typeof HolidaysRoute
+  '/index-methodology': typeof IndexMethodologyRoute
   '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -334,7 +335,6 @@ export interface FileRoutesByTo {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
-  '/indices/methodology': typeof IndicesMethodologyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -357,6 +357,7 @@ export interface FileRoutesById {
   '/going-concern': typeof GoingConcernRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
   '/holidays': typeof HolidaysRoute
+  '/index-methodology': typeof IndexMethodologyRoute
   '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -377,7 +378,6 @@ export interface FileRoutesById {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
-  '/indices/methodology': typeof IndicesMethodologyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -401,6 +401,7 @@ export interface FileRouteTypes {
     | '/going-concern'
     | '/help-desk'
     | '/holidays'
+    | '/index-methodology'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -421,7 +422,6 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
-    | '/indices/methodology'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -443,6 +443,7 @@ export interface FileRouteTypes {
     | '/going-concern'
     | '/help-desk'
     | '/holidays'
+    | '/index-methodology'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -463,7 +464,6 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
-    | '/indices/methodology'
   id:
     | '__root__'
     | '/'
@@ -485,6 +485,7 @@ export interface FileRouteTypes {
     | '/going-concern'
     | '/help-desk'
     | '/holidays'
+    | '/index-methodology'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -505,7 +506,6 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
-    | '/indices/methodology'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -528,6 +528,7 @@ export interface RootRouteChildren {
   GoingConcernRoute: typeof GoingConcernRoute
   HelpDeskRoute: typeof HelpDeskRouteWithChildren
   HolidaysRoute: typeof HolidaysRoute
+  IndexMethodologyRoute: typeof IndexMethodologyRoute
   IndicesRoute: typeof IndicesRouteWithChildren
   IpoRoute: typeof IpoRoute
   LearnRoute: typeof LearnRoute
@@ -653,6 +654,13 @@ declare module '@tanstack/react-router' {
       path: '/indices'
       fullPath: '/indices'
       preLoaderRoute: typeof IndicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/index-methodology': {
+      id: '/index-methodology'
+      path: '/index-methodology'
+      fullPath: '/index-methodology'
+      preLoaderRoute: typeof IndexMethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/holidays': {
@@ -788,13 +796,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/indices/methodology': {
-      id: '/indices/methodology'
-      path: '/methodology'
-      fullPath: '/indices/methodology'
-      preLoaderRoute: typeof IndicesMethodologyRouteImport
-      parentRoute: typeof IndicesRoute
-    }
     '/indices/$code': {
       id: '/indices/$code'
       path: '/$code'
@@ -847,12 +848,10 @@ const HelpDeskRouteWithChildren = HelpDeskRoute._addFileChildren(
 
 interface IndicesRouteChildren {
   IndicesCodeRoute: typeof IndicesCodeRoute
-  IndicesMethodologyRoute: typeof IndicesMethodologyRoute
 }
 
 const IndicesRouteChildren: IndicesRouteChildren = {
   IndicesCodeRoute: IndicesCodeRoute,
-  IndicesMethodologyRoute: IndicesMethodologyRoute,
 }
 
 const IndicesRouteWithChildren =
@@ -878,6 +877,7 @@ const rootRouteChildren: RootRouteChildren = {
   GoingConcernRoute: GoingConcernRoute,
   HelpDeskRoute: HelpDeskRouteWithChildren,
   HolidaysRoute: HolidaysRoute,
+  IndexMethodologyRoute: IndexMethodologyRoute,
   IndicesRoute: IndicesRouteWithChildren,
   IpoRoute: IpoRoute,
   LearnRoute: LearnRoute,
