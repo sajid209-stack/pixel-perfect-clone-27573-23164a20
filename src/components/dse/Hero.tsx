@@ -62,7 +62,7 @@ export function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="hero-frame relative w-full" style={{ height: 380 }}>
+      <div className="hero-frame relative w-full" style={{ height: 260 }}>
         {slides.map((s, i) => (
           <div
             key={i}
