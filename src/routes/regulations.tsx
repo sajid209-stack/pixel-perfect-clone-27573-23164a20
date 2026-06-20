@@ -301,6 +301,47 @@ function RegulationsPage() {
         </div>
       </div>
 
+      {/* Additional regulatory sub-sections */}
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-12 space-y-6">
+        <DocSection
+          id="ipf"
+          title="Investors' Protection Fund Regulations"
+          docs={[
+            { title: "Investors' Protection Fund Regulations-2014 (Reference)", href: "#" },
+            { title: "Investors' Protection Fund Regulations-1999", href: "#" },
+          ]}
+        />
+
+        <DocSection
+          id="cg"
+          title="Corporate Governance"
+          docs={[
+            { title: "Corporate Governance Code", href: "#" },
+            { title: "Amendments to the Corporate Governance Code-2018 (November 20, 2023)", href: "#" },
+            { title: "Clarification to the Corporate Governance Code-2018 (February 05, 2020)", href: "#" },
+            { title: "Corporate Governance Code (Reference)", href: "#" },
+            {
+              title:
+                "Corporate Governance Guidelines (Repealed) — Corporate Governance Guideline issued by the Bangladesh Securities and Exchange Commission on 07 August, 2012",
+              href: "#",
+            },
+          ]}
+        />
+
+        <DocSection
+          id="margin"
+          title="Margin Rules"
+          docs={[
+            { title: "Margin Rules 2025", href: "#" },
+            { title: "Margin Rules 1999 (Repealed)", href: "#" },
+          ]}
+        />
+
+        <ClearingSettlementSection />
+      </section>
+
+
+
       <Footer />
     </div>
   );
