@@ -51,7 +51,9 @@ import { Route as AboutVisionRouteImport } from './routes/about_.vision'
 import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
 import { Route as AboutManagementRouteImport } from './routes/about_.management'
 import { Route as AboutMajorEventsRouteImport } from './routes/about_.major-events'
+import { Route as AboutDepartmentsRouteImport } from './routes/about_.departments'
 import { Route as AboutDemutualizationRouteImport } from './routes/about_.demutualization'
+import { Route as AboutCommitteesRouteImport } from './routes/about_.committees'
 import { Route as AboutBoardRouteImport } from './routes/about_.board'
 import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
 import { Route as AboutAtAGlanceRouteImport } from './routes/about_.at-a-glance'
@@ -267,9 +269,19 @@ const AboutMajorEventsRoute = AboutMajorEventsRouteImport.update({
   path: '/about/major-events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutDepartmentsRoute = AboutDepartmentsRouteImport.update({
+  id: '/about_/departments',
+  path: '/about/departments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutDemutualizationRoute = AboutDemutualizationRouteImport.update({
   id: '/about_/demutualization',
   path: '/about/demutualization',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutCommitteesRoute = AboutCommitteesRouteImport.update({
+  id: '/about_/committees',
+  path: '/about/committees',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutBoardRoute = AboutBoardRouteImport.update({
@@ -327,7 +339,9 @@ export interface FileRoutesByFullPath {
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
   '/about/board': typeof AboutBoardRoute
+  '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
+  '/about/departments': typeof AboutDepartmentsRoute
   '/about/major-events': typeof AboutMajorEventsRoute
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
@@ -375,7 +389,9 @@ export interface FileRoutesByTo {
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
   '/about/board': typeof AboutBoardRoute
+  '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
+  '/about/departments': typeof AboutDepartmentsRoute
   '/about/major-events': typeof AboutMajorEventsRoute
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
@@ -424,7 +440,9 @@ export interface FileRoutesById {
   '/about_/at-a-glance': typeof AboutAtAGlanceRoute
   '/about_/automation': typeof AboutAutomationRoute
   '/about_/board': typeof AboutBoardRoute
+  '/about_/committees': typeof AboutCommitteesRoute
   '/about_/demutualization': typeof AboutDemutualizationRoute
+  '/about_/departments': typeof AboutDepartmentsRoute
   '/about_/major-events': typeof AboutMajorEventsRoute
   '/about_/management': typeof AboutManagementRoute
   '/about_/surveillance': typeof AboutSurveillanceRoute
@@ -474,7 +492,9 @@ export interface FileRouteTypes {
     | '/about/at-a-glance'
     | '/about/automation'
     | '/about/board'
+    | '/about/committees'
     | '/about/demutualization'
+    | '/about/departments'
     | '/about/major-events'
     | '/about/management'
     | '/about/surveillance'
@@ -522,7 +542,9 @@ export interface FileRouteTypes {
     | '/about/at-a-glance'
     | '/about/automation'
     | '/about/board'
+    | '/about/committees'
     | '/about/demutualization'
+    | '/about/departments'
     | '/about/major-events'
     | '/about/management'
     | '/about/surveillance'
@@ -570,7 +592,9 @@ export interface FileRouteTypes {
     | '/about_/at-a-glance'
     | '/about_/automation'
     | '/about_/board'
+    | '/about_/committees'
     | '/about_/demutualization'
+    | '/about_/departments'
     | '/about_/major-events'
     | '/about_/management'
     | '/about_/surveillance'
@@ -619,7 +643,9 @@ export interface RootRouteChildren {
   AboutAtAGlanceRoute: typeof AboutAtAGlanceRoute
   AboutAutomationRoute: typeof AboutAutomationRoute
   AboutBoardRoute: typeof AboutBoardRoute
+  AboutCommitteesRoute: typeof AboutCommitteesRoute
   AboutDemutualizationRoute: typeof AboutDemutualizationRoute
+  AboutDepartmentsRoute: typeof AboutDepartmentsRoute
   AboutMajorEventsRoute: typeof AboutMajorEventsRoute
   AboutManagementRoute: typeof AboutManagementRoute
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
@@ -923,11 +949,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutMajorEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/departments': {
+      id: '/about_/departments'
+      path: '/about/departments'
+      fullPath: '/about/departments'
+      preLoaderRoute: typeof AboutDepartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/demutualization': {
       id: '/about_/demutualization'
       path: '/about/demutualization'
       fullPath: '/about/demutualization'
       preLoaderRoute: typeof AboutDemutualizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about_/committees': {
+      id: '/about_/committees'
+      path: '/about/committees'
+      fullPath: '/about/committees'
+      preLoaderRoute: typeof AboutCommitteesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about_/board': {
@@ -1016,7 +1056,9 @@ const rootRouteChildren: RootRouteChildren = {
   AboutAtAGlanceRoute: AboutAtAGlanceRoute,
   AboutAutomationRoute: AboutAutomationRoute,
   AboutBoardRoute: AboutBoardRoute,
+  AboutCommitteesRoute: AboutCommitteesRoute,
   AboutDemutualizationRoute: AboutDemutualizationRoute,
+  AboutDepartmentsRoute: AboutDepartmentsRoute,
   AboutMajorEventsRoute: AboutMajorEventsRoute,
   AboutManagementRoute: AboutManagementRoute,
   AboutSurveillanceRoute: AboutSurveillanceRoute,
