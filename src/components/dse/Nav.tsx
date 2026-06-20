@@ -250,6 +250,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Regulations & Rulebook", to: "/regulations" },
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
+          { label: "Share Transfer Process", to: "/listing/share-transfer" },
           { label: "New Automation System", to: "/about/automation" },
         ],
       },

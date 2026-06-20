@@ -142,6 +142,34 @@ function ForeignInvestorsPage() {
 /* ─────────────────────── Trading & Repatriation ─────────────────────── */
 
 function TradingTab() {
+  return (
+    <div className="space-y-12">
+      <Section title="Investor guides">
+        <Link
+          to="/listing/share-transfer"
+          className="block p-4 rounded-xl transition hover:opacity-90"
+          style={{
+            background: "rgb(var(--ov) / 0.04)",
+            border: "1px solid rgb(var(--ov) / 0.08)",
+          }}
+        >
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--primary)" }}>
+            Guide
+          </div>
+          <div className="mt-1 text-[14px] font-semibold" style={{ color: "var(--text-primary)" }}>
+            Process of Gift/Transfer of Shares
+          </div>
+          <p className="mt-1 text-[12.5px]" style={{ color: "var(--text-secondary)" }}>
+            How to gift or transfer listed securities outside the trading system, under Listing Regulation 47.
+          </p>
+        </Link>
+      </Section>
+      <TradingTabBody />
+    </div>
+  );
+}
+
+function TradingTabBody() {
   const eligible = [
     "Listed equity shares (Main Board & SME)",
     "Listed corporate bonds, sukuk and debentures",
