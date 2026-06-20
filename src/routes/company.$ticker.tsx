@@ -416,9 +416,9 @@ function companyDetails(co: Company) {
 
 function OverviewTab({ co }: { co: Company }) {
   return (
-    <div className="space-y-10">
+    <div className="space-y-5">
       <KeyStatsStrip co={co} />
-      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-5">
         <BasicsCard co={co} />
         <ShareholdingPatternCard co={co} />
       </div>
