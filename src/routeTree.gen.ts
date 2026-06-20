@@ -38,6 +38,7 @@ import { Route as FilingsRouteImport } from './routes/filings'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DseMobileRouteImport } from './routes/dse-mobile'
 import { Route as DownloadsRouteImport } from './routes/downloads'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as CorporateActionsRouteImport } from './routes/corporate-actions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
@@ -218,6 +219,11 @@ const DseMobileRoute = DseMobileRouteImport.update({
 const DownloadsRoute = DownloadsRouteImport.update({
   id: '/downloads',
   path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CorporateActionsRoute = CorporateActionsRouteImport.update({
@@ -408,6 +414,7 @@ export interface FileRoutesByFullPath {
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/downloads': typeof DownloadsRoute
   '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
@@ -474,6 +481,7 @@ export interface FileRoutesByTo {
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/downloads': typeof DownloadsRoute
   '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
@@ -541,6 +549,7 @@ export interface FileRoutesById {
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/downloads': typeof DownloadsRoute
   '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
@@ -609,6 +618,7 @@ export interface FileRouteTypes {
     | '/complaints'
     | '/contact'
     | '/corporate-actions'
+    | '/disclaimer'
     | '/downloads'
     | '/dse-mobile'
     | '/faq'
@@ -675,6 +685,7 @@ export interface FileRouteTypes {
     | '/complaints'
     | '/contact'
     | '/corporate-actions'
+    | '/disclaimer'
     | '/downloads'
     | '/dse-mobile'
     | '/faq'
@@ -741,6 +752,7 @@ export interface FileRouteTypes {
     | '/complaints'
     | '/contact'
     | '/corporate-actions'
+    | '/disclaimer'
     | '/downloads'
     | '/dse-mobile'
     | '/faq'
@@ -808,6 +820,7 @@ export interface RootRouteChildren {
   ComplaintsRoute: typeof ComplaintsRoute
   ContactRoute: typeof ContactRoute
   CorporateActionsRoute: typeof CorporateActionsRoute
+  DisclaimerRoute: typeof DisclaimerRoute
   DownloadsRoute: typeof DownloadsRoute
   DseMobileRoute: typeof DseMobileRoute
   FaqRoute: typeof FaqRoute
@@ -1066,6 +1079,13 @@ declare module '@tanstack/react-router' {
       path: '/downloads'
       fullPath: '/downloads'
       preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/corporate-actions': {
@@ -1349,6 +1369,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComplaintsRoute: ComplaintsRoute,
   ContactRoute: ContactRoute,
   CorporateActionsRoute: CorporateActionsRoute,
+  DisclaimerRoute: DisclaimerRoute,
   DownloadsRoute: DownloadsRoute,
   DseMobileRoute: DseMobileRoute,
   FaqRoute: FaqRoute,
