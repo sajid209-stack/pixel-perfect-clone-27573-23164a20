@@ -103,6 +103,28 @@ function ProductsPage() {
         <Card title="Future Products">
           <p className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>{t(FUTURE)}</p>
         </Card>
+
+        <Card title="Data Services">
+          <ul className="grid sm:grid-cols-2 gap-3" data-cms="products.data-services">
+            {[
+              { label: "API for BHOMS", desc: "Brokers' Home Office Management System data feed." },
+              { label: "MDS", desc: "Market Data Service — real-time market data feed." },
+              { label: "EOD", desc: "End-of-Day data files for all instruments." },
+              { label: "DSE-Mobile", desc: "Mobile trading and market data app." },
+            ].map((s) => (
+              <li key={s.label}>
+                <a
+                  href="#"
+                  className="block rounded-md p-4"
+                  style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
+                >
+                  <div className="text-[14px] font-semibold" style={{ color: "var(--ink)" }}>{s.label}</div>
+                  <div className="mt-1 text-[12.5px]" style={{ color: "var(--text-secondary)" }}>{s.desc}</div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Card>
       </section>
 
       <Footer />
