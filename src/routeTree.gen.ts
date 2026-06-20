@@ -44,6 +44,8 @@ import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
+import { Route as ListingEligibleInvestorsRouteImport } from './routes/listing_.eligible-investors'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
@@ -234,6 +236,17 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ListingWhyListRoute = ListingWhyListRouteImport.update({
+  id: '/listing_/why-list',
+  path: '/listing/why-list',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingEligibleInvestorsRoute =
+  ListingEligibleInvestorsRouteImport.update({
+    id: '/listing_/eligible-investors',
+    path: '/listing/eligible-investors',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const IndicesCodeRoute = IndicesCodeRouteImport.update({
   id: '/$code',
   path: '/$code',
@@ -349,6 +362,8 @@ export interface FileRoutesByFullPath {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
+  '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
+  '/listing/why-list': typeof ListingWhyListRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -399,6 +414,8 @@ export interface FileRoutesByTo {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
+  '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
+  '/listing/why-list': typeof ListingWhyListRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -450,6 +467,8 @@ export interface FileRoutesById {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
+  '/listing_/eligible-investors': typeof ListingEligibleInvestorsRoute
+  '/listing_/why-list': typeof ListingWhyListRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -502,6 +521,8 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
+    | '/listing/eligible-investors'
+    | '/listing/why-list'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -552,6 +573,8 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
+    | '/listing/eligible-investors'
+    | '/listing/why-list'
   id:
     | '__root__'
     | '/'
@@ -602,6 +625,8 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
+    | '/listing_/eligible-investors'
+    | '/listing_/why-list'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -651,6 +676,8 @@ export interface RootRouteChildren {
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
   AboutVisionRoute: typeof AboutVisionRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
+  ListingEligibleInvestorsRoute: typeof ListingEligibleInvestorsRoute
+  ListingWhyListRoute: typeof ListingWhyListRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -900,6 +927,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/listing_/why-list': {
+      id: '/listing_/why-list'
+      path: '/listing/why-list'
+      fullPath: '/listing/why-list'
+      preLoaderRoute: typeof ListingWhyListRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listing_/eligible-investors': {
+      id: '/listing_/eligible-investors'
+      path: '/listing/eligible-investors'
+      fullPath: '/listing/eligible-investors'
+      preLoaderRoute: typeof ListingEligibleInvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/indices/$code': {
       id: '/indices/$code'
       path: '/$code'
@@ -1064,6 +1105,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutSurveillanceRoute: AboutSurveillanceRoute,
   AboutVisionRoute: AboutVisionRoute,
   CompanyTickerRoute: CompanyTickerRoute,
+  ListingEligibleInvestorsRoute: ListingEligibleInvestorsRoute,
+  ListingWhyListRoute: ListingWhyListRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
