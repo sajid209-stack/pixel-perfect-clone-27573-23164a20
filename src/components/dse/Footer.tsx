@@ -24,7 +24,7 @@ type FooterLinkExt = FooterLink & { href?: string; external?: boolean };
 const aboutLinks: FooterLinkExt[] = [
   { label: "About us", to: "/about" },
   { label: "Board of directors", to: "/about/board" },
-  { label: "Press releases", to: "/publications" },
+  { label: "Press releases", to: "/news" },
   { label: "Gallery", to: "/gallery" },
   { label: "Careers", to: "/careers" },
   { label: "Sustainability", to: "/sustainability" },
