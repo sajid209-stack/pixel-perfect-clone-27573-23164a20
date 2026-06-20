@@ -236,7 +236,11 @@ function ScreenerPage() {
             {filtered.length} of {companies.length}
           </div>
         </div>
+
+        <CategoriesExplained />
       </section>
+
+
 
       {/* Recently viewed */}
       {recents.length > 0 && (
