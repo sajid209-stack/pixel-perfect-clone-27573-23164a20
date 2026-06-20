@@ -79,6 +79,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Mutual funds", to: "/funds" },
           { label: "Treasury bonds", to: "/bonds" },
           { label: "ETFs", to: "/funds" },
+          { label: "OTC Market", to: "/otc" },
         ],
       },
     ],
