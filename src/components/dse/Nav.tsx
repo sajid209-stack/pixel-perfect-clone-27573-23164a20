@@ -432,7 +432,7 @@ function MarketsPanel({ close }: { close: () => void }) {
     { title: "Market overview", desc: "DSEX live, sector heatmap, top movers", to: "/" },
     { title: "Sector heatmap", desc: "All 10 sectors, daily % change", to: "/", hash: "heatmap" },
     { title: "Market reports", desc: "Daily, weekly, monthly PDFs", to: "/reports" },
-    { title: "Trading calendar", desc: "Sessions, holidays, market hours", to: "/reports", hash: "calendar" },
+    { title: "Trading calendar", desc: "Sessions, holidays, market hours", to: "/holidays" },
   ];
   const col2: Item[] = [
     { title: "Products & Services", desc: "All instruments and how trading works", to: "/products" },
