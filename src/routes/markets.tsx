@@ -106,6 +106,9 @@ function MarketsPage() {
           <p className="mt-2 text-[13.5px]" style={{ color: "var(--text-secondary)" }}>
             Live market statistics, indices, movers and sector performance — as provided by DSE.
           </p>
+          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+            Sample data for demonstration — live data will connect to the DSE API
+          </div>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               to="/markets/at-a-glance"

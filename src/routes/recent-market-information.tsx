@@ -51,6 +51,9 @@ function RecentMarketInfoPage() {
           <p className="mt-3 text-[14px] max-w-[720px]" style={{ color: "var(--text-secondary)" }}>
             Recent and record market figures, as provided by DSE.
           </p>
+          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+            Sample data for demonstration — live data will connect to the DSE API
+          </div>
         </div>
       </section>
 

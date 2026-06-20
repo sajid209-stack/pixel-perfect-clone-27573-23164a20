@@ -39,6 +39,9 @@ function SectoralPePage() {
           <div className="mt-2 text-[12px]" style={{ color: "var(--text-secondary)" }}>
             {t("as provided by DSE")}
           </div>
+          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+            {t("Sample data for demonstration — live data will connect to the DSE API")}
+          </div>
         </div>
       </section>
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10">
