@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import heritageCryoutAsset from "@/assets/heritage-cryout-1998.jpg.asset.json";
@@ -88,7 +87,6 @@ function GalleryPage() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--surface)" }}>
-      <TopBar />
       <Nav />
 
       <main className="flex-1">

@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { FileText, Download, CheckCircle2 } from "lucide-react";
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -81,7 +80,6 @@ function PublicationsPage() {
   const { t } = useLang();
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--surface)" }}>
-      <TopBar />
       <Nav />
 
       <main className="flex-1">

@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Hero } from "@/components/dse/Hero";
-import { Ticker } from "@/components/dse/Ticker";
 import { QuickAccessTiles } from "@/components/dse/QuickAccessTiles";
 import { TodaysMarket } from "@/components/dse/TodaysMarket";
 import { NewsScroll } from "@/components/dse/NewsScroll";
@@ -33,8 +31,6 @@ function FreshnessRow({ label }: { label: string }) {
 function Home() {
   return (
     <div className="min-h-screen">
-      <TopBar />
-      <Ticker />
       <Nav />
       <Hero />
       <QuickAccessTiles />

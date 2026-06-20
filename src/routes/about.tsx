@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
@@ -82,7 +81,6 @@ function SectionHeading({ kicker, title, subtitle }: { kicker?: string; title: s
 function AboutPage() {
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       {/* Hero */}

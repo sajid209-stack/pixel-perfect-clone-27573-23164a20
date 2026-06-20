@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, ArrowUp, ArrowUpRight, ChevronDown, Info, Search, SlidersHorizontal, Star, X } from "lucide-react";
 
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { StarButton } from "@/components/dse/StarButton";
@@ -139,7 +138,6 @@ function ScreenerPage() {
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       {/* Hero */}

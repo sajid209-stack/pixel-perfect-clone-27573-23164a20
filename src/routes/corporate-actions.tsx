@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -97,7 +96,6 @@ function CorporateActionsPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "var(--surface)", color: "var(--ink)" }}>
-      <TopBar />
       <Nav />
 
       {/* Header */}

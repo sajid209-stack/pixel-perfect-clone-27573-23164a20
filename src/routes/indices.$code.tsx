@@ -12,7 +12,6 @@ import {
 } from "recharts";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
@@ -159,7 +158,6 @@ export const Route = createFileRoute("/indices/$code")({
   },
   notFoundComponent: () => (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
       <div className="max-w-[1440px] mx-auto px-6 py-24 text-center">
         <h1 className="text-3xl font-semibold">Index not found</h1>
@@ -195,7 +193,6 @@ function IndexDetailPage() {
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       {/* Breadcrumb / Hero */}

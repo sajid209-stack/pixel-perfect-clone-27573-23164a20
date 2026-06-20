@@ -15,7 +15,6 @@ import {
 } from "recharts";
 import { ArrowUpRight } from "lucide-react";
 
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { sectors } from "@/components/dse/data";
@@ -295,7 +294,6 @@ function IndicesPage() {
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       {/* Hero */}

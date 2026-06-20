@@ -18,7 +18,6 @@ import {
 import { ArrowLeft, ArrowUpRight, ChevronDown, ExternalLink, Info, Printer } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
 
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { StarButton } from "@/components/dse/StarButton";
@@ -76,7 +75,6 @@ type TabId = (typeof tabs)[number]["id"];
 function CompanyNotFound() {
   return (
     <div className="min-h-screen">
-      <TopBar />
       <Nav />
       <main className="max-w-[1440px] mx-auto px-6 py-32 text-center">
         <div className="text-[12px] uppercase tracking-[0.22em] mb-3" style={{ color: "var(--text-muted)" }}>
