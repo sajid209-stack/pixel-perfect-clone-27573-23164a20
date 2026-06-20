@@ -64,6 +64,7 @@ import { Route as AboutIntroductionRouteImport } from './routes/about_.introduct
 import { Route as AboutDepartmentsRouteImport } from './routes/about_.departments'
 import { Route as AboutDemutualizationRouteImport } from './routes/about_.demutualization'
 import { Route as AboutCommitteesRouteImport } from './routes/about_.committees'
+import { Route as AboutChairmenRouteImport } from './routes/about_.chairmen'
 import { Route as AboutBoardRouteImport } from './routes/about_.board'
 import { Route as AboutBackofficeVendorsRouteImport } from './routes/about_.backoffice-vendors'
 import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
@@ -346,6 +347,11 @@ const AboutCommitteesRoute = AboutCommitteesRouteImport.update({
   path: '/about/committees',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutChairmenRoute = AboutChairmenRouteImport.update({
+  id: '/about_/chairmen',
+  path: '/about/chairmen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutBoardRoute = AboutBoardRouteImport.update({
   id: '/about_/board',
   path: '/about/board',
@@ -410,6 +416,7 @@ export interface FileRoutesByFullPath {
   '/about/automation': typeof AboutAutomationRoute
   '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
   '/about/board': typeof AboutBoardRoute
+  '/about/chairmen': typeof AboutChairmenRoute
   '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/departments': typeof AboutDepartmentsRoute
@@ -471,6 +478,7 @@ export interface FileRoutesByTo {
   '/about/automation': typeof AboutAutomationRoute
   '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
   '/about/board': typeof AboutBoardRoute
+  '/about/chairmen': typeof AboutChairmenRoute
   '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/departments': typeof AboutDepartmentsRoute
@@ -533,6 +541,7 @@ export interface FileRoutesById {
   '/about_/automation': typeof AboutAutomationRoute
   '/about_/backoffice-vendors': typeof AboutBackofficeVendorsRoute
   '/about_/board': typeof AboutBoardRoute
+  '/about_/chairmen': typeof AboutChairmenRoute
   '/about_/committees': typeof AboutCommitteesRoute
   '/about_/demutualization': typeof AboutDemutualizationRoute
   '/about_/departments': typeof AboutDepartmentsRoute
@@ -596,6 +605,7 @@ export interface FileRouteTypes {
     | '/about/automation'
     | '/about/backoffice-vendors'
     | '/about/board'
+    | '/about/chairmen'
     | '/about/committees'
     | '/about/demutualization'
     | '/about/departments'
@@ -657,6 +667,7 @@ export interface FileRouteTypes {
     | '/about/automation'
     | '/about/backoffice-vendors'
     | '/about/board'
+    | '/about/chairmen'
     | '/about/committees'
     | '/about/demutualization'
     | '/about/departments'
@@ -718,6 +729,7 @@ export interface FileRouteTypes {
     | '/about_/automation'
     | '/about_/backoffice-vendors'
     | '/about_/board'
+    | '/about_/chairmen'
     | '/about_/committees'
     | '/about_/demutualization'
     | '/about_/departments'
@@ -780,6 +792,7 @@ export interface RootRouteChildren {
   AboutAutomationRoute: typeof AboutAutomationRoute
   AboutBackofficeVendorsRoute: typeof AboutBackofficeVendorsRoute
   AboutBoardRoute: typeof AboutBoardRoute
+  AboutChairmenRoute: typeof AboutChairmenRoute
   AboutCommitteesRoute: typeof AboutCommitteesRoute
   AboutDemutualizationRoute: typeof AboutDemutualizationRoute
   AboutDepartmentsRoute: typeof AboutDepartmentsRoute
@@ -1184,6 +1197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutCommitteesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/chairmen': {
+      id: '/about_/chairmen'
+      path: '/about/chairmen'
+      fullPath: '/about/chairmen'
+      preLoaderRoute: typeof AboutChairmenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/board': {
       id: '/about_/board'
       path: '/about/board'
@@ -1281,6 +1301,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutAutomationRoute: AboutAutomationRoute,
   AboutBackofficeVendorsRoute: AboutBackofficeVendorsRoute,
   AboutBoardRoute: AboutBoardRoute,
+  AboutChairmenRoute: AboutChairmenRoute,
   AboutCommitteesRoute: AboutCommitteesRoute,
   AboutDemutualizationRoute: AboutDemutualizationRoute,
   AboutDepartmentsRoute: AboutDepartmentsRoute,

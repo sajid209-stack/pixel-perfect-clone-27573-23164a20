@@ -236,6 +236,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "About us", to: "/about" },
           { label: "Board of directors", to: "/about" },
           { label: "Leadership", to: "/about" },
+          { label: "DSE Presidents / Chairmen", to: "/about/chairmen" },
           { label: "Members", to: "/members" },
           { label: "Major Events", to: "/about/major-events" },
           { label: "Citizen Charter", to: "/citizen-charter" },
@@ -1299,6 +1300,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
   "About DSE": [
     { label: "Introduction to DSE", to: "/about/introduction" },
     { label: "About us", to: "/about" },
+    { label: "DSE Presidents / Chairmen", to: "/about/chairmen" },
     { label: "Regulations & Rulebook", to: "/regulations" },
     { label: "Broker directory", to: "/members" },
     { label: "List on DSE", to: "/listing" },
