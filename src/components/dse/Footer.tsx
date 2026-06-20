@@ -201,7 +201,7 @@ export function Footer() {
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
             <Link to="/markets" hash="margin" className="hover:opacity-100 opacity-85">{t("Margin securities")}</Link>
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
-            <Link to="/markets" hash="pe" className="hover:opacity-100 opacity-85">{t("P/E at a glance")}</Link>
+            <Link to="/pe" className="hover:opacity-100 opacity-85">{t("P/E at a glance")}</Link>
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
             <Link to="/markets" hash="sessions" className="hover:opacity-100 opacity-85">{t("Holiday calendar")}</Link>
           </div>
