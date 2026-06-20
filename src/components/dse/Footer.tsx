@@ -16,6 +16,7 @@ const marketsLinks: FooterLink[] = [
   { label: "Indices", to: "/indices" },
   { label: "Corporate actions", to: "/corporate-actions" },
   { label: "Historical data", to: "/reports" },
+  { label: "DSE-Mobile", to: "/dse-mobile" },
 ];
 
 const aboutLinks: FooterLink[] = [
@@ -26,6 +27,9 @@ const aboutLinks: FooterLink[] = [
   { label: "Careers", to: "/about", hash: "careers" },
   { label: "Sustainability", to: "/about", hash: "sustainability" },
   { label: "Annual reports", to: "/reports" },
+  { label: "Major Events", to: "/about/major-events" },
+  { label: "DSE New Automation System", to: "/about/automation" },
+  { label: "Citizen Charter", to: "/citizen-charter" },
 ];
 
 const servicesLinks: FooterLink[] = [
@@ -46,8 +50,15 @@ const investorServicesLinks: FooterLink[] = [
   { label: "Downloads", to: "/downloads" },
 ];
 
+const marketInfoLinks: FooterLink[] = [
+  { label: "Holidays & Trading Sessions", to: "/holidays" },
+  { label: "Going Concern List", to: "/going-concern" },
+  { label: "Financial Statement Status", to: "/financial-statement-status" },
+];
+
 const cols: { title: string; items: FooterLink[] }[] = [
   { title: "Markets", items: marketsLinks },
+  { title: "Market Information", items: marketInfoLinks },
   { title: "About DSE", items: aboutLinks },
   { title: "Services", items: servicesLinks },
   { title: "Investor Services", items: investorServicesLinks },
@@ -93,7 +104,7 @@ export function Footer() {
         borderTop: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
         <div>
           <div className="flex items-center gap-3">
             <img

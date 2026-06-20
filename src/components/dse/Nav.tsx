@@ -80,6 +80,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "ETFs", to: "/funds" },
           { label: "OTC Market", to: "/otc" },
           { label: "Disclosures & Filings", to: "/filings" },
+          { label: "Holidays & Trading Sessions", to: "/holidays" },
         ],
       },
     ],
@@ -231,6 +232,8 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Board of directors", to: "/about" },
           { label: "Leadership", to: "/about" },
           { label: "Members", to: "/members" },
+          { label: "Major Events", to: "/about/major-events" },
+          { label: "Citizen Charter", to: "/citizen-charter" },
         ],
       },
       {
@@ -240,6 +243,8 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Regulations & Rulebook", to: "/regulations" },
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
+          { label: "New Automation System", to: "/about/automation" },
+          { label: "DSE-Mobile", to: "/dse-mobile" },
         ],
       },
     ],
@@ -1251,6 +1256,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
     { label: "Market overview", to: "/" },
     { label: "Equities", to: "/companies" },
     { label: "Reports", to: "/reports" },
+    { label: "Holidays & Trading Sessions", to: "/holidays" },
   ],
   Companies: [
     { label: "All companies", to: "/companies" },
@@ -1282,6 +1288,10 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
     { label: "Regulations & Rulebook", to: "/regulations" },
     { label: "Broker directory", to: "/members" },
     { label: "List on DSE", to: "/listing" },
+    { label: "Major Events", to: "/about/major-events" },
+    { label: "DSE-Mobile", to: "/dse-mobile" },
+    { label: "New Automation System", to: "/about/automation" },
+    { label: "Citizen Charter", to: "/citizen-charter" },
   ],
 };
 

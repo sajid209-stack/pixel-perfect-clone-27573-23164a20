@@ -32,6 +32,10 @@ const GROUPS: Group[] = [
       { label: "Foreign Trade", to: "/foreign-investors" },
       { label: "Margin Financeable Securities", to: "/markets", hash: "margin" },
       { label: "Market Statistics", to: "/reports" },
+      { label: "Holidays & Trading Sessions", to: "/holidays" },
+      { label: "Going Concern List", to: "/going-concern" },
+      { label: "Financial Statement Status", to: "/financial-statement-status" },
+      { label: "DSE-Mobile", to: "/dse-mobile" },
     ],
   },
   {
@@ -134,6 +138,9 @@ const GROUPS: Group[] = [
       { label: "Demutualization", to: "/about", hash: "demutualization" },
       { label: "Divisions & Departments", to: "/about", hash: "departments" },
       { label: "DSE at a Glance", to: "/about" },
+      { label: "Major Events", to: "/about/major-events" },
+      { label: "DSE New Automation System", to: "/about/automation" },
+      { label: "Citizen Charter", to: "/citizen-charter" },
     ],
   },
   {
