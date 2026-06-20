@@ -177,6 +177,23 @@ function SustainabilityPage() {
           </>
         )}
 
+        {tab === "bb-policy" && (
+          <Paragraph>
+            {t("Bangladesh Bank's sustainable finance and ESG policy framework for banks and financial institutions, applicable to listed issuers.")}
+          </Paragraph>
+        )}
+
+        {tab === "gri" && (
+          <div className="mt-6" data-cms="sustainability.gri.subsections">
+            <h3 className="text-[14px] font-semibold mb-2" style={{ color: "var(--ink)" }}>GRI sub-sections</h3>
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-[13px]" style={{ color: "var(--text-secondary)" }}>
+              {["Collaboration","Guidance on Reporting","Training & Seminars","Publications","Media Coverage"].map((s) => (
+                <li key={s}>• {s}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {tab === "media" && (
           <div className="space-y-3">
             {MEDIA.map((m) => <DocCard key={m} label={m} cms="sustainability.media" />)}
