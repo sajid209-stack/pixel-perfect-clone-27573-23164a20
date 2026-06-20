@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUp, ArrowUpRight, Search, SlidersHorizontal, Star, X } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, ChevronDown, Info, Search, SlidersHorizontal, Star, X } from "lucide-react";
 
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
@@ -236,7 +236,11 @@ function ScreenerPage() {
             {filtered.length} of {companies.length}
           </div>
         </div>
+
+        <CategoriesExplained />
       </section>
+
+
 
       {/* Recently viewed */}
       {recents.length > 0 && (
@@ -602,6 +606,99 @@ function SegPill({
           </button>
         );
       })}
+    </div>
+  );
+}
+
+const CATEGORY_EXPLAINERS: { key: string; title: string; body: string }[] = [
+  {
+    key: "A",
+    title: "A-Category Companies",
+    body: "Companies which are regular in holding the annual general meetings and have declared dividend at the rate of ten percent or more in the last English calendar year.",
+  },
+  {
+    key: "B",
+    title: "B-Category Companies",
+    body: "Companies which are regular in holding the annual general meetings but have failed to declare dividend at least at the rate of ten percent in the last English calendar year.",
+  },
+  {
+    key: "G",
+    title: "G-Category Companies",
+    body: "Green-field companies of which shares are listed with the DSE before the company goes into commercial operation and prior to listing the said company declares the year of first declaration of dividend.",
+  },
+  {
+    key: "N",
+    title: "N-Category Companies",
+    body: "Newly listed companies except green-field companies which shall be transferred to other categories in accordance with their first dividend declaration and respective compliance after listing of their shares.",
+  },
+  {
+    key: "Z",
+    title: "Z-Category Companies",
+    body: 'Any listed company shall be shifted to "Z-category" immediately if: it fails to declare cash dividend for 2 consecutive years; fails to hold its AGM within the stipulated time; is not in operation/production for a minimum of 6 months (excluding renovation/BMRE or force majeure); reports net operating loss or negative operating cash flows for 2 consecutive years; or negative retained earnings exceed its paid-up capital.',
+  },
+];
+
+function CategoriesExplained() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-3">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px] transition"
+        style={{
+          background: "rgb(var(--ov) / 0.04)",
+          border: "1px solid rgb(var(--ov) / 0.06)",
+          color: "var(--text-secondary)",
+        }}
+        aria-expanded={open}
+      >
+        <Info className="w-3 h-3" />
+        Categories explained
+        <ChevronDown
+          className="w-3 h-3 transition-transform"
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0)" }}
+        />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div
+              className="mt-3 p-4 rounded-2xl grid gap-3 md:grid-cols-2"
+              style={{
+                background: "rgb(var(--ov) / 0.03)",
+                border: "1px solid rgb(var(--ov) / 0.06)",
+              }}
+            >
+              {CATEGORY_EXPLAINERS.map((c) => (
+                <div key={c.key} className="flex gap-3">
+                  <CategoryBadge category={c.key as never} size="xs" />
+                  <div className="min-w-0">
+                    <div
+                      className="text-[12.5px] font-semibold mb-1"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      {c.title}
+                    </div>
+                    <p
+                      className="text-[12px] leading-relaxed"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      {c.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
