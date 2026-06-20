@@ -51,12 +51,14 @@ import { Route as PublicationsWeeklyRouteImport } from './routes/publications_.w
 import { Route as PublicationsPressRouteImport } from './routes/publications_.press'
 import { Route as PublicationsMonthlyRouteImport } from './routes/publications_.monthly'
 import { Route as PublicationsFortnightlyRouteImport } from './routes/publications_.fortnightly'
+import { Route as MarketsAtAGlanceRouteImport } from './routes/markets_.at-a-glance'
 import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
 import { Route as ListingShareTransferRouteImport } from './routes/listing_.share-transfer'
 import { Route as ListingEligibleInvestorsRouteImport } from './routes/listing_.eligible-investors'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as ForeignInvestorsGeneralProfileRouteImport } from './routes/foreign-investors_.general-profile'
+import { Route as ForeignInvestorsEconomyRouteImport } from './routes/foreign-investors_.economy'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 import { Route as AboutVisionRouteImport } from './routes/about_.vision'
 import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
@@ -283,6 +285,11 @@ const PublicationsFortnightlyRoute = PublicationsFortnightlyRouteImport.update({
   path: '/publications/fortnightly',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketsAtAGlanceRoute = MarketsAtAGlanceRouteImport.update({
+  id: '/markets_/at-a-glance',
+  path: '/markets/at-a-glance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ListingWhyListRoute = ListingWhyListRouteImport.update({
   id: '/listing_/why-list',
   path: '/listing/why-list',
@@ -315,6 +322,11 @@ const ForeignInvestorsGeneralProfileRoute =
     path: '/foreign-investors/general-profile',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ForeignInvestorsEconomyRoute = ForeignInvestorsEconomyRouteImport.update({
+  id: '/foreign-investors_/economy',
+  path: '/foreign-investors/economy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyTickerRoute = CompanyTickerRouteImport.update({
   id: '/company/$ticker',
   path: '/company/$ticker',
@@ -439,12 +451,14 @@ export interface FileRoutesByFullPath {
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/foreign-investors/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
   '/listing/share-transfer': typeof ListingShareTransferRoute
   '/listing/why-list': typeof ListingWhyListRoute
+  '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -503,12 +517,14 @@ export interface FileRoutesByTo {
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/foreign-investors/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
   '/listing/share-transfer': typeof ListingShareTransferRoute
   '/listing/why-list': typeof ListingWhyListRoute
+  '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -568,12 +584,14 @@ export interface FileRoutesById {
   '/about_/surveillance': typeof AboutSurveillanceRoute
   '/about_/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/foreign-investors_/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors_/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing_/eligible-investors': typeof ListingEligibleInvestorsRoute
   '/listing_/share-transfer': typeof ListingShareTransferRoute
   '/listing_/why-list': typeof ListingWhyListRoute
+  '/markets_/at-a-glance': typeof MarketsAtAGlanceRoute
   '/publications_/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications_/monthly': typeof PublicationsMonthlyRoute
   '/publications_/press': typeof PublicationsPressRoute
@@ -634,12 +652,14 @@ export interface FileRouteTypes {
     | '/about/surveillance'
     | '/about/vision'
     | '/company/$ticker'
+    | '/foreign-investors/economy'
     | '/foreign-investors/general-profile'
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing/eligible-investors'
     | '/listing/share-transfer'
     | '/listing/why-list'
+    | '/markets/at-a-glance'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -698,12 +718,14 @@ export interface FileRouteTypes {
     | '/about/surveillance'
     | '/about/vision'
     | '/company/$ticker'
+    | '/foreign-investors/economy'
     | '/foreign-investors/general-profile'
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing/eligible-investors'
     | '/listing/share-transfer'
     | '/listing/why-list'
+    | '/markets/at-a-glance'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -762,12 +784,14 @@ export interface FileRouteTypes {
     | '/about_/surveillance'
     | '/about_/vision'
     | '/company/$ticker'
+    | '/foreign-investors_/economy'
     | '/foreign-investors_/general-profile'
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing_/eligible-investors'
     | '/listing_/share-transfer'
     | '/listing_/why-list'
+    | '/markets_/at-a-glance'
     | '/publications_/fortnightly'
     | '/publications_/monthly'
     | '/publications_/press'
@@ -827,10 +851,12 @@ export interface RootRouteChildren {
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
   AboutVisionRoute: typeof AboutVisionRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
+  ForeignInvestorsEconomyRoute: typeof ForeignInvestorsEconomyRoute
   ForeignInvestorsGeneralProfileRoute: typeof ForeignInvestorsGeneralProfileRoute
   ListingEligibleInvestorsRoute: typeof ListingEligibleInvestorsRoute
   ListingShareTransferRoute: typeof ListingShareTransferRoute
   ListingWhyListRoute: typeof ListingWhyListRoute
+  MarketsAtAGlanceRoute: typeof MarketsAtAGlanceRoute
   PublicationsFortnightlyRoute: typeof PublicationsFortnightlyRoute
   PublicationsMonthlyRoute: typeof PublicationsMonthlyRoute
   PublicationsPressRoute: typeof PublicationsPressRoute
@@ -1133,6 +1159,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicationsFortnightlyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/markets_/at-a-glance': {
+      id: '/markets_/at-a-glance'
+      path: '/markets/at-a-glance'
+      fullPath: '/markets/at-a-glance'
+      preLoaderRoute: typeof MarketsAtAGlanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/listing_/why-list': {
       id: '/listing_/why-list'
       path: '/listing/why-list'
@@ -1173,6 +1206,13 @@ declare module '@tanstack/react-router' {
       path: '/foreign-investors/general-profile'
       fullPath: '/foreign-investors/general-profile'
       preLoaderRoute: typeof ForeignInvestorsGeneralProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/foreign-investors_/economy': {
+      id: '/foreign-investors_/economy'
+      path: '/foreign-investors/economy'
+      fullPath: '/foreign-investors/economy'
+      preLoaderRoute: typeof ForeignInvestorsEconomyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/company/$ticker': {
@@ -1352,10 +1392,12 @@ const rootRouteChildren: RootRouteChildren = {
   AboutSurveillanceRoute: AboutSurveillanceRoute,
   AboutVisionRoute: AboutVisionRoute,
   CompanyTickerRoute: CompanyTickerRoute,
+  ForeignInvestorsEconomyRoute: ForeignInvestorsEconomyRoute,
   ForeignInvestorsGeneralProfileRoute: ForeignInvestorsGeneralProfileRoute,
   ListingEligibleInvestorsRoute: ListingEligibleInvestorsRoute,
   ListingShareTransferRoute: ListingShareTransferRoute,
   ListingWhyListRoute: ListingWhyListRoute,
+  MarketsAtAGlanceRoute: MarketsAtAGlanceRoute,
   PublicationsFortnightlyRoute: PublicationsFortnightlyRoute,
   PublicationsMonthlyRoute: PublicationsMonthlyRoute,
   PublicationsPressRoute: PublicationsPressRoute,

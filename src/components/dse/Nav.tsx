@@ -65,6 +65,7 @@ const megaContent: Record<string, MegaContent> = {
       {
         header: "Equity markets",
         links: [
+          { label: "Market at a Glance", to: "/markets/at-a-glance" },
           { label: "Live equities", to: "/companies" },
           { label: "Main board", to: "/companies" },
           { label: "SME board", to: "/companies" },
