@@ -28,6 +28,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FundsRouteImport } from './routes/funds'
 import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors'
 import { Route as FilingsRouteImport } from './routes/filings'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as CorporateActionsRouteImport } from './routes/corporate-actions'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -134,6 +135,11 @@ const FilingsRoute = FilingsRouteImport.update({
   path: '/filings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DownloadsRoute = DownloadsRouteImport.update({
   id: '/downloads',
   path: '/downloads',
@@ -194,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
   '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
@@ -225,6 +232,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
   '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
@@ -257,6 +265,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
   '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
@@ -290,6 +299,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/corporate-actions'
     | '/downloads'
+    | '/faq'
     | '/filings'
     | '/foreign-investors'
     | '/funds'
@@ -321,6 +331,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/corporate-actions'
     | '/downloads'
+    | '/faq'
     | '/filings'
     | '/foreign-investors'
     | '/funds'
@@ -352,6 +363,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/corporate-actions'
     | '/downloads'
+    | '/faq'
     | '/filings'
     | '/foreign-investors'
     | '/funds'
@@ -384,6 +396,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CorporateActionsRoute: typeof CorporateActionsRoute
   DownloadsRoute: typeof DownloadsRoute
+  FaqRoute: typeof FaqRoute
   FilingsRoute: typeof FilingsRoute
   ForeignInvestorsRoute: typeof ForeignInvestorsRoute
   FundsRoute: typeof FundsRoute
@@ -541,6 +554,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FilingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/downloads': {
       id: '/downloads'
       path: '/downloads'
@@ -635,6 +655,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CorporateActionsRoute: CorporateActionsRoute,
   DownloadsRoute: DownloadsRoute,
+  FaqRoute: FaqRoute,
   FilingsRoute: FilingsRoute,
   ForeignInvestorsRoute: ForeignInvestorsRoute,
   FundsRoute: FundsRoute,
