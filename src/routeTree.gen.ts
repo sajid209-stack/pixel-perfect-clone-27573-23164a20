@@ -52,6 +52,7 @@ import { Route as PublicationsPressRouteImport } from './routes/publications_.pr
 import { Route as PublicationsMonthlyRouteImport } from './routes/publications_.monthly'
 import { Route as PublicationsFortnightlyRouteImport } from './routes/publications_.fortnightly'
 import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
+import { Route as ListingShareTransferRouteImport } from './routes/listing_.share-transfer'
 import { Route as ListingEligibleInvestorsRouteImport } from './routes/listing_.eligible-investors'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
@@ -286,6 +287,11 @@ const ListingWhyListRoute = ListingWhyListRouteImport.update({
   path: '/listing/why-list',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ListingShareTransferRoute = ListingShareTransferRouteImport.update({
+  id: '/listing_/share-transfer',
+  path: '/listing/share-transfer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ListingEligibleInvestorsRoute =
   ListingEligibleInvestorsRouteImport.update({
     id: '/listing_/eligible-investors',
@@ -429,6 +435,7 @@ export interface FileRoutesByFullPath {
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
+  '/listing/share-transfer': typeof ListingShareTransferRoute
   '/listing/why-list': typeof ListingWhyListRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
@@ -491,6 +498,7 @@ export interface FileRoutesByTo {
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
+  '/listing/share-transfer': typeof ListingShareTransferRoute
   '/listing/why-list': typeof ListingWhyListRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
@@ -554,6 +562,7 @@ export interface FileRoutesById {
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing_/eligible-investors': typeof ListingEligibleInvestorsRoute
+  '/listing_/share-transfer': typeof ListingShareTransferRoute
   '/listing_/why-list': typeof ListingWhyListRoute
   '/publications_/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications_/monthly': typeof PublicationsMonthlyRoute
@@ -618,6 +627,7 @@ export interface FileRouteTypes {
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing/eligible-investors'
+    | '/listing/share-transfer'
     | '/listing/why-list'
     | '/publications/fortnightly'
     | '/publications/monthly'
@@ -680,6 +690,7 @@ export interface FileRouteTypes {
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing/eligible-investors'
+    | '/listing/share-transfer'
     | '/listing/why-list'
     | '/publications/fortnightly'
     | '/publications/monthly'
@@ -742,6 +753,7 @@ export interface FileRouteTypes {
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing_/eligible-investors'
+    | '/listing_/share-transfer'
     | '/listing_/why-list'
     | '/publications_/fortnightly'
     | '/publications_/monthly'
@@ -803,6 +815,7 @@ export interface RootRouteChildren {
   AboutVisionRoute: typeof AboutVisionRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
   ListingEligibleInvestorsRoute: typeof ListingEligibleInvestorsRoute
+  ListingShareTransferRoute: typeof ListingShareTransferRoute
   ListingWhyListRoute: typeof ListingWhyListRoute
   PublicationsFortnightlyRoute: typeof PublicationsFortnightlyRoute
   PublicationsMonthlyRoute: typeof PublicationsMonthlyRoute
@@ -1113,6 +1126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListingWhyListRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/listing_/share-transfer': {
+      id: '/listing_/share-transfer'
+      path: '/listing/share-transfer'
+      fullPath: '/listing/share-transfer'
+      preLoaderRoute: typeof ListingShareTransferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/listing_/eligible-investors': {
       id: '/listing_/eligible-investors'
       path: '/listing/eligible-investors'
@@ -1312,6 +1332,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutVisionRoute: AboutVisionRoute,
   CompanyTickerRoute: CompanyTickerRoute,
   ListingEligibleInvestorsRoute: ListingEligibleInvestorsRoute,
+  ListingShareTransferRoute: ListingShareTransferRoute,
   ListingWhyListRoute: ListingWhyListRoute,
   PublicationsFortnightlyRoute: PublicationsFortnightlyRoute,
   PublicationsMonthlyRoute: PublicationsMonthlyRoute,
