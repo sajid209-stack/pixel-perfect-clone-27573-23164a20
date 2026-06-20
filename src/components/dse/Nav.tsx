@@ -294,8 +294,8 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
     <div
       className="grid"
       style={{
-        gridTemplateColumns: "minmax(200px,1fr) repeat(2, minmax(180px,1fr)) minmax(260px,1.2fr)",
-        gap: 34,
+        gridTemplateColumns: `minmax(200px,1fr) repeat(${content.columns.length}, minmax(160px,1fr)) minmax(260px,1.2fr)`,
+        gap: 28,
       }}
     >
       {/* Intro */}
