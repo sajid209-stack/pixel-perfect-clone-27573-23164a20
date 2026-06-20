@@ -98,6 +98,9 @@ function MarketAtAGlancePage() {
           <p className="mt-2 text-[12.5px]" style={{ color: "var(--text-muted)" }}>
             Original page title: “Performance of DSE at a glance”.
           </p>
+          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+            Sample data for demonstration — live data will connect to the DSE API
+          </div>
         </div>
       </section>
 

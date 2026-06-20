@@ -549,6 +549,11 @@ export function TodaysMarket() {
             {t("View full market statistics")} →
           </Link>
         </div>
+        <div className="text-[11px] mb-3" style={{ color: "var(--text-secondary)" }}>
+          Sample data for demonstration — live data will connect to the DSE API
+        </div>
+
+
 
 
         {/* Index switcher + chart */}

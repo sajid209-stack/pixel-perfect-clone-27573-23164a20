@@ -11,8 +11,8 @@ import {
 
 const tiles = [
   { Icon: LineChart, label: "Markets", desc: "Live equities & indices", to: "/markets" },
-  { Icon: Building2, label: "Companies", desc: "750+ listed", to: "/companies" },
-  { Icon: FileText, label: "Disclosures", desc: "47 filed today", to: "/news" },
+  { Icon: Building2, label: "Companies", desc: "Browse all listed companies", to: "/companies" },
+  { Icon: FileText, label: "Disclosures", desc: "Today's filings", to: "/news" },
   { Icon: Rocket, label: "IPO Pipeline", desc: "Open & upcoming", to: "/ipo" },
   { Icon: FolderOpen, label: "Reports", desc: "Daily · weekly", to: "/reports" },
   { Icon: Globe, label: "Foreign Investment", desc: "NITA · repatriation", to: "/foreign-investors" },

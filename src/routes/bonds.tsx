@@ -164,6 +164,9 @@ function BondsPage() {
               "The debt market on the DSE covers listed corporate bonds, debentures and sukuk, alongside Bangladesh government treasury bonds, T-bills and sovereign sukuk. Prices are quoted per 100 of face value; yields are quoted as yield-to-maturity.",
             )}
           </p>
+          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+            {t("Sample data for demonstration — live data will connect to the DSE API")}
+          </div>
           <div
             className="mt-3 inline-flex items-center gap-1.5 text-[11px]"
             style={{ color: "var(--text-muted)" }}

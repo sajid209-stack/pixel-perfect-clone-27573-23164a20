@@ -139,6 +139,9 @@ function FilingsPage() {
           <div className="mt-3 text-[11.5px]" style={{ color: "var(--text-muted)" }}>
             {t("Live data — provided by DSE")} · {t("updated")} {new Date().toLocaleString()}
           </div>
+          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+            {t("Sample data for demonstration — live data will connect to the DSE API")}
+          </div>
         </div>
       </section>
 

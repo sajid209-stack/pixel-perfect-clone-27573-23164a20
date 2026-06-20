@@ -174,6 +174,9 @@ function FundsPage() {
               "Listed open-end and closed-end mutual funds and exchange-traded funds let investors access professionally managed portfolios across equity, balanced, income and Shariah strategies. Closed-end funds and ETFs trade on the DSE at market prices that can be at a premium or discount to net asset value (NAV).",
             )}
           </p>
+          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+            {t("Sample data for demonstration — live data will connect to the DSE API")}
+          </div>
           <div
             className="mt-3 inline-flex items-center gap-1.5 text-[11px]"
             style={{ color: "var(--text-muted)" }}
