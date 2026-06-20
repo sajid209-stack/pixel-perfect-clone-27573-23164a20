@@ -292,6 +292,8 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Downloads", to: "/downloads" },
           { label: "Quick Links", to: "/links" },
           { label: "Panel of Back-Office Software Vendors", to: "/vendors" },
+          { label: "Investors' Protection Fund", to: "/investor-protection" },
+          { label: "CDBL", to: "/cdbl" },
         ],
       },
     ],
