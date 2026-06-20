@@ -102,6 +102,8 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Newly listed", to: "/companies" },
           { label: "Going Concern Threat List", to: "/going-concern" },
           { label: "Financial Statement Submission Status", to: "/financial-statement-status" },
+          { label: "Sectoral Median P/E", to: "/sectoral-pe" },
+          { label: "Actuarial Valuation Status", to: "/actuarial-valuation" },
         ],
       },
       {
