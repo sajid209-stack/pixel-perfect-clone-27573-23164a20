@@ -12,7 +12,6 @@ import {
   Scale,
 } from "lucide-react";
 
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -61,7 +60,6 @@ function ListingHubPage() {
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       {/* Header */}

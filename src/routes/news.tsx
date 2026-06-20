@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, FileText, Filter, Search, X } from "lucide-react";
 
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { companies } from "@/data/companies";
@@ -163,7 +162,6 @@ function NewsPage() {
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       {/* Hero */}

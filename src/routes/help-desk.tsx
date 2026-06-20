@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
@@ -28,7 +27,6 @@ const ROWS: [string, string][] = [
 function HelpDeskPage() {
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       <section className="border-b" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>

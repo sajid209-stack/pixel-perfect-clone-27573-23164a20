@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { FileText, ExternalLink, Building2, Landmark, CheckCircle2 } from "lucide-react";
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
@@ -76,7 +75,6 @@ function ComplaintsPage() {
 
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
-      <TopBar />
       <Nav />
 
       <section className="border-b" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>

@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FileText } from "lucide-react";
-import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -26,7 +25,6 @@ function DemutualizationPage() {
   const { t } = useLang();
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
-      <TopBar />
       <Nav />
       <section className="border-b" style={{ borderColor: "var(--line)" }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">

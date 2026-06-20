@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "../i18n/LanguageContext";
 import { CommandPalette } from "../components/dse/CommandPalette";
+import { TopBar } from "../components/dse/TopBar";
+import { Ticker } from "../components/dse/Ticker";
 
 function NotFoundComponent() {
   return (
