@@ -126,7 +126,7 @@ function ListingHubPage() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             {tab === "benefits"   && <BenefitsPanel />}
-            {tab === "criteria"   && <ComingSoonPanel title="Criteria for Listing" />}
+            {tab === "criteria"   && <CriteriaPanel />}
             {tab === "procedure"  && <ComingSoonPanel title="Listing Procedure" />}
             {tab === "fees"       && <FeesPanel />}
             {tab === "timeline"   && <TimelinePanel />}
