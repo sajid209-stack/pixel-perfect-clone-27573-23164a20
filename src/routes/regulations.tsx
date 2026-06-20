@@ -67,14 +67,8 @@ const DOCS: Doc[] = [
 
   // BSEC Acts & Rules (external)
   { title: "The Exchanges Demutualization Act, 2013", category: "bsec", date: "—", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-  { title: "Securities & Exchange Commission Act, 1993", category: "bsec", date: "1993-06-15", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-  { title: "BSEC (Public Issue) Rules, 2015", category: "bsec", date: "2015-10-12", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-  { title: "Exchanges Demutualization Act, 2013", category: "bsec", date: "2013-04-29", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-
-  // Rulebook
-  { title: "DSE Rulebook — Consolidated (2024 ed.)", category: "rulebook", date: "2024-12-31", type: "PDF", href: "#" },
-  { title: "DSE Rulebook — Amendments Index", category: "rulebook", date: "2025-09-10", type: "PDF", href: "#" },
 ];
+
 
 function RegulationsPage() {
   const [active, setActive] = useState<CatId | "all">("all");
