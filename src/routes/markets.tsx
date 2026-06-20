@@ -352,6 +352,41 @@ function MarginFinanceableSection() {
           </tr>
         )}
       </DataTable>
+      <div
+        className="mt-4 space-y-2 text-[11.5px] leading-relaxed"
+        style={{ color: "var(--text-muted)" }}
+      >
+        <p>
+          <span className="font-medium" style={{ color: "var(--text-secondary)" }}>Note:</span>{" "}
+          All the A category equity securities listed in the main market of DSE are primarily
+          evaluated for inclusion in the List of Margin Financeable Securities. Also, B category
+          equity securities are evaluated for inclusion, provided that they have distributed at
+          least 5% dividend for the latest financial year.
+        </p>
+        <p>
+          Trailing P/E ratio is considered for the preparation of the List, subject to the
+          availability of earning declarations for four consecutive quarters from the latest
+          published EPS. In the absence of such declarations, the latest declared EPS is
+          annualized for the calculation of P/E ratio.
+        </p>
+        <p>
+          Closing Price (CP) and/or Adjusted Opening Price (AOP) is considered for calculation of
+          Trailing P/E and Free Float Market Capitalization.
+        </p>
+        <p>
+          <span className="font-medium" style={{ color: "var(--text-secondary)" }}>General Disclosure:</span>{" "}
+          This List of Margin Financeable Securities has been prepared following the Sub-rule 7 of
+          Rule 7, Rule 10, Sub-rules 3, 4, 5, 6, 7 of Rule 11 of The Bangladesh Securities and
+          Exchange Commission (Margin) Rules, 2025. TREC holder companies are requested to ensure
+          full compliance with all the other applicable rules while extending margin financing to
+          their clients.
+        </p>
+        <p>
+          <span className="font-medium" style={{ color: "var(--text-secondary)" }}>NB:</span>{" "}
+          This is a primary list currently under development. Please let us know if any
+          discrepancies are noticed.
+        </p>
+      </div>
     </Section>
   );
 }
