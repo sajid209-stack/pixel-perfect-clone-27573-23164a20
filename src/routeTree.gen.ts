@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VendorsRouteImport } from './routes/vendors'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SustainabilityRouteImport } from './routes/sustainability'
 import { Route as SitemapRouteImport } from './routes/sitemap'
@@ -87,6 +88,11 @@ import { Route as AboutBackofficeVendorsRouteImport } from './routes/about_.back
 import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
 import { Route as AboutAtAGlanceRouteImport } from './routes/about_.at-a-glance'
 
+const VendorsRoute = VendorsRouteImport.update({
+  id: '/vendors',
+  path: '/vendors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -523,6 +529,7 @@ export interface FileRoutesByFullPath {
   '/sitemap': typeof SitemapRoute
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
+  '/vendors': typeof VendorsRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
   '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
@@ -602,6 +609,7 @@ export interface FileRoutesByTo {
   '/sitemap': typeof SitemapRoute
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
+  '/vendors': typeof VendorsRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
   '/about/backoffice-vendors': typeof AboutBackofficeVendorsRoute
@@ -682,6 +690,7 @@ export interface FileRoutesById {
   '/sitemap': typeof SitemapRoute
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
+  '/vendors': typeof VendorsRoute
   '/about_/at-a-glance': typeof AboutAtAGlanceRoute
   '/about_/automation': typeof AboutAutomationRoute
   '/about_/backoffice-vendors': typeof AboutBackofficeVendorsRoute
@@ -763,6 +772,7 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/sustainability'
     | '/terms'
+    | '/vendors'
     | '/about/at-a-glance'
     | '/about/automation'
     | '/about/backoffice-vendors'
@@ -842,6 +852,7 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/sustainability'
     | '/terms'
+    | '/vendors'
     | '/about/at-a-glance'
     | '/about/automation'
     | '/about/backoffice-vendors'
@@ -921,6 +932,7 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/sustainability'
     | '/terms'
+    | '/vendors'
     | '/about_/at-a-glance'
     | '/about_/automation'
     | '/about_/backoffice-vendors'
@@ -1001,6 +1013,7 @@ export interface RootRouteChildren {
   SitemapRoute: typeof SitemapRoute
   SustainabilityRoute: typeof SustainabilityRoute
   TermsRoute: typeof TermsRoute
+  VendorsRoute: typeof VendorsRoute
   AboutAtAGlanceRoute: typeof AboutAtAGlanceRoute
   AboutAutomationRoute: typeof AboutAutomationRoute
   AboutBackofficeVendorsRoute: typeof AboutBackofficeVendorsRoute
@@ -1034,6 +1047,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vendors': {
+      id: '/vendors'
+      path: '/vendors'
+      fullPath: '/vendors'
+      preLoaderRoute: typeof VendorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -1646,6 +1666,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapRoute: SitemapRoute,
   SustainabilityRoute: SustainabilityRoute,
   TermsRoute: TermsRoute,
+  VendorsRoute: VendorsRoute,
   AboutAtAGlanceRoute: AboutAtAGlanceRoute,
   AboutAutomationRoute: AboutAutomationRoute,
   AboutBackofficeVendorsRoute: AboutBackofficeVendorsRoute,
