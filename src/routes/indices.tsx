@@ -312,7 +312,7 @@ function IndicesPage() {
               DSE benchmarks
             </h1>
             <Link
-              to="/indices/methodology"
+              to="/index-methodology"
               className="text-[13px] underline underline-offset-4 hover:opacity-80"
               style={{ color: "var(--text-secondary)" }}
             >
