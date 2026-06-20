@@ -198,16 +198,17 @@ export function Footer() {
           style={{ color: "rgba(255,255,255,0.6)" }}
         >
           <div>{t("© 2026 Dhaka Stock Exchange PLC. Regulated by Bangladesh Securities and Exchange Commission.")}</div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center flex-wrap">
             <Link to="/sitemap" className="cursor-pointer hover:opacity-100 opacity-80">{t("Site Map")}</Link>
             <Link to="/links" className="cursor-pointer hover:opacity-100 opacity-80">{t("Quick Links")}</Link>
-            <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Privacy policy")}</a>
-            <Link to="/terms" className="cursor-pointer hover:opacity-100 opacity-80">{t("Terms")}</Link>
+            <Link to="/faq" className="cursor-pointer hover:opacity-100 opacity-80">{t("FAQ")}</Link>
+            <Link to="/downloads" className="cursor-pointer hover:opacity-100 opacity-80">{t("Download")}</Link>
+            <Link to="/careers" className="cursor-pointer hover:opacity-100 opacity-80">{t("Career")}</Link>
+            <Link to="/terms" className="cursor-pointer hover:opacity-100 opacity-80">{t("Terms & Condition")}</Link>
             <Link to="/disclaimer" className="cursor-pointer hover:opacity-100 opacity-80">{t("Disclaimer")}</Link>
             <Link to="/copyright" className="cursor-pointer hover:opacity-100 opacity-80">{t("Copyright")}</Link>
-            <Link to="/data-archives" className="cursor-pointer hover:opacity-100 opacity-80">{t("Data Archive")}</Link>
+            <Link to="/data-archives" className="cursor-pointer hover:opacity-100 opacity-80">{t("Data Archives")}</Link>
             <Link to="/feedback" className="cursor-pointer hover:opacity-100 opacity-80">{t("Feedback")}</Link>
-            <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Accessibility")}</a>
           </div>
         </div>
 
