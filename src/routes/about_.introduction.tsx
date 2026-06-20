@@ -65,8 +65,11 @@ function IntroductionPage() {
           </h2>
           <div className="space-y-4 text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
             {HISTORY.map((p, i) => (
-              <p key={i}>{t(p)}</p>
+              <p key={i} id={i === 3 ? "legal-control" : undefined} style={i === 3 ? { scrollMarginTop: 80 } : undefined}>
+                {t(p)}
+              </p>
             ))}
+
           </div>
         </div>
 
