@@ -70,17 +70,17 @@ const megaContent: Record<string, MegaContent> = {
           { label: "SME board", to: "/companies" },
           { label: "Block market", to: "/companies" },
           { label: "Odd lot", to: "/companies" },
-        ],
-      },
-      {
-        header: "Other instruments",
-        links: [
           { label: "Bonds & debentures", to: "/bonds" },
           { label: "Mutual funds", to: "/funds" },
           { label: "ETFs", to: "/funds" },
           { label: "OTC Market", to: "/otc" },
           { label: "Disclosures & Filings", to: "/filings" },
-          { label: "Holidays & Trading Sessions", to: "/holidays" },
+        ],
+      },
+      {
+        header: "OMS Services",
+        links: [
+          { label: "DSE-Mobile", to: "/dse-mobile" },
         ],
       },
     ],
@@ -100,6 +100,8 @@ const megaContent: Record<string, MegaContent> = {
           { label: "By sector", to: "/companies" },
           { label: "By board", to: "/companies" },
           { label: "Newly listed", to: "/companies" },
+          { label: "Going Concern Threat List", to: "/going-concern" },
+          { label: "Financial Statement Submission Status", to: "/financial-statement-status" },
         ],
       },
       {
@@ -234,6 +236,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Members", to: "/members" },
           { label: "Major Events", to: "/about/major-events" },
           { label: "Citizen Charter", to: "/citizen-charter" },
+          { label: "Holidays & Trading Sessions", to: "/holidays" },
         ],
       },
       {
@@ -244,7 +247,14 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
           { label: "New Automation System", to: "/about/automation" },
-          { label: "DSE-Mobile", to: "/dse-mobile" },
+        ],
+      },
+      {
+        header: "Indices",
+        links: [
+          { label: "Algorithm of DSE Indices", to: "/indices/methodology" },
+          { label: "DSEX Index", to: "/indices/DSEX" },
+          { label: "DS30 Index", to: "/indices/DS30" },
         ],
       },
     ],
@@ -284,8 +294,8 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
     <div
       className="grid"
       style={{
-        gridTemplateColumns: "minmax(200px,1fr) repeat(2, minmax(180px,1fr)) minmax(260px,1.2fr)",
-        gap: 34,
+        gridTemplateColumns: `minmax(200px,1fr) repeat(${content.columns.length}, minmax(160px,1fr)) minmax(260px,1.2fr)`,
+        gap: 28,
       }}
     >
       {/* Intro */}
