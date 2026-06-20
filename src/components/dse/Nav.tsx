@@ -253,8 +253,8 @@ const megaContent: Record<string, MegaContent> = {
         header: "Indices",
         links: [
           { label: "Algorithm of DSE Indices", to: "/indices/methodology" },
-          { label: "DSEX Index", to: "/indices/$code", hash: undefined },
-          { label: "DS30 Index", to: "/indices/$code", hash: undefined },
+          { label: "DSEX Index", to: "/indices/DSEX" },
+          { label: "DS30 Index", to: "/indices/DS30" },
         ],
       },
     ],
