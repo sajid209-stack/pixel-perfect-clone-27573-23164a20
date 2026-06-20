@@ -121,7 +121,7 @@ function CompanyPage() {
   return (
     <div className={`min-h-screen ${printMode ? "is-printing" : ""}`}>
       <PrintStyles />
-      <div className="no-print"><TopBar /><Nav /></div>
+      <div className="no-print"><Nav /></div>
 
 
       {/* Breadcrumb */}
