@@ -176,21 +176,6 @@ const CorporateActionsRoute = CorporateActionsRouteImport.update({
   path: '/corporate-actions',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HolidaysRoute = HolidaysRouteImport.update({
-  id: '/holidays',
-  path: '/holidays',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GoingConcernRoute = GoingConcernRouteImport.update({
-  id: '/going-concern',
-  path: '/going-concern',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FinancialStatementStatusRoute = FinancialStatementStatusRouteImport.update({
-  id: '/financial-statement-status',
-  path: '/financial-statement-status',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
