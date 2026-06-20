@@ -1300,6 +1300,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
   "About DSE": [
     { label: "Introduction to DSE", to: "/about/introduction" },
     { label: "About us", to: "/about" },
+    { label: "DSE Presidents / Chairmen", to: "/about/chairmen" },
     { label: "Regulations & Rulebook", to: "/regulations" },
     { label: "Broker directory", to: "/members" },
     { label: "List on DSE", to: "/listing" },
