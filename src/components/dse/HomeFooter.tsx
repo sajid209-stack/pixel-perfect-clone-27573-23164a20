@@ -28,11 +28,11 @@ const col1: Item[] = [
       { label: "G-Sec", to: "/bonds" },
     ],
   },
-  { label: "P/E at a Glance", to: "/markets", hash: "pe" },
+  { label: "P/E at a Glance", to: "/pe" },
 ];
 
 const col2: Item[] = [
-  { label: "Press Release", to: "/about", hash: "press" },
+  { label: "Press Release", to: "/news" },
   { label: "Picture Gallery", to: "/gallery" },
   { label: "Major Events", to: "/about/major-events" },
   { label: "DSE Tower", href: "#", external: true },
@@ -72,7 +72,7 @@ const col4: Item[] = [
 
 const col5: Item[] = [
   { label: "DSE New Automation System", to: "/about/automation" },
-  { label: "Demutualization Scheme", to: "/about" },
+  { label: "Demutualization Scheme", to: "/about/demutualization" },
   { label: "Complaint Cell", to: "/complaints" },
   { label: "Help Desk for NRB", to: "/help-desk/nrb" },
   { label: "Help Desk", to: "/help-desk" },
@@ -188,16 +188,16 @@ export function HomeFooter() {
         >
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             {[
-              { label: "Disclaimer", to: "/about" as const },
+              { label: "Disclaimer", to: "/disclaimer" as const },
               { label: "Home", to: "/" as const },
               { label: "Download", to: "/downloads" as const },
-              { label: "Data Archives", to: "/reports" as const },
-              { label: "Career at DSE", to: "/about" as const, hash: "careers" },
+              { label: "Data Archives", to: "/data-archives" as const },
+              { label: "Career at DSE", to: "/careers" as const },
               { label: "FAQ", to: "/faq" as const },
               { label: "WUF", to: "/links" as const },
               { label: "Site Map", to: "/sitemap" as const },
               { label: "Link", to: "/links" as const },
-              { label: "Terms & Condition", to: "/about" as const },
+              { label: "Terms & Condition", to: "/terms" as const },
             ].map((l, idx, arr) => (
               <span key={l.label} className="flex items-center gap-3">
                 <Link to={l.to} hash={(l as { hash?: string }).hash} className="hover:opacity-100 opacity-85">

@@ -31,7 +31,7 @@ const slides: Slide[] = [
     eyebrow: "Seven decades of the market",
     headline: "From the trading floor to a national exchange.",
     subtext: "Learn how the DSE has shaped Bangladesh's capital markets since 1954.",
-    cta: { label: "Our history", to: "/about" },
+    cta: { label: "Our history", to: "/about/introduction" },
   },
   {
     image: heroTower,
