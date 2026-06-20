@@ -232,6 +232,7 @@ const megaContent: Record<string, MegaContent> = {
       {
         header: "Organisation",
         links: [
+          { label: "Introduction to DSE", to: "/about/introduction" },
           { label: "About us", to: "/about" },
           { label: "Board of directors", to: "/about" },
           { label: "Leadership", to: "/about" },
@@ -1296,6 +1297,7 @@ const mobileSubLinks: Record<string, { label: string; to: string; hash?: string 
     { label: "How IPOs work", to: "/learn" },
   ],
   "About DSE": [
+    { label: "Introduction to DSE", to: "/about/introduction" },
     { label: "About us", to: "/about" },
     { label: "Regulations & Rulebook", to: "/regulations" },
     { label: "Broker directory", to: "/members" },

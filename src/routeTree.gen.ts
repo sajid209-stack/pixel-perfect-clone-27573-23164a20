@@ -60,6 +60,7 @@ import { Route as AboutVisionRouteImport } from './routes/about_.vision'
 import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
 import { Route as AboutManagementRouteImport } from './routes/about_.management'
 import { Route as AboutMajorEventsRouteImport } from './routes/about_.major-events'
+import { Route as AboutIntroductionRouteImport } from './routes/about_.introduction'
 import { Route as AboutDepartmentsRouteImport } from './routes/about_.departments'
 import { Route as AboutDemutualizationRouteImport } from './routes/about_.demutualization'
 import { Route as AboutCommitteesRouteImport } from './routes/about_.committees'
@@ -325,6 +326,11 @@ const AboutMajorEventsRoute = AboutMajorEventsRouteImport.update({
   path: '/about/major-events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutIntroductionRoute = AboutIntroductionRouteImport.update({
+  id: '/about_/introduction',
+  path: '/about/introduction',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutDepartmentsRoute = AboutDepartmentsRouteImport.update({
   id: '/about_/departments',
   path: '/about/departments',
@@ -407,6 +413,7 @@ export interface FileRoutesByFullPath {
   '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/departments': typeof AboutDepartmentsRoute
+  '/about/introduction': typeof AboutIntroductionRoute
   '/about/major-events': typeof AboutMajorEventsRoute
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
@@ -467,6 +474,7 @@ export interface FileRoutesByTo {
   '/about/committees': typeof AboutCommitteesRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/departments': typeof AboutDepartmentsRoute
+  '/about/introduction': typeof AboutIntroductionRoute
   '/about/major-events': typeof AboutMajorEventsRoute
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
@@ -528,6 +536,7 @@ export interface FileRoutesById {
   '/about_/committees': typeof AboutCommitteesRoute
   '/about_/demutualization': typeof AboutDemutualizationRoute
   '/about_/departments': typeof AboutDepartmentsRoute
+  '/about_/introduction': typeof AboutIntroductionRoute
   '/about_/major-events': typeof AboutMajorEventsRoute
   '/about_/management': typeof AboutManagementRoute
   '/about_/surveillance': typeof AboutSurveillanceRoute
@@ -590,6 +599,7 @@ export interface FileRouteTypes {
     | '/about/committees'
     | '/about/demutualization'
     | '/about/departments'
+    | '/about/introduction'
     | '/about/major-events'
     | '/about/management'
     | '/about/surveillance'
@@ -650,6 +660,7 @@ export interface FileRouteTypes {
     | '/about/committees'
     | '/about/demutualization'
     | '/about/departments'
+    | '/about/introduction'
     | '/about/major-events'
     | '/about/management'
     | '/about/surveillance'
@@ -710,6 +721,7 @@ export interface FileRouteTypes {
     | '/about_/committees'
     | '/about_/demutualization'
     | '/about_/departments'
+    | '/about_/introduction'
     | '/about_/major-events'
     | '/about_/management'
     | '/about_/surveillance'
@@ -771,6 +783,7 @@ export interface RootRouteChildren {
   AboutCommitteesRoute: typeof AboutCommitteesRoute
   AboutDemutualizationRoute: typeof AboutDemutualizationRoute
   AboutDepartmentsRoute: typeof AboutDepartmentsRoute
+  AboutIntroductionRoute: typeof AboutIntroductionRoute
   AboutMajorEventsRoute: typeof AboutMajorEventsRoute
   AboutManagementRoute: typeof AboutManagementRoute
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
@@ -1143,6 +1156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutMajorEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/introduction': {
+      id: '/about_/introduction'
+      path: '/about/introduction'
+      fullPath: '/about/introduction'
+      preLoaderRoute: typeof AboutIntroductionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/departments': {
       id: '/about_/departments'
       path: '/about/departments'
@@ -1264,6 +1284,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutCommitteesRoute: AboutCommitteesRoute,
   AboutDemutualizationRoute: AboutDemutualizationRoute,
   AboutDepartmentsRoute: AboutDepartmentsRoute,
+  AboutIntroductionRoute: AboutIntroductionRoute,
   AboutMajorEventsRoute: AboutMajorEventsRoute,
   AboutManagementRoute: AboutManagementRoute,
   AboutSurveillanceRoute: AboutSurveillanceRoute,
