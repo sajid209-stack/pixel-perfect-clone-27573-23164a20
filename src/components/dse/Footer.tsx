@@ -149,8 +149,9 @@ export function Footer() {
           </div>
         </div>
       </div>
-
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div
+
           className="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-[12px]"
           style={{ color: "rgba(255,255,255,0.75)" }}
         >
