@@ -15,6 +15,7 @@ import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as SectoralPeRouteImport } from './routes/sectoral-pe'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RegulationsRouteImport } from './routes/regulations'
+import { Route as RecentMarketInformationRouteImport } from './routes/recent-market-information'
 import { Route as PublicationsRouteImport } from './routes/publications'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PeRouteImport } from './routes/pe'
@@ -48,6 +49,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
+import { Route as CircuitBreakerRouteImport } from './routes/circuit-breaker'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as ActuarialValuationRouteImport } from './routes/actuarial-valuation'
@@ -108,6 +110,11 @@ const ReportsRoute = ReportsRouteImport.update({
 const RegulationsRoute = RegulationsRouteImport.update({
   id: '/regulations',
   path: '/regulations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecentMarketInformationRoute = RecentMarketInformationRouteImport.update({
+  id: '/recent-market-information',
+  path: '/recent-market-information',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicationsRoute = PublicationsRouteImport.update({
@@ -276,6 +283,11 @@ const CitizenCharterRoute = CitizenCharterRouteImport.update({
   path: '/citizen-charter',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CircuitBreakerRoute = CircuitBreakerRouteImport.update({
+  id: '/circuit-breaker',
+  path: '/circuit-breaker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
@@ -440,6 +452,7 @@ export interface FileRoutesByFullPath {
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/careers': typeof CareersRoute
+  '/circuit-breaker': typeof CircuitBreakerRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
@@ -473,6 +486,7 @@ export interface FileRoutesByFullPath {
   '/pe': typeof PeRoute
   '/products': typeof ProductsRoute
   '/publications': typeof PublicationsRoute
+  '/recent-market-information': typeof RecentMarketInformationRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sectoral-pe': typeof SectoralPeRoute
@@ -512,6 +526,7 @@ export interface FileRoutesByTo {
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/careers': typeof CareersRoute
+  '/circuit-breaker': typeof CircuitBreakerRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
@@ -545,6 +560,7 @@ export interface FileRoutesByTo {
   '/pe': typeof PeRoute
   '/products': typeof ProductsRoute
   '/publications': typeof PublicationsRoute
+  '/recent-market-information': typeof RecentMarketInformationRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sectoral-pe': typeof SectoralPeRoute
@@ -585,6 +601,7 @@ export interface FileRoutesById {
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/careers': typeof CareersRoute
+  '/circuit-breaker': typeof CircuitBreakerRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
@@ -618,6 +635,7 @@ export interface FileRoutesById {
   '/pe': typeof PeRoute
   '/products': typeof ProductsRoute
   '/publications': typeof PublicationsRoute
+  '/recent-market-information': typeof RecentMarketInformationRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sectoral-pe': typeof SectoralPeRoute
@@ -659,6 +677,7 @@ export interface FileRouteTypes {
     | '/actuarial-valuation'
     | '/bonds'
     | '/careers'
+    | '/circuit-breaker'
     | '/citizen-charter'
     | '/companies'
     | '/complaints'
@@ -692,6 +711,7 @@ export interface FileRouteTypes {
     | '/pe'
     | '/products'
     | '/publications'
+    | '/recent-market-information'
     | '/regulations'
     | '/reports'
     | '/sectoral-pe'
@@ -731,6 +751,7 @@ export interface FileRouteTypes {
     | '/actuarial-valuation'
     | '/bonds'
     | '/careers'
+    | '/circuit-breaker'
     | '/citizen-charter'
     | '/companies'
     | '/complaints'
@@ -764,6 +785,7 @@ export interface FileRouteTypes {
     | '/pe'
     | '/products'
     | '/publications'
+    | '/recent-market-information'
     | '/regulations'
     | '/reports'
     | '/sectoral-pe'
@@ -803,6 +825,7 @@ export interface FileRouteTypes {
     | '/actuarial-valuation'
     | '/bonds'
     | '/careers'
+    | '/circuit-breaker'
     | '/citizen-charter'
     | '/companies'
     | '/complaints'
@@ -836,6 +859,7 @@ export interface FileRouteTypes {
     | '/pe'
     | '/products'
     | '/publications'
+    | '/recent-market-information'
     | '/regulations'
     | '/reports'
     | '/sectoral-pe'
@@ -876,6 +900,7 @@ export interface RootRouteChildren {
   ActuarialValuationRoute: typeof ActuarialValuationRoute
   BondsRoute: typeof BondsRoute
   CareersRoute: typeof CareersRoute
+  CircuitBreakerRoute: typeof CircuitBreakerRoute
   CitizenCharterRoute: typeof CitizenCharterRoute
   CompaniesRoute: typeof CompaniesRoute
   ComplaintsRoute: typeof ComplaintsRoute
@@ -909,6 +934,7 @@ export interface RootRouteChildren {
   PeRoute: typeof PeRoute
   ProductsRoute: typeof ProductsRoute
   PublicationsRoute: typeof PublicationsRoute
+  RecentMarketInformationRoute: typeof RecentMarketInformationRoute
   RegulationsRoute: typeof RegulationsRoute
   ReportsRoute: typeof ReportsRoute
   SectoralPeRoute: typeof SectoralPeRoute
@@ -983,6 +1009,13 @@ declare module '@tanstack/react-router' {
       path: '/regulations'
       fullPath: '/regulations'
       preLoaderRoute: typeof RegulationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recent-market-information': {
+      id: '/recent-market-information'
+      path: '/recent-market-information'
+      fullPath: '/recent-market-information'
+      preLoaderRoute: typeof RecentMarketInformationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/publications': {
@@ -1214,6 +1247,13 @@ declare module '@tanstack/react-router' {
       path: '/citizen-charter'
       fullPath: '/citizen-charter'
       preLoaderRoute: typeof CitizenCharterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/circuit-breaker': {
+      id: '/circuit-breaker'
+      path: '/circuit-breaker'
+      fullPath: '/circuit-breaker'
+      preLoaderRoute: typeof CircuitBreakerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -1465,6 +1505,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActuarialValuationRoute: ActuarialValuationRoute,
   BondsRoute: BondsRoute,
   CareersRoute: CareersRoute,
+  CircuitBreakerRoute: CircuitBreakerRoute,
   CitizenCharterRoute: CitizenCharterRoute,
   CompaniesRoute: CompaniesRoute,
   ComplaintsRoute: ComplaintsRoute,
@@ -1498,6 +1539,7 @@ const rootRouteChildren: RootRouteChildren = {
   PeRoute: PeRoute,
   ProductsRoute: ProductsRoute,
   PublicationsRoute: PublicationsRoute,
+  RecentMarketInformationRoute: RecentMarketInformationRoute,
   RegulationsRoute: RegulationsRoute,
   ReportsRoute: ReportsRoute,
   SectoralPeRoute: SectoralPeRoute,

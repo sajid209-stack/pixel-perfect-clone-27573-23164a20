@@ -463,7 +463,8 @@ function MarketsPanel({ close }: { close: () => void }) {
     { title: "Mutual funds & ETFs", desc: "NAV table, fund directory", to: "/funds" },
   ];
   const col3: Item[] = [
-    { title: "Circuit breaker list", desc: "Today's upper/lower limits", to: "/reports", soon: true },
+    { title: "Circuit Breaker", desc: "Today's upper/lower limits per instrument", to: "/circuit-breaker" },
+    { title: "Recent Market Information", desc: "Recent and record market figures", to: "/recent-market-information" },
     { title: "Historical data", desc: "OHLV archives, downloadable", to: "/reports" },
   ];
   return (
