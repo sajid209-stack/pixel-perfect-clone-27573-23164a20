@@ -187,9 +187,16 @@ function IndexCard({
           <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
             {idx.sub}
           </div>
-          <div className="mt-1.5 text-[16px] font-medium" style={{ color: "var(--text-primary)" }}>
+          <Link
+            to="/indices/$code"
+            params={{ code: idx.key }}
+            onClick={(e) => e.stopPropagation()}
+            className="mt-1.5 inline-flex items-center gap-1 text-[16px] font-medium hover:underline"
+            style={{ color: "var(--text-primary)" }}
+          >
             {idx.name}
-          </div>
+            <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+          </Link>
         </div>
         <div
           className="text-[11.5px] tnum px-2 py-0.5 rounded-full"
