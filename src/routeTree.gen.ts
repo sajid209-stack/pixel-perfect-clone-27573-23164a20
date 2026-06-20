@@ -24,13 +24,19 @@ import { Route as LinksRouteImport } from './routes/links'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IpoRouteImport } from './routes/ipo'
 import { Route as IndicesRouteImport } from './routes/indices'
+import { Route as HolidaysRouteImport } from './routes/holidays'
 import { Route as HelpDeskRouteImport } from './routes/help-desk'
+import { Route as GoingConcernRouteImport } from './routes/going-concern'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FundsRouteImport } from './routes/funds'
 import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors'
+import { Route as FinancialStatementStatusRouteImport } from './routes/financial-statement-status'
 import { Route as FilingsRouteImport } from './routes/filings'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DownloadsRouteImport } from './routes/downloads'
+import { Route as HolidaysRouteImport } from './routes/holidays'
+import { Route as GoingConcernRouteImport } from './routes/going-concern'
+import { Route as FinancialStatementStatusRouteImport } from './routes/financial-statement-status'
 import { Route as CorporateActionsRouteImport } from './routes/corporate-actions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
@@ -117,9 +123,19 @@ const IndicesRoute = IndicesRouteImport.update({
   path: '/indices',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HolidaysRoute = HolidaysRouteImport.update({
+  id: '/holidays',
+  path: '/holidays',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HelpDeskRoute = HelpDeskRouteImport.update({
   id: '/help-desk',
   path: '/help-desk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GoingConcernRoute = GoingConcernRouteImport.update({
+  id: '/going-concern',
+  path: '/going-concern',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -137,6 +153,12 @@ const ForeignInvestorsRoute = ForeignInvestorsRouteImport.update({
   path: '/foreign-investors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FinancialStatementStatusRoute =
+  FinancialStatementStatusRouteImport.update({
+    id: '/financial-statement-status',
+    path: '/financial-statement-status',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const FilingsRoute = FilingsRouteImport.update({
   id: '/filings',
   path: '/filings',
@@ -214,10 +236,13 @@ export interface FileRoutesByFullPath {
   '/downloads': typeof DownloadsRoute
   '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
+  '/financial-statement-status': typeof FinancialStatementStatusRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
+  '/going-concern': typeof GoingConcernRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
+  '/holidays': typeof HolidaysRoute
   '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -248,10 +273,13 @@ export interface FileRoutesByTo {
   '/downloads': typeof DownloadsRoute
   '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
+  '/financial-statement-status': typeof FinancialStatementStatusRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
+  '/going-concern': typeof GoingConcernRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
+  '/holidays': typeof HolidaysRoute
   '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -283,10 +311,13 @@ export interface FileRoutesById {
   '/downloads': typeof DownloadsRoute
   '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
+  '/financial-statement-status': typeof FinancialStatementStatusRoute
   '/foreign-investors': typeof ForeignInvestorsRoute
   '/funds': typeof FundsRoute
   '/gallery': typeof GalleryRoute
+  '/going-concern': typeof GoingConcernRoute
   '/help-desk': typeof HelpDeskRouteWithChildren
+  '/holidays': typeof HolidaysRoute
   '/indices': typeof IndicesRouteWithChildren
   '/ipo': typeof IpoRoute
   '/learn': typeof LearnRoute
@@ -319,10 +350,13 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/faq'
     | '/filings'
+    | '/financial-statement-status'
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
+    | '/going-concern'
     | '/help-desk'
+    | '/holidays'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -353,10 +387,13 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/faq'
     | '/filings'
+    | '/financial-statement-status'
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
+    | '/going-concern'
     | '/help-desk'
+    | '/holidays'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -387,10 +424,13 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/faq'
     | '/filings'
+    | '/financial-statement-status'
     | '/foreign-investors'
     | '/funds'
     | '/gallery'
+    | '/going-concern'
     | '/help-desk'
+    | '/holidays'
     | '/indices'
     | '/ipo'
     | '/learn'
@@ -422,10 +462,13 @@ export interface RootRouteChildren {
   DownloadsRoute: typeof DownloadsRoute
   FaqRoute: typeof FaqRoute
   FilingsRoute: typeof FilingsRoute
+  FinancialStatementStatusRoute: typeof FinancialStatementStatusRoute
   ForeignInvestorsRoute: typeof ForeignInvestorsRoute
   FundsRoute: typeof FundsRoute
   GalleryRoute: typeof GalleryRoute
+  GoingConcernRoute: typeof GoingConcernRoute
   HelpDeskRoute: typeof HelpDeskRouteWithChildren
+  HolidaysRoute: typeof HolidaysRoute
   IndicesRoute: typeof IndicesRouteWithChildren
   IpoRoute: typeof IpoRoute
   LearnRoute: typeof LearnRoute
@@ -551,11 +594,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/holidays': {
+      id: '/holidays'
+      path: '/holidays'
+      fullPath: '/holidays'
+      preLoaderRoute: typeof HolidaysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/help-desk': {
       id: '/help-desk'
       path: '/help-desk'
       fullPath: '/help-desk'
       preLoaderRoute: typeof HelpDeskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/going-concern': {
+      id: '/going-concern'
+      path: '/going-concern'
+      fullPath: '/going-concern'
+      preLoaderRoute: typeof GoingConcernRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -577,6 +634,13 @@ declare module '@tanstack/react-router' {
       path: '/foreign-investors'
       fullPath: '/foreign-investors'
       preLoaderRoute: typeof ForeignInvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/financial-statement-status': {
+      id: '/financial-statement-status'
+      path: '/financial-statement-status'
+      fullPath: '/financial-statement-status'
+      preLoaderRoute: typeof FinancialStatementStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/filings': {
@@ -707,10 +771,13 @@ const rootRouteChildren: RootRouteChildren = {
   DownloadsRoute: DownloadsRoute,
   FaqRoute: FaqRoute,
   FilingsRoute: FilingsRoute,
+  FinancialStatementStatusRoute: FinancialStatementStatusRoute,
   ForeignInvestorsRoute: ForeignInvestorsRoute,
   FundsRoute: FundsRoute,
   GalleryRoute: GalleryRoute,
+  GoingConcernRoute: GoingConcernRoute,
   HelpDeskRoute: HelpDeskRouteWithChildren,
+  HolidaysRoute: HolidaysRoute,
   IndicesRoute: IndicesRouteWithChildren,
   IpoRoute: IpoRoute,
   LearnRoute: LearnRoute,
