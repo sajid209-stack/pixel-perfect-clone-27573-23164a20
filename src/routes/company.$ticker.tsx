@@ -536,15 +536,15 @@ function BasicsCard({ co }: { co: Company }) {
   ];
   return (
     <section
-      className="rounded-2xl p-6 md:p-8"
+      className="rounded-2xl p-5"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-[0.22em] mb-4" style={{ color: "var(--text-muted)" }}>
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-3" style={{ color: "var(--text-muted)" }}>
         Basics
       </div>
       <dl className="divide-y" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
         {rows.map(([k, v]) => (
-          <div key={k} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
+          <div key={k} className="grid grid-cols-[1fr_auto] gap-4 py-1.5">
             <dt className="text-[13px]" style={{ color: "var(--text-secondary)" }}>{k}</dt>
             <dd className="text-[13px] tnum font-medium" style={{ color: "var(--text-primary)" }}>{v}</dd>
           </div>
