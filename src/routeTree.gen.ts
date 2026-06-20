@@ -44,7 +44,6 @@ import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as IndicesMethodologyRouteImport } from './routes/indices.methodology'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
@@ -227,11 +226,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndicesMethodologyRoute = IndicesMethodologyRouteImport.update({
-  id: '/methodology',
-  path: '/methodology',
-  getParentRoute: () => IndicesRoute,
-} as any)
 const IndicesCodeRoute = IndicesCodeRouteImport.update({
   id: '/$code',
   path: '/$code',
@@ -299,7 +293,6 @@ export interface FileRoutesByFullPath {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
-  '/indices/methodology': typeof IndicesMethodologyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -342,7 +335,6 @@ export interface FileRoutesByTo {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
-  '/indices/methodology': typeof IndicesMethodologyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -386,7 +378,6 @@ export interface FileRoutesById {
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
-  '/indices/methodology': typeof IndicesMethodologyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -431,7 +422,6 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
-    | '/indices/methodology'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -474,7 +464,6 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
-    | '/indices/methodology'
   id:
     | '__root__'
     | '/'
@@ -517,7 +506,6 @@ export interface FileRouteTypes {
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
-    | '/indices/methodology'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -808,13 +796,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/indices/methodology': {
-      id: '/indices/methodology'
-      path: '/methodology'
-      fullPath: '/indices/methodology'
-      preLoaderRoute: typeof IndicesMethodologyRouteImport
-      parentRoute: typeof IndicesRoute
-    }
     '/indices/$code': {
       id: '/indices/$code'
       path: '/$code'
@@ -867,12 +848,10 @@ const HelpDeskRouteWithChildren = HelpDeskRoute._addFileChildren(
 
 interface IndicesRouteChildren {
   IndicesCodeRoute: typeof IndicesCodeRoute
-  IndicesMethodologyRoute: typeof IndicesMethodologyRoute
 }
 
 const IndicesRouteChildren: IndicesRouteChildren = {
   IndicesCodeRoute: IndicesCodeRoute,
-  IndicesMethodologyRoute: IndicesMethodologyRoute,
 }
 
 const IndicesRouteWithChildren =
