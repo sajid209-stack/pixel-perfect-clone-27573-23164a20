@@ -19,27 +19,31 @@ const marketsLinks: FooterLink[] = [
   { label: "DSE-Mobile", to: "/dse-mobile" },
 ];
 
-const aboutLinks: FooterLink[] = [
+type FooterLinkExt = FooterLink & { href?: string; external?: boolean };
+
+const aboutLinks: FooterLinkExt[] = [
   { label: "About us", to: "/about" },
-  { label: "Board of directors", to: "/about", hash: "board" },
-  { label: "Press releases", to: "/about", hash: "press" },
+  { label: "Board of directors", to: "/about/board" },
+  { label: "Press releases", to: "/publications" },
   { label: "Gallery", to: "/gallery" },
   { label: "Careers", to: "/careers" },
-  { label: "Sustainability", to: "/about", hash: "sustainability" },
+  { label: "Sustainability", to: "/sustainability" },
   { label: "Annual reports", to: "/reports" },
   { label: "Major Events", to: "/about/major-events" },
   { label: "DSE New Automation System", to: "/about/automation" },
   { label: "Citizen Charter", to: "/citizen-charter" },
+  { label: "Back-Office Software Vendors", to: "/vendors" },
+  { label: "DSE Tower", to: "/", href: "https://dse.bd/", external: true },
 ];
 
-const servicesLinks: FooterLink[] = [
+const servicesLinks: FooterLinkExt[] = [
   { label: "Broker directory", to: "/members" },
   { label: "Listing requirements", to: "/listing" },
   { label: "Regulations & Rulebook", to: "/regulations" },
-  { label: "BICM", to: "/about", hash: "bicm" },
+  { label: "BICM", to: "/", href: "https://www.bicm.ac.bd/", external: true },
   { label: "Investor education", to: "/learn" },
   { label: "Complaints portal", to: "/complaints" },
-  { label: "Data API", to: "/about", hash: "api" },
+  { label: "Data API", to: "/products" },
 ];
 
 const investorServicesLinks: FooterLink[] = [
