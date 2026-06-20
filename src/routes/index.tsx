@@ -32,7 +32,7 @@ function Home() {
       <TodaysMarket />
       <NewsScroll />
       <ForeignInvestorBand />
-      <Footer />
+      <HomeFooter />
     </div>
   );
 }
