@@ -498,24 +498,24 @@ function KeyStatsStrip({ co }: { co: Company }) {
 
 function RangeBar({ label, low, high, pct, current }: { label: string; low: number; high: number; pct: number; current: number }) {
   return (
-    <div className="p-5 rounded-xl" style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
-      <div className="flex items-baseline justify-between mb-3">
+    <div className="p-3 rounded-xl" style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
+      <div className="flex items-baseline justify-between mb-2">
         <div className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{label}</div>
         <div className="text-[12px] tnum" style={{ color: "var(--text-secondary)" }}>
           Current ৳ {current.toLocaleString(undefined, { minimumFractionDigits: 2 })}
         </div>
       </div>
-      <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.08)" }}>
+      <div className="relative h-1 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.08)" }}>
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
+          className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
           style={{
-            left: `calc(${pct}% - 5px)`,
+            left: `calc(${pct}% - 4px)`,
             background: "var(--primary)",
             boxShadow: "0 0 0 3px rgb(var(--brand-tint) / 0.25)",
           }}
         />
       </div>
-      <div className="mt-2 flex items-center justify-between text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+      <div className="mt-1.5 flex items-center justify-between text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
         <span>৳ {low.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
         <span>৳ {high.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
       </div>
