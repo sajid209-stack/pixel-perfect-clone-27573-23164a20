@@ -503,7 +503,7 @@ function SessionsSection() {
       subtitle={
         <>
           Daily session timings and upcoming holidays. Full calendar in{" "}
-          <Link to="/reports" style={{ color: "var(--brand-600)" }}>Reports</Link>.
+          <Link to="/holidays" style={{ color: "var(--brand-600)" }}>Holidays</Link>.
         </>
       }
     >
