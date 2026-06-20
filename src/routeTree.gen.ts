@@ -46,6 +46,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as ActuarialValuationRouteImport } from './routes/actuarial-valuation'
 import { Route as AboutRouteImport } from './routes/about'
@@ -263,6 +264,11 @@ const CitizenCharterRoute = CitizenCharterRouteImport.update({
   path: '/citizen-charter',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BondsRoute = BondsRouteImport.update({
   id: '/bonds',
   path: '/bonds',
@@ -421,6 +427,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
+  '/careers': typeof CareersRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
@@ -490,6 +497,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
+  '/careers': typeof CareersRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
@@ -560,6 +568,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
+  '/careers': typeof CareersRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
@@ -631,6 +640,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/actuarial-valuation'
     | '/bonds'
+    | '/careers'
     | '/citizen-charter'
     | '/companies'
     | '/complaints'
@@ -700,6 +710,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/actuarial-valuation'
     | '/bonds'
+    | '/careers'
     | '/citizen-charter'
     | '/companies'
     | '/complaints'
@@ -769,6 +780,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/actuarial-valuation'
     | '/bonds'
+    | '/careers'
     | '/citizen-charter'
     | '/companies'
     | '/complaints'
@@ -839,6 +851,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ActuarialValuationRoute: typeof ActuarialValuationRoute
   BondsRoute: typeof BondsRoute
+  CareersRoute: typeof CareersRoute
   CitizenCharterRoute: typeof CitizenCharterRoute
   CompaniesRoute: typeof CompaniesRoute
   ComplaintsRoute: typeof ComplaintsRoute
@@ -1163,6 +1176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CitizenCharterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bonds': {
       id: '/bonds'
       path: '/bonds'
@@ -1404,6 +1424,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ActuarialValuationRoute: ActuarialValuationRoute,
   BondsRoute: BondsRoute,
+  CareersRoute: CareersRoute,
   CitizenCharterRoute: CitizenCharterRoute,
   CompaniesRoute: CompaniesRoute,
   ComplaintsRoute: ComplaintsRoute,
