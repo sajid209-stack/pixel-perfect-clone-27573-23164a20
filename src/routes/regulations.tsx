@@ -400,7 +400,7 @@ function DocSection({ id, title, docs }: { id: string; title: string; docs: SubD
 function ClearingSettlementSection() {
   return (
     <section
-      id="clearing"
+      id="clearing-settlement"
       style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
     >
       <header

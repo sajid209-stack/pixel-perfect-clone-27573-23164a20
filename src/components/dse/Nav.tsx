@@ -252,6 +252,7 @@ const megaContent: Record<string, MegaContent> = {
         links: [
           { label: "Demutualization", to: "/about/demutualization" },
           { label: "Regulations & Rulebook", to: "/regulations" },
+          { label: "Clearing & Settlement", to: "/regulations", hash: "clearing-settlement" },
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
           { label: "Share Transfer Process", to: "/listing/share-transfer" },
