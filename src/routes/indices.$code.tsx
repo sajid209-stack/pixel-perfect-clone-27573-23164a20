@@ -366,9 +366,8 @@ function IndexDetailPage() {
         </div>
       </section>
 
-      {/* Constituents + Methodology */}
-      <section className="max-w-[1440px] mx-auto px-6 pt-10 grid lg:grid-cols-[1.4fr_1fr] gap-6">
-        {/* Constituents */}
+      {/* Constituents */}
+      <section className="max-w-[1440px] mx-auto px-6 pt-10">
         <div
           className="rounded-2xl p-7"
           style={{
@@ -443,8 +442,10 @@ function IndexDetailPage() {
             </table>
           </div>
         </div>
+      </section>
 
-        {/* Methodology */}
+      {/* Index Methodology — full width, below chart and constituents */}
+      <section className="max-w-[1440px] mx-auto px-6 pt-10">
         <div
           className="rounded-2xl p-7"
           style={{
@@ -489,8 +490,7 @@ function IndexDetailPage() {
             className="mt-5 text-[12px] leading-relaxed"
             style={{ color: "var(--text-muted)" }}
           >
-            M.Cap = Market Capitalization · LTP = Last Traded Price · CP = Closing Price · IOSCO =
-            International Organization of Securities Commissions.
+            Abbreviations: M.Cap = Market Capitalization; LTP = Last Traded Price; CP = Closing Price; IOSCO = International Organization of Securities Commissions.
           </p>
         </div>
       </section>
