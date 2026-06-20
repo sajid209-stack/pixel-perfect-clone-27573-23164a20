@@ -24,7 +24,7 @@ const aboutLinks: FooterLink[] = [
   { label: "Board of directors", to: "/about", hash: "board" },
   { label: "Press releases", to: "/about", hash: "press" },
   { label: "Gallery", to: "/gallery" },
-  { label: "Careers", to: "/about", hash: "careers" },
+  { label: "Careers", to: "/careers" },
   { label: "Sustainability", to: "/about", hash: "sustainability" },
   { label: "Annual reports", to: "/reports" },
   { label: "Major Events", to: "/about/major-events" },
