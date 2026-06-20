@@ -104,7 +104,7 @@ function MarketsPage() {
             Market Statistics
           </h1>
           <p className="mt-2 text-[13.5px]" style={{ color: "var(--text-secondary)" }}>
-            Trading day · Jun 4, 2026 · figures are indicative placeholders pending live data feed.
+            Live market statistics, indices, movers and sector performance — as provided by DSE.
           </p>
         </div>
       </section>
