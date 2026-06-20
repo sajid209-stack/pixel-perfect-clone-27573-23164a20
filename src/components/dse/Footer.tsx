@@ -11,7 +11,8 @@ const marketsLinks: FooterLink[] = [
   { label: "Equities", to: "/companies" },
   { label: "Bonds & GSec", to: "/bonds" },
   { label: "Mutual Funds & ETFs", to: "/funds" },
-  { label: "SME Board", to: "/companies" },
+  { label: "OTC Market", to: "/otc" },
+  { label: "Disclosures & Filings", to: "/filings" },
   { label: "Indices", to: "/indices" },
   { label: "Corporate actions", to: "/corporate-actions" },
   { label: "Historical data", to: "/reports" },
@@ -37,10 +38,19 @@ const servicesLinks: FooterLink[] = [
   { label: "Data API", to: "/about", hash: "api" },
 ];
 
+const investorServicesLinks: FooterLink[] = [
+  { label: "Help Desk", to: "/help-desk" },
+  { label: "NRB Help Desk", to: "/help-desk/nrb" },
+  { label: "Complaints", to: "/complaints" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Downloads", to: "/downloads" },
+];
+
 const cols: { title: string; items: FooterLink[] }[] = [
   { title: "Markets", items: marketsLinks },
   { title: "About DSE", items: aboutLinks },
   { title: "Services", items: servicesLinks },
+  { title: "Investor Services", items: investorServicesLinks },
 ];
 
 function FooterLinkItem({ item }: { item: FooterLink }) {
@@ -83,7 +93,7 @@ export function Footer() {
         borderTop: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 lg:grid-cols-5 gap-8">
         <div>
           <div className="flex items-center gap-3">
             <img
@@ -175,7 +185,9 @@ export function Footer() {
           style={{ color: "rgba(255,255,255,0.6)" }}
         >
           <div>{t("© 2026 Dhaka Stock Exchange PLC. Regulated by Bangladesh Securities and Exchange Commission.")}</div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
+            <Link to="/sitemap" className="cursor-pointer hover:opacity-100 opacity-80">{t("Site Map")}</Link>
+            <Link to="/links" className="cursor-pointer hover:opacity-100 opacity-80">{t("Quick Links")}</Link>
             <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Privacy policy")}</a>
             <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Terms")}</a>
             <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Accessibility")}</a>

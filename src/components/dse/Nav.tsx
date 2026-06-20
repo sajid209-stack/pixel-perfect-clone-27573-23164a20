@@ -34,14 +34,14 @@ type NavItem = {
 };
 
 const links: NavItem[] = [
-  { label: "Markets", to: "/markets", mega: "markets", activePaths: ["/markets", "/products", "/bonds", "/funds"] },
+  { label: "Markets", to: "/markets", mega: "markets", activePaths: ["/markets", "/products", "/bonds", "/funds", "/otc", "/filings"] },
   { label: "Companies", to: "/companies", mega: "companies", activePaths: ["/companies", "/company", "/corporate-actions"] },
   { label: "Indices", to: "/indices", mega: "indices", activePaths: ["/indices"] },
   { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
   { label: "News", to: "/news", mega: "news", activePaths: ["/news"] },
   { label: "Learn", to: "/learn", mega: "learn", activePaths: ["/learn"] },
-  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/complaints", "/members", "/foreign-investors", "/regulations"] },
-  
+  { label: "Investor Services", to: "/help-desk", mega: "investors", activePaths: ["/help-desk", "/complaints", "/faq", "/downloads"] },
+  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/members", "/foreign-investors", "/regulations"] },
 ];
 
 /* ─────────────── SCB-style mega panel ─────────────── */
@@ -77,9 +77,9 @@ const megaContent: Record<string, MegaContent> = {
         links: [
           { label: "Bonds & debentures", to: "/bonds" },
           { label: "Mutual funds", to: "/funds" },
-          { label: "Treasury bonds", to: "/bonds" },
           { label: "ETFs", to: "/funds" },
           { label: "OTC Market", to: "/otc" },
+          { label: "Disclosures & Filings", to: "/filings" },
         ],
       },
     ],
@@ -244,6 +244,32 @@ const megaContent: Record<string, MegaContent> = {
       },
     ],
     promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about", image: aboutDseMegaAsset.url },
+  },
+  investors: {
+    intro: {
+      title: "Investor Services",
+      desc: "Help desks, complaints, downloads and FAQs for DSE investors.",
+      cta: { label: "Open Help Desk", to: "/help-desk" },
+    },
+    columns: [
+      {
+        header: "Help & support",
+        links: [
+          { label: "Help Desk", to: "/help-desk" },
+          { label: "NRB Help Desk", to: "/help-desk/nrb" },
+          { label: "Complaints", to: "/complaints" },
+        ],
+      },
+      {
+        header: "Resources",
+        links: [
+          { label: "FAQ", to: "/faq" },
+          { label: "Downloads", to: "/downloads" },
+          { label: "Quick Links", to: "/links" },
+        ],
+      },
+    ],
+    promo: { tag: "For NRB", title: "NRB Help Desk", desc: "Dedicated assistance for Non-Resident Bangladeshi investors.", to: "/help-desk/nrb", image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=70" },
   },
 };
 
@@ -755,6 +781,7 @@ const megaPanels: Record<string, React.ComponentType<{ close: () => void }>> = {
   ipo: ({ close }) => <MegaPanel content={megaContent.ipo} close={close} />,
   news: ({ close }) => <MegaPanel content={megaContent.news} close={close} />,
   learn: ({ close }) => <MegaPanel content={megaContent.learn} close={close} />,
+  investors: ({ close }) => <MegaPanel content={megaContent.investors} close={close} />,
   about: ({ close }) => <MegaPanel content={megaContent.about} close={close} />,
 };
 
