@@ -182,6 +182,24 @@ function TradingTab() {
               Key facts about Bangladesh for prospective investors.
             </p>
           </Link>
+          <Link
+            to="/foreign-investors/economy"
+            className="block p-4 rounded-xl transition hover:opacity-90"
+            style={{
+              background: "rgb(var(--ov) / 0.04)",
+              border: "1px solid rgb(var(--ov) / 0.08)",
+            }}
+          >
+            <div className="text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--primary)" }}>
+              Guide
+            </div>
+            <div className="mt-1 text-[14px] font-semibold" style={{ color: "var(--text-primary)" }}>
+              Economy of Bangladesh
+            </div>
+            <p className="mt-1 text-[12.5px]" style={{ color: "var(--text-secondary)" }}>
+              Macroeconomic indicators and trends.
+            </p>
+          </Link>
         </div>
       </Section>
       <TradingTabBody />
