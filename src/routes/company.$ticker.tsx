@@ -967,58 +967,86 @@ function shiftPattern(sp: NonNullable<Company["sharePattern"]>, idx: number) {
 
 function ShareholdingPatternCard({ co }: { co: Company }) {
   if (!co.sharePattern) return null;
-  const [dateIdx, setDateIdx] = useState(0);
-  const sp = useMemo(() => shiftPattern(co.sharePattern!, dateIdx), [co, dateIdx]);
-  const dateLabel: SpDate = SHAREHOLDING_DATES[dateIdx];
+  const snapshots = useMemo(
+    () => SHAREHOLDING_DATES.map((d, i) => ({ date: d, sp: shiftPattern(co.sharePattern!, i) })),
+    [co],
+  );
   return (
     <SidebarCard title="Shareholding pattern">
       <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
         <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
-          as on {dateLabel}
+          Three most recent dated snapshots
         </div>
-        <div className="flex gap-1 p-0.5 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
-          {SHAREHOLDING_DATES.map((d, i) => {
-            const active = i === dateIdx;
-            return (
-              <button
-                key={d}
-                onClick={() => setDateIdx(i)}
-                className="px-2 py-0.5 text-[10px] rounded-full transition tnum"
-                style={{
-                  background: active ? "var(--primary)" : "transparent",
-                  color: active ? "var(--navy-deep)" : "var(--text-secondary)",
-                  fontWeight: active ? 600 : 400,
-                }}
-              >
-                {d.split(" ").slice(1).join(" ")}
-              </button>
-            );
-          })}
+        <div
+          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium"
+          style={{
+            background: "rgb(var(--ov) / 0.06)",
+            color: "var(--text-secondary)",
+          }}
+        >
+          <span
+            className="inline-block w-1.5 h-1.5 rounded-full"
+            style={{ background: "var(--primary)" }}
+          />
+          Live · as provided by DSE
         </div>
       </div>
+
+      {/* Date column headers */}
+      <div className="grid gap-2 mb-2 items-end" style={{ gridTemplateColumns: "1.1fr repeat(3, 1fr)" }}>
+        <div />
+        {snapshots.map((s, i) => (
+          <div
+            key={s.date}
+            className="text-[10px] text-right tnum"
+            style={{ color: i === 0 ? "var(--text-primary)" : "var(--text-muted)", fontWeight: i === 0 ? 600 : 400 }}
+          >
+            {s.date}
+          </div>
+        ))}
+      </div>
+
       <div className="space-y-3">
-        {SHAREHOLDING_ROWS.map((r, i) => {
-          const pct = sp[r.key] ?? 0;
-          return (
-            <div key={r.key}>
-              <div className="flex items-baseline justify-between text-[13px] mb-1">
-                <span style={{ color: "var(--text-secondary)" }}>{r.label}</span>
-                <span className="tnum font-medium" style={{ color: "var(--text-primary)" }}>
-                  {pct.toFixed(1)}%
-                </span>
-              </div>
-              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.06)" }}>
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.min(100, pct)}%` }}
-                  transition={{ duration: 0.9, delay: 0.04 * i, ease: [0.16, 1, 0.3, 1] }}
-                  className="h-full"
-                  style={{ background: r.color }}
-                />
-              </div>
+        {SHAREHOLDING_ROWS.map((r, i) => (
+          <div
+            key={r.key}
+            className="grid gap-2 items-center"
+            style={{ gridTemplateColumns: "1.1fr repeat(3, 1fr)" }}
+          >
+            <div className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--text-secondary)" }}>
+              <span className="inline-block w-2 h-2 rounded-sm shrink-0" style={{ background: r.color }} />
+              <span className="truncate">{r.label}</span>
             </div>
-          );
-        })}
+            {snapshots.map((s, j) => {
+              const pct = s.sp[r.key] ?? 0;
+              return (
+                <div key={s.date} className="min-w-0">
+                  <div
+                    className="tnum text-right text-[12px] mb-1"
+                    style={{
+                      color: j === 0 ? "var(--text-primary)" : "var(--text-secondary)",
+                      fontWeight: j === 0 ? 600 : 400,
+                    }}
+                  >
+                    {pct.toFixed(2)}%
+                  </div>
+                  <div
+                    className="h-1.5 rounded-full overflow-hidden"
+                    style={{ background: "rgb(var(--ov) / 0.06)" }}
+                  >
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${Math.min(100, pct)}%` }}
+                      transition={{ duration: 0.9, delay: 0.04 * i + 0.05 * j, ease: [0.16, 1, 0.3, 1] }}
+                      className="h-full"
+                      style={{ background: r.color, opacity: j === 0 ? 1 : 0.6 - j * 0.15 }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
       <TableNote id="company.shareholding.note">
         Sponsor/Director holdings reflect regulation 2(1)(r) of the DSE (Listing) Regulations 2015.
