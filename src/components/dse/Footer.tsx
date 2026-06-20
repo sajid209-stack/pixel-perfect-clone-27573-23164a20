@@ -104,7 +104,7 @@ export function Footer() {
         borderTop: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
         <div>
           <div className="flex items-center gap-3">
             <img
