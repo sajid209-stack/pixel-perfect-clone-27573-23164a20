@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUp, ArrowUpRight, Search, SlidersHorizontal, Star, X } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, ChevronDown, Info, Search, SlidersHorizontal, Star, X } from "lucide-react";
 
 import { TopBar } from "@/components/dse/TopBar";
 import { Nav } from "@/components/dse/Nav";
