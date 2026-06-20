@@ -49,8 +49,10 @@ import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 import { Route as AboutVisionRouteImport } from './routes/about_.vision'
 import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
+import { Route as AboutManagementRouteImport } from './routes/about_.management'
 import { Route as AboutMajorEventsRouteImport } from './routes/about_.major-events'
 import { Route as AboutDemutualizationRouteImport } from './routes/about_.demutualization'
+import { Route as AboutBoardRouteImport } from './routes/about_.board'
 import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
 import { Route as AboutAtAGlanceRouteImport } from './routes/about_.at-a-glance'
 
@@ -255,6 +257,11 @@ const AboutSurveillanceRoute = AboutSurveillanceRouteImport.update({
   path: '/about/surveillance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutManagementRoute = AboutManagementRouteImport.update({
+  id: '/about_/management',
+  path: '/about/management',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutMajorEventsRoute = AboutMajorEventsRouteImport.update({
   id: '/about_/major-events',
   path: '/about/major-events',
@@ -263,6 +270,11 @@ const AboutMajorEventsRoute = AboutMajorEventsRouteImport.update({
 const AboutDemutualizationRoute = AboutDemutualizationRouteImport.update({
   id: '/about_/demutualization',
   path: '/about/demutualization',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutBoardRoute = AboutBoardRouteImport.update({
+  id: '/about_/board',
+  path: '/about/board',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutAutomationRoute = AboutAutomationRouteImport.update({
@@ -314,8 +326,10 @@ export interface FileRoutesByFullPath {
   '/sitemap': typeof SitemapRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
+  '/about/board': typeof AboutBoardRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/major-events': typeof AboutMajorEventsRoute
+  '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
@@ -360,8 +374,10 @@ export interface FileRoutesByTo {
   '/sitemap': typeof SitemapRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
+  '/about/board': typeof AboutBoardRoute
   '/about/demutualization': typeof AboutDemutualizationRoute
   '/about/major-events': typeof AboutMajorEventsRoute
+  '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
@@ -407,8 +423,10 @@ export interface FileRoutesById {
   '/sitemap': typeof SitemapRoute
   '/about_/at-a-glance': typeof AboutAtAGlanceRoute
   '/about_/automation': typeof AboutAutomationRoute
+  '/about_/board': typeof AboutBoardRoute
   '/about_/demutualization': typeof AboutDemutualizationRoute
   '/about_/major-events': typeof AboutMajorEventsRoute
+  '/about_/management': typeof AboutManagementRoute
   '/about_/surveillance': typeof AboutSurveillanceRoute
   '/about_/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
@@ -455,8 +473,10 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/about/at-a-glance'
     | '/about/automation'
+    | '/about/board'
     | '/about/demutualization'
     | '/about/major-events'
+    | '/about/management'
     | '/about/surveillance'
     | '/about/vision'
     | '/company/$ticker'
@@ -501,8 +521,10 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/about/at-a-glance'
     | '/about/automation'
+    | '/about/board'
     | '/about/demutualization'
     | '/about/major-events'
+    | '/about/management'
     | '/about/surveillance'
     | '/about/vision'
     | '/company/$ticker'
@@ -547,8 +569,10 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/about_/at-a-glance'
     | '/about_/automation'
+    | '/about_/board'
     | '/about_/demutualization'
     | '/about_/major-events'
+    | '/about_/management'
     | '/about_/surveillance'
     | '/about_/vision'
     | '/company/$ticker'
@@ -594,8 +618,10 @@ export interface RootRouteChildren {
   SitemapRoute: typeof SitemapRoute
   AboutAtAGlanceRoute: typeof AboutAtAGlanceRoute
   AboutAutomationRoute: typeof AboutAutomationRoute
+  AboutBoardRoute: typeof AboutBoardRoute
   AboutDemutualizationRoute: typeof AboutDemutualizationRoute
   AboutMajorEventsRoute: typeof AboutMajorEventsRoute
+  AboutManagementRoute: typeof AboutManagementRoute
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
   AboutVisionRoute: typeof AboutVisionRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
@@ -883,6 +909,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutSurveillanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/management': {
+      id: '/about_/management'
+      path: '/about/management'
+      fullPath: '/about/management'
+      preLoaderRoute: typeof AboutManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/major-events': {
       id: '/about_/major-events'
       path: '/about/major-events'
@@ -895,6 +928,13 @@ declare module '@tanstack/react-router' {
       path: '/about/demutualization'
       fullPath: '/about/demutualization'
       preLoaderRoute: typeof AboutDemutualizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about_/board': {
+      id: '/about_/board'
+      path: '/about/board'
+      fullPath: '/about/board'
+      preLoaderRoute: typeof AboutBoardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about_/automation': {
@@ -975,8 +1015,10 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapRoute: SitemapRoute,
   AboutAtAGlanceRoute: AboutAtAGlanceRoute,
   AboutAutomationRoute: AboutAutomationRoute,
+  AboutBoardRoute: AboutBoardRoute,
   AboutDemutualizationRoute: AboutDemutualizationRoute,
   AboutMajorEventsRoute: AboutMajorEventsRoute,
+  AboutManagementRoute: AboutManagementRoute,
   AboutSurveillanceRoute: AboutSurveillanceRoute,
   AboutVisionRoute: AboutVisionRoute,
   CompanyTickerRoute: CompanyTickerRoute,
