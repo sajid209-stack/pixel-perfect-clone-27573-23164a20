@@ -284,11 +284,79 @@ function ForeignInvestorGuide() {
 
 function NrbGuide() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
+      <Section title="Who are NRB?">
+        <Bullets
+          items={[
+            'A Bangladeshi citizen living abroad with valid status: either a permanent resident of a foreign country or holding a valid work permit; or, for a foreign passport holder, an endorsement from the relevant Bangladeshi embassy or the Bangladesh foreign ministry stating "No visa is required" for travel to Bangladesh, as proof of dual citizenship.',
+          ]}
+        />
+      </Section>
+
+      <Section title="Incentives for Non-Resident Bangladeshis (NRBs)">
+        <Bullets
+          items={[
+            "10% quota in all Initial Public Offerings (IPOs) is reserved for non-resident Bangladeshis.",
+            "Can trade in the secondary capital market while abroad through a Nominee.",
+            "No Capital Gain Tax on individuals.",
+            "Individual income tax assessment is the same as for any resident Bangladeshi.",
+            "10% tax rebate on investment allowance on security investment.",
+          ]}
+        />
+      </Section>
+
+      <Section title="Incentives for Foreign Nationals">
+        <Bullets
+          items={[
+            "Allowed to participate in IPOs and rights issues without regulatory restrictions.",
+            "Withdrawal of all regulatory restrictions on international portfolio investors investing in the secondary securities market.",
+            "No Capital Gain Tax on individuals (subject to reciprocal exemption).",
+            "Income tax is 25% for individuals.",
+          ]}
+        />
+      </Section>
+
+      <Section title="How to start">
+        <Bullets
+          items={[
+            "Open a Foreign Currency (FC) Account for channeling foreign currency in and repatriating earnings.",
+            "Open a Non-Resident Investors Taka Account (NITA) for converting foreign currency into Taka.",
+            "Open a Custodian Account with an SEC-registered Securities Custodian (optional, for trade execution and safe custody).",
+            "Open a Beneficiary Owners (BO) Account with a brokerage house.",
+            "Assign a Nominee / Power of Attorney (POA) — a nominee for inheritance/transmission is required; the nominee and the POA may or may not be the same person.",
+          ]}
+        />
+      </Section>
+
       <Section
-        title="NRB Guide"
-        body="Information for Non-Resident Bangladeshis (NRBs) interested in investing in the Bangladesh capital market is maintained on the NRB Help Desk."
+        title="Required documents (NITA & FC account)"
+        body="The following documents are typically required to open NITA and FC accounts:"
       >
+        <Bullets
+          items={[
+            "Attested photocopy of passport / social security card / resident card (attested by the Bangladesh Embassy or High Commission if abroad).",
+            "Attested passport-size photographs.",
+            "A nominee with attested signature and photo on the brokerage form.",
+            "Employment certificate / trade license / work permit or pay slip / tax return as proof of earning status.",
+            "A nominated POA who signs trading documents while the NRB is abroad.",
+            "An extra KYC form if the broker is a bank.",
+            "Initial fund via cheque/pay order drawn from the FC account.",
+          ]}
+        />
+      </Section>
+
+      <Section title="How to operate (from abroad)">
+        <Bullets
+          items={[
+            "Collect the relevant forms from your brokerage house, fill them, and get the introducer part attested by the local Bangladeshi Embassy as proof of NRB status; get photos attested there too; send the forms back with the Nominee and POA parts filled.",
+            "IPO applications are filed on a prescribed form (obtained by mail, the issuer's website, or the broker).",
+            "Secondary-market trading is done via Buy/Sell order forms; if a POA is assigned, the POA signs the Buy/Sell form within 24 hours of order placement; otherwise orders may be placed by phone/email (with broker approval) and a signed Buy/Sell form faxed within 24 hours.",
+            "Shares are credited or debited to the BO account accordingly.",
+          ]}
+        />
+      </Section>
+
+      <div className="pt-2">
         <Link
           to="/help-desk/nrb"
           className="inline-flex items-center gap-2 h-10 px-4 rounded-lg text-[13px] font-semibold"
@@ -296,10 +364,15 @@ function NrbGuide() {
         >
           Open NRB Help Desk
         </Link>
-      </Section>
+      </div>
+
+      <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
+        Source: Dhaka Stock Exchange — Startup Guide for NRB.
+      </p>
     </div>
   );
 }
+
 
 /* ─────────────────────── shared atoms ─────────────────────── */
 
