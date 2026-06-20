@@ -52,14 +52,20 @@ const investorServicesLinks: FooterLink[] = [
   { label: "Foreign investors", to: "/foreign-investors" },
   { label: "General Profile of Bangladesh", to: "/foreign-investors/general-profile" },
   { label: "Complaints", to: "/complaints" },
+  { label: "Investor Protection Fund", to: "/investor-protection" },
+  { label: "CDBL", to: "/cdbl" },
   { label: "FAQ", to: "/faq" },
   { label: "Downloads", to: "/downloads" },
 ];
 
 const marketInfoLinks: FooterLink[] = [
   { label: "Holidays & Trading Sessions", to: "/holidays" },
+  { label: "Circuit Breaker", to: "/circuit-breaker" },
+  { label: "Recent Market Information", to: "/recent-market-information" },
   { label: "Going Concern List", to: "/going-concern" },
   { label: "Financial Statement Status", to: "/financial-statement-status" },
+  { label: "Sectoral Median P/E", to: "/sectoral-pe" },
+  { label: "Actuarial Valuation Status", to: "/actuarial-valuation" },
 ];
 
 const cols: { title: string; items: FooterLink[] }[] = [
@@ -195,7 +201,7 @@ export function Footer() {
           style={{ color: "rgba(255,255,255,0.75)" }}
         >
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <Link to="/markets" hash="circuit" className="hover:opacity-100 opacity-85">{t("Circuit breakers")}</Link>
+            <Link to="/circuit-breaker" className="hover:opacity-100 opacity-85">{t("Circuit breakers")}</Link>
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
             <Link to="/markets" hash="margin" className="hover:opacity-100 opacity-85">{t("Margin securities")}</Link>
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
