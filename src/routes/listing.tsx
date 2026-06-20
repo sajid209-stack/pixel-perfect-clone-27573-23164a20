@@ -844,3 +844,279 @@ function CriteriaPanel() {
     </div>
   );
 }
+
+/* ---------- Listing Procedure ---------- */
+
+type ProcStep = { title: string; body?: string; bullets?: string[] };
+
+const PROCEDURE_STEPS: ProcStep[] = [
+  {
+    title: "Decision to go Public",
+    body:
+      "Obtain Board approval specifying decision to raise capital through public offer, offer size, and method of issue (Fixed Price or Book-Building).",
+    bullets: [
+      "Ensure eligibility under Rule 4: minimum pre-IPO paid-up capital (Tk. 30 crore).",
+      "Minimum public offer size (10% of post-IPO capital, subject to exceptions).",
+      "Sponsors/directors to hold minimum 30% of post-IPO capital.",
+    ],
+  },
+  {
+    title: "Appoint intermediaries",
+    bullets: [
+      "Issue Manager (registered with BSEC).",
+      "Underwriter(s) (minimum 35% firm commitment).",
+      "Registrar to the Issue.",
+    ],
+  },
+  {
+    title: "Financial statements & audit",
+    body:
+      "Get financial statements prepared in compliance with IFRS/IAS, audited by a BSEC panel auditor, not older than 120 days at submission.",
+  },
+  {
+    title: "Credit rating & company website",
+    body:
+      "Obtain credit rating (mandatory in applicable cases such as premium issue or book-building). Develop a company website.",
+  },
+  {
+    title: "Preparation of Prospectus",
+    bullets: [
+      "Prepare Draft Prospectus (Fixed Price) or Red-Herring Prospectus (Book-Building).",
+      "Prospectus must be prepared as per Annexure-H of BSEC (Public Offer of Equity Securities) Rules, 2025, contain all required disclosures, and include valuation methods (Annexure-C).",
+    ],
+  },
+  {
+    title: "In case of IPO under Book-Building",
+    bullets: [
+      "Conduct Roadshow.",
+      "Invite Eligible Investors (minimum 10 working days' notice).",
+      "Collect EI valuation within 3 working days.",
+      "Determine indicative price (supported by at least 4 valuation methods).",
+    ],
+  },
+  {
+    title: "Application to BSEC and Stock Exchange(s)",
+    bullets: [
+      "Submit application simultaneously to BSEC (for consent) and Stock Exchange(s) (for listing).",
+      "Upload draft/red-herring prospectus on issuer website and issue manager website.",
+    ],
+  },
+  {
+    title: "Exchange review",
+    bullets: [
+      "Exchange shall review documents.",
+      "Visit factory/business premises (within 20 days).",
+      "Seek clarification if required.",
+      "Provide recommendation to BSEC within 30 days.",
+    ],
+  },
+  {
+    title: "BSEC decision",
+    body:
+      "BSEC shall review the application and issue consent or rejection within 20 days of Exchange recommendation.",
+  },
+  {
+    title: "Bidding by Eligible Investors (Book-Building only)",
+    body:
+      "After BSEC consent to commence bidding, bidding conducted through ESS, open for 72 hours (round the clock); price band ±25% of indicative price; cut-off price determined through system.",
+    bullets: [
+      "Publish EI allotment list (within 3 working days).",
+      "Transfer funds to issuer escrow (within 4 working days).",
+      "Refund excess bid money (within 5 working days).",
+      "Submit final prospectus (including cut-off price) to BSEC for approval.",
+    ],
+  },
+  {
+    title: "Approval of IPO",
+    bullets: [
+      "Collect consent letter from BSEC.",
+      "Publish abridged prospectus.",
+    ],
+  },
+  {
+    title: "Subscription Process",
+    bullets: [
+      "Fixed Price Method — EI subscription through ESS (120 hours); general subscription opens after 10 working days of publication and remains open up to 15 working days.",
+      "Book-Building Method — general subscription opens at cut-off price after final approval.",
+    ],
+  },
+  {
+    title: "Lottery and Allotment",
+    bullets: [
+      "In case of over-subscription, lottery basis for General Investors and NRBs, pro-rata basis for EIs, Mutual Funds, Employees, and HNIs.",
+      "Final allotment list prepared and published.",
+      "Excess subscription money refunded within statutory period.",
+      "Underwriters to subscribe in case of under-subscription (within prescribed timeline).",
+    ],
+  },
+  {
+    title: "Post-Subscription Compliance",
+    bullets: [
+      "Submit subscription status to BSEC and Exchanges within 5 working days.",
+      "Submit proof of underwriter subscription (if applicable).",
+      "Complete allotment and refund process.",
+    ],
+  },
+  {
+    title: "Listing Approval by Exchange(s)",
+    bullets: [
+      "Apply for listing after completion of allotment and refund.",
+      "Exchange reviews compliance.",
+      "Upon approval, listing is granted.",
+    ],
+  },
+  {
+    title: "Credit of Shares and Commencement of Trading",
+    bullets: [
+      "Issuer requests CDBL to credit shares to BO accounts.",
+      "Exchange announces trading date.",
+      "Trading commences after CDBL confirmation.",
+    ],
+  },
+];
+
+const DIRECT_LISTING: ProcStep[] = [
+  {
+    title: "Scope and applicability",
+    bullets: [
+      "Direct Listing means listing of existing securities without issuing new shares through public offering.",
+      "Direct listing is applicable for Government-Owned Companies only.",
+    ],
+  },
+  {
+    title: "Eligibility requirements",
+    bullets: [
+      "Minimum paid-up capital must be Tk. 300 million.",
+      "The company must have no accumulated loss.",
+      "Be in commercial operation for at least the last 5 years.",
+      "Have earned profit in at least 3 of the last 5 completed financial years with steady growth.",
+      "Have positive net current assets for the last 3 financial years.",
+      "Have positive net operating cash flow for the last 3 financial years.",
+      "Comply with BSEC Corporate Governance Guidelines.",
+      "No sponsor or director shall be a bank defaulter.",
+      "Obtain a minimum investment grade credit rating.",
+    ],
+  },
+  {
+    title: "Application",
+    body:
+      "Application must be submitted to DSE with prescribed form and Tk. 50,000 fee, with copy to BSEC.",
+    bullets: [
+      "Required documents including audited financial statements (last 5 years), shareholding details, undertakings, resolutions and information document must be submitted.",
+    ],
+  },
+  {
+    title: "Review timeline",
+    bullets: [
+      "DSE examines the application within 15 days and may require rectification within 30 days.",
+      "DSE shall approve listing within 15 working days after full compliance or reject within 60 days with reasons from the date of application.",
+    ],
+  },
+  {
+    title: "Information Document publication",
+    body:
+      "The Information Document must be published in one Bangla and one English national newspaper at least 7 days before trading and posted on BSEC, DSE and issuer websites.",
+  },
+  {
+    title: "Sponsor/Director restrictions",
+    bullets: [
+      "Sponsors and directors must offload at least 25% of their shareholdings within 30 trading days after trading begins.",
+      "Cannot sell more than 50% of their holdings until after one full accounting year's AGM following listing.",
+      "Are restricted from purchasing shares for 1 year from listing date.",
+    ],
+  },
+  {
+    title: "Initial trading mechanism",
+    body:
+      "Special initial trading mechanism applies including spot trading for first two days and normal T+2 settlement from the fourth trading day.",
+  },
+];
+
+function ProcedureSteps({ steps }: { steps: ProcStep[] }) {
+  const { t } = useLang();
+  return (
+    <ol className="relative space-y-4">
+      <span
+        aria-hidden
+        className="absolute left-[15px] top-2 bottom-2 w-px"
+        style={{ background: "rgb(var(--ov) / 0.08)" }}
+      />
+      {steps.map((s, i) => (
+        <li
+          key={i}
+          className="relative pl-12 p-5 rounded-xl"
+          style={{
+            background: "rgb(var(--surface-rgb) / 0.55)",
+            border: "1px solid rgb(var(--ov) / 0.06)",
+          }}
+        >
+          <span
+            className="absolute left-1 top-4 w-8 h-8 rounded-full flex items-center justify-center text-[12.5px] font-semibold tnum"
+            style={{
+              background: "rgb(var(--brand-tint) / 0.10)",
+              color: "var(--primary)",
+              border: "1px solid rgb(var(--brand-tint) / 0.25)",
+            }}
+          >
+            {i + 1}
+          </span>
+          <div className="text-[15px] font-semibold leading-snug">{t(s.title)}</div>
+          {s.body && (
+            <p className="mt-2 text-[13px] leading-[1.7]" style={{ color: "var(--text-secondary)" }}>
+              {t(s.body)}
+            </p>
+          )}
+          {s.bullets && (
+            <ul className="mt-3 space-y-1.5 text-[13px] leading-[1.7]" style={{ color: "var(--text-secondary)" }}>
+              {s.bullets.map((b, j) => (
+                <li key={j} className="flex gap-2">
+                  <span style={{ color: "var(--primary)" }} className="shrink-0">•</span>
+                  <span>{t(b)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function ProcedurePanel() {
+  const { t } = useLang();
+  return (
+    <div>
+      <PanelHeader
+        kicker="Listing"
+        title="Listing Procedure"
+        lead="From the board decision to commencement of trading — the end-to-end procedure for a public offer on the DSE, followed by the separate Direct Listing route for government-owned companies."
+      />
+
+      <section className="mb-10">
+        <h3 className="text-[18px] md:text-[20px] font-semibold tracking-tight mb-5">
+          {t("Public Offer — step-by-step")}
+        </h3>
+        <ProcedureSteps steps={PROCEDURE_STEPS} />
+      </section>
+
+      <section>
+        <div className="flex items-center gap-3 mb-5 flex-wrap">
+          <h3 className="text-[18px] md:text-[20px] font-semibold tracking-tight">
+            {t("Direct Listing Process")}
+          </h3>
+          <span
+            className="inline-flex items-center px-2.5 py-1 rounded-full text-[10.5px] uppercase tracking-[0.18em]"
+            style={{
+              background: "rgb(var(--brand-tint) / 0.08)",
+              color: "var(--primary)",
+              border: "1px solid rgb(var(--brand-tint) / 0.20)",
+            }}
+          >
+            {t("DSE (Listing) Regulations, 2015")}
+          </span>
+        </div>
+        <ProcedureSteps steps={DIRECT_LISTING} />
+      </section>
+    </div>
+  );
+}
