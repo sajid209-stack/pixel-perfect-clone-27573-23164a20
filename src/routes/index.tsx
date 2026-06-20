@@ -7,7 +7,7 @@ import { QuickAccessTiles } from "@/components/dse/QuickAccessTiles";
 import { TodaysMarket } from "@/components/dse/TodaysMarket";
 import { NewsScroll } from "@/components/dse/NewsScroll";
 import { ForeignInvestorBand } from "@/components/dse/ForeignInvestorBand";
-import { Footer } from "@/components/dse/Footer";
+import { HomeFooter } from "@/components/dse/HomeFooter";
 
 export const Route = createFileRoute("/")({
   head: () => ({
