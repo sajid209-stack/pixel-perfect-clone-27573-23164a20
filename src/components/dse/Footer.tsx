@@ -45,6 +45,8 @@ const servicesLinks: FooterLink[] = [
 const investorServicesLinks: FooterLink[] = [
   { label: "Help Desk", to: "/help-desk" },
   { label: "NRB Help Desk", to: "/help-desk/nrb" },
+  { label: "Foreign investors", to: "/foreign-investors" },
+  { label: "General Profile of Bangladesh", to: "/foreign-investors/general-profile" },
   { label: "Complaints", to: "/complaints" },
   { label: "FAQ", to: "/faq" },
   { label: "Downloads", to: "/downloads" },

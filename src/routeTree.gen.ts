@@ -56,6 +56,7 @@ import { Route as ListingShareTransferRouteImport } from './routes/listing_.shar
 import { Route as ListingEligibleInvestorsRouteImport } from './routes/listing_.eligible-investors'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
+import { Route as ForeignInvestorsGeneralProfileRouteImport } from './routes/foreign-investors_.general-profile'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 import { Route as AboutVisionRouteImport } from './routes/about_.vision'
 import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
@@ -308,6 +309,12 @@ const HelpDeskNrbRoute = HelpDeskNrbRouteImport.update({
   path: '/nrb',
   getParentRoute: () => HelpDeskRoute,
 } as any)
+const ForeignInvestorsGeneralProfileRoute =
+  ForeignInvestorsGeneralProfileRouteImport.update({
+    id: '/foreign-investors_/general-profile',
+    path: '/foreign-investors/general-profile',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CompanyTickerRoute = CompanyTickerRouteImport.update({
   id: '/company/$ticker',
   path: '/company/$ticker',
@@ -432,6 +439,7 @@ export interface FileRoutesByFullPath {
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
@@ -495,6 +503,7 @@ export interface FileRoutesByTo {
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
@@ -559,6 +568,7 @@ export interface FileRoutesById {
   '/about_/surveillance': typeof AboutSurveillanceRoute
   '/about_/vision': typeof AboutVisionRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/foreign-investors_/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
   '/listing_/eligible-investors': typeof ListingEligibleInvestorsRoute
@@ -624,6 +634,7 @@ export interface FileRouteTypes {
     | '/about/surveillance'
     | '/about/vision'
     | '/company/$ticker'
+    | '/foreign-investors/general-profile'
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing/eligible-investors'
@@ -687,6 +698,7 @@ export interface FileRouteTypes {
     | '/about/surveillance'
     | '/about/vision'
     | '/company/$ticker'
+    | '/foreign-investors/general-profile'
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing/eligible-investors'
@@ -750,6 +762,7 @@ export interface FileRouteTypes {
     | '/about_/surveillance'
     | '/about_/vision'
     | '/company/$ticker'
+    | '/foreign-investors_/general-profile'
     | '/help-desk/nrb'
     | '/indices/$code'
     | '/listing_/eligible-investors'
@@ -814,6 +827,7 @@ export interface RootRouteChildren {
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
   AboutVisionRoute: typeof AboutVisionRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
+  ForeignInvestorsGeneralProfileRoute: typeof ForeignInvestorsGeneralProfileRoute
   ListingEligibleInvestorsRoute: typeof ListingEligibleInvestorsRoute
   ListingShareTransferRoute: typeof ListingShareTransferRoute
   ListingWhyListRoute: typeof ListingWhyListRoute
@@ -1154,6 +1168,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HelpDeskNrbRouteImport
       parentRoute: typeof HelpDeskRoute
     }
+    '/foreign-investors_/general-profile': {
+      id: '/foreign-investors_/general-profile'
+      path: '/foreign-investors/general-profile'
+      fullPath: '/foreign-investors/general-profile'
+      preLoaderRoute: typeof ForeignInvestorsGeneralProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/company/$ticker': {
       id: '/company/$ticker'
       path: '/company/$ticker'
@@ -1331,6 +1352,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutSurveillanceRoute: AboutSurveillanceRoute,
   AboutVisionRoute: AboutVisionRoute,
   CompanyTickerRoute: CompanyTickerRoute,
+  ForeignInvestorsGeneralProfileRoute: ForeignInvestorsGeneralProfileRoute,
   ListingEligibleInvestorsRoute: ListingEligibleInvestorsRoute,
   ListingShareTransferRoute: ListingShareTransferRoute,
   ListingWhyListRoute: ListingWhyListRoute,
