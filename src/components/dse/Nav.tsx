@@ -67,6 +67,8 @@ const megaContent: Record<string, MegaContent> = {
         links: [
           { label: "Market at a Glance", to: "/markets/at-a-glance" },
           { label: "Market Depth", to: "/market-depth" },
+          { label: "Circuit Breaker", to: "/circuit-breaker" },
+          { label: "Recent Market Information", to: "/recent-market-information" },
           { label: "Live equities", to: "/companies" },
           { label: "Main board", to: "/companies" },
           { label: "SME board", to: "/companies" },

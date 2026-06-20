@@ -10,7 +10,7 @@ type Item =
   | { label: string; group: Item[] };
 
 const col1: Item[] = [
-  { label: "Recent Market Information", to: "/markets" },
+  { label: "Recent Market Information", to: "/recent-market-information" },
   { label: "Top 20 Shares", to: "/companies" },
   { label: "DSEX", to: "/indices/DSEX" },
   { label: "DS30", to: "/indices/DS30" },
@@ -29,6 +29,8 @@ const col1: Item[] = [
     ],
   },
   { label: "P/E at a Glance", to: "/pe" },
+  { label: "Sectoral Median P/E", to: "/sectoral-pe" },
+  { label: "Circuit Breaker", to: "/circuit-breaker" },
 ];
 
 const col2: Item[] = [
@@ -62,12 +64,13 @@ const col4: Item[] = [
   { label: "Sector-wise Company List", to: "/companies" },
   { label: "Companies by Category", to: "/companies" },
   { label: "AGM/EGM and Record Date", to: "/corporate-actions" },
-  { label: "Right Offer Documents", to: "/filings" },
-  { label: "Re-listing", to: "/filings" },
-  { label: "Direct Listing", to: "/filings" },
+  { label: "Right Offer Documents", to: "/companies/right-offers" },
+  { label: "Re-listing", to: "/companies/re-listing" },
+  { label: "Direct Listing", to: "/companies/direct-listing" },
   { label: "IPO/RPO/Rights Proceeds Utilisation", to: "/filings" },
   { label: "Auditor's Opinion and Others", to: "/filings" },
   { label: "PSI and Material Information", to: "/filings" },
+  { label: "Actuarial Valuation Status", to: "/actuarial-valuation" },
 ];
 
 const col5: Item[] = [
@@ -76,6 +79,7 @@ const col5: Item[] = [
   { label: "Complaint Cell", to: "/complaints" },
   { label: "Help Desk for NRB", to: "/help-desk/nrb" },
   { label: "Help Desk", to: "/help-desk" },
+  { label: "Investor Protection Fund", to: "/investor-protection" },
   { label: "DSE-Mobile Service", to: "/dse-mobile" },
   { label: "Back-Office Software Vendors", href: "#", external: true },
   {
@@ -87,7 +91,7 @@ const col5: Item[] = [
       { label: "Electronic Subscription System (ESS)", to: "/links" },
       { label: "DBA", to: "/links" },
       { label: "V-Next", to: "/links" },
-      { label: "CDBL", to: "/links" },
+      { label: "CDBL", to: "/cdbl" },
       { label: "BIDA", to: "/links" },
       { label: "Global Reporting Initiative (GRI)", to: "/links" },
       { label: "Other Links", to: "/links" },
