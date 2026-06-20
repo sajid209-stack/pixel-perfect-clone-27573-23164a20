@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapRouteImport } from './routes/sitemap'
+import { Route as SectoralPeRouteImport } from './routes/sectoral-pe'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RegulationsRouteImport } from './routes/regulations'
 import { Route as PublicationsRouteImport } from './routes/publications'
@@ -42,6 +43,7 @@ import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
 import { Route as BondsRouteImport } from './routes/bonds'
+import { Route as ActuarialValuationRouteImport } from './routes/actuarial-valuation'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
@@ -63,6 +65,11 @@ import { Route as AboutAtAGlanceRouteImport } from './routes/about_.at-a-glance'
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
   path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SectoralPeRoute = SectoralPeRouteImport.update({
+  id: '/sectoral-pe',
+  path: '/sectoral-pe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReportsRoute = ReportsRouteImport.update({
@@ -226,6 +233,11 @@ const BondsRoute = BondsRouteImport.update({
   path: '/bonds',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActuarialValuationRoute = ActuarialValuationRouteImport.update({
+  id: '/actuarial-valuation',
+  path: '/actuarial-valuation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -316,6 +328,7 @@ const AboutAtAGlanceRoute = AboutAtAGlanceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
@@ -348,6 +361,7 @@ export interface FileRoutesByFullPath {
   '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
+  '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
@@ -368,6 +382,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
@@ -400,6 +415,7 @@ export interface FileRoutesByTo {
   '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
+  '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
   '/about/at-a-glance': typeof AboutAtAGlanceRoute
   '/about/automation': typeof AboutAutomationRoute
@@ -421,6 +437,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
   '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
@@ -453,6 +470,7 @@ export interface FileRoutesById {
   '/publications': typeof PublicationsRoute
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
+  '/sectoral-pe': typeof SectoralPeRoute
   '/sitemap': typeof SitemapRoute
   '/about_/at-a-glance': typeof AboutAtAGlanceRoute
   '/about_/automation': typeof AboutAutomationRoute
@@ -475,6 +493,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/actuarial-valuation'
     | '/bonds'
     | '/citizen-charter'
     | '/companies'
@@ -507,6 +526,7 @@ export interface FileRouteTypes {
     | '/publications'
     | '/regulations'
     | '/reports'
+    | '/sectoral-pe'
     | '/sitemap'
     | '/about/at-a-glance'
     | '/about/automation'
@@ -527,6 +547,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/actuarial-valuation'
     | '/bonds'
     | '/citizen-charter'
     | '/companies'
@@ -559,6 +580,7 @@ export interface FileRouteTypes {
     | '/publications'
     | '/regulations'
     | '/reports'
+    | '/sectoral-pe'
     | '/sitemap'
     | '/about/at-a-glance'
     | '/about/automation'
@@ -579,6 +601,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/actuarial-valuation'
     | '/bonds'
     | '/citizen-charter'
     | '/companies'
@@ -611,6 +634,7 @@ export interface FileRouteTypes {
     | '/publications'
     | '/regulations'
     | '/reports'
+    | '/sectoral-pe'
     | '/sitemap'
     | '/about_/at-a-glance'
     | '/about_/automation'
@@ -632,6 +656,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ActuarialValuationRoute: typeof ActuarialValuationRoute
   BondsRoute: typeof BondsRoute
   CitizenCharterRoute: typeof CitizenCharterRoute
   CompaniesRoute: typeof CompaniesRoute
@@ -664,6 +689,7 @@ export interface RootRouteChildren {
   PublicationsRoute: typeof PublicationsRoute
   RegulationsRoute: typeof RegulationsRoute
   ReportsRoute: typeof ReportsRoute
+  SectoralPeRoute: typeof SectoralPeRoute
   SitemapRoute: typeof SitemapRoute
   AboutAtAGlanceRoute: typeof AboutAtAGlanceRoute
   AboutAutomationRoute: typeof AboutAutomationRoute
@@ -687,6 +713,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap'
       fullPath: '/sitemap'
       preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sectoral-pe': {
+      id: '/sectoral-pe'
+      path: '/sectoral-pe'
+      fullPath: '/sectoral-pe'
+      preLoaderRoute: typeof SectoralPeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reports': {
@@ -913,6 +946,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BondsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actuarial-valuation': {
+      id: '/actuarial-valuation'
+      path: '/actuarial-valuation'
+      fullPath: '/actuarial-valuation'
+      preLoaderRoute: typeof ActuarialValuationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -1061,6 +1101,7 @@ const IndicesRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ActuarialValuationRoute: ActuarialValuationRoute,
   BondsRoute: BondsRoute,
   CitizenCharterRoute: CitizenCharterRoute,
   CompaniesRoute: CompaniesRoute,
@@ -1093,6 +1134,7 @@ const rootRouteChildren: RootRouteChildren = {
   PublicationsRoute: PublicationsRoute,
   RegulationsRoute: RegulationsRoute,
   ReportsRoute: ReportsRoute,
+  SectoralPeRoute: SectoralPeRoute,
   SitemapRoute: SitemapRoute,
   AboutAtAGlanceRoute: AboutAtAGlanceRoute,
   AboutAutomationRoute: AboutAutomationRoute,
