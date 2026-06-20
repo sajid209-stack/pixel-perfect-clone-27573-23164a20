@@ -30,7 +30,6 @@ const CATEGORIES = [
   { id: "trading", label: "Trading & Settlement Rules" },
   { id: "circulars", label: "Circulars" },
   { id: "bsec", label: "BSEC Acts & Rules" },
-  { id: "rulebook", label: "Rulebook (PDFs)" },
 ] as const;
 
 type CatId = (typeof CATEGORIES)[number]["id"];
@@ -46,41 +45,29 @@ type Doc = {
 
 const DOCS: Doc[] = [
   // Rules & Regulations
-  { title: "DSE (Listing) Regulations, 2019", category: "rules", date: "2019-08-26", type: "PDF", href: "#" },
-  { title: "DSE (Settlement of Transactions) Regulations, 2013", category: "rules", date: "2013-05-12", type: "PDF", href: "#" },
-  { title: "DSE Members' Code of Conduct", category: "rules", date: "2017-03-04", type: "PDF", href: "#" },
-  { title: "DSE Investors' Protection Fund Regulations", category: "rules", date: "2014-11-19", type: "PDF", href: "#" },
+  { title: "TREC Regulations", category: "rules", date: "—", type: "PDF", href: "#" },
+  { title: "Corporate Governance Code", category: "rules", date: "—", type: "PDF", href: "#" },
+  { title: "Investors' Protection Fund Regulations", category: "rules", date: "—", type: "PDF", href: "#" },
+  { title: "Margin Rules", category: "rules", date: "—", type: "PDF", href: "#" },
+  { title: "TREC Holder Margin Regulations", category: "rules", date: "—", type: "PDF", href: "#" },
+  { title: "Board and Administration Regulations", category: "rules", date: "—", type: "PDF", href: "#" },
+  { title: "Demutualization Scheme", category: "rules", date: "—", type: "PDF", href: "#" },
+  { title: "Memorandum and Articles of Association", category: "rules", date: "—", type: "PDF", href: "#" },
 
   // Listing Regulations
-  { title: "Main Board Listing Requirements", category: "listing", date: "2024-02-15", type: "PDF", href: "#" },
-  { title: "SME Platform Listing Rules, 2019", category: "listing", date: "2019-10-08", type: "PDF", href: "#" },
-  { title: "Direct Listing Regulations, 2006", category: "listing", date: "2006-07-01", type: "PDF", href: "#" },
-  { title: "Book Building Method Guidelines", category: "listing", date: "2015-04-22", type: "PDF", href: "#" },
+  { title: "Listing Regulations", category: "listing", date: "—", type: "PDF", href: "#" },
 
   // Trading & Settlement
-  { title: "Automated Trading System Rules", category: "trading", date: "2022-09-30", type: "PDF", href: "#" },
-  { title: "Circuit Breaker Mechanism Notice", category: "trading", date: "2025-01-14", type: "PDF", href: "#" },
-  { title: "Margin Rules for TREC Holders", category: "trading", date: "2021-06-17", type: "PDF", href: "#" },
-  { title: "Block Market Operating Procedure", category: "trading", date: "2020-12-03", type: "PDF", href: "#" },
-  { title: "Short Sale & Securities Lending Rules", category: "trading", date: "2023-08-11", type: "PDF", href: "#" },
-
-  // Circulars
-  { title: "Circular 2026/14 — Holiday calendar revision", category: "circulars", date: "2026-05-28", type: "PDF", href: "#" },
-  { title: "Circular 2026/11 — Updated lot size policy", category: "circulars", date: "2026-04-09", type: "PDF", href: "#" },
-  { title: "Circular 2026/07 — Foreign investor KYC update", category: "circulars", date: "2026-03-02", type: "PDF", href: "#" },
-  { title: "Circular 2025/42 — Margin financing thresholds", category: "circulars", date: "2025-12-18", type: "PDF", href: "#" },
-  { title: "Circular 2025/36 — Pre-open session extension", category: "circulars", date: "2025-11-05", type: "PDF", href: "#" },
+  { title: "Settlement Regulations", category: "trading", date: "—", type: "PDF", href: "#" },
+  { title: "Settlement Guarantee Fund Regulations, 2013", category: "trading", date: "—", type: "PDF", href: "#" },
+  { title: "Settlement of Dispute Regulations, 2026", category: "trading", date: "—", type: "PDF", href: "#" },
+  { title: "Short-Sale Regulations, 2006", category: "trading", date: "—", type: "PDF", href: "#" },
+  { title: "Automated Trading Regulations, 1999", category: "trading", date: "—", type: "PDF", href: "#" },
 
   // BSEC Acts & Rules (external)
-  { title: "Securities & Exchange Ordinance, 1969", category: "bsec", date: "1969-05-08", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-  { title: "Securities & Exchange Commission Act, 1993", category: "bsec", date: "1993-06-15", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-  { title: "BSEC (Public Issue) Rules, 2015", category: "bsec", date: "2015-10-12", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-  { title: "Exchanges Demutualization Act, 2013", category: "bsec", date: "2013-04-29", type: "PDF", href: "https://www.sec.gov.bd", external: true },
-
-  // Rulebook
-  { title: "DSE Rulebook — Consolidated (2024 ed.)", category: "rulebook", date: "2024-12-31", type: "PDF", href: "#" },
-  { title: "DSE Rulebook — Amendments Index", category: "rulebook", date: "2025-09-10", type: "PDF", href: "#" },
+  { title: "The Exchanges Demutualization Act, 2013", category: "bsec", date: "—", type: "PDF", href: "https://www.sec.gov.bd", external: true },
 ];
+
 
 function RegulationsPage() {
   const [active, setActive] = useState<CatId | "all">("all");
@@ -280,7 +267,9 @@ function RegulationsPage() {
                       className="px-3 py-8 text-center text-[12.5px]"
                       style={{ color: "var(--text-muted)" }}
                     >
-                      No documents match your search.
+                      {active === "circulars"
+                        ? "Circulars will be published from DSE."
+                        : "No documents match your search."}
                     </td>
                   </tr>
                 )}
