@@ -78,6 +78,19 @@ function ListingHubPage() {
               "Benefits, eligibility, procedure, fees, regulatory provisions and downloadable forms — everything an issuer or merchant bank needs in one place.",
             )}
           </p>
+          <div className="mt-5">
+            <Link
+              to="/listing/share-transfer"
+              className="inline-flex items-center gap-2 px-3 py-2 text-[12.5px] font-semibold rounded-md"
+              style={{
+                border: "1px solid rgb(var(--ov) / 0.10)",
+                color: "var(--text-primary)",
+                background: "rgb(var(--ov) / 0.04)",
+              }}
+            >
+              {t("Share Transfer Process")} →
+            </Link>
+          </div>
         </div>
       </section>
 
