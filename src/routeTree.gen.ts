@@ -24,6 +24,7 @@ import { Route as OtcRouteImport } from './routes/otc'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as MarketsRouteImport } from './routes/markets'
+import { Route as MarketDepthRouteImport } from './routes/market-depth'
 import { Route as ListingRouteImport } from './routes/listing'
 import { Route as LinksRouteImport } from './routes/links'
 import { Route as LearnRouteImport } from './routes/learn'
@@ -163,6 +164,11 @@ const MembersRoute = MembersRouteImport.update({
 const MarketsRoute = MarketsRouteImport.update({
   id: '/markets',
   path: '/markets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketDepthRoute = MarketDepthRouteImport.update({
+  id: '/market-depth',
+  path: '/market-depth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListingRoute = ListingRouteImport.update({
@@ -529,6 +535,7 @@ export interface FileRoutesByFullPath {
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
   '/listing': typeof ListingRoute
+  '/market-depth': typeof MarketDepthRoute
   '/markets': typeof MarketsRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
@@ -611,6 +618,7 @@ export interface FileRoutesByTo {
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
   '/listing': typeof ListingRoute
+  '/market-depth': typeof MarketDepthRoute
   '/markets': typeof MarketsRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
@@ -694,6 +702,7 @@ export interface FileRoutesById {
   '/learn': typeof LearnRoute
   '/links': typeof LinksRoute
   '/listing': typeof ListingRoute
+  '/market-depth': typeof MarketDepthRoute
   '/markets': typeof MarketsRoute
   '/members': typeof MembersRoute
   '/news': typeof NewsRoute
@@ -778,6 +787,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/links'
     | '/listing'
+    | '/market-depth'
     | '/markets'
     | '/members'
     | '/news'
@@ -860,6 +870,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/links'
     | '/listing'
+    | '/market-depth'
     | '/markets'
     | '/members'
     | '/news'
@@ -942,6 +953,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/links'
     | '/listing'
+    | '/market-depth'
     | '/markets'
     | '/members'
     | '/news'
@@ -1025,6 +1037,7 @@ export interface RootRouteChildren {
   LearnRoute: typeof LearnRoute
   LinksRoute: typeof LinksRoute
   ListingRoute: typeof ListingRoute
+  MarketDepthRoute: typeof MarketDepthRoute
   MarketsRoute: typeof MarketsRoute
   MembersRoute: typeof MembersRoute
   NewsRoute: typeof NewsRoute
@@ -1176,6 +1189,13 @@ declare module '@tanstack/react-router' {
       path: '/markets'
       fullPath: '/markets'
       preLoaderRoute: typeof MarketsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/market-depth': {
+      id: '/market-depth'
+      path: '/market-depth'
+      fullPath: '/market-depth'
+      preLoaderRoute: typeof MarketDepthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/listing': {
@@ -1694,6 +1714,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnRoute: LearnRoute,
   LinksRoute: LinksRoute,
   ListingRoute: ListingRoute,
+  MarketDepthRoute: MarketDepthRoute,
   MarketsRoute: MarketsRoute,
   MembersRoute: MembersRoute,
   NewsRoute: NewsRoute,
