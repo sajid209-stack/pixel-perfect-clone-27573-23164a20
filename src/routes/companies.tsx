@@ -447,6 +447,23 @@ function ScreenerPage() {
         </div>
       </section>
 
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-10">
+        <div className="rounded-md p-5" style={{ background: "var(--surface)", border: "1px solid var(--line)" }} data-cms="companies.views">
+          <h2 className="text-[16px] font-semibold mb-3" style={{ color: "var(--ink)" }}>Browse Companies</h2>
+          <ul className="grid sm:grid-cols-3 gap-x-6 gap-y-2 text-[13px]">
+            {[
+              { label: "Sector-wise list", href: "?view=sector" },
+              { label: "Companies by Category", href: "?view=category" },
+              { label: "Closed / Non-operational Companies", href: "?view=closed" },
+            ].map((i) => (
+              <li key={i.label}>
+                <a href={i.href} className="hover:underline" style={{ color: "var(--brand-600)" }}>{i.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

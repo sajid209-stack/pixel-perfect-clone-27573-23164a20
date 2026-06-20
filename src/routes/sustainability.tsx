@@ -18,13 +18,14 @@ export const Route = createFileRoute("/sustainability")({
 });
 
 type TabId =
-  | "about" | "sse" | "gri" | "ifc" | "media" | "publications" | "training";
+  | "about" | "sse" | "gri" | "ifc" | "bb-policy" | "media" | "publications" | "training";
 
 const TABS: { id: TabId; label: string }[] = [
-  { id: "about", label: "About" },
+  { id: "about", label: "About (GRI)" },
   { id: "sse", label: "SSE Initiative Members" },
   { id: "gri", label: "GRI" },
   { id: "ifc", label: "IFC" },
+  { id: "bb-policy", label: "Bangladesh Bank Policy" },
   { id: "media", label: "Media Coverage" },
   { id: "publications", label: "Publications" },
   { id: "training", label: "Training" },
@@ -174,6 +175,23 @@ function SustainabilityPage() {
               {t("Visit IFC")} <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </>
+        )}
+
+        {tab === "bb-policy" && (
+          <Paragraph>
+            {t("Bangladesh Bank's sustainable finance and ESG policy framework for banks and financial institutions, applicable to listed issuers.")}
+          </Paragraph>
+        )}
+
+        {tab === "gri" && (
+          <div className="mt-6" data-cms="sustainability.gri.subsections">
+            <h3 className="text-[14px] font-semibold mb-2" style={{ color: "var(--ink)" }}>GRI sub-sections</h3>
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-[13px]" style={{ color: "var(--text-secondary)" }}>
+              {["Collaboration","Guidance on Reporting","Training & Seminars","Publications","Media Coverage"].map((s) => (
+                <li key={s}>• {s}</li>
+              ))}
+            </ul>
+          </div>
         )}
 
         {tab === "media" && (

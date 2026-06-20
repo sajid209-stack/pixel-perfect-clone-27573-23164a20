@@ -667,6 +667,33 @@ function MembersPage() {
         </motion.div>
       </section>
 
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-10">
+        <div className="rounded-md p-5" style={{ background: "var(--surface)", border: "1px solid var(--line)" }} data-cms="members.trec-views">
+          <h2 className="text-[16px] font-semibold mb-3" style={{ color: "var(--ink)" }}>TREC Holder Views</h2>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[13px]">
+            {[
+              { label: "By Alphabetic Order", href: "#trec-alpha" },
+              { label: "By Location", href: "#trec-location" },
+              { label: "By Authorized Representative", href: "#trec-ar" },
+              { label: "TREC Holders' Web Links", href: "#trec-weblinks" },
+              { label: "TREC Holder Search", href: "#trec-search" },
+              { label: "TREC Regulations", href: "/regulations" },
+            ].map((i) => (
+              <li key={i.label}>
+                <a
+                  href={i.href}
+                  id={i.href.startsWith("#") ? i.href.slice(1) : undefined}
+                  className="hover:underline"
+                  style={{ color: "var(--brand-600)" }}
+                >
+                  {i.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
