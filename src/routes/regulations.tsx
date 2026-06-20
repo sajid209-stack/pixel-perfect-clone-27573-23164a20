@@ -267,7 +267,9 @@ function RegulationsPage() {
                       className="px-3 py-8 text-center text-[12.5px]"
                       style={{ color: "var(--text-muted)" }}
                     >
-                      No documents match your search.
+                      {active === "circulars"
+                        ? "Circulars will be published from DSE."
+                        : "No documents match your search."}
                     </td>
                   </tr>
                 )}
