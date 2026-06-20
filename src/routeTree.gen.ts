@@ -34,9 +34,6 @@ import { Route as FinancialStatementStatusRouteImport } from './routes/financial
 import { Route as FilingsRouteImport } from './routes/filings'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DownloadsRouteImport } from './routes/downloads'
-import { Route as HolidaysRouteImport } from './routes/holidays'
-import { Route as GoingConcernRouteImport } from './routes/going-concern'
-import { Route as FinancialStatementStatusRouteImport } from './routes/financial-statement-status'
 import { Route as CorporateActionsRouteImport } from './routes/corporate-actions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
@@ -177,6 +174,21 @@ const DownloadsRoute = DownloadsRouteImport.update({
 const CorporateActionsRoute = CorporateActionsRouteImport.update({
   id: '/corporate-actions',
   path: '/corporate-actions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HolidaysRoute = HolidaysRouteImport.update({
+  id: '/holidays',
+  path: '/holidays',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GoingConcernRoute = GoingConcernRouteImport.update({
+  id: '/going-concern',
+  path: '/going-concern',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinancialStatementStatusRoute = FinancialStatementStatusRouteImport.update({
+  id: '/financial-statement-status',
+  path: '/financial-statement-status',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
