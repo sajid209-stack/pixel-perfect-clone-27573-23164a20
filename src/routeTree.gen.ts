@@ -33,17 +33,21 @@ import { Route as ForeignInvestorsRouteImport } from './routes/foreign-investors
 import { Route as FinancialStatementStatusRouteImport } from './routes/financial-statement-status'
 import { Route as FilingsRouteImport } from './routes/filings'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as DseMobileRouteImport } from './routes/dse-mobile'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as CorporateActionsRouteImport } from './routes/corporate-actions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplaintsRouteImport } from './routes/complaints'
 import { Route as CompaniesRouteImport } from './routes/companies'
+import { Route as CitizenCharterRouteImport } from './routes/citizen-charter'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
+import { Route as AboutMajorEventsRouteImport } from './routes/about_.major-events'
+import { Route as AboutAutomationRouteImport } from './routes/about_.automation'
 
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
@@ -166,6 +170,11 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DseMobileRoute = DseMobileRouteImport.update({
+  id: '/dse-mobile',
+  path: '/dse-mobile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DownloadsRoute = DownloadsRouteImport.update({
   id: '/downloads',
   path: '/downloads',
@@ -189,6 +198,11 @@ const ComplaintsRoute = ComplaintsRouteImport.update({
 const CompaniesRoute = CompaniesRouteImport.update({
   id: '/companies',
   path: '/companies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CitizenCharterRoute = CitizenCharterRouteImport.update({
+  id: '/citizen-charter',
+  path: '/citizen-charter',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BondsRoute = BondsRouteImport.update({
@@ -221,16 +235,28 @@ const CompanyTickerRoute = CompanyTickerRouteImport.update({
   path: '/company/$ticker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutMajorEventsRoute = AboutMajorEventsRouteImport.update({
+  id: '/about_/major-events',
+  path: '/about/major-events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutAutomationRoute = AboutAutomationRouteImport.update({
+  id: '/about_/automation',
+  path: '/about/automation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bonds': typeof BondsRoute
+  '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
   '/downloads': typeof DownloadsRoute
+  '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
   '/financial-statement-status': typeof FinancialStatementStatusRoute
@@ -255,6 +281,8 @@ export interface FileRoutesByFullPath {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sitemap': typeof SitemapRoute
+  '/about/automation': typeof AboutAutomationRoute
+  '/about/major-events': typeof AboutMajorEventsRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
@@ -263,11 +291,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bonds': typeof BondsRoute
+  '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
   '/downloads': typeof DownloadsRoute
+  '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
   '/financial-statement-status': typeof FinancialStatementStatusRoute
@@ -292,6 +322,8 @@ export interface FileRoutesByTo {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sitemap': typeof SitemapRoute
+  '/about/automation': typeof AboutAutomationRoute
+  '/about/major-events': typeof AboutMajorEventsRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
@@ -301,11 +333,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bonds': typeof BondsRoute
+  '/citizen-charter': typeof CitizenCharterRoute
   '/companies': typeof CompaniesRoute
   '/complaints': typeof ComplaintsRoute
   '/contact': typeof ContactRoute
   '/corporate-actions': typeof CorporateActionsRoute
   '/downloads': typeof DownloadsRoute
+  '/dse-mobile': typeof DseMobileRoute
   '/faq': typeof FaqRoute
   '/filings': typeof FilingsRoute
   '/financial-statement-status': typeof FinancialStatementStatusRoute
@@ -330,6 +364,8 @@ export interface FileRoutesById {
   '/regulations': typeof RegulationsRoute
   '/reports': typeof ReportsRoute
   '/sitemap': typeof SitemapRoute
+  '/about_/automation': typeof AboutAutomationRoute
+  '/about_/major-events': typeof AboutMajorEventsRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
   '/indices/$code': typeof IndicesCodeRoute
@@ -340,11 +376,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/bonds'
+    | '/citizen-charter'
     | '/companies'
     | '/complaints'
     | '/contact'
     | '/corporate-actions'
     | '/downloads'
+    | '/dse-mobile'
     | '/faq'
     | '/filings'
     | '/financial-statement-status'
@@ -369,6 +407,8 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/sitemap'
+    | '/about/automation'
+    | '/about/major-events'
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
@@ -377,11 +417,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/bonds'
+    | '/citizen-charter'
     | '/companies'
     | '/complaints'
     | '/contact'
     | '/corporate-actions'
     | '/downloads'
+    | '/dse-mobile'
     | '/faq'
     | '/filings'
     | '/financial-statement-status'
@@ -406,6 +448,8 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/sitemap'
+    | '/about/automation'
+    | '/about/major-events'
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
@@ -414,11 +458,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/bonds'
+    | '/citizen-charter'
     | '/companies'
     | '/complaints'
     | '/contact'
     | '/corporate-actions'
     | '/downloads'
+    | '/dse-mobile'
     | '/faq'
     | '/filings'
     | '/financial-statement-status'
@@ -443,6 +489,8 @@ export interface FileRouteTypes {
     | '/regulations'
     | '/reports'
     | '/sitemap'
+    | '/about_/automation'
+    | '/about_/major-events'
     | '/company/$ticker'
     | '/help-desk/nrb'
     | '/indices/$code'
@@ -452,11 +500,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BondsRoute: typeof BondsRoute
+  CitizenCharterRoute: typeof CitizenCharterRoute
   CompaniesRoute: typeof CompaniesRoute
   ComplaintsRoute: typeof ComplaintsRoute
   ContactRoute: typeof ContactRoute
   CorporateActionsRoute: typeof CorporateActionsRoute
   DownloadsRoute: typeof DownloadsRoute
+  DseMobileRoute: typeof DseMobileRoute
   FaqRoute: typeof FaqRoute
   FilingsRoute: typeof FilingsRoute
   FinancialStatementStatusRoute: typeof FinancialStatementStatusRoute
@@ -481,6 +531,8 @@ export interface RootRouteChildren {
   RegulationsRoute: typeof RegulationsRoute
   ReportsRoute: typeof ReportsRoute
   SitemapRoute: typeof SitemapRoute
+  AboutAutomationRoute: typeof AboutAutomationRoute
+  AboutMajorEventsRoute: typeof AboutMajorEventsRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
 }
 
@@ -654,6 +706,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dse-mobile': {
+      id: '/dse-mobile'
+      path: '/dse-mobile'
+      fullPath: '/dse-mobile'
+      preLoaderRoute: typeof DseMobileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/downloads': {
       id: '/downloads'
       path: '/downloads'
@@ -687,6 +746,13 @@ declare module '@tanstack/react-router' {
       path: '/companies'
       fullPath: '/companies'
       preLoaderRoute: typeof CompaniesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/citizen-charter': {
+      id: '/citizen-charter'
+      path: '/citizen-charter'
+      fullPath: '/citizen-charter'
+      preLoaderRoute: typeof CitizenCharterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bonds': {
@@ -731,6 +797,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompanyTickerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about_/major-events': {
+      id: '/about_/major-events'
+      path: '/about/major-events'
+      fullPath: '/about/major-events'
+      preLoaderRoute: typeof AboutMajorEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about_/automation': {
+      id: '/about_/automation'
+      path: '/about/automation'
+      fullPath: '/about/automation'
+      preLoaderRoute: typeof AboutAutomationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -761,11 +841,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BondsRoute: BondsRoute,
+  CitizenCharterRoute: CitizenCharterRoute,
   CompaniesRoute: CompaniesRoute,
   ComplaintsRoute: ComplaintsRoute,
   ContactRoute: ContactRoute,
   CorporateActionsRoute: CorporateActionsRoute,
   DownloadsRoute: DownloadsRoute,
+  DseMobileRoute: DseMobileRoute,
   FaqRoute: FaqRoute,
   FilingsRoute: FilingsRoute,
   FinancialStatementStatusRoute: FinancialStatementStatusRoute,
@@ -790,6 +872,8 @@ const rootRouteChildren: RootRouteChildren = {
   RegulationsRoute: RegulationsRoute,
   ReportsRoute: ReportsRoute,
   SitemapRoute: SitemapRoute,
+  AboutAutomationRoute: AboutAutomationRoute,
+  AboutMajorEventsRoute: AboutMajorEventsRoute,
   CompanyTickerRoute: CompanyTickerRoute,
 }
 export const routeTree = rootRouteImport
