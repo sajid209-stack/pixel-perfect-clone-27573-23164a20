@@ -70,17 +70,17 @@ const megaContent: Record<string, MegaContent> = {
           { label: "SME board", to: "/companies" },
           { label: "Block market", to: "/companies" },
           { label: "Odd lot", to: "/companies" },
-        ],
-      },
-      {
-        header: "Other instruments",
-        links: [
           { label: "Bonds & debentures", to: "/bonds" },
           { label: "Mutual funds", to: "/funds" },
           { label: "ETFs", to: "/funds" },
           { label: "OTC Market", to: "/otc" },
           { label: "Disclosures & Filings", to: "/filings" },
-          { label: "Holidays & Trading Sessions", to: "/holidays" },
+        ],
+      },
+      {
+        header: "OMS Services",
+        links: [
+          { label: "DSE-Mobile", to: "/dse-mobile" },
         ],
       },
     ],
