@@ -114,7 +114,7 @@ function ListingHubPage() {
         </div>
       </section>
 
-      <main className="max-w-[1200px] mx-auto px-6 py-10 md:py-14">
+      <main className="max-w-[1200px] mx-auto px-6 py-6 md:py-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={tab}
