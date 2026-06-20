@@ -21,10 +21,11 @@ type TabId =
   | "about" | "sse" | "gri" | "ifc" | "media" | "publications" | "training";
 
 const TABS: { id: TabId; label: string }[] = [
-  { id: "about", label: "About" },
+  { id: "about", label: "About (GRI)" },
   { id: "sse", label: "SSE Initiative Members" },
   { id: "gri", label: "GRI" },
   { id: "ifc", label: "IFC" },
+  { id: "bb-policy", label: "Bangladesh Bank Policy" },
   { id: "media", label: "Media Coverage" },
   { id: "publications", label: "Publications" },
   { id: "training", label: "Training" },
