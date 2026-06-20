@@ -26,7 +26,7 @@ const GROUPS: Group[] = [
       { label: "Indices", to: "/indices" },
       { label: "Circuit Breaker", to: "/markets", hash: "circuit" },
       { label: "P/E Ratio", to: "/pe" },
-      { label: "Market Depth", to: "/markets", hash: "depth" },
+      { label: "Market Depth", to: "/market-depth" },
       { label: "Block Transactions", to: "/markets", hash: "block" },
       { label: "Foreign Trade", to: "/foreign-investors" },
       { label: "Margin Financeable Securities", to: "/markets", hash: "margin" },
