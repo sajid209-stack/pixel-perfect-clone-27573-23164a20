@@ -436,13 +436,13 @@ function KeyStatsStrip({ co }: { co: Company }) {
   const yrPct = Math.max(0, Math.min(100, ((co.price - co.weekLow52) / Math.max(0.0001, co.weekHigh52 - co.weekLow52)) * 100));
   return (
     <section
-      className="rounded-2xl p-6 md:p-8"
+      className="rounded-2xl p-5"
       style={{ background: "rgb(var(--ov) / 0.025)", border: "1px solid rgb(var(--ov) / 0.06)" }}
     >
-      <div className="text-[11px] uppercase tracking-[0.22em] mb-5" style={{ color: "var(--text-muted)" }}>
+      <div className="text-[11px] uppercase tracking-[0.22em] mb-3" style={{ color: "var(--text-muted)" }}>
         Key statistics
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
         <StatTile label="Market cap" value={formatBDT(co.marketCap)} />
         <StatTile
           label="Free float market cap"
@@ -467,7 +467,7 @@ function KeyStatsStrip({ co }: { co: Company }) {
         <StatTile label="Adjusted opening" value={`৳ ${(co.open * 0.998).toFixed(2)}`} />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-5 mt-6">
+      <div className="grid md:grid-cols-2 gap-2.5 mt-3">
         <RangeBar
           label="Day's range"
           low={co.low}
@@ -485,7 +485,7 @@ function KeyStatsStrip({ co }: { co: Company }) {
       </div>
 
       <div
-        className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4 pt-5 border-t"
+        className="mt-3 grid grid-cols-3 gap-3 pt-3 border-t"
         style={{ borderColor: "rgb(var(--ov) / 0.06)" }}
       >
         <Stat label="Circuit upper" value={`৳ ${band.upper}`} accent="var(--green-up)" />
