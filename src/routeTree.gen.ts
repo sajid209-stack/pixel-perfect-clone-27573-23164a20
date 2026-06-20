@@ -47,6 +47,10 @@ import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as ActuarialValuationRouteImport } from './routes/actuarial-valuation'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PublicationsWeeklyRouteImport } from './routes/publications_.weekly'
+import { Route as PublicationsPressRouteImport } from './routes/publications_.press'
+import { Route as PublicationsMonthlyRouteImport } from './routes/publications_.monthly'
+import { Route as PublicationsFortnightlyRouteImport } from './routes/publications_.fortnightly'
 import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
 import { Route as ListingEligibleInvestorsRouteImport } from './routes/listing_.eligible-investors'
 import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
@@ -255,6 +259,26 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublicationsWeeklyRoute = PublicationsWeeklyRouteImport.update({
+  id: '/publications_/weekly',
+  path: '/publications/weekly',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicationsPressRoute = PublicationsPressRouteImport.update({
+  id: '/publications_/press',
+  path: '/publications/press',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicationsMonthlyRoute = PublicationsMonthlyRouteImport.update({
+  id: '/publications_/monthly',
+  path: '/publications/monthly',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicationsFortnightlyRoute = PublicationsFortnightlyRouteImport.update({
+  id: '/publications_/fortnightly',
+  path: '/publications/fortnightly',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ListingWhyListRoute = ListingWhyListRouteImport.update({
   id: '/listing_/why-list',
   path: '/listing/why-list',
@@ -392,6 +416,10 @@ export interface FileRoutesByFullPath {
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
   '/listing/why-list': typeof ListingWhyListRoute
+  '/publications/fortnightly': typeof PublicationsFortnightlyRoute
+  '/publications/monthly': typeof PublicationsMonthlyRoute
+  '/publications/press': typeof PublicationsPressRoute
+  '/publications/weekly': typeof PublicationsWeeklyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -448,6 +476,10 @@ export interface FileRoutesByTo {
   '/indices/$code': typeof IndicesCodeRoute
   '/listing/eligible-investors': typeof ListingEligibleInvestorsRoute
   '/listing/why-list': typeof ListingWhyListRoute
+  '/publications/fortnightly': typeof PublicationsFortnightlyRoute
+  '/publications/monthly': typeof PublicationsMonthlyRoute
+  '/publications/press': typeof PublicationsPressRoute
+  '/publications/weekly': typeof PublicationsWeeklyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -505,6 +537,10 @@ export interface FileRoutesById {
   '/indices/$code': typeof IndicesCodeRoute
   '/listing_/eligible-investors': typeof ListingEligibleInvestorsRoute
   '/listing_/why-list': typeof ListingWhyListRoute
+  '/publications_/fortnightly': typeof PublicationsFortnightlyRoute
+  '/publications_/monthly': typeof PublicationsMonthlyRoute
+  '/publications_/press': typeof PublicationsPressRoute
+  '/publications_/weekly': typeof PublicationsWeeklyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -563,6 +599,10 @@ export interface FileRouteTypes {
     | '/indices/$code'
     | '/listing/eligible-investors'
     | '/listing/why-list'
+    | '/publications/fortnightly'
+    | '/publications/monthly'
+    | '/publications/press'
+    | '/publications/weekly'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -619,6 +659,10 @@ export interface FileRouteTypes {
     | '/indices/$code'
     | '/listing/eligible-investors'
     | '/listing/why-list'
+    | '/publications/fortnightly'
+    | '/publications/monthly'
+    | '/publications/press'
+    | '/publications/weekly'
   id:
     | '__root__'
     | '/'
@@ -675,6 +719,10 @@ export interface FileRouteTypes {
     | '/indices/$code'
     | '/listing_/eligible-investors'
     | '/listing_/why-list'
+    | '/publications_/fortnightly'
+    | '/publications_/monthly'
+    | '/publications_/press'
+    | '/publications_/weekly'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -730,6 +778,10 @@ export interface RootRouteChildren {
   CompanyTickerRoute: typeof CompanyTickerRoute
   ListingEligibleInvestorsRoute: typeof ListingEligibleInvestorsRoute
   ListingWhyListRoute: typeof ListingWhyListRoute
+  PublicationsFortnightlyRoute: typeof PublicationsFortnightlyRoute
+  PublicationsMonthlyRoute: typeof PublicationsMonthlyRoute
+  PublicationsPressRoute: typeof PublicationsPressRoute
+  PublicationsWeeklyRoute: typeof PublicationsWeeklyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1000,6 +1052,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/publications_/weekly': {
+      id: '/publications_/weekly'
+      path: '/publications/weekly'
+      fullPath: '/publications/weekly'
+      preLoaderRoute: typeof PublicationsWeeklyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/publications_/press': {
+      id: '/publications_/press'
+      path: '/publications/press'
+      fullPath: '/publications/press'
+      preLoaderRoute: typeof PublicationsPressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/publications_/monthly': {
+      id: '/publications_/monthly'
+      path: '/publications/monthly'
+      fullPath: '/publications/monthly'
+      preLoaderRoute: typeof PublicationsMonthlyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/publications_/fortnightly': {
+      id: '/publications_/fortnightly'
+      path: '/publications/fortnightly'
+      fullPath: '/publications/fortnightly'
+      preLoaderRoute: typeof PublicationsFortnightlyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/listing_/why-list': {
       id: '/listing_/why-list'
       path: '/listing/why-list'
@@ -1191,6 +1271,10 @@ const rootRouteChildren: RootRouteChildren = {
   CompanyTickerRoute: CompanyTickerRoute,
   ListingEligibleInvestorsRoute: ListingEligibleInvestorsRoute,
   ListingWhyListRoute: ListingWhyListRoute,
+  PublicationsFortnightlyRoute: PublicationsFortnightlyRoute,
+  PublicationsMonthlyRoute: PublicationsMonthlyRoute,
+  PublicationsPressRoute: PublicationsPressRoute,
+  PublicationsWeeklyRoute: PublicationsWeeklyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
