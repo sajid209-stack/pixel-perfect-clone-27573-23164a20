@@ -236,6 +236,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Members", to: "/members" },
           { label: "Major Events", to: "/about/major-events" },
           { label: "Citizen Charter", to: "/citizen-charter" },
+          { label: "Holidays & Trading Sessions", to: "/holidays" },
         ],
       },
       {
@@ -246,7 +247,14 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
           { label: "New Automation System", to: "/about/automation" },
-          { label: "DSE-Mobile", to: "/dse-mobile" },
+        ],
+      },
+      {
+        header: "Indices",
+        links: [
+          { label: "Algorithm of DSE Indices", to: "/indices/methodology" },
+          { label: "DSEX Index", to: "/indices/$code", hash: undefined },
+          { label: "DS30 Index", to: "/indices/$code", hash: undefined },
         ],
       },
     ],
