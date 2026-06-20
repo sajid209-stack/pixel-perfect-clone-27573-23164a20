@@ -143,6 +143,19 @@ function FilingsPage() {
       </section>
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8">
+        {/* Dedicated pages */}
+        <div className="flex flex-wrap items-center gap-2 mb-5 text-[12px]">
+          <span className="uppercase tracking-[0.14em] font-semibold mr-1" style={{ color: "var(--text-secondary)" }}>
+            Browse:
+          </span>
+          <Link to="/filings/auditors-opinion" className="px-2.5 h-7 inline-flex items-center rounded-full" style={{ border: "1px solid var(--line)", color: "var(--ink)" }}>
+            Auditor's Opinion and Others
+          </Link>
+          <Link to="/filings/psi" className="px-2.5 h-7 inline-flex items-center rounded-full" style={{ border: "1px solid var(--line)", color: "var(--ink)" }}>
+            PSI and Material Information
+          </Link>
+        </div>
+
         {/* Top tabs */}
         <div className="flex flex-wrap items-center gap-3 mb-5">
           <div
