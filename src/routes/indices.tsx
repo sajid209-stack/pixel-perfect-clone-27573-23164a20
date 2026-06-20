@@ -307,9 +307,18 @@ function IndicesPage() {
           <div className="text-[11px] mb-4" style={{ color: "var(--text-secondary)" }}>
             Sample data for demonstration — live data will connect to the DSE API
           </div>
-          <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
-            DSE benchmarks
-          </h1>
+          <div className="flex items-end justify-between gap-4 flex-wrap">
+            <h1 className="text-[44px] md:text-[56px] font-semibold tracking-[-0.02em] leading-[1.04]">
+              DSE benchmarks
+            </h1>
+            <Link
+              to="/indices/methodology"
+              className="text-[13px] underline underline-offset-4 hover:opacity-80"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              Methodology →
+            </Link>
+          </div>
           <p className="mt-3 text-[15px] max-w-[640px]" style={{ color: "var(--text-secondary)" }}>
             Three indices, one tape. Track the broad market, blue chips and Shariah-screened
             universe — with charts, constituents and the names moving the levels right now.
