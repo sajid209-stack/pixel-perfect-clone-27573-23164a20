@@ -28,36 +28,12 @@ export function MarketFreshness({ label = "as provided by DSE" }: { label?: stri
     const id = setInterval(() => setState(nowInDhaka()), 30_000);
     return () => clearInterval(id);
   }, []);
-  const { date, isOpen } = state;
+  const { date } = state;
   return (
     <div
       className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px]"
       style={{ color: "var(--text-muted)" }}
     >
-      <span
-        className="inline-flex items-center gap-1.5 px-1.5 py-0.5"
-        style={{
-          background: isOpen ? "rgba(10,127,63,0.08)" : "rgba(120,120,120,0.08)",
-          border: `1px solid ${isOpen ? "rgba(10,127,63,0.25)" : "var(--line)"}`,
-          color: isOpen ? "#0a7f3f" : "var(--text-secondary)",
-          borderRadius: 2,
-          fontWeight: 600,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          fontSize: 10,
-        }}
-      >
-        <span
-          aria-hidden
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: isOpen ? "#0a7f3f" : "var(--text-muted)",
-          }}
-        />
-        {isOpen ? "Market Open" : "Market Closed"}
-      </span>
       <span>{label}</span>
       <span aria-hidden>·</span>
       <span className="tnum" style={{ fontFamily: "var(--font-mono)" }}>
