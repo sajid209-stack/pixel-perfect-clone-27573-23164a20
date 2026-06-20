@@ -67,7 +67,12 @@ import { Route as IndicesCodeRouteImport } from './routes/indices.$code'
 import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as ForeignInvestorsGeneralProfileRouteImport } from './routes/foreign-investors_.general-profile'
 import { Route as ForeignInvestorsEconomyRouteImport } from './routes/foreign-investors_.economy'
+import { Route as FilingsPsiRouteImport } from './routes/filings_.psi'
+import { Route as FilingsAuditorsOpinionRouteImport } from './routes/filings_.auditors-opinion'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
+import { Route as CompaniesRightOffersRouteImport } from './routes/companies_.right-offers'
+import { Route as CompaniesReListingRouteImport } from './routes/companies_.re-listing'
+import { Route as CompaniesDirectListingRouteImport } from './routes/companies_.direct-listing'
 import { Route as AboutVisionRouteImport } from './routes/about_.vision'
 import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
 import { Route as AboutManagementRouteImport } from './routes/about_.management'
@@ -375,9 +380,34 @@ const ForeignInvestorsEconomyRoute = ForeignInvestorsEconomyRouteImport.update({
   path: '/foreign-investors/economy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FilingsPsiRoute = FilingsPsiRouteImport.update({
+  id: '/filings_/psi',
+  path: '/filings/psi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FilingsAuditorsOpinionRoute = FilingsAuditorsOpinionRouteImport.update({
+  id: '/filings_/auditors-opinion',
+  path: '/filings/auditors-opinion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyTickerRoute = CompanyTickerRouteImport.update({
   id: '/company/$ticker',
   path: '/company/$ticker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompaniesRightOffersRoute = CompaniesRightOffersRouteImport.update({
+  id: '/companies_/right-offers',
+  path: '/companies/right-offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompaniesReListingRoute = CompaniesReListingRouteImport.update({
+  id: '/companies_/re-listing',
+  path: '/companies/re-listing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompaniesDirectListingRoute = CompaniesDirectListingRouteImport.update({
+  id: '/companies_/direct-listing',
+  path: '/companies/direct-listing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutVisionRoute = AboutVisionRouteImport.update({
@@ -506,7 +536,12 @@ export interface FileRoutesByFullPath {
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
+  '/companies/direct-listing': typeof CompaniesDirectListingRoute
+  '/companies/re-listing': typeof CompaniesReListingRoute
+  '/companies/right-offers': typeof CompaniesRightOffersRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/filings/auditors-opinion': typeof FilingsAuditorsOpinionRoute
+  '/filings/psi': typeof FilingsPsiRoute
   '/foreign-investors/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
@@ -580,7 +615,12 @@ export interface FileRoutesByTo {
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
+  '/companies/direct-listing': typeof CompaniesDirectListingRoute
+  '/companies/re-listing': typeof CompaniesReListingRoute
+  '/companies/right-offers': typeof CompaniesRightOffersRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/filings/auditors-opinion': typeof FilingsAuditorsOpinionRoute
+  '/filings/psi': typeof FilingsPsiRoute
   '/foreign-investors/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
@@ -655,7 +695,12 @@ export interface FileRoutesById {
   '/about_/management': typeof AboutManagementRoute
   '/about_/surveillance': typeof AboutSurveillanceRoute
   '/about_/vision': typeof AboutVisionRoute
+  '/companies_/direct-listing': typeof CompaniesDirectListingRoute
+  '/companies_/re-listing': typeof CompaniesReListingRoute
+  '/companies_/right-offers': typeof CompaniesRightOffersRoute
   '/company/$ticker': typeof CompanyTickerRoute
+  '/filings_/auditors-opinion': typeof FilingsAuditorsOpinionRoute
+  '/filings_/psi': typeof FilingsPsiRoute
   '/foreign-investors_/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors_/general-profile': typeof ForeignInvestorsGeneralProfileRoute
   '/help-desk/nrb': typeof HelpDeskNrbRoute
@@ -731,7 +776,12 @@ export interface FileRouteTypes {
     | '/about/management'
     | '/about/surveillance'
     | '/about/vision'
+    | '/companies/direct-listing'
+    | '/companies/re-listing'
+    | '/companies/right-offers'
     | '/company/$ticker'
+    | '/filings/auditors-opinion'
+    | '/filings/psi'
     | '/foreign-investors/economy'
     | '/foreign-investors/general-profile'
     | '/help-desk/nrb'
@@ -805,7 +855,12 @@ export interface FileRouteTypes {
     | '/about/management'
     | '/about/surveillance'
     | '/about/vision'
+    | '/companies/direct-listing'
+    | '/companies/re-listing'
+    | '/companies/right-offers'
     | '/company/$ticker'
+    | '/filings/auditors-opinion'
+    | '/filings/psi'
     | '/foreign-investors/economy'
     | '/foreign-investors/general-profile'
     | '/help-desk/nrb'
@@ -879,7 +934,12 @@ export interface FileRouteTypes {
     | '/about_/management'
     | '/about_/surveillance'
     | '/about_/vision'
+    | '/companies_/direct-listing'
+    | '/companies_/re-listing'
+    | '/companies_/right-offers'
     | '/company/$ticker'
+    | '/filings_/auditors-opinion'
+    | '/filings_/psi'
     | '/foreign-investors_/economy'
     | '/foreign-investors_/general-profile'
     | '/help-desk/nrb'
@@ -954,7 +1014,12 @@ export interface RootRouteChildren {
   AboutManagementRoute: typeof AboutManagementRoute
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
   AboutVisionRoute: typeof AboutVisionRoute
+  CompaniesDirectListingRoute: typeof CompaniesDirectListingRoute
+  CompaniesReListingRoute: typeof CompaniesReListingRoute
+  CompaniesRightOffersRoute: typeof CompaniesRightOffersRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
+  FilingsAuditorsOpinionRoute: typeof FilingsAuditorsOpinionRoute
+  FilingsPsiRoute: typeof FilingsPsiRoute
   ForeignInvestorsEconomyRoute: typeof ForeignInvestorsEconomyRoute
   ForeignInvestorsGeneralProfileRoute: typeof ForeignInvestorsGeneralProfileRoute
   ListingEligibleInvestorsRoute: typeof ListingEligibleInvestorsRoute
@@ -1375,11 +1440,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForeignInvestorsEconomyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/filings_/psi': {
+      id: '/filings_/psi'
+      path: '/filings/psi'
+      fullPath: '/filings/psi'
+      preLoaderRoute: typeof FilingsPsiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/filings_/auditors-opinion': {
+      id: '/filings_/auditors-opinion'
+      path: '/filings/auditors-opinion'
+      fullPath: '/filings/auditors-opinion'
+      preLoaderRoute: typeof FilingsAuditorsOpinionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/company/$ticker': {
       id: '/company/$ticker'
       path: '/company/$ticker'
       fullPath: '/company/$ticker'
       preLoaderRoute: typeof CompanyTickerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/companies_/right-offers': {
+      id: '/companies_/right-offers'
+      path: '/companies/right-offers'
+      fullPath: '/companies/right-offers'
+      preLoaderRoute: typeof CompaniesRightOffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/companies_/re-listing': {
+      id: '/companies_/re-listing'
+      path: '/companies/re-listing'
+      fullPath: '/companies/re-listing'
+      preLoaderRoute: typeof CompaniesReListingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/companies_/direct-listing': {
+      id: '/companies_/direct-listing'
+      path: '/companies/direct-listing'
+      fullPath: '/companies/direct-listing'
+      preLoaderRoute: typeof CompaniesDirectListingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about_/vision': {
@@ -1559,7 +1659,12 @@ const rootRouteChildren: RootRouteChildren = {
   AboutManagementRoute: AboutManagementRoute,
   AboutSurveillanceRoute: AboutSurveillanceRoute,
   AboutVisionRoute: AboutVisionRoute,
+  CompaniesDirectListingRoute: CompaniesDirectListingRoute,
+  CompaniesReListingRoute: CompaniesReListingRoute,
+  CompaniesRightOffersRoute: CompaniesRightOffersRoute,
   CompanyTickerRoute: CompanyTickerRoute,
+  FilingsAuditorsOpinionRoute: FilingsAuditorsOpinionRoute,
+  FilingsPsiRoute: FilingsPsiRoute,
   ForeignInvestorsEconomyRoute: ForeignInvestorsEconomyRoute,
   ForeignInvestorsGeneralProfileRoute: ForeignInvestorsGeneralProfileRoute,
   ListingEligibleInvestorsRoute: ListingEligibleInvestorsRoute,
