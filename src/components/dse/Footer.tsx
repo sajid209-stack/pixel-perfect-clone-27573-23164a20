@@ -205,6 +205,8 @@ export function Footer() {
             <Link to="/terms" className="cursor-pointer hover:opacity-100 opacity-80">{t("Terms")}</Link>
             <Link to="/disclaimer" className="cursor-pointer hover:opacity-100 opacity-80">{t("Disclaimer")}</Link>
             <Link to="/copyright" className="cursor-pointer hover:opacity-100 opacity-80">{t("Copyright")}</Link>
+            <Link to="/data-archives" className="cursor-pointer hover:opacity-100 opacity-80">{t("Data Archive")}</Link>
+            <Link to="/feedback" className="cursor-pointer hover:opacity-100 opacity-80">{t("Feedback")}</Link>
             <a className="cursor-pointer hover:opacity-100 opacity-80">{t("Accessibility")}</a>
           </div>
         </div>
