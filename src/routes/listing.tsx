@@ -127,7 +127,7 @@ function ListingHubPage() {
           >
             {tab === "benefits"   && <BenefitsPanel />}
             {tab === "criteria"   && <CriteriaPanel />}
-            {tab === "procedure"  && <ComingSoonPanel title="Listing Procedure" />}
+            {tab === "procedure"  && <ProcedurePanel />}
             {tab === "fees"       && <FeesPanel />}
             {tab === "timeline"   && <TimelinePanel />}
             {tab === "provisions" && <ProvisionsPanel />}
