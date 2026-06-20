@@ -234,9 +234,9 @@ const megaContent: Record<string, MegaContent> = {
         header: "Organisation",
         links: [
           { label: "Introduction to DSE", to: "/about/introduction" },
-          { label: "About us", to: "/about" },
-          { label: "Board of directors", to: "/about" },
-          { label: "Leadership", to: "/about" },
+          { label: "Mission & Vision", to: "/about/vision" },
+          { label: "Board of directors", to: "/about/board" },
+          { label: "DSE Management", to: "/about/management" },
           { label: "DSE Presidents / Chairmen", to: "/about/chairmen" },
           { label: "Members", to: "/members" },
           { label: "Major Events", to: "/about/major-events" },
@@ -247,7 +247,7 @@ const megaContent: Record<string, MegaContent> = {
       {
         header: "Governance",
         links: [
-          { label: "Heritage", to: "/about" },
+          { label: "Demutualization", to: "/about/demutualization" },
           { label: "Regulations & Rulebook", to: "/regulations" },
           { label: "Annual reports", to: "/reports" },
           { label: "Foreign investors", to: "/foreign-investors" },
@@ -264,7 +264,8 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about", image: aboutDseMegaAsset.url },
+    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about/introduction", image: aboutDseMegaAsset.url },
+
   },
   investors: {
     intro: {
@@ -745,7 +746,7 @@ function LearnPanel({ close }: { close: () => void }) {
   const col2: Item[] = [
     { title: "Reading financials", desc: "Income statement, balance sheet", to: "/learn", hash: "financials" },
     { title: "How IPOs work", desc: "Prospectus to listing day", to: "/learn", hash: "ipo" },
-    { title: "BICM courses", desc: "Professional certification", to: "/about", hash: "bicm", soon: true },
+    { title: "BICM courses", desc: "Professional certification", to: "/regulations", soon: true },
   ];
   return (
     <div style={{ width: 400 }} className="grid grid-cols-2 gap-5">
@@ -763,9 +764,9 @@ function LearnPanel({ close }: { close: () => void }) {
 
 function AboutPanel({ close }: { close: () => void }) {
   const col1: Item[] = [
-    { title: "About DSE", desc: "History, Nasdaq technology", to: "/about" },
-    { title: "Board of directors", desc: "Independent & shareholder directors", to: "/about", hash: "board" },
-    { title: "Press releases", desc: "Official DSE announcements", to: "/about", hash: "press" },
+    { title: "About DSE", desc: "Hub of all About sections", to: "/about" },
+    { title: "Board of directors", desc: "Independent & shareholder directors", to: "/about/board" },
+    { title: "Press releases", desc: "Official DSE announcements", to: "/news" },
   ];
   const col2: Item[] = [
     { title: "List on DSE", desc: "Main board, SME, bonds", to: "/listing" },
