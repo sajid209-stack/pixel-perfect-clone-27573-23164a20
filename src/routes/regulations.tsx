@@ -30,7 +30,6 @@ const CATEGORIES = [
   { id: "trading", label: "Trading & Settlement Rules" },
   { id: "circulars", label: "Circulars" },
   { id: "bsec", label: "BSEC Acts & Rules" },
-  { id: "rulebook", label: "Rulebook (PDFs)" },
 ] as const;
 
 type CatId = (typeof CATEGORIES)[number]["id"];
