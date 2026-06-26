@@ -102,6 +102,17 @@ function BoardPage() {
           </h1>
         </div>
       </section>
+      <figure className="max-w-[960px] mx-auto px-4 md:px-6 pt-6 m-0">
+        <img
+          src={boardBanner.url}
+          alt="DSE Board of Directors"
+          className="w-full block"
+          style={{ maxHeight: 360, objectFit: "cover", borderRadius: 0, border: "1px solid var(--line)" }}
+        />
+        <figcaption className="mt-2 text-[12px] italic" style={{ color: "var(--text-muted, #6b7280)" }}>
+          The DSE Board of Directors.
+        </figcaption>
+      </figure>
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {MEMBERS.map((m) => <ProfileCard key={m.name} m={m} />)}
