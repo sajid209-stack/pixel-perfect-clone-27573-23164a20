@@ -5,6 +5,9 @@ const LOVABLE_CDN_ORIGIN = "https://pixel-perfect-clone-27573.lovable.app";
 
 export function assetUrl(pointer: { url: string }): string {
   const path = pointer.url;
+  if (/^https?:\/\//i.test(path)) {
+    return path;
+  }
   if (typeof window === "undefined") {
     // SSR: emit absolute URL so it works regardless of host.
     return LOVABLE_CDN_ORIGIN + path;
