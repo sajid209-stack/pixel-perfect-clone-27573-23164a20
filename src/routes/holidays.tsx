@@ -181,6 +181,8 @@ function HolidaysPage() {
         </div>
       </section>
 
+      <TradingCalendarsSection />
+
       <Footer />
     </div>
   );
