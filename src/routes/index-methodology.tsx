@@ -109,7 +109,12 @@ function MethodologyPage() {
         </div>
       </section>
 
+      <MethodologyDocsSection />
+
       <Footer />
+    </div>
+  );
+}
     </div>
   );
 }
