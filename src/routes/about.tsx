@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
-import dseTower from "@/assets/dse-automation-4.jpg.asset.json";
+import dseTower from "@/assets/hero-dse-tower.jpg.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
