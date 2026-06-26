@@ -110,6 +110,39 @@ function LearnPage() {
           </ul>
         </div>
       </section>
+
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10">
+        <h2 className="text-[20px] font-semibold mb-3" style={{ color: "var(--ink)" }}>DSE Training Academy (DTA)</h2>
+        <p className="text-[14px] leading-relaxed max-w-[760px] mb-6" style={{ color: "var(--ink)" }}>
+          The DSE Training Academy provides professional development programmes for capital market participants — TREC holders, listed company officers, fund managers, and market professionals. Courses are conducted at the DSE Tower and are certified by the exchange.
+        </p>
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" data-cms="dta.courses">
+          {COURSES.map((c) => (
+            <li
+              key={c.title}
+              className="rounded-md p-4 hover:opacity-90 transition"
+              style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
+            >
+              <div className="text-[14px] font-semibold" style={{ color: "var(--ink)" }}>{c.title}</div>
+              <p className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>{c.desc}</p>
+              <div className="mt-3 text-[11px] uppercase tracking-[0.14em]" style={{ color: "var(--brand-600)" }}>{c.meta}</div>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <p className="text-[14px]" style={{ color: "var(--ink)" }}>
+            For registration and upcoming schedules, contact the DSE Training Academy.
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center px-4 py-2 text-[13px] font-semibold text-white"
+            style={{ background: "#0C2C53", borderRadius: 2 }}
+          >
+            Contact DTA
+          </Link>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
