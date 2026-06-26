@@ -181,10 +181,124 @@ function ListingHubPage() {
         </div>
       </section>
 
+      <FormsFeesGuidelinesSection />
+
       <Footer />
     </div>
   );
 }
+
+type FfgDoc = { title: string; file: string };
+type FfgGroup = { id: string; title: string; items: FfgDoc[] };
+
+const FFG_GROUPS: FfgGroup[] = [
+  {
+    id: "ffg-enclosures",
+    title: "Application Enclosures",
+    items: [
+      { title: "Equity Securities — Required Enclosures", file: "Equity-Securities.pdf" },
+      { title: "Debt Securities — Required Enclosures", file: "Debt-Securities.pdf" },
+      { title: "Mutual Fund / Collective Investment Scheme — Required Enclosures", file: "Mutual-Fund-or-Collective-Investment-Scheme.pdf" },
+      { title: "Direct Listing or Re-listing — Required Enclosures", file: "Direct-Listing-or-re-listing.pdf" },
+      { title: "Public Issue Application Process", file: "PublicIssueApplicationProcess.pdf" },
+    ],
+  },
+  {
+    id: "ffg-investors",
+    title: "Eligible & Qualified Investors",
+    items: [
+      { title: "Required Enclosures for Registration of Eligible Investors", file: "Required-Enclosures-For-Registration-of-Eligible-Investors.pdf" },
+      { title: "Required Enclosures for Registration of Qualified Investors", file: "RequiredEnclosuresForRegistrationofQualifiedInvestors(QIs).pdf" },
+      { title: "Eligible Investor Registration Form", file: "EIRForm.pdf" },
+      { title: "Eligible Investor Registration Process", file: "RegistrationprocessofEIs.pdf" },
+    ],
+  },
+  {
+    id: "ffg-fees",
+    title: "Fees",
+    items: [
+      { title: "Main Market Initial & Annual Listing Fees", file: "Main_Market_Initial_&_Annual_Listing_Fees.pdf" },
+    ],
+  },
+  {
+    id: "ffg-audit",
+    title: "Audit",
+    items: [
+      { title: "Panel of Audit Firms — Updated April 2026", file: "Pannel of Auditors_26.04.2026.pdf" },
+    ],
+  },
+];
+
+function FormsFeesGuidelinesSection() {
+  return (
+    <section
+      id="forms-fees-guidelines"
+      className="max-w-[1200px] mx-auto px-4 md:px-6 pb-16 pt-4"
+      data-cms-collection="listing-forms"
+    >
+      <h2
+        className="text-[22px] font-bold tracking-[-0.01em] mb-2"
+        style={{ color: "#0B2545" }}
+      >
+        Forms, Fees & Guidelines
+      </h2>
+      <p className="text-[13px] mb-6" style={{ color: "#586068" }}>
+        Application enclosures, investor registration forms, fee schedules and the panel of auditors. Document links will be connected to live files when the CMS is configured.
+      </p>
+
+      <div className="space-y-10">
+        {FFG_GROUPS.map((g) => (
+          <div key={g.id} id={g.id} data-cms-group={g.id}>
+            <h3
+              className="text-[15px] font-semibold uppercase mb-3"
+              style={{ color: "#0B2545", letterSpacing: "0.06em" }}
+            >
+              {g.title}
+            </h3>
+            <div style={{ border: "1px solid #E0E5EA", background: "#ffffff" }}>
+              {g.items.map((it, i) => (
+                <div
+                  key={it.file + it.title}
+                  data-cms-record={it.file}
+                  className="flex items-center gap-4 px-5 py-3.5 transition hover:bg-[#F4F7FA]"
+                  style={{ borderTop: i === 0 ? "none" : "1px solid #E0E5EA" }}
+                >
+                  <div
+                    className="w-9 h-9 flex items-center justify-center flex-shrink-0"
+                    style={{ background: "#F4F7FA", color: "#0B2545" }}
+                  >
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[14px] font-medium" style={{ color: "#161A1F" }}>
+                      {it.title}
+                    </div>
+                    <div className="text-[12px] mt-0.5" style={{ color: "#586068" }}>
+                      {g.title}
+                    </div>
+                  </div>
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 transition hover:bg-white"
+                    style={{
+                      color: "#185FA5",
+                      border: "1px solid #E0E5EA",
+                      background: "transparent",
+                    }}
+                  >
+                    Download
+                    <Download className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 
 /* ---------- Shared bits ---------- */
 
