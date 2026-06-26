@@ -82,6 +82,8 @@ function InvestorProtectionPage() {
           ))}
         </ul>
       </section>
+      <RegulatoryDocsSection />
+
       <Footer />
     </div>
   );
