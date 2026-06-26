@@ -163,6 +163,8 @@ function DseMobilePage() {
         </div>
       </section>
 
+      <GuidesFormsSection />
+
       <Footer />
     </div>
   );
