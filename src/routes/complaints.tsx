@@ -323,6 +323,8 @@ function ComplaintsPage() {
         </div>
       </main>
 
+      <ReferenceDocsSection />
+
       <Footer />
     </div>
   );
