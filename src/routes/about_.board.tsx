@@ -4,6 +4,7 @@ import { ChevronDown, User } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
+import boardBanner from "@/assets/dse-automation-2.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/board")({
   head: () => ({
