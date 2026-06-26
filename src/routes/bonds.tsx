@@ -1,6 +1,34 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ArrowUp, ArrowDown, Search } from "lucide-react";
+import { ArrowUp, ArrowDown, Search, FileText, Download } from "lucide-react";
+
+const GSEC_DOCS = [
+  { title: "G-Sec Primary Auction Process — BGTB Directive June 2023", file: "BGTB_G-Sec Primary Auction Process_Directive_22.06.2023.pdf", category: "Directive" },
+  { title: "Primary Dealer Bank List — BGTB", file: "Primary Dealer Bank List_BGTB_G-sec_BB.pdf", category: "Reference" },
+];
+
+function GSecDocsSection() {
+  return (
+    <section className="border-t border-border bg-muted/20">
+      <div className="mx-auto max-w-[960px] px-4 py-8 md:py-10">
+        <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-1">Government Securities Reference Documents</h2>
+        <p className="text-xs text-muted-foreground mb-4">Payload CMS placeholder · documents to be wired to live data.</p>
+        <div className="divide-y divide-border border border-border rounded-md bg-card">
+          {GSEC_DOCS.map((d) => (
+            <a key={d.file} href="#" className="flex items-center gap-3 px-4 py-3 hover:bg-muted/40 transition-colors group">
+              <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-foreground truncate">{d.title}</div>
+                <div className="text-xs text-muted-foreground">{d.category} · {d.file}</div>
+              </div>
+              <Download className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
