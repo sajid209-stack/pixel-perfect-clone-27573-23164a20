@@ -1,5 +1,35 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FileText } from "lucide-react";
+import { FileText, Download } from "lucide-react";
+
+const SCHEME_DOCS = [
+  { title: "Demutualization Scheme", file: "Demutualization Schme.pdf", category: "Scheme Document" },
+  { title: "The Exchanges Demutualization Act 2013", file: "DemuAct2013.pdf", category: "Legislation" },
+  { title: "DSE Demutualization Act Submission to BSEC — 2025", file: "DSE-Submitted-the-Demutualization-Act_2025.pdf", category: "Submission" },
+  { title: "DSE Demutualization Scheme Submission to BSEC — 2025", file: "DSE-submitted-the-Demutualization-Scheme-to-BSEC_2025.pdf", category: "Submission" },
+];
+
+function SchemeDocsSection() {
+  return (
+    <section className="border-t border-border bg-muted/20">
+      <div className="mx-auto max-w-[960px] px-4 py-8 md:py-10">
+        <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-1">Scheme Documents</h2>
+        <p className="text-xs text-muted-foreground mb-4">Payload CMS placeholder · documents to be wired to live data.</p>
+        <div className="divide-y divide-border border border-border rounded-md bg-card">
+          {SCHEME_DOCS.map((d) => (
+            <a key={d.file} href="#" className="flex items-center gap-3 px-4 py-3 hover:bg-muted/40 transition-colors group">
+              <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-foreground truncate">{d.title}</div>
+                <div className="text-xs text-muted-foreground">{d.category} · {d.file}</div>
+              </div>
+              <Download className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -53,6 +83,7 @@ function DemutualizationPage() {
           </a>
         ))}
       </section>
+      <SchemeDocsSection />
       <Footer />
     </div>
   );
