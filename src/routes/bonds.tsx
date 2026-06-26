@@ -390,6 +390,8 @@ function BondsPage() {
         </p>
       </section>
 
+      <GSecDocsSection />
+
       <Footer />
     </div>
   );
