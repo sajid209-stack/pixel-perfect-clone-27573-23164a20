@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageContext";
@@ -36,7 +37,7 @@ const news: NewsItem[] = [
     date: "Jun 04",
     title: "BSEC clarifies new margin rules for retail",
     excerpt: "Revised circular caps exposure ratios and tightens disclosure timelines for brokers.",
-    image: heroTowerAsset.url,
+    image: assetUrl(heroTowerAsset),
     alt: "Dhaka Stock Exchange tower exterior",
   },
 ];

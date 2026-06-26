@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -45,9 +46,9 @@ type Photo = {
 };
 
 const PHOTOS: Photo[] = [
-  { src: heritageCryoutAsset.url, album: "heritage", caption: "Outcry trading on Motijheel floor", year: "1998" },
-  { src: heroTowerAsset.url, album: "facilities", caption: "DSE Tower, Nikunja headquarters", year: "2018" },
-  { src: aboutDseMegaAsset.url, album: "leadership", caption: "DSE Board strategy meeting", year: "2024" },
+  { src: assetUrl(heritageCryoutAsset), album: "heritage", caption: "Outcry trading on Motijheel floor", year: "1998" },
+  { src: assetUrl(heroTowerAsset), album: "facilities", caption: "DSE Tower, Nikunja headquarters", year: "2018" },
+  { src: assetUrl(aboutDseMegaAsset), album: "leadership", caption: "DSE Board strategy meeting", year: "2024" },
   { src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=70", album: "events", caption: "Annual Investor Conference plenary", year: "2025" },
   { src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=70", album: "leadership", caption: "Chairman addressing the AGM", year: "2024" },
   { src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=70", album: "leadership", caption: "Senior management briefing", year: "2023" },

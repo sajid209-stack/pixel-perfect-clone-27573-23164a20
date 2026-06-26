@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
@@ -91,7 +92,7 @@ function IntroductionPage() {
 
           </div>
           <HistoricFigure
-            src={curbAsset.url}
+            src={assetUrl(curbAsset)}
             alt="Curb market in front of the DSE, early years"
             caption={t("Curb market in front of the DSE, early years.")}
           />
@@ -110,7 +111,7 @@ function IntroductionPage() {
             ))}
           </ul>
           <HistoricFigure
-            src={cryoutAsset.url}
+            src={assetUrl(cryoutAsset)}
             alt="Last trading day of the open cry-out system, 9 August 1998"
             caption={t("The last trading day of the open cry-out system, 9 August 1998.")}
           />

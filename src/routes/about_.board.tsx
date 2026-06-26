@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronDown, User } from "lucide-react";
@@ -104,7 +105,7 @@ function BoardPage() {
       </section>
       <figure className="max-w-[960px] mx-auto px-4 md:px-6 pt-6 m-0">
         <img
-          src={boardBanner.url}
+          src={assetUrl(boardBanner)}
           alt="DSE Board of Directors"
           className="w-full block"
           style={{ maxHeight: 360, objectFit: "cover", borderRadius: 0, border: "1px solid var(--line)" }}

@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FileText, Images } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
@@ -101,7 +102,7 @@ function AutomationPage() {
           The data center supports the Automated Trading System (ATS), the market surveillance platform, market data dissemination services, and disaster recovery infrastructure — designed to meet the operational continuity requirements of a regulated exchange.
         </p>
         <figure style={{ maxWidth: 560, border: "1px solid var(--line)", borderRadius: 0 }}>
-          <img src={dseTower.url} alt="DSE Tower exterior" loading="lazy" className="w-full h-auto block" />
+          <img src={assetUrl(dseTower)} alt="DSE Tower exterior" loading="lazy" className="w-full h-auto block" />
           <figcaption className="text-[12px] italic px-3 py-2" style={{ color: "#6b7280" }}>
             The DSE Tower houses the exchange's primary data center.
           </figcaption>

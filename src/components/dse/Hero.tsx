@@ -1,11 +1,12 @@
+import { assetUrl } from "@/lib/asset-url";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
 import heritageCryoutAsset from "@/assets/heritage-cryout-1998.jpg.asset.json";
 
-const heroTower = heroTowerAsset.url;
-const heritageCryout = heritageCryoutAsset.url;
+const heroTower = assetUrl(heroTowerAsset);
+const heritageCryout = assetUrl(heritageCryoutAsset);
 
 type Slide = {
   image: string;
