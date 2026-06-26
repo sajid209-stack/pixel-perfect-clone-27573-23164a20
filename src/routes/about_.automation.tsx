@@ -114,7 +114,19 @@ function AutomationPage() {
         </p>
       </section>
 
-
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-4">
+        <h2 className="text-[22px] md:text-[26px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
+          Picture Gallery
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {GALLERY.map((g) => (
+            <figure key={g.src} style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}>
+              <img src={g.src} alt={g.caption} loading="lazy" className="w-full h-48 object-cover" />
+              <figcaption className="text-[12px] px-3 py-2" style={{ color: "var(--ink-muted, var(--ink))" }}>{g.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
 
       <Footer />
     </div>
