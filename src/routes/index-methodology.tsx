@@ -115,6 +115,3 @@ function MethodologyPage() {
     </div>
   );
 }
-    </div>
-  );
-}
