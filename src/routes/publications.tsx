@@ -124,10 +124,120 @@ function PublicationsPage() {
         </section>
       </main>
 
+      <PublicationArchiveSection />
+
       <Footer />
     </div>
   );
 }
+
+/* ────────── Publication Archive ──────────
+ * Placeholder list — to be driven by Payload CMS 'publications' collection.
+ */
+type PubDoc = { title: string; year: number; category: string };
+
+const FORTNIGHTLY: PubDoc[] = [
+  { title: "Fortnightly Capital Market — June 2026", year: 2026, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — May 2026", year: 2026, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — April 2026", year: 2026, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — March 2026", year: 2026, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — February 2026", year: 2026, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — January 2026", year: 2026, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — December 2025", year: 2025, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — November 2025", year: 2025, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — October 2025", year: 2025, category: "Fortnightly Publication" },
+  { title: "Fortnightly Capital Market — September 2025", year: 2025, category: "Fortnightly Publication" },
+];
+
+const PUB_YEARS = [2026, 2025] as const;
+
+function PublicationArchiveSection() {
+  const [year, setYear] = useState<number | "all">("all");
+  const items = year === "all" ? FORTNIGHTLY : FORTNIGHTLY.filter((d) => d.year === year);
+
+  return (
+    <section
+      id="publication-archive"
+      className="max-w-[1180px] mx-auto px-4 pb-16 pt-4"
+      data-cms-collection="publications"
+    >
+      <h2
+        className="text-[22px] font-bold tracking-[-0.01em] mb-2"
+        style={{ color: "#0B2545" }}
+      >
+        Publication Archive
+      </h2>
+      <p className="text-[13px] mb-4" style={{ color: "#586068" }}>
+        Past issues of DSE publications. Document links will be connected to live files when the CMS is configured.
+      </p>
+
+      <div className="flex flex-wrap gap-1.5 mb-6">
+        {(["all", ...PUB_YEARS] as const).map((y) => {
+          const active = year === y;
+          return (
+            <button
+              key={String(y)}
+              onClick={() => setYear(y as number | "all")}
+              className="px-3 py-1.5 text-[12px] font-semibold transition"
+              style={{
+                background: active ? "#0B2545" : "transparent",
+                color: active ? "#ffffff" : "#586068",
+                border: "1px solid " + (active ? "#0B2545" : "#E0E5EA"),
+              }}
+            >
+              {y === "all" ? "All" : y}
+            </button>
+          );
+        })}
+      </div>
+
+      <h3
+        className="text-[15px] font-semibold uppercase mb-3"
+        style={{ color: "#0B2545", letterSpacing: "0.06em" }}
+      >
+        Fortnightly Capital Market
+      </h3>
+      <div style={{ border: "1px solid #E0E5EA", background: "#ffffff" }}>
+        {items.map((it, i) => (
+          <div
+            key={it.title}
+            data-year={it.year}
+            className="flex items-center gap-4 px-5 py-3.5 transition hover:bg-[#F4F7FA]"
+            style={{ borderTop: i === 0 ? "none" : "1px solid #E0E5EA" }}
+          >
+            <div
+              className="w-9 h-9 flex items-center justify-center flex-shrink-0"
+              style={{ background: "#F4F7FA", color: "#0B2545" }}
+            >
+              <FileText className="w-4 h-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[14px] font-medium" style={{ color: "#161A1F" }}>
+                {it.title}
+              </div>
+              <div className="text-[12px] mt-0.5" style={{ color: "#586068" }}>
+                {it.category} · {it.year}
+              </div>
+            </div>
+            <a
+              href="#"
+              className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 transition hover:bg-white"
+              style={{
+                color: "#185FA5",
+                border: "1px solid #E0E5EA",
+                background: "transparent",
+              }}
+            >
+              Download
+              <Download className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 
 function PublicationCard({ section }: { section: Section }) {
   const { t } = useLang();
