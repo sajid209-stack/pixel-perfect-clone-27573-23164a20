@@ -90,6 +90,11 @@ function IntroductionPage() {
             ))}
 
           </div>
+          <HistoricFigure
+            src={curbAsset.url}
+            alt="Curb market in front of the DSE, early years"
+            caption={t("Curb market in front of the DSE, early years.")}
+          />
         </div>
 
         <div>
@@ -104,7 +109,13 @@ function IntroductionPage() {
               <li key={f}>{t(f)}</li>
             ))}
           </ul>
+          <HistoricFigure
+            src={cryoutAsset.url}
+            alt="Last trading day of the open cry-out system, 9 August 1998"
+            caption={t("The last trading day of the open cry-out system, 9 August 1998.")}
+          />
         </div>
+
       </section>
 
       <Footer />
