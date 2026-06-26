@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Globe, BookOpen, Users } from "lucide-react";
+import { Globe, BookOpen, Users, FileText, Download } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
@@ -118,10 +118,81 @@ function ForeignInvestorsPage() {
         {tab === "nrb" && <NrbGuide />}
       </main>
 
+      <ReferenceDocsSection />
+
       <Footer />
     </div>
   );
 }
+
+/* ────────── Reference Documents ──────────
+ * Placeholder — to be driven by Payload CMS 'documents' collection.
+ */
+const REFERENCE_DOCS: { title: string; file: string; category: string }[] = [
+  { title: "Opportunity for Foreign Investors", file: "facilitiesForForeignInvestors.pdf", category: "Investor Guide" },
+  { title: "Facilities for Non-resident Bangladeshis", file: "facilitiesForNRB.pdf", category: "Investor Guide" },
+  { title: "An Introductory Startup Guide for NRB", file: "NRBguide.pdf", category: "Investor Guide" },
+];
+
+function ReferenceDocsSection() {
+  return (
+    <section
+      id="reference-documents"
+      className="max-w-[1200px] mx-auto px-6 pb-16 pt-2"
+      data-cms-collection="foreign-investor-docs"
+    >
+      <h2
+        className="text-[22px] font-bold tracking-[-0.01em] mb-2"
+        style={{ color: "#0B2545" }}
+      >
+        Reference Documents
+      </h2>
+      <p className="text-[13px] mb-4" style={{ color: "#586068" }}>
+        Official DSE guides for foreign investors and NRBs. Document links will be connected to live files when the CMS is configured.
+      </p>
+
+      <div style={{ border: "1px solid #E0E5EA", background: "#ffffff" }}>
+        {REFERENCE_DOCS.map((it, i) => (
+          <div
+            key={it.file}
+            data-cms-record={it.file}
+            className="flex items-center gap-4 px-5 py-3.5 transition hover:bg-[#F4F7FA]"
+            style={{ borderTop: i === 0 ? "none" : "1px solid #E0E5EA" }}
+          >
+            <div
+              className="w-9 h-9 flex items-center justify-center flex-shrink-0"
+              style={{ background: "#F4F7FA", color: "#0B2545" }}
+            >
+              <FileText className="w-4 h-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[14px] font-medium" style={{ color: "#161A1F" }}>
+                {it.title}
+              </div>
+              <div className="text-[12px] mt-0.5" style={{ color: "#586068" }}>
+                {it.category}
+              </div>
+            </div>
+            <a
+              href="#"
+              className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 transition hover:bg-white"
+              style={{
+                color: "#185FA5",
+                border: "1px solid #E0E5EA",
+                background: "transparent",
+              }}
+            >
+              Download
+              <Download className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+
 
 /* ─────────────────────── Foreign Investor Guide ─────────────────────── */
 
