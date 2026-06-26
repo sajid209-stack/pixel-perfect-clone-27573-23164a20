@@ -2,6 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
+import curbAsset from "@/assets/heritage-curb-market.jpg.asset.json";
+import cryoutAsset from "@/assets/heritage-cryout-1998.jpg.asset.json";
+
+function HistoricFigure({ src, alt, caption }: { src: string; alt: string; caption: string }) {
+  return (
+    <figure className="my-6 mx-auto m-0" style={{ maxWidth: 560 }}>
+      <img
+        src={src}
+        alt={alt}
+        className="w-full block"
+        style={{ borderRadius: 0, border: "1px solid var(--line)" }}
+      />
+      <figcaption className="mt-2 text-[12px] italic" style={{ color: "var(--text-muted, #6b7280)" }}>
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
 
 export const Route = createFileRoute("/about_/introduction")({
   head: () => ({
