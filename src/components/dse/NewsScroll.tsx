@@ -36,7 +36,7 @@ const news: NewsItem[] = [
     date: "Jun 04",
     title: "BSEC clarifies new margin rules for retail",
     excerpt: "Revised circular caps exposure ratios and tightens disclosure timelines for brokers.",
-    image: heroTowerAsset.url,
+    image: assetUrl(heroTowerAsset),
     alt: "Dhaka Stock Exchange tower exterior",
   },
 ];

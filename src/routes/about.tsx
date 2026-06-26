@@ -70,7 +70,7 @@ function AboutPage() {
 
       <figure className="max-w-[1200px] mx-auto px-6 pt-8 m-0">
         <img
-          src={dseTower.url}
+          src={assetUrl(dseTower)}
           alt="DSE Tower exterior"
           className="w-full block"
           style={{ maxHeight: 420, objectFit: "cover", borderRadius: 0 }}

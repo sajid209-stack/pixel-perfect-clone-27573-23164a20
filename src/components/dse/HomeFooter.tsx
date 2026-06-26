@@ -1,7 +1,7 @@
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import dseSealCoinAsset from "@/assets/dse-seal-coin.png.asset.json";
-const dseLogoCoin = dseSealCoinAsset.url;
+const dseLogoCoin = assetUrl(dseSealCoinAsset);
 import { useLang } from "@/i18n/LanguageContext";
 
 type Item =

@@ -18,8 +18,8 @@ import dseSealAsset from "@/assets/dse-seal.png.asset.json";
 import dseSealCoinAsset from "@/assets/dse-seal-coin.png.asset.json";
 import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
 import aboutDseMegaAsset from "@/assets/about-dse-mega.jpg.asset.json";
-const dseLogo = dseSealAsset.url;
-const dseLogoDark = dseSealCoinAsset.url;
+const dseLogo = assetUrl(dseSealAsset);
+const dseLogoDark = assetUrl(dseSealCoinAsset);
 import { ThemeToggle } from "./ThemeToggle";
 import { companyIndex } from "./data";
 import { useLang } from "@/i18n/LanguageContext";
@@ -271,7 +271,7 @@ const megaContent: Record<string, MegaContent> = {
         ],
       },
     ],
-    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about/introduction", image: aboutDseMegaAsset.url },
+    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about/introduction", image: assetUrl(aboutDseMegaAsset) },
 
   },
   investors: {
@@ -306,7 +306,7 @@ const megaContent: Record<string, MegaContent> = {
 };
 
 function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
-  const image = content.promo.image ?? heroTowerAsset.url;
+  const image = content.promo.image ?? assetUrl(heroTowerAsset);
   return (
     <div
       className="grid"
