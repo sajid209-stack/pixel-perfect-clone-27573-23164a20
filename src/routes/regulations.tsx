@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ExternalLink, Download } from "lucide-react";
+import { ExternalLink, Download, FileText } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
@@ -363,8 +363,155 @@ function RegulationsPage() {
         </div>
       </section>
 
+      <RulebooksSection />
+
       <Footer />
     </div>
+  );
+}
+
+/* ────────── Rulebooks & Regulatory Documents ────────── */
+type RuleDoc = { title: string; file: string };
+type RuleGroup = { id: string; title: string; items: RuleDoc[] };
+
+const RULEBOOK_GROUPS: RuleGroup[] = [
+  {
+    id: "rb-membership",
+    title: "Membership & Trading",
+    items: [
+      { title: "TREC Regulations — 2020", file: "trecregulations_2020.pdf" },
+      { title: "TREC Regulations — 2013 — Repealed", file: "TRECRegulations2013.pdf" },
+      { title: "TREC Holders' Margin Regulations 2013", file: "TREC-MarginRegulations-2013.pdf" },
+      { title: "Stock-Dealer / Broker / AR Regulation — 2000", file: "membership.pdf" },
+      { title: "Automated Trading Regulations-1999", file: "auto_trade.pdf" },
+      { title: "Short-Sale Regulations-2006", file: "shortSaleReg.pdf" },
+      { title: "Board and Administration Regulations 2013", file: "BoardandAdminRegulations2013.pdf" },
+    ],
+  },
+  {
+    id: "rb-listing",
+    title: "Listing",
+    items: [
+      { title: "Listing Regulations 2015", file: "listing_reg_2015.pdf" },
+      { title: "Listing Regulations — Repealed", file: "listing_reg_Repealed.pdf" },
+    ],
+  },
+  {
+    id: "rb-settlement",
+    title: "Settlement",
+    items: [
+      { title: "Settlement Regulations — 2013", file: "SettlementRegulations2013.pdf" },
+      { title: "Settlement of Stock Exchange Transactions Regulations-1998", file: "set_stock.pdf" },
+      { title: "Settlement of Dispute Regulations, 2026", file: "—" },
+      { title: "Settlement Guarantee Fund Regulations-2013", file: "SGF-27082014130507.pdf" },
+      { title: "Z Category T+3 Settlement Order", file: "Order_08_01.09.20201-Z Group.pdf" },
+      { title: "Z-Category Conditions", file: "Z-category-Condition.pdf" },
+    ],
+  },
+  {
+    id: "rb-margin",
+    title: "Margin",
+    items: [
+      { title: "Margin Rules — 1999", file: "margin_rules.pdf" },
+      { title: "Margin Rule 2025", file: "06.11.2025_Margin Rule 2025.pdf" },
+      { title: "Members Margin Regulation — 2000", file: "members_margin.pdf" },
+    ],
+  },
+  {
+    id: "rb-cg",
+    title: "Corporate Governance",
+    items: [
+      { title: "Corporate Governance Code 2018", file: "Corporate_Governance_Code_10.06.2018.pdf" },
+      { title: "CG Notification — Amended", file: "Notification_on_CG-07.8.12-Amended.pdf" },
+    ],
+  },
+  {
+    id: "rb-corporate",
+    title: "Corporate Documents",
+    items: [
+      { title: "Memorandum & Articles of Association", file: "MandA.pdf" },
+      { title: "The Exchanges Demutualization Act 2013", file: "DemuAct2013.pdf" },
+      { title: "Demutualization Scheme", file: "Demutualization Schme.pdf" },
+      { title: "Securities Related Laws", file: "blaws.pdf" },
+    ],
+  },
+  {
+    id: "rb-otc",
+    title: "OTC Market",
+    items: [
+      { title: "OTC Market Rules", file: "sec_otc_rules.pdf" },
+      { title: "OTC Market Rules — Amendment", file: "OTC_Amendment4OTCRules2001.pdf" },
+    ],
+  },
+];
+
+function RulebooksSection() {
+  return (
+    <section
+      id="rulebooks"
+      className="max-w-[1200px] mx-auto px-4 md:px-6 pb-16 pt-4"
+      data-cms-collection="rulebooks"
+    >
+      <h2
+        className="text-[22px] font-bold tracking-[-0.01em] mb-2"
+        style={{ color: "#0B2545" }}
+      >
+        Rulebooks & Regulatory Documents
+      </h2>
+      <p className="text-[13px] mb-6" style={{ color: "#586068" }}>
+        Official DSE regulations, grouped by subject. Document links will be connected to live files when the CMS is configured.
+      </p>
+
+      <div className="space-y-10">
+        {RULEBOOK_GROUPS.map((g) => (
+          <div key={g.id} id={g.id} data-cms-group={g.id}>
+            <h3
+              className="text-[15px] font-semibold uppercase mb-3"
+              style={{ color: "#0B2545", letterSpacing: "0.06em" }}
+            >
+              {g.title}
+            </h3>
+            <div style={{ border: "1px solid #E0E5EA", background: "#ffffff" }}>
+              {g.items.map((it, i) => (
+                <div
+                  key={it.file + it.title}
+                  data-cms-record={it.file}
+                  className="flex items-center gap-4 px-5 py-3.5 transition hover:bg-[#F4F7FA]"
+                  style={{ borderTop: i === 0 ? "none" : "1px solid #E0E5EA" }}
+                >
+                  <div
+                    className="w-9 h-9 flex items-center justify-center flex-shrink-0"
+                    style={{ background: "#F4F7FA", color: "#0B2545" }}
+                  >
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[14px] font-medium" style={{ color: "#161A1F" }}>
+                      {it.title}
+                    </div>
+                    <div className="text-[12px] mt-0.5" style={{ color: "#586068" }}>
+                      {g.title}
+                    </div>
+                  </div>
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 transition hover:bg-white"
+                    style={{
+                      color: "#185FA5",
+                      border: "1px solid #E0E5EA",
+                      background: "transparent",
+                    }}
+                  >
+                    Download
+                    <Download className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
