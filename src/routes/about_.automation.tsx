@@ -3,19 +3,7 @@ import { FileText, Images } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
-import img1 from "@/assets/dse-automation-1.jpg.asset.json";
-import img2 from "@/assets/dse-automation-2.jpg.asset.json";
-import img3 from "@/assets/dse-automation-3.jpg.asset.json";
-import img4 from "@/assets/dse-automation-4.jpg.asset.json";
-import img5 from "@/assets/dse-automation-5.jpg.asset.json";
-
-const GALLERY = [
-  { src: img4.url, caption: "DSE Tower — Nikunja-2, Dhaka" },
-  { src: img1.url, caption: "Automation project announcement" },
-  { src: img2.url, caption: "Project signing ceremony" },
-  { src: img3.url, caption: "Partner delegation" },
-  { src: img5.url, caption: "DSE leadership" },
-];
+import dseTower from "@/assets/dse-automation-4.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/automation")({
   head: () => ({
