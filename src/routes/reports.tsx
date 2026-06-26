@@ -252,7 +252,166 @@ function ReportsPage() {
         </aside>
       </main>
 
+      <ReportArchiveSection />
+
       <Footer />
     </div>
   );
 }
+
+/* ────────── Report Archive ──────────
+ * NOTE: This list is a placeholder. It will be driven by a Payload CMS
+ * 'reports' collection with fields: title, year, category, file_url, language.
+ */
+type ArchiveDoc = {
+  title: string;
+  file: string;
+  year: number;
+  category: string;
+  language?: "English" | "বাংলা";
+};
+type ArchiveGroup = { id: string; title: string; items: ArchiveDoc[] };
+
+const MONTHS: { m: string; y: number }[] = [
+  { m: "June", y: 2026 }, { m: "May", y: 2026 }, { m: "April", y: 2026 },
+  { m: "March", y: 2026 }, { m: "February", y: 2026 }, { m: "January", y: 2026 },
+  { m: "December", y: 2025 }, { m: "November", y: 2025 }, { m: "October", y: 2025 },
+  { m: "September", y: 2025 }, { m: "August", y: 2025 }, { m: "July", y: 2025 },
+  { m: "June", y: 2025 }, { m: "May", y: 2025 }, { m: "April", y: 2025 },
+  { m: "March", y: 2025 }, { m: "February", y: 2025 }, { m: "January", y: 2025 },
+  { m: "December", y: 2024 }, { m: "November", y: 2024 }, { m: "October", y: 2024 },
+  { m: "September", y: 2024 }, { m: "August", y: 2024 }, { m: "July", y: 2024 },
+  { m: "June", y: 2024 }, { m: "May", y: 2024 }, { m: "April", y: 2024 },
+  { m: "March", y: 2024 }, { m: "February", y: 2024 }, { m: "January", y: 2024 },
+];
+
+const ARCHIVE_GROUPS: ArchiveGroup[] = [
+  {
+    id: "archive-monthly",
+    title: "Monthly Market Review",
+    items: MONTHS.map((mm) => ({
+      title: `Monthly Review — ${mm.m} ${mm.y}`,
+      file: `monthly_${mm.m.toLowerCase()}_${mm.y}.pdf`,
+      year: mm.y,
+      category: "Monthly Report",
+    })),
+  },
+  {
+    id: "archive-weekly",
+    title: "Weekly Report",
+    items: [
+      { title: "Weekly Market Report — Current", file: "weekly_report.pdf", year: 2026, category: "Weekly Report" },
+    ],
+  },
+  {
+    id: "archive-annual",
+    title: "Annual Reports",
+    items: [
+      { title: "DSE Annual Report 2024–2025 — English", file: "Annual_Report_2024-2025.pdf", year: 2025, category: "Annual Report", language: "English" },
+      { title: "DSE Annual Report 2023–2024 — English", file: "Annual_Report_2023-2024.pdf", year: 2024, category: "Annual Report", language: "English" },
+      { title: "DSE Annual Report 2022–2023 — English", file: "Annual_Report_2022-2023.pdf", year: 2023, category: "Annual Report", language: "English" },
+      { title: "DSE Annual Report 2021–2022 — English", file: "Annual Report 2021-2022.pdf", year: 2022, category: "Annual Report", language: "English" },
+      { title: "DSE Annual Report 2021–2022 — বাংলা", file: "Annual_Report_2022-22_Bangla.pdf", year: 2022, category: "Annual Report", language: "বাংলা" },
+      { title: "DSE Annual Report 2020–2021 — English", file: "Annual_Report 2020-2021.pdf", year: 2021, category: "Annual Report", language: "English" },
+    ],
+  },
+];
+
+const ARCHIVE_YEARS = [2026, 2025, 2024, 2023, 2022, 2021] as const;
+
+function ReportArchiveSection() {
+  const [year, setYear] = useState<number | "all">("all");
+
+  return (
+    <section
+      id="report-archive"
+      className="max-w-[1200px] mx-auto px-4 md:px-6 pb-16 pt-4"
+      data-cms-collection="reports"
+    >
+      <h2
+        className="text-[22px] font-bold tracking-[-0.01em] mb-2"
+        style={{ color: "#0B2545" }}
+      >
+        Report Archive
+      </h2>
+      <p className="text-[13px] mb-4" style={{ color: "#586068" }}>
+        Monthly, weekly and annual reports. Document links will be connected to live files when the CMS is configured.
+      </p>
+
+      <div className="flex flex-wrap gap-1.5 mb-6">
+        {(["all", ...ARCHIVE_YEARS] as const).map((y) => {
+          const active = year === y;
+          return (
+            <button
+              key={String(y)}
+              onClick={() => setYear(y as number | "all")}
+              className="px-3 py-1.5 text-[12px] font-semibold transition"
+              style={{
+                background: active ? "#0B2545" : "transparent",
+                color: active ? "#ffffff" : "#586068",
+                border: "1px solid " + (active ? "#0B2545" : "#E0E5EA"),
+              }}
+            >
+              {y === "all" ? "All" : y}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="space-y-10">
+        {ARCHIVE_GROUPS.map((g) => {
+          const items = year === "all" ? g.items : g.items.filter((it) => it.year === year);
+          if (items.length === 0) return null;
+          return (
+            <div key={g.id} id={g.id} data-cms-group={g.id}>
+              <h3
+                className="text-[15px] font-semibold uppercase mb-3"
+                style={{ color: "#0B2545", letterSpacing: "0.06em" }}
+              >
+                {g.title}
+              </h3>
+              <div style={{ border: "1px solid #E0E5EA", background: "#ffffff" }}>
+                {items.map((it, i) => (
+                  <div
+                    key={it.file + it.title}
+                    data-cms-record={it.file}
+                    data-year={it.year}
+                    className="flex items-center gap-4 px-5 py-3.5 transition hover:bg-[#F4F7FA]"
+                    style={{ borderTop: i === 0 ? "none" : "1px solid #E0E5EA" }}
+                  >
+                    <div
+                      className="w-9 h-9 flex items-center justify-center flex-shrink-0 text-[11px] font-semibold"
+                      style={{ background: "#F4F7FA", color: "#0B2545" }}
+                    >
+                      PDF
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[14px] font-medium" style={{ color: "#161A1F" }}>
+                        {it.title}
+                      </div>
+                      <div className="text-[12px] mt-0.5" style={{ color: "#586068" }}>
+                        {it.category} · {it.year}{it.language ? ` · ${it.language}` : ""}
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 transition hover:bg-white"
+                      style={{
+                        color: "#185FA5",
+                        border: "1px solid #E0E5EA",
+                        background: "transparent",
+                      }}
+                    >
+                      Download
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
