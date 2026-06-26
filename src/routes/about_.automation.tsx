@@ -58,27 +58,49 @@ function AutomationPage() {
         </Link>
       </section>
 
-      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-3">
-        <h2 className="text-[26px] md:text-[34px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-4">
+        <h2 className="text-[22px] md:text-[26px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
           Clearing &amp; Settlement System
         </h2>
-        <p className="text-[14px] leading-relaxed" style={{ color: "var(--ink)" }}>
-          The DSE operates a T+2 rolling settlement cycle for equities. Transactions executed on trading day (T) settle on the second business day following the trade (T+2). The settlement process runs in five stages: (1) Trade execution — orders matched on the Automated Trading System; (2) Trade confirmation — contract notes issued to TREC holders; (3) Clearing — net obligations calculated via multilateral netting; (4) Securities transfer — dematerialised securities moved through CDBL (Central Depository Bangladesh Limited); (5) Fund settlement — cash obligations cleared through the designated settlement bank. DSE maintains a Settlement Guarantee Fund (SGF) to protect against TREC holder default and ensure settlement finality. Z-category companies are subject to T+3 settlement and additional restrictions per BSEC directive.
+        <p className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
+          The Dhaka Stock Exchange operates a T+2 rolling settlement cycle for equity transactions. Trades executed on a trading day (T) are settled on the second business day that follows (T+2).
         </p>
-        <p className="text-[13px] leading-relaxed pt-2" style={{ color: "var(--muted)" }}>
-          Settlement Regulations &amp; SGF Regulations → available on the{" "}
-          <Link to="/regulations" className="underline" style={{ color: "var(--brand-600)" }}>Regulations page</Link>
+        <div>
+          <h3 className="text-[15px] font-semibold mb-2" style={{ color: "var(--ink)" }}>Settlement process</h3>
+          <ol className="list-decimal pl-5 space-y-1.5 text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
+            <li><strong>Trade execution</strong> — orders are matched on the Automated Trading System (ATS)</li>
+            <li><strong>Trade confirmation</strong> — contract notes are generated and distributed to TREC holders</li>
+            <li><strong>Clearing</strong> — net obligations are calculated through multilateral netting</li>
+            <li><strong>Securities transfer</strong> — dematerialised securities move through CDBL (Central Depository Bangladesh Limited)</li>
+            <li><strong>Fund settlement</strong> — cash obligations are cleared through the designated settlement bank</li>
+            <li><strong>Completion</strong> — settlement confirmation is issued to all parties on T+2</li>
+          </ol>
+        </div>
+        <p className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
+          <strong>Settlement Guarantee Fund (SGF):</strong> DSE maintains a Settlement Guarantee Fund to protect against TREC holder default and to ensure settlement finality.
+        </p>
+        <p className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
+          <strong>Z-category securities:</strong> Companies classified in the Z category settle on a T+3 basis and are subject to additional trading restrictions as directed by BSEC.
+        </p>
+        <p className="text-[14px] pt-1">
+          <Link to="/regulations" className="underline" style={{ color: "var(--brand-600)" }}>
+            See related rules on the Regulations page →
+          </Link>
         </p>
       </section>
 
-      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-3">
-        <h2 className="text-[26px] md:text-[34px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-4">
+        <h2 className="text-[22px] md:text-[26px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
           DSE Tower &amp; Data Center
         </h2>
-        <p className="text-[14px] leading-relaxed" style={{ color: "var(--ink)" }}>
-          The DSE Tower is located at Plot 46, Road 21, Nikunja-2, Dhaka-1229, serving as the exchange's headquarters and primary data center. The facility houses the Automated Trading System (ATS), the market surveillance platform, market data dissemination infrastructure, and disaster recovery systems — designed to meet the operational continuity requirements of a regulated exchange.
+        <p className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
+          The DSE Tower is located at Plot 46, Road 21, Nikunja-2, Dhaka-1229. It serves as the headquarters of the Dhaka Stock Exchange and houses the exchange's primary data center.
+        </p>
+        <p className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
+          The data center supports the Automated Trading System (ATS), the market surveillance platform, market data dissemination services, and disaster recovery infrastructure — designed to meet the operational continuity requirements of a regulated exchange.
         </p>
       </section>
+
 
 
       <Footer />
