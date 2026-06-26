@@ -41,6 +41,20 @@ const RELATED: { label: string; to: string }[] = [
   { label: "Foreign Investor Guide", to: "/foreign-investors" },
 ];
 
+// Driven by a Payload 'courses' collection: { title, description, duration, format, category }
+const COURSES = [
+  { title: "Certificate Programme on Basics of Stock Market", desc: "Fundamentals of the capital market, trading mechanics, regulatory framework and investor protection. Suitable for new entrants.", meta: "3 days · Classroom" },
+  { title: "TREC Holder Compliance Training", desc: "Regulatory obligations for TREC-holding brokerage houses — reporting, margin, client KYC and BSEC directives.", meta: "2 days · Classroom" },
+  { title: "Financial Statement Analysis", desc: "Reading and interpreting listed company financials — income statement, balance sheet, cash flow, and ratio analysis.", meta: "2 days · Classroom" },
+  { title: "Corporate Governance for Listed Companies", desc: "Board responsibilities, disclosure obligations and the BSEC Corporate Governance Code for listed company officers.", meta: "1 day · Classroom" },
+  { title: "Derivatives & Future Products", desc: "Introduction to derivative instruments, futures mechanics and their application in the Bangladeshi capital market context.", meta: "2 days · Classroom" },
+  { title: "Portfolio Management & Asset Allocation", desc: "Modern portfolio theory, asset class selection, rebalancing strategies and performance measurement.", meta: "2 days · Classroom" },
+  { title: "Mutual Fund Operations", desc: "Structure, regulation, NAV calculation, fund accounting and investor rights for mutual fund professionals.", meta: "2 days · Classroom" },
+  { title: "Market Surveillance & Risk Management", desc: "Surveillance methodologies, circuit breaker mechanisms and risk management frameworks for exchange operations staff.", meta: "1 day · Classroom" },
+  { title: "Fixed Income & Government Securities", desc: "G-Sec auction process, bond valuation, yield curves and the secondary market for debt instruments on DSE.", meta: "1 day · Classroom" },
+  { title: "OTC Market Operations", desc: "Trading mechanics, settlement and compliance requirements for over-the-counter market participants.", meta: "1 day · Classroom" },
+];
+
 function LearnPage() {
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
@@ -96,6 +110,39 @@ function LearnPage() {
           </ul>
         </div>
       </section>
+
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10">
+        <h2 className="text-[20px] font-semibold mb-3" style={{ color: "var(--ink)" }}>DSE Training Academy (DTA)</h2>
+        <p className="text-[14px] leading-relaxed max-w-[760px] mb-6" style={{ color: "var(--ink)" }}>
+          The DSE Training Academy provides professional development programmes for capital market participants — TREC holders, listed company officers, fund managers, and market professionals. Courses are conducted at the DSE Tower and are certified by the exchange.
+        </p>
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" data-cms="dta.courses">
+          {COURSES.map((c) => (
+            <li
+              key={c.title}
+              className="rounded-md p-4 hover:opacity-90 transition"
+              style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
+            >
+              <div className="text-[14px] font-semibold" style={{ color: "var(--ink)" }}>{c.title}</div>
+              <p className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>{c.desc}</p>
+              <div className="mt-3 text-[11px] uppercase tracking-[0.14em]" style={{ color: "var(--brand-600)" }}>{c.meta}</div>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <p className="text-[14px]" style={{ color: "var(--ink)" }}>
+            For registration and upcoming schedules, contact the DSE Training Academy.
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center px-4 py-2 text-[13px] font-semibold text-white"
+            style={{ background: "#0C2C53", borderRadius: 2 }}
+          >
+            Contact DTA
+          </Link>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
