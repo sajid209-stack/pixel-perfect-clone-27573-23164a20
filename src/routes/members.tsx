@@ -15,7 +15,37 @@ import {
   ArrowUpRight,
   Filter,
   Award,
+  FileText,
+  Download,
 } from "lucide-react";
+
+const BSEC_BROKER_DOCS = [
+  { title: "BSEC Pilot Project Approved Broker List — Alphabetical Order", file: "BSEC-list-by-alphabetic-order.pdf", category: "Regulatory List" },
+  { title: "BSEC Pilot Project Approved Broker List — By TREC Number", file: "BSEC-list-by-TREC-no.pdf", category: "Regulatory List" },
+];
+
+function BsecBrokerListsSection() {
+  return (
+    <section className="border-t border-border bg-muted/20">
+      <div className="mx-auto max-w-[960px] px-4 py-8 md:py-10">
+        <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-1">BSEC Approved Broker Lists</h2>
+        <p className="text-xs text-muted-foreground mb-4">Payload CMS placeholder · documents to be wired to live data.</p>
+        <div className="divide-y divide-border border border-border rounded-md bg-card">
+          {BSEC_BROKER_DOCS.map((d) => (
+            <a key={d.file} href="#" className="flex items-center gap-3 px-4 py-3 hover:bg-muted/40 transition-colors group">
+              <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-foreground truncate">{d.title}</div>
+                <div className="text-xs text-muted-foreground">{d.category} · {d.file}</div>
+              </div>
+              <Download className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export const Route = createFileRoute("/members")({
   head: () => ({
@@ -694,6 +724,7 @@ function MembersPage() {
         </div>
       </section>
 
+      <BsecBrokerListsSection />
       <Footer />
     </div>
   );
