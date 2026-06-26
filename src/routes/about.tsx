@@ -66,7 +66,19 @@ function AboutPage() {
             Learn about the Dhaka Stock Exchange — its history, leadership, structure and operations.
           </p>
         </div>
-      </section>
+       </section>
+
+      <figure className="max-w-[1200px] mx-auto px-6 pt-8 m-0">
+        <img
+          src={dseTower.url}
+          alt="DSE Tower exterior"
+          className="w-full block"
+          style={{ maxHeight: 420, objectFit: "cover", borderRadius: 0 }}
+        />
+        <figcaption className="mt-2 text-[12px] italic" style={{ color: "#6b7280" }}>
+          DSE Tower, Nikunja — headquarters of the Dhaka Stock Exchange.
+        </figcaption>
+      </figure>
 
       <main className="max-w-[1200px] mx-auto px-6 py-12">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
