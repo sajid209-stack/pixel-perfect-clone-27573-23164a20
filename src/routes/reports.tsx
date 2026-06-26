@@ -353,7 +353,10 @@ function ReportArchiveSection() {
 
       <div className="space-y-10">
         {ARCHIVE_GROUPS.map((g) => {
-          const items = year === "all" ? g.items : g.items.filter((it) => it.year === year);
+          const items =
+            year === "all" || g.id !== "archive-monthly"
+              ? g.items
+              : g.items.filter((it) => it.year === year);
           if (items.length === 0) return null;
           return (
             <div key={g.id} id={g.id} data-cms-group={g.id}>
