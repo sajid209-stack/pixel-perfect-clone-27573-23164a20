@@ -287,37 +287,30 @@ const MONTHS: { m: string; y: number }[] = [
 
 const ARCHIVE_GROUPS: ArchiveGroup[] = [
   {
+    id: "archive-annual",
+    title: "Annual Reports",
+    items: [
+      { title: "DSE Annual Report 2024–2025 (English)", file: "Annual_Report_2024-2025.pdf", year: 2025, category: "Annual Report", language: "English" },
+      { title: "DSE Annual Report 2023–2024", file: "Annual_Report_2023-2024.pdf", year: 2024, category: "Annual Report" },
+      { title: "DSE Annual Report 2022–2023", file: "Annual_Report_2022-2023.pdf", year: 2023, category: "Annual Report" },
+      { title: "DSE Annual Report 2021–2022 (English)", file: "Annual_Report_2021-2022_EN.pdf", year: 2022, category: "Annual Report", language: "English" },
+      { title: "DSE Annual Report 2021–2022 (বাংলা)", file: "Annual_Report_2021-2022_BN.pdf", year: 2022, category: "Annual Report", language: "বাংলা" },
+      { title: "DSE Annual Report 2020–2021", file: "Annual_Report_2020-2021.pdf", year: 2021, category: "Annual Report" },
+    ],
+  },
+  {
     id: "archive-monthly",
-    title: "Monthly Market Review",
+    title: "Monthly Market Review Archive",
     items: MONTHS.map((mm) => ({
       title: `Monthly Review — ${mm.m} ${mm.y}`,
       file: `monthly_${mm.m.toLowerCase()}_${mm.y}.pdf`,
       year: mm.y,
-      category: "Monthly Report",
+      category: "Monthly Review",
     })),
-  },
-  {
-    id: "archive-weekly",
-    title: "Weekly Report",
-    items: [
-      { title: "Weekly Market Report — Current", file: "weekly_report.pdf", year: 2026, category: "Weekly Report" },
-    ],
-  },
-  {
-    id: "archive-annual",
-    title: "Annual Reports",
-    items: [
-      { title: "DSE Annual Report 2024–2025 — English", file: "Annual_Report_2024-2025.pdf", year: 2025, category: "Annual Report", language: "English" },
-      { title: "DSE Annual Report 2023–2024 — English", file: "Annual_Report_2023-2024.pdf", year: 2024, category: "Annual Report", language: "English" },
-      { title: "DSE Annual Report 2022–2023 — English", file: "Annual_Report_2022-2023.pdf", year: 2023, category: "Annual Report", language: "English" },
-      { title: "DSE Annual Report 2021–2022 — English", file: "Annual Report 2021-2022.pdf", year: 2022, category: "Annual Report", language: "English" },
-      { title: "DSE Annual Report 2021–2022 — বাংলা", file: "Annual_Report_2022-22_Bangla.pdf", year: 2022, category: "Annual Report", language: "বাংলা" },
-      { title: "DSE Annual Report 2020–2021 — English", file: "Annual_Report 2020-2021.pdf", year: 2021, category: "Annual Report", language: "English" },
-    ],
   },
 ];
 
-const ARCHIVE_YEARS = [2026, 2025, 2024, 2023, 2022, 2021] as const;
+const ARCHIVE_YEARS = [2026, 2025, 2024] as const;
 
 function ReportArchiveSection() {
   const [year, setYear] = useState<number | "all">("all");
@@ -360,7 +353,10 @@ function ReportArchiveSection() {
 
       <div className="space-y-10">
         {ARCHIVE_GROUPS.map((g) => {
-          const items = year === "all" ? g.items : g.items.filter((it) => it.year === year);
+          const items =
+            year === "all" || g.id !== "archive-monthly"
+              ? g.items
+              : g.items.filter((it) => it.year === year);
           if (items.length === 0) return null;
           return (
             <div key={g.id} id={g.id} data-cms-group={g.id}>
