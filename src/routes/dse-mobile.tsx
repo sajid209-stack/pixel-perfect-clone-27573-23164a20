@@ -1,7 +1,57 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { FileText, Download } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
+
+const GUIDES_GROUPS = [
+  {
+    heading: "For Investors",
+    docs: [
+      { title: "DSE Mobile User Guide", file: "DSE-Mobile User Guide.pdf", category: "User Guide" },
+      { title: "DSE Investor (PC/Desktop) User Guide", file: "DSE-Investor User Guide.pdf", category: "User Guide" },
+      { title: "DSE Mobile Registration Form", file: "DSE Mobile Registration Form.pdf", category: "Form" },
+      { title: "DSE Mobile Registration Form — Printable", file: "DSE Mobile Registration Form (Printable).pdf", category: "Form" },
+    ],
+  },
+  {
+    heading: "For TREC Holders",
+    docs: [
+      { title: "Guidelines of DSE Mobile Service for TRECs", file: "Guidelines of DSE-Mobile Service.pdf", category: "Guidelines" },
+      { title: "DSE Mobile Service Requisition Form — Editable", file: "DSE-Mobile Service Requisition Form (Editable).pdf", category: "Form" },
+    ],
+  },
+];
+
+function GuidesFormsSection() {
+  return (
+    <section className="border-t border-border bg-muted/20">
+      <div className="mx-auto max-w-[960px] px-4 py-8 md:py-10">
+        <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-1">Guides & Forms</h2>
+        <p className="text-xs text-muted-foreground mb-6">Payload CMS placeholder · documents to be wired to live data.</p>
+        <div className="space-y-6">
+          {GUIDES_GROUPS.map((g) => (
+            <div key={g.heading}>
+              <h3 className="text-sm font-semibold text-foreground mb-2">{g.heading}</h3>
+              <div className="divide-y divide-border border border-border rounded-md bg-card">
+                {g.docs.map((d) => (
+                  <a key={d.file} href="#" className="flex items-center gap-3 px-4 py-3 hover:bg-muted/40 transition-colors group">
+                    <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-foreground truncate">{d.title}</div>
+                      <div className="text-xs text-muted-foreground">{d.category} · {d.file}</div>
+                    </div>
+                    <Download className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export const Route = createFileRoute("/dse-mobile")({
   head: () => ({
@@ -112,6 +162,8 @@ function DseMobilePage() {
           </p>
         </div>
       </section>
+
+      <GuidesFormsSection />
 
       <Footer />
     </div>
