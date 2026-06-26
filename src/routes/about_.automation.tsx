@@ -100,20 +100,12 @@ function AutomationPage() {
         <p className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
           The data center supports the Automated Trading System (ATS), the market surveillance platform, market data dissemination services, and disaster recovery infrastructure — designed to meet the operational continuity requirements of a regulated exchange.
         </p>
-      </section>
-
-      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-4">
-        <h2 className="text-[22px] md:text-[26px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
-          Picture Gallery
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {GALLERY.map((g) => (
-            <figure key={g.src} style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}>
-              <img src={g.src} alt={g.caption} loading="lazy" className="w-full h-48 object-cover" />
-              <figcaption className="text-[12px] px-3 py-2" style={{ color: "var(--ink-muted, var(--ink))" }}>{g.caption}</figcaption>
-            </figure>
-          ))}
-        </div>
+        <figure style={{ maxWidth: 560, border: "1px solid var(--line)", borderRadius: 0 }}>
+          <img src={dseTower.url} alt="DSE Tower exterior" loading="lazy" className="w-full h-auto block" />
+          <figcaption className="text-[12px] italic px-3 py-2" style={{ color: "#6b7280" }}>
+            The DSE Tower houses the exchange's primary data center.
+          </figcaption>
+        </figure>
       </section>
 
       <Footer />
