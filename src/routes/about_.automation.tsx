@@ -3,6 +3,19 @@ import { FileText, Images } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
+import img1 from "@/assets/dse-automation-1.jpg.asset.json";
+import img2 from "@/assets/dse-automation-2.jpg.asset.json";
+import img3 from "@/assets/dse-automation-3.jpg.asset.json";
+import img4 from "@/assets/dse-automation-4.jpg.asset.json";
+import img5 from "@/assets/dse-automation-5.jpg.asset.json";
+
+const GALLERY = [
+  { src: img4.url, caption: "DSE Tower — Nikunja-2, Dhaka" },
+  { src: img1.url, caption: "Automation project announcement" },
+  { src: img2.url, caption: "Project signing ceremony" },
+  { src: img3.url, caption: "Partner delegation" },
+  { src: img5.url, caption: "DSE leadership" },
+];
 
 export const Route = createFileRoute("/about_/automation")({
   head: () => ({
@@ -101,7 +114,19 @@ function AutomationPage() {
         </p>
       </section>
 
-
+      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-4">
+        <h2 className="text-[22px] md:text-[26px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
+          Picture Gallery
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {GALLERY.map((g) => (
+            <figure key={g.src} style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}>
+              <img src={g.src} alt={g.caption} loading="lazy" className="w-full h-48 object-cover" />
+              <figcaption className="text-[12px] px-3 py-2" style={{ color: "var(--ink-muted, var(--ink))" }}>{g.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
 
       <Footer />
     </div>
