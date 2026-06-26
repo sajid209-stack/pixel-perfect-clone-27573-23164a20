@@ -244,6 +244,8 @@ function SustainabilityPage() {
         )}
       </section>
 
+      <PublicationsPoliciesSection />
+
       <Footer />
     </div>
   );
