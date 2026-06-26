@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
 import { FileText, Download } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
@@ -7,212 +7,168 @@ import { Footer } from "@/components/dse/Footer";
 export const Route = createFileRoute("/downloads")({
   head: () => ({
     meta: [
-      { title: "Downloads | Dhaka Stock Exchange" },
-      {
-        name: "description",
-        content:
-          "Regulations, index methodologies, investor guides, data service brochures and forms — all official DSE reference documents in one place.",
-      },
-      { property: "og:title", content: "Downloads | DSE" },
-      {
-        property: "og:description",
-        content:
-          "Regulations, index methodologies, investor guides, data service brochures and forms — all official DSE reference documents in one place.",
-      },
+      { title: "Download | Dhaka Stock Exchange" },
+      { name: "description", content: "Document centre for DSE — regulations, methodologies, reports and data services." },
+      { property: "og:title", content: "Download | DSE" },
+      { property: "og:description", content: "Document centre for DSE." },
     ],
   }),
   component: DownloadsPage,
 });
 
-type Doc = { title: string; file: string; category: string };
-type Group = { id: string; title: string; items: Doc[] };
+type Doc = { title: string; category: string };
+type Group = { id: string; label: string; docs: Doc[] };
 
 const GROUPS: Group[] = [
   {
     id: "regulations",
-    title: "Regulations",
-    items: [
-      { title: "Memorandum & Articles of Association", file: "MandA.pdf", category: "Regulations" },
-      { title: "The Exchanges Demutualization Act 2013", file: "DemuAct2013.pdf", category: "Regulations" },
-      { title: "Demutualization Scheme", file: "Demutualization Schme.pdf", category: "Regulations" },
-      { title: "Settlement Guarantee Fund Regulations-2013", file: "SGF-27082014130507.pdf", category: "Regulations" },
-      { title: "Short-Sale Regulations-2006", file: "shortSaleReg.pdf", category: "Regulations" },
-      { title: "Automated Trading Regulations-1999", file: "auto_trade.pdf", category: "Regulations" },
+    label: "Regulations",
+    docs: [
+      { title: "Memorandum & Articles of Association", category: "Regulation" },
+      { title: "The Exchanges Demutualization Act 2013", category: "Legislation" },
+      { title: "Demutualization Scheme", category: "Scheme Document" },
+      { title: "Settlement Guarantee Fund Regulations-2013", category: "Regulation" },
+      { title: "Short-Sale Regulations-2006", category: "Regulation" },
+      { title: "Automated Trading Regulations-1999", category: "Regulation" },
     ],
   },
   {
     id: "index-methodology",
-    title: "Index Methodology",
-    items: [
-      { title: "DSEX & DS30 Index Methodology — developed by S&P", file: "DSEX_DS30.pdf", category: "Index Methodology" },
-      { title: "DSEX Shariah Index Methodology", file: "DSES.pdf", category: "Index Methodology" },
+    label: "Index Methodology",
+    docs: [
+      { title: "DSEX & DS30 Index Methodology (S&P)", category: "Index Methodology" },
+      { title: "DSEX Shariah Index Methodology", category: "Index Methodology" },
     ],
   },
   {
     id: "foreign-investors",
-    title: "Foreign Investors",
-    items: [
-      { title: "Opportunity for Foreign Investors", file: "facilitiesForForeignInvestors.pdf", category: "Foreign Investors" },
-      { title: "Facilities for Non-resident Bangladeshis", file: "facilitiesForNRB.pdf", category: "Foreign Investors" },
+    label: "Foreign Investors",
+    docs: [
+      { title: "Opportunity for Foreign Investors", category: "Investor Guide" },
+      { title: "Facilities for Non-resident Bangladeshis", category: "Investor Guide" },
     ],
   },
   {
     id: "data-services",
-    title: "Data Services",
-    items: [
-      { title: "Introduction to DSE Data Sale Services", file: "Introduction of DSE Data Sale Services.pdf", category: "Data Services" },
-      { title: "Market Data Service — MDS", file: "iMDS.pdf", category: "Data Services" },
-      { title: "End-of-Day Data — EOD", file: "EOD.pdf", category: "Data Services" },
-      { title: "API for BHOMS", file: "BHOMS_Brochure_v1.1.pdf", category: "Data Services" },
+    label: "Data Services",
+    docs: [
+      { title: "Introduction to DSE Data Sale Services", category: "Data Services" },
+      { title: "Market Data Service (MDS)", category: "Data Services" },
+      { title: "End-of-Day Data (EOD)", category: "Data Services" },
+      { title: "API for BHOMS", category: "Data Services" },
     ],
   },
   {
     id: "reports",
-    title: "Reports",
-    items: [
-      { title: "Weekly Market Report", file: "weekly_report.pdf", category: "Reports" },
+    label: "Reports",
+    docs: [
+      { title: "Weekly Market Report", category: "Report" },
     ],
   },
   {
     id: "sustainability",
-    title: "Sustainability",
-    items: [
-      { title: "DSE and GRI Collaboration", file: "DSE-&-GRI-Collaborations.pdf", category: "Sustainability" },
-      { title: "Guidance Document for Sustainability Reporting — GRI", file: "Guidance-Document-for-Sustainability-Reporting-Based-On-GRI.pdf", category: "Sustainability" },
-      { title: "Bangladesh Bank Sustainable Finance Policy", file: "dec312020sfd05.pdf", category: "Sustainability" },
+    label: "Sustainability",
+    docs: [
+      { title: "DSE and GRI Collaboration", category: "Collaboration" },
+      { title: "Guidance Document for Sustainability Reporting (GRI)", category: "Reporting Guide" },
+      { title: "Bangladesh Bank Sustainable Finance Policy", category: "Policy" },
     ],
   },
 ];
 
 function DownloadsPage() {
-  const [activeId, setActiveId] = useState(GROUPS[0].id);
+  const [active, setActive] = useState<string>(GROUPS[0].id);
 
   useEffect(() => {
-    const sections = GROUPS.map((g) => document.getElementById(g.id)).filter(
-      (el): el is HTMLElement => !!el,
-    );
     const obs = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-        if (visible) setActiveId(visible.target.id);
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible) setActive(visible.target.id);
       },
-      { rootMargin: "-120px 0px -65% 0px", threshold: 0 },
+      { rootMargin: "-120px 0px -60% 0px", threshold: 0 }
     );
-    sections.forEach((s) => obs.observe(s));
+    GROUPS.forEach((g) => {
+      const el = document.getElementById(g.id);
+      if (el) obs.observe(el);
+    });
     return () => obs.disconnect();
   }, []);
 
-  return (
-    <div style={{ background: "#ffffff", color: "#161A1F" }} className="min-h-screen">
-      <Nav />
+  const totalDocs = useMemo(() => GROUPS.reduce((a, g) => a + g.docs.length, 0), []);
 
-      <section className="border-b" style={{ borderColor: "#E0E5EA" }}>
-        <div className="max-w-[1100px] mx-auto px-6 pt-10 pb-8">
-          <div className="text-[11px] mb-3" style={{ color: "#586068" }}>
-            <Link to="/" className="hover:opacity-80">Home</Link>
-            <span className="mx-2 opacity-50">›</span>
-            <span>Downloads</span>
+  return (
+    <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
+      <Nav />
+      <section className="border-b" style={{ borderColor: "var(--line)" }}>
+        <div className="max-w-[1100px] mx-auto px-4 md:px-6 py-6 md:py-8">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--brand-600)" }}>
+            Document Centre
           </div>
-          <h1
-            className="text-[40px] md:text-[52px] font-semibold tracking-[-0.02em] leading-[1.05]"
-            style={{ color: "#0B2545" }}
-          >
-            Downloads
+          <h1 className="mt-2 text-[26px] md:text-[34px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
+            Download
           </h1>
-          <p className="mt-4 text-[15px] max-w-[760px]" style={{ color: "#586068" }}>
-            Regulations, index methodologies, investor guides, data service brochures
-            and forms — all official DSE reference documents in one place.
-          </p>
-          <p
-            className="mt-4 text-[12px] inline-block px-3 py-1.5"
-            style={{
-              background: "#F4F7FA",
-              color: "#586068",
-              border: "1px solid #E0E5EA",
-            }}
-          >
-            Document links will be connected to live files when the CMS is configured.
+          <p className="mt-2 text-[13px]" style={{ color: "var(--text-secondary)" }}>
+            {totalDocs} documents · Document links will be connected to live files when CMS is configured.
           </p>
         </div>
       </section>
 
       <div
         className="sticky top-0 z-30 border-b backdrop-blur"
-        style={{ borderColor: "#E0E5EA", background: "rgba(255,255,255,0.92)" }}
+        style={{ background: "color-mix(in srgb, var(--bg) 92%, transparent)", borderColor: "var(--line)" }}
       >
-        <div className="max-w-[1100px] mx-auto px-6 py-2.5 flex gap-1 overflow-x-auto">
-          {GROUPS.map((g) => {
-            const active = activeId === g.id;
-            return (
+        <div className="max-w-[1100px] mx-auto px-4 md:px-6 py-2 overflow-x-auto">
+          <div className="flex gap-2 whitespace-nowrap">
+            {GROUPS.map((g) => (
               <a
                 key={g.id}
                 href={`#${g.id}`}
-                className="text-[12px] font-medium px-3 py-1.5 whitespace-nowrap transition"
+                className="px-3 py-1.5 text-[12px] font-medium border transition"
                 style={{
-                  color: active ? "#185FA5" : "#586068",
-                  borderBottom: active ? "2px solid #185FA5" : "2px solid transparent",
+                  borderRadius: 2,
+                  borderColor: active === g.id ? "#0C2C53" : "var(--line)",
+                  background: active === g.id ? "#0C2C53" : "transparent",
+                  color: active === g.id ? "#fff" : "var(--ink)",
                 }}
               >
-                {g.title}
+                {g.label}
               </a>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
 
-      <main className="max-w-[1100px] mx-auto px-6 py-12 space-y-12">
+      <section className="max-w-[1100px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-10">
         {GROUPS.map((g) => (
-          <section key={g.id} id={g.id} data-cms-collection="documents" data-cms-group={g.id}>
-            <h2
-              className="text-[22px] font-bold tracking-[-0.01em] mb-4"
-              style={{ color: "#0B2545" }}
-            >
-              {g.title}
+          <div key={g.id} id={g.id} className="scroll-mt-24">
+            <h2 className="text-[18px] md:text-[20px] font-semibold mb-3" style={{ color: "var(--ink)" }}>
+              {g.label}
             </h2>
-            <div style={{ border: "1px solid #E0E5EA", background: "#ffffff" }}>
-              {g.items.map((it, i) => (
-                <div
-                  key={it.file}
-                  data-cms-record={it.file}
-                  className="flex items-center gap-4 px-5 py-3.5 transition hover:bg-[#F4F7FA]"
-                  style={{
-                    borderTop: i === 0 ? "none" : "1px solid #E0E5EA",
-                  }}
+            <div className="divide-y border" style={{ borderColor: "var(--line)", background: "var(--surface)" }}>
+              {g.docs.map((d) => (
+                <a
+                  key={d.title}
+                  href="#"
+                  className="flex items-center gap-4 px-4 py-3 hover:bg-muted/40 transition-colors group"
                 >
-                  <div
-                    className="w-9 h-9 flex items-center justify-center flex-shrink-0"
-                    style={{ background: "#F4F7FA", color: "#0B2545" }}
-                  >
-                    <FileText className="w-4 h-4" />
-                  </div>
+                  <FileText className="w-4 h-4 shrink-0" style={{ color: "var(--brand-600)" }} />
                   <div className="flex-1 min-w-0">
-                    <div className="text-[14px] font-medium" style={{ color: "#161A1F" }}>
-                      {it.title}
-                    </div>
-                    <div className="text-[12px] mt-0.5" style={{ color: "#586068" }}>
-                      {it.category}
-                    </div>
+                    <div className="text-[14px] font-medium truncate" style={{ color: "var(--ink)" }}>{d.title}</div>
+                    <div className="text-[11px] uppercase tracking-[0.12em] mt-0.5" style={{ color: "var(--muted)" }}>{d.category}</div>
                   </div>
-                  <a
-                    href="#"
-                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 transition hover:bg-white"
-                    style={{
-                      color: "#185FA5",
-                      border: "1px solid #E0E5EA",
-                      background: "transparent",
-                    }}
+                  <span
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-semibold border transition"
+                    style={{ borderColor: "var(--line)", color: "var(--ink)", borderRadius: 2 }}
                   >
                     Download
                     <Download className="w-3.5 h-3.5" />
-                  </a>
-                </div>
+                  </span>
+                </a>
               ))}
             </div>
-          </section>
+          </div>
         ))}
-      </main>
+      </section>
 
       <Footer />
     </div>
