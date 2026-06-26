@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { Nav } from "@/components/dse/Nav";

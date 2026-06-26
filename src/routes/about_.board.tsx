@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronDown, User } from "lucide-react";

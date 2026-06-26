@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import dseSealCoinAsset from "@/assets/dse-seal-coin.png.asset.json";

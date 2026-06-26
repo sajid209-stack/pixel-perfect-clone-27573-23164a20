@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";

@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageContext";

@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
