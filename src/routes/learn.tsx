@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSlider";
 
 export const Route = createFileRoute("/learn")({
   head: () => ({
@@ -59,6 +60,7 @@ function LearnPage() {
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <Nav />
+      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} />
       <section className="border-b" style={{ borderColor: "var(--line)" }}>
         <div className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--brand-600)" }}>

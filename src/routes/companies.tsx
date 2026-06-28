@@ -5,6 +5,7 @@ import { ArrowDown, ArrowUp, ArrowUpRight, ChevronDown, Info, Search, SlidersHor
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSlider";
 import { StarButton } from "@/components/dse/StarButton";
 import { CategoryBadge } from "@/components/dse/CategoryBadge";
 import { useWatchlist, useRecentlyViewed } from "@/lib/userPrefs";
@@ -139,6 +140,7 @@ function ScreenerPage() {
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
       <Nav />
+      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} />
 
       {/* Hero */}
       <section className="border-b" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>

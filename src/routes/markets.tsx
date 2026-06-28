@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSlider";
 import { topGainers, topLosers, mostActive, sectors } from "@/components/dse/data";
 
 export const Route = createFileRoute("/markets")({
@@ -87,6 +88,7 @@ function MarketsPage() {
   return (
     <div className="min-h-screen" style={{ background: "var(--surface)", color: "var(--ink)" }}>
       <Nav />
+      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} />
 
       {/* Header */}
       <section style={{ borderBottom: "1px solid var(--line)", background: "var(--surface-2)" }}>
