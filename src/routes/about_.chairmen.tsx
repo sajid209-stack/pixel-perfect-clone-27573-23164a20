@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
+import heroAsset from "@/assets/dse-automation-4.jpg.asset.json";
 import { useLang } from "@/i18n/LanguageContext";
 
 export const Route = createFileRoute("/about_/chairmen")({
@@ -43,6 +45,7 @@ function ChairmenPage() {
           </p>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE leadership" />
 
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-3">
         <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>

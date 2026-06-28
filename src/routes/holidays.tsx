@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FileText, Download } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
 import { useLang } from "@/i18n/LanguageContext";
+import heroAsset from "@/assets/dse-automation-2.jpg.asset.json";
 
 const TRADING_CALENDARS = [
   ["Q1", "2025–2026"], ["Q2", "2025–2026"], ["Q3", "2025–2026"], ["Q4", "2025–2026"],
@@ -95,6 +97,7 @@ function HolidaysPage() {
           </h1>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE building" />
 
       {/* List of holidays */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-10">
