@@ -49,6 +49,7 @@ function MajorEventsPage() {
           </h1>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE Tower" />
 
       <section className="max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-14">
         <ol className="relative" style={{ borderLeft: "2px solid var(--line)" }}>

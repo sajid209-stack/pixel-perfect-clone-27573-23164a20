@@ -2,9 +2,12 @@ import { assetUrl } from "@/lib/asset-url";
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
 import { useLang } from "@/i18n/LanguageContext";
 import curbAsset from "@/assets/heritage-curb-market.jpg.asset.json";
 import cryoutAsset from "@/assets/heritage-cryout-1998.jpg.asset.json";
+import heroAsset from "@/assets/about-dse-mega.jpg.asset.json";
+
 
 function HistoricFigure({ src, alt, caption }: { src: string; alt: string; caption: string }) {
   return (
@@ -77,6 +80,8 @@ function IntroductionPage() {
           </p>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="Dhaka Stock Exchange" />
+
 
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-8">
         <div>

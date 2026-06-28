@@ -46,6 +46,7 @@ function CitizenCharterPage() {
           </h1>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE service hall" />
 
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-3" lang="bn">
         {SECTIONS.map((s) => (

@@ -3,7 +3,9 @@ import { useState } from "react";
 import { ChevronDown, User } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
 import { useLang } from "@/i18n/LanguageContext";
+import heroAsset from "@/assets/dse-automation-3.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/management")({
   head: () => ({
@@ -94,6 +96,7 @@ function ManagementPage() {
           </h1>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE management team" />
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {MEMBERS.map((m) => <ProfileCard key={m.name} m={m} />)}
