@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
+import heroAsset from "@/assets/dse-automation-5.jpg.asset.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
 import {
