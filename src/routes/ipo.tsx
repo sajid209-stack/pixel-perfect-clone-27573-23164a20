@@ -5,6 +5,7 @@ import { ArrowUpRight, CalendarDays, CheckCircle2, ChevronRight, Clock, FileText
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSlider";
 
 export const Route = createFileRoute("/ipo")({
   head: () => ({
@@ -210,6 +211,7 @@ function IpoPage() {
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
       <Nav />
+      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} />
 
       {/* Hero */}
       <section className="border-b" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>

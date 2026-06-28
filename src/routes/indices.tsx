@@ -17,6 +17,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSlider";
 import { sectors } from "@/components/dse/data";
 import { companies } from "@/data/companies";
 
@@ -295,6 +296,7 @@ function IndicesPage() {
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
       <Nav />
+      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} />
 
       {/* Hero */}
       <section className="border-b" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
