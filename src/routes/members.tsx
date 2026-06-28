@@ -306,6 +306,9 @@ function MembersPage() {
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       <Nav />
+      <PageHero src={heroAsset} alt="DSE TREC members" />
+
+
 
       {/* Hero */}
       <section className="max-w-[1440px] mx-auto px-6 pt-12 pb-8">

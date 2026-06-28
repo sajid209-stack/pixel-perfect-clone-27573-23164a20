@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
 import { useLang } from "@/i18n/LanguageContext";
+import heroAsset from "@/assets/hero-dse-tower.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/major-events")({
   head: () => ({

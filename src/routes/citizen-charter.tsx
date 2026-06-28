@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
+import heroAsset from "@/assets/foreign-investors.jpg.asset.json";
 
 export const Route = createFileRoute("/citizen-charter")({
   head: () => ({
