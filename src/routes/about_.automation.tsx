@@ -60,7 +60,8 @@ function AutomationPage() {
         </Link>
       </section>
 
-      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-4">
+      <section id="clearing-settlement" style={{ scrollMarginTop: 80 }} className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8 space-y-4">
+
         <h2 className="text-[22px] md:text-[26px] font-semibold leading-tight" style={{ color: "#0C2C53" }}>
           Clearing &amp; Settlement System
         </h2>
