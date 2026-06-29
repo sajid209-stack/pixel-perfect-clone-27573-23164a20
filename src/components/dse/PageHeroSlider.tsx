@@ -24,7 +24,7 @@ export function PageHeroSlider({
   }, [slides.length, interval]);
 
   return (
-    <figure className="max-w-[960px] mx-auto px-4 md:px-6 pt-6 m-0">
+    <figure className={`${containerClassName}`}>
       <div
         className="relative w-full overflow-hidden"
         style={{
