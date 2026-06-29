@@ -88,7 +88,7 @@ function MarketsPage() {
   return (
     <div className="min-h-screen" style={{ background: "var(--surface)", color: "var(--ink)" }}>
       <Nav />
-      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} containerClassName="max-w-[1200px] mx-auto px-6 pt-6 m-0" />
+      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} />
 
       {/* Header */}
       <section style={{ borderBottom: "1px solid var(--line)", background: "var(--surface-2)" }}>

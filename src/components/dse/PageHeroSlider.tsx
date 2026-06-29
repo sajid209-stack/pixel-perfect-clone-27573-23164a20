@@ -8,12 +8,10 @@ export function PageHeroSlider({
   slides,
   maxHeight = 320,
   interval = 4500,
-  containerClassName = "max-w-[960px] mx-auto px-4 md:px-6 pt-6 m-0",
 }: {
   slides: Slide[];
   maxHeight?: number;
   interval?: number;
-  containerClassName?: string;
 }) {
   const [idx, setIdx] = useState(0);
 
@@ -24,7 +22,7 @@ export function PageHeroSlider({
   }, [slides.length, interval]);
 
   return (
-    <figure className={`${containerClassName}`}>
+    <figure className="max-w-[960px] mx-auto px-4 md:px-6 pt-6 m-0">
       <div
         className="relative w-full overflow-hidden"
         style={{
