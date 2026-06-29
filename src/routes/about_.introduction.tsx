@@ -103,10 +103,11 @@ function IntroductionPage() {
           />
         </div>
 
-        <div>
+        <div id="function" style={{ scrollMarginTop: 80 }}>
           <h2 className="text-[20px] md:text-[22px] font-semibold mb-3" style={{ color: "var(--ink)" }}>
             {t("Function of DSE")}
           </h2>
+
           <p className="text-[15px] leading-relaxed mb-3" style={{ color: "var(--ink)" }}>
             {t("The major functions are:")}
           </p>
