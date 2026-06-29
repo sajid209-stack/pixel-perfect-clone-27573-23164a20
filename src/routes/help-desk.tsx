@@ -29,7 +29,7 @@ function HelpDeskPage() {
   return (
     <div style={{ background: "var(--page-bg)", color: "var(--text-primary)" }} className="min-h-screen">
       <Nav />
-      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} />
+      <PageHeroSlider slides={DEFAULT_HERO_SLIDES} containerClassName="max-w-[1000px] mx-auto px-6 pt-6 m-0" />
 
       <section className="border-b" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
         <div className="max-w-[1000px] mx-auto px-6 pt-10 pb-10">
