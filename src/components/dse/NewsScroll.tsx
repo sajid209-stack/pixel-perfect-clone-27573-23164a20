@@ -154,15 +154,16 @@ export function NewsScroll() {
           align-items: stretch;
         }
         .news-thumb {
-          width: 120px;
-          height: 80px;
+          width: 180px;
+          height: 120px;
         }
         @media (max-width: 1024px) {
           .news-layout { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
-          .news-thumb { width: 88px; height: 64px; }
+          .news-thumb { width: 110px; height: 80px; }
         }
+
       `}</style>
 
     </section>
