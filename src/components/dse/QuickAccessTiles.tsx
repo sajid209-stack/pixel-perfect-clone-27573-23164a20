@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 const tiles = [
-  { Icon: LineChart, label: "DSE SME", desc: "SME Market", to: "/markets" },
+  { Icon: LineChart, label: "DSE SME", desc: "SME Market", to: "https://sme.dsebd.org/", external: true },
   { Icon: Building2, label: "DSE ATB", desc: "ATB Market", to: "/markets" },
   { Icon: FileText, label: "IPO", desc: "Initial public offerings", to: "/ipo" },
   { Icon: Rocket, label: "OTC Market", desc: "Over the Counter", to: "/otc" },
