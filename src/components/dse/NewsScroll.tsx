@@ -94,41 +94,24 @@ export function NewsScroll() {
 
 
         <div className="news-layout">
-          <div className="news-grid">
-            {news.slice(0, 2).map((n, i) => (
+          <div
+            className="flex flex-col"
+            style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
+          >
+            {news.map((n, i) => (
               <article
                 key={i}
-                className="news-card flex flex-col h-full transition"
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--line)",
-                  borderLeft: i > 0 ? "none" : "1px solid var(--line)",
-                }}
+                className="news-row flex gap-3 p-3"
+                style={{ borderTop: i === 0 ? "none" : "1px solid var(--line)" }}
               >
                 {n.image ? (
+                  <Link to="/news" className="news-thumb shrink-0 overflow-hidden" style={{ border: "1px solid var(--line)" }}>
+                    <img src={n.image} alt={n.alt ?? ""} loading="lazy" className="w-full h-full object-cover" />
+                  </Link>
+                ) : null}
+                <div className="flex flex-col min-w-0 flex-1">
                   <div
-                    className="relative w-full overflow-hidden"
-                    style={{ aspectRatio: "16 / 9", borderBottom: "1px solid var(--line)" }}
-                  >
-                    <img
-                      src={n.image}
-                      alt={n.alt ?? ""}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      aspectRatio: "16 / 9",
-                      background: "var(--surface-2)",
-                      borderBottom: "1px solid var(--line)",
-                    }}
-                  />
-                )}
-                <div className="flex flex-col flex-1 p-3.5">
-                  <div
-                    className="flex items-center justify-between text-[11.5px] uppercase mb-2"
+                    className="flex items-center justify-between text-[11px] uppercase mb-1"
                     style={{ letterSpacing: "0.05em", color: "var(--text-muted)" }}
                   >
                     <span
@@ -144,25 +127,17 @@ export function NewsScroll() {
                     <span className="tnum">{n.date}</span>
                   </div>
                   <h3
-                    className="text-[16px] leading-[1.3] font-semibold tracking-tight"
+                    className="text-[14.5px] leading-[1.35] font-semibold tracking-tight"
                     style={{ color: "var(--ink)" }}
                   >
-                    {t(n.title)}
+                    <Link to="/news">{t(n.title)}</Link>
                   </h3>
                   <p
-                    className="mt-1.5 text-[14px] leading-[1.5]"
+                    className="mt-1 text-[13px] leading-[1.45] line-clamp-2"
                     style={{ color: "var(--text-secondary)" }}
                   >
                     {t(n.excerpt)}
                   </p>
-                  <Link
-                    to="/news"
-                    className="mt-auto pt-3 inline-flex items-center gap-1 text-[12px] font-semibold"
-                    style={{ color: "var(--brand-600)" }}
-                  >
-                    {t("Read story")}
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
                 </div>
               </article>
             ))}
@@ -177,19 +152,18 @@ export function NewsScroll() {
           gap: 16px;
           align-items: stretch;
         }
-        .news-grid {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        .news-thumb {
+          width: 120px;
+          height: 80px;
         }
         @media (max-width: 1024px) {
           .news-layout { grid-template-columns: 1fr; }
         }
-        @media (max-width: 768px) {
-          .news-grid { grid-template-columns: 1fr; }
-          .news-card { border-left: 1px solid var(--line) !important; border-top: none !important; }
-          .news-card:first-child { border-top: 1px solid var(--line) !important; }
+        @media (max-width: 480px) {
+          .news-thumb { width: 88px; height: 64px; }
         }
       `}</style>
+
     </section>
   );
 }
