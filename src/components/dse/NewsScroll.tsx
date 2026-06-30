@@ -97,17 +97,17 @@ export function NewsScroll() {
           <NoticeBoard />
 
           <div
-            className="flex flex-col"
+            className="flex flex-col h-full"
             style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
           >
             {news.map((n, i) => (
               <article
                 key={i}
-                className="news-row flex gap-3 p-3"
+                className="news-row flex gap-3 p-3 flex-1 min-h-0"
                 style={{ borderTop: i === 0 ? "none" : "1px solid var(--line)" }}
               >
                 {n.image ? (
-                  <Link to="/news" className="news-thumb shrink-0 overflow-hidden" style={{ border: "1px solid var(--line)" }}>
+                  <Link to="/news" className="news-thumb shrink-0 overflow-hidden self-stretch" style={{ border: "1px solid var(--line)" }}>
                     <img src={n.image} alt={n.alt ?? ""} loading="lazy" className="w-full h-full object-cover" />
                   </Link>
                 ) : null}
@@ -144,6 +144,7 @@ export function NewsScroll() {
               </article>
             ))}
           </div>
+
         </div>
       </div>
       <style>{`
@@ -154,9 +155,10 @@ export function NewsScroll() {
           align-items: stretch;
         }
         .news-thumb {
-          width: 180px;
-          height: 120px;
+          width: 200px;
+          min-height: 100%;
         }
+
         @media (max-width: 1024px) {
           .news-layout { grid-template-columns: 1fr; }
         }
