@@ -10,12 +10,12 @@ import {
 } from "lucide-react";
 
 const tiles = [
-  { Icon: LineChart, label: "Markets", desc: "Live equities & indices", to: "/markets" },
-  { Icon: Building2, label: "Companies", desc: "Browse all listed companies", to: "/companies" },
-  { Icon: FileText, label: "Disclosures", desc: "Today's filings", to: "/news" },
-  { Icon: Rocket, label: "IPO Pipeline", desc: "Open & upcoming", to: "/ipo" },
-  { Icon: FolderOpen, label: "Reports", desc: "Daily · weekly", to: "/reports" },
-  { Icon: Globe, label: "Foreign Investment", desc: "NITA · repatriation", to: "/foreign-investors" },
+  { Icon: LineChart, label: "DSE SME", desc: "SME Market", to: "/markets" },
+  { Icon: Building2, label: "DSE ATB", desc: "ATB Market", to: "/markets" },
+  { Icon: FileText, label: "IPO", desc: "Initial public offerings", to: "/ipo" },
+  { Icon: Rocket, label: "OTC Market", desc: "Over the Counter", to: "/otc" },
+  { Icon: FolderOpen, label: "DSE Training Academy", desc: "Training Academy", to: "/learn" },
+  { Icon: Globe, label: "Foreign Investors", desc: "NITA · repatriation", to: "/foreign-investors" },
 ] as const;
 
 export function QuickAccessTiles() {
