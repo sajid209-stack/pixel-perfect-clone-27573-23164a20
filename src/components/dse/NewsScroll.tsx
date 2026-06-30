@@ -155,9 +155,10 @@ export function NewsScroll() {
           align-items: stretch;
         }
         .news-thumb {
-          width: 180px;
-          height: 120px;
+          width: 200px;
+          min-height: 100%;
         }
+
         @media (max-width: 1024px) {
           .news-layout { grid-template-columns: 1fr; }
         }
