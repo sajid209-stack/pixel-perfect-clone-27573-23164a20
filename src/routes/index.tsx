@@ -6,7 +6,7 @@ import { TodaysMarket } from "@/components/dse/TodaysMarket";
 import { NewsScroll } from "@/components/dse/NewsScroll";
 import { ForeignInvestorBand } from "@/components/dse/ForeignInvestorBand";
 import { HomeFooter } from "@/components/dse/HomeFooter";
-import { PartnersStrip } from "@/components/dse/PartnersStrip";
+
 import { MarketFreshness } from "@/components/dse/MarketFreshness";
 
 export const Route = createFileRoute("/")({
@@ -41,7 +41,7 @@ function Home() {
       <NewsScroll />
       <FreshnessRow label="Foreign trade — as provided by DSE" />
       <ForeignInvestorBand />
-      <PartnersStrip />
+      
       <HomeFooter />
     </div>
   );
