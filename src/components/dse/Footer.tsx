@@ -140,7 +140,7 @@ export function Footer() {
               className="object-contain"
               style={{ width: 64, height: 64 }}
             />
-            <div className="font-semibold" style={{ color: "#ffffff" }}>{t("Dhaka Stock Exchange")}</div>
+            <div className="font-semibold" style={{ color: "#ffffff" }}>{t("Dhaka Stock Exchange PLC.")}</div>
           </div>
           <p className="text-sm mt-3" style={{ color: "rgba(255,255,255,0.75)" }}>{t("Bangladesh's Premier Capital Market")}</p>
           <p className="text-xs mt-3 leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>

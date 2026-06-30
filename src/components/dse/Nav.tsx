@@ -907,7 +907,7 @@ export function Nav() {
           />
           <div className="hidden md:block leading-tight">
             <div className="font-semibold text-[16px] tracking-tight" style={{ color: "var(--ink)" }}>
-              {t("Dhaka Stock Exchange")}
+              {t("Dhaka Stock Exchange PLC.")}
             </div>
             <div className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
               Bangladesh's Premier Capital Market
