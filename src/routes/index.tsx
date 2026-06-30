@@ -41,6 +41,7 @@ function Home() {
       <NewsScroll />
       <FreshnessRow label="Foreign trade — as provided by DSE" />
       <ForeignInvestorBand />
+      <PartnersStrip />
       <HomeFooter />
     </div>
   );
