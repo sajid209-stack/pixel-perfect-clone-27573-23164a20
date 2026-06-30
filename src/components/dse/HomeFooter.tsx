@@ -156,7 +156,7 @@ export function HomeFooter() {
         <div className="flex items-center gap-3 mb-8">
           <img src={dseLogoCoin} alt="Dhaka Stock Exchange seal" className="object-contain" style={{ width: 56, height: 56 }} />
           <div>
-            <div className="font-semibold" style={{ color: "#ffffff" }}>{t("Dhaka Stock Exchange")}</div>
+            <div className="font-semibold" style={{ color: "#ffffff" }}>{t("Dhaka Stock Exchange PLC.")}</div>
             <div className="text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>{t("Bangladesh's Premier Capital Market")}</div>
           </div>
           <div className="ml-auto flex gap-3">
