@@ -781,6 +781,12 @@ html, body { overflow-x: hidden; max-width: 100%; }
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
+  /* Homepage hero and quick-access tiles are self-spaced; strip mobile section padding */
+  section:has(> .hero-frame),
+  section:has(> .max-w-\[1180px\] > .qa-rail) {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
 }
 
 /* ============================================================
