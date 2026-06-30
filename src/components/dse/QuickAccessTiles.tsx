@@ -5,17 +5,17 @@ import {
   FileText,
   Rocket,
   FolderOpen,
-  Globe,
+  Leaf,
   ChevronRight,
 } from "lucide-react";
 
 const tiles = [
   { Icon: LineChart, label: "DSE SME", desc: "SME Market", to: "https://sme.dsebd.org/", external: true },
   { Icon: Building2, label: "DSE ATB", desc: "ATB Market", to: "https://atb.dsebd.org/", external: true },
-  { Icon: FileText, label: "IPO", desc: "Initial public offerings", to: "/ipo" },
-  { Icon: Rocket, label: "OTC Market", desc: "Over the Counter", to: "/otc" },
+  { Icon: FileText, label: "IPO", desc: "Initial public offerings", to: "https://www.dsebd.org/ipo.php", external: true },
+  { Icon: Rocket, label: "OTC Market", desc: "Over the Counter", to: "https://www.dsebd.org/otc.php", external: true },
   { Icon: FolderOpen, label: "DSE Training Academy", desc: "Training Academy", to: "/learn" },
-  { Icon: Globe, label: "Foreign Investors", desc: "NITA · repatriation", to: "/foreign-investors" },
+  { Icon: Leaf, label: "Sustainability", desc: "ESG & responsible markets", to: "/sustainability" },
 ] as const;
 
 export function QuickAccessTiles() {
