@@ -5,6 +5,7 @@ import { useLang } from "@/i18n/LanguageContext";
 import newsPharma from "@/assets/news-pharma.jpg";
 import newsIpo from "@/assets/news-ipo.jpg";
 import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
+import { NoticeBoard } from "./NoticeBoard";
 
 type NewsItem = {
   category: string;
