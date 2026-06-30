@@ -144,7 +144,6 @@ export function NewsScroll() {
               </article>
             ))}
           </div>
-          <NoticeBoard />
         </div>
       </div>
       <style>{`
