@@ -43,31 +43,50 @@ function InteractiveChart({
   height?: number;
 }) {
   const width = 600;
+  const padL = 40;
+  const padB = 18;
+  const padT = 4;
+  const padR = 4;
+  const plotW = width - padL - padR;
+  const plotH = height - padT - padB;
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
-  const { coords, minY, maxY, range } = useMemo(() => {
+  const { coords, yTicks, xTicks } = useMemo(() => {
     const min = Math.min(...points);
     const max = Math.max(...points);
     const r = max - min || 1;
-    const stepX = width / (points.length - 1);
+    const stepX = plotW / (points.length - 1);
+    const open = points[0];
     const cs: ChartPoint[] = points.map((p, i) => {
-      const minutes = Math.round((i / (points.length - 1)) * 300); // 09:30 → 14:30
+      const minutes = Math.round((i / (points.length - 1)) * 300);
       const hh = String(9 + Math.floor((30 + minutes) / 60)).padStart(2, "0");
       const mm = String((30 + minutes) % 60).padStart(2, "0");
       return {
-        x: i * stepX,
-        y: height - ((p - min) / r) * (height - 8) - 4,
+        x: padL + i * stepX,
+        y: padT + plotH - ((p - min) / r) * (plotH - 4) - 2,
         t: `${hh}:${mm}`,
       };
     });
-    return { coords: cs, minY: min, maxY: max, range: r };
-  }, [points, height]);
-
-  void minY; void maxY; void range;
+    const yT = Array.from({ length: 5 }, (_, k) => {
+      const ratio = k / 4;
+      const seriesVal = min + r * (1 - ratio);
+      const indexVal = baseValue * (seriesVal / open);
+      return {
+        y: padT + plotH * ratio,
+        label: indexVal.toLocaleString(undefined, { maximumFractionDigits: 0 }),
+      };
+    });
+    const tickCount = Math.min(6, points.length);
+    const xT = Array.from({ length: tickCount }, (_, k) => {
+      const i = Math.round((k / (tickCount - 1)) * (points.length - 1));
+      return { x: cs[i].x, label: cs[i].t };
+    });
+    return { coords: cs, yTicks: yT, xTicks: xT };
+  }, [points, plotW, plotH, padL, padT, baseValue]);
 
   const linePath = coords.map((c, i) => `${i === 0 ? "M" : "L"}${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(" ");
-  const areaPath = `${linePath} L${width},${height} L0,${height} Z`;
+  const areaPath = `${linePath} L${padL + plotW},${padT + plotH} L${padL},${padT + plotH} Z`;
   const color = up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)";
   const fillId = "chart-fill";
 
@@ -75,7 +94,9 @@ function InteractiveChart({
     const el = wrapRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const plotLeftPx = rect.left + (padL / width) * rect.width;
+    const plotWidthPx = (plotW / width) * rect.width;
+    const ratio = Math.max(0, Math.min(1, (clientX - plotLeftPx) / plotWidthPx));
     const idx = Math.round(ratio * (points.length - 1));
     setHoverIdx(idx);
   };
@@ -86,7 +107,6 @@ function InteractiveChart({
   const deltaFromOpen = activeVal != null ? ((activeVal - open) / open) * 100 : 0;
   const indexValAtCursor = activeVal != null ? baseValue * (activeVal / open) : null;
 
-  // tooltip position with clamp
   const tipW = 110;
   const tipX = active ? Math.max(4, Math.min(width - tipW - 4, active.x - tipW / 2)) : 0;
   const tipPctLeft = active ? (tipX / width) * 100 : 0;
@@ -109,11 +129,25 @@ function InteractiveChart({
             <stop offset="100%" stopColor={color} stopOpacity={0} />
           </linearGradient>
         </defs>
+        {yTicks.map((t, i) => (
+          <g key={`y${i}`}>
+            <line x1={padL} x2={padL + plotW} y1={t.y} y2={t.y} stroke="var(--line)" strokeWidth={0.5} strokeDasharray="2 3" opacity={0.7} />
+            <text x={padL - 4} y={t.y + 3} fontSize={9} textAnchor="end" fill="var(--text-muted)" style={{ fontVariantNumeric: "tabular-nums" }}>
+              {t.label}
+            </text>
+          </g>
+        ))}
+        {xTicks.map((t, i) => (
+          <text key={`x${i}`} x={t.x} y={height - 4} fontSize={9} textAnchor="middle" fill="var(--text-muted)" style={{ fontVariantNumeric: "tabular-nums" }}>
+            {t.label}
+          </text>
+        ))}
+        <line x1={padL} x2={padL + plotW} y1={padT + plotH} y2={padT + plotH} stroke="var(--line)" strokeWidth={0.75} />
         <path d={areaPath} fill={`url(#${fillId})`} />
         <path d={linePath} fill="none" stroke={color} strokeWidth={1.4} />
         {active && (
           <>
-            <line x1={active.x} x2={active.x} y1={0} y2={height} stroke="var(--text-muted)" strokeWidth={0.75} strokeDasharray="2 2" />
+            <line x1={active.x} x2={active.x} y1={padT} y2={padT + plotH} stroke="var(--text-muted)" strokeWidth={0.75} strokeDasharray="2 2" />
             <circle cx={active.x} cy={active.y} r={3} fill="var(--surface)" stroke={color} strokeWidth={1.5} />
           </>
         )}
