@@ -94,6 +94,8 @@ export function NewsScroll() {
 
 
         <div className="news-layout">
+          <NoticeBoard />
+
           <div
             className="flex flex-col"
             style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
