@@ -1,99 +1,129 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Megaphone, Bell, FileText, AlertCircle } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
 
 type Notice = {
   code: string;
+  type: "PSI" | "Dividend" | "AGM" | "Notice";
   title: string;
   body: string;
   date: string;
+  time: string;
 };
 
 const todays: Notice[] = [
   {
     code: "REGL",
-    title: "BSEC NEWS: Awareness Message for Investors",
+    type: "Notice",
+    title: "BSEC Awareness Message for Investors",
     body:
-      "Investors are requested to consider the following facts at the time of making investment decision in the Capital Market: 1. Without acquiring proper knowledge, information and experience regarding different aspects and matters of Capital Market, one should not invest in the Capital Market. 2. The gain or loss, whichever comes from the investment, it belongs to you. So, well-thought-of decisions are essential.",
+      "Investors are requested to acquire proper knowledge, information and experience regarding different aspects of the Capital Market before investing. Avoid rumor-based decisions.",
     date: "30 Jun",
+    time: "10:02",
   },
   {
     code: "SQURPHARMA",
+    type: "Dividend",
     title: "Dividend Disbursement Notice",
     body:
-      "The Company has completed disbursement of cash dividend for the year ended 31 March 2026 through BEFTN/cheque to the entitled shareholders as per record date.",
+      "Disbursement of cash dividend for the year ended 31 March 2026 has been completed through BEFTN/cheque to entitled shareholders.",
     date: "30 Jun",
+    time: "11:14",
   },
   {
     code: "BATBC",
-    title: "Board Meeting Decision",
+    type: "PSI",
+    title: "Board Meeting Decision · 600% Cash Dividend",
     body:
-      "The Board of Directors has recommended 600% cash dividend for the year ended 31 December 2025, subject to approval of shareholders at the forthcoming AGM.",
+      "The Board recommended 600% cash dividend for FY2025, subject to shareholders' approval at the forthcoming AGM.",
     date: "30 Jun",
+    time: "12:30",
   },
   {
     code: "GP",
-    title: "Credit Rating Report",
+    type: "PSI",
+    title: "Credit Rating Reaffirmed at AAA",
     body:
-      "Long term rating reaffirmed at AAA and short term rating at ST-1 by Credit Rating Agency of Bangladesh Limited (CRAB) based on audited financials of 2025.",
+      "Long term rating reaffirmed at AAA and short term at ST-1 by CRAB based on audited financials of 2025.",
     date: "29 Jun",
+    time: "16:45",
   },
   {
     code: "BRACBANK",
+    type: "Notice",
     title: "Spot Trading Notice",
     body:
-      "Trading of the shares will be held under 'Spot' category from 01 July 2026 to 03 July 2026 and record date will be on 06 July 2026.",
+      "Shares to be traded under 'Spot' category from 01–03 July 2026. Record date: 06 July 2026.",
     date: "29 Jun",
+    time: "14:20",
   },
   {
     code: "RENATA",
-    title: "Price Sensitive Information",
+    type: "PSI",
+    title: "New Biologics Manufacturing Facility",
     body:
-      "The Board of Directors has decided to set up a new manufacturing facility for biologics at a project cost of approximately BDT 1,200 crore, to be financed through internal sources and bank borrowing.",
+      "Board approved a BDT 1,200 Cr biologics plant, financed through internal sources and bank borrowing.",
     date: "28 Jun",
+    time: "13:05",
+  },
+  {
+    code: "BEXIMCO",
+    type: "AGM",
+    title: "32nd AGM Notice",
+    body:
+      "32nd Annual General Meeting to be held on 28 July 2026 at 11:00 AM via digital platform.",
+    date: "28 Jun",
+    time: "10:30",
   },
 ];
 
-const TABS = ["Today's News", "Last Seven Days' News", "News Archive"] as const;
+const TABS = ["Today's News", "Last Seven Days", "News Archive"] as const;
+
+const typeMeta: Record<Notice["type"], { color: string; bg: string; icon: typeof Bell }> = {
+  PSI: { color: "var(--red-down, #c0392b)", bg: "rgba(192,57,43,0.10)", icon: AlertCircle },
+  Dividend: { color: "var(--green-up, #1f7a3a)", bg: "rgba(31,122,58,0.10)", icon: FileText },
+  AGM: { color: "var(--amber, #b8860b)", bg: "rgba(184,134,11,0.10)", icon: Bell },
+  Notice: { color: "var(--brand-600, #0b4f8a)", bg: "rgba(11,79,138,0.08)", icon: Megaphone },
+};
 
 export function NoticeBoard() {
   const { t } = useLang();
   const [tab, setTab] = useState<(typeof TABS)[number]>("Today's News");
-  const trackRef = useRef<HTMLDivElement | null>(null);
   const [paused, setPaused] = useState(false);
 
-  // Auto-scroll loop
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    let raf = 0;
-    const tick = () => {
-      if (!paused && el) {
-        el.scrollTop += 0.5;
-        if (el.scrollTop >= el.scrollHeight / 2) {
-          el.scrollTop = 0;
-        }
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [paused, tab]);
-
-  const items = todays; // single dataset for now
+  const items = todays;
+  // duration scales roughly with content length
+  const duration = Math.max(28, items.length * 6);
 
   return (
     <div
       className="flex flex-col h-full"
-      style={{ background: "var(--surface)", border: "1px solid var(--line)" }}
+      style={{
+        background: "var(--surface)",
+        border: "1px solid var(--line)",
+        borderRadius: 2,
+      }}
     >
+      {/* Header */}
       <div
-        className="px-3.5 py-2 flex items-center justify-between"
-        style={{ background: "var(--brand-600)", color: "#fff" }}
+        className="px-4 py-2.5 flex items-center justify-between"
+        style={{
+          background: "linear-gradient(180deg, var(--brand-700, #093d6b), var(--brand-600, #0b4f8a))",
+          color: "#fff",
+        }}
       >
-        <div className="text-[12.5px] font-semibold tracking-wide uppercase">
-          {t("Today's News")}
+        <div className="flex items-center gap-2">
+          <span
+            className="w-1.5 h-1.5 rounded-full inline-block"
+            style={{ background: "#22c55e", boxShadow: "0 0 0 3px rgba(34,197,94,0.25)" }}
+          />
+          <div className="text-[12.5px] font-semibold tracking-wider uppercase">
+            {t("Live Notice Board")}
+          </div>
+          <span className="text-[10.5px] uppercase tracking-wider opacity-80">
+            · {t(tab)}
+          </span>
         </div>
         <Link
           to="/news"
@@ -105,54 +135,116 @@ export function NoticeBoard() {
         </Link>
       </div>
 
+      {/* Scrolling track */}
       <div
-        ref={trackRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        className="flex-1 overflow-hidden relative px-4 py-3"
+        className="notice-viewport relative overflow-hidden flex-1"
         style={{
-          background: "rgb(254 252 232)",
-          minHeight: 320,
+          background: "var(--surface)",
+          minHeight: 360,
           maxHeight: 420,
         }}
       >
-        {/* duplicate list for seamless loop */}
-        {[0, 1].map((dup) => (
-          <div key={dup} className="space-y-4">
-            <p
-              className="text-[13px] leading-[1.55]"
-              style={{ color: "#8b2a2a" }}
-            >
-              {t(
-                "Honorable Investors, Good morning! Please make your investment decision based on Company fundamentals, technical analysis, price level and disclosed information. Avoid rumor-based speculations."
-              )}
-            </p>
-            {items.map((n, i) => (
-              <div key={`${dup}-${i}`} className="text-[13px] leading-[1.55]">
-                <div style={{ color: "#b8554d" }}>
-                  <span className="font-semibold">{t("Trading Code")}:</span>{" "}
-                  <span className="font-bold" style={{ color: "#8b2a2a" }}>
-                    {n.code}
-                  </span>
-                </div>
-                <div style={{ color: "#b8554d" }}>
-                  <span className="font-semibold">{t("News Title")}:</span>{" "}
-                  <span style={{ color: "#8b2a2a" }}>{t(n.title)}</span>
-                </div>
-                <p className="mt-1" style={{ color: "#8b2a2a" }}>
-                  {t(n.body)}
-                </p>
-              </div>
-            ))}
-          </div>
-        ))}
+        <div
+          className="notice-track"
+          style={{
+            animation: `notice-roll ${duration}s linear infinite`,
+            animationPlayState: paused ? "paused" : "running",
+          }}
+        >
+          {[0, 1].map((dup) => (
+            <div key={dup} className="px-3 py-3 space-y-2">
+              {items.map((n, i) => {
+                const meta = typeMeta[n.type];
+                const Icon = meta.icon;
+                return (
+                  <Link
+                    key={`${dup}-${i}`}
+                    to="/news"
+                    className="block group transition"
+                    style={{
+                      background: "var(--surface)",
+                      border: "1px solid var(--line)",
+                      borderLeft: `3px solid ${meta.color}`,
+                      borderRadius: 2,
+                      padding: "10px 12px",
+                    }}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span
+                          className="inline-flex items-center justify-center"
+                          style={{
+                            width: 18,
+                            height: 18,
+                            background: meta.bg,
+                            color: meta.color,
+                            borderRadius: 2,
+                          }}
+                        >
+                          <Icon className="w-3 h-3" />
+                        </span>
+                        <span
+                          className="text-[10.5px] font-bold tracking-wider uppercase"
+                          style={{ color: meta.color }}
+                        >
+                          {n.type}
+                        </span>
+                        <span
+                          className="text-[12px] font-semibold truncate"
+                          style={{ color: "var(--ink)" }}
+                        >
+                          {n.code}
+                        </span>
+                      </div>
+                      <span
+                        className="text-[10.5px] tnum whitespace-nowrap"
+                        style={{ color: "var(--text-muted)" }}
+                      >
+                        {n.date} · {n.time}
+                      </span>
+                    </div>
+                    <div
+                      className="text-[13px] font-semibold leading-snug group-hover:underline"
+                      style={{ color: "var(--ink)" }}
+                    >
+                      {t(n.title)}
+                    </div>
+                    <p
+                      className="mt-0.5 text-[12px] leading-[1.45]"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      {t(n.body)}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+
+        {/* fade masks */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-8"
+          style={{
+            background: "linear-gradient(180deg, var(--surface), transparent)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-10"
+          style={{
+            background: "linear-gradient(0deg, var(--surface), transparent)",
+          }}
+        />
       </div>
 
+      {/* Tabs footer */}
       <div
         className="grid grid-cols-3 text-[12px]"
         style={{ background: "var(--surface-2)", borderTop: "1px solid var(--line)" }}
       >
-        {TABS.map((label) => {
+        {TABS.map((label, idx) => {
           const active = tab === label;
           return (
             <button
@@ -162,7 +254,8 @@ export function NoticeBoard() {
               style={{
                 color: active ? "var(--brand-600)" : "var(--text-secondary)",
                 background: active ? "var(--surface)" : "transparent",
-                borderRight: "1px solid var(--line)",
+                borderRight: idx < TABS.length - 1 ? "1px solid var(--line)" : "none",
+                borderTop: active ? "2px solid var(--brand-600)" : "2px solid transparent",
               }}
             >
               {t(label)}
@@ -170,6 +263,16 @@ export function NoticeBoard() {
           );
         })}
       </div>
+
+      <style>{`
+        .notice-track {
+          will-change: transform;
+        }
+        @keyframes notice-roll {
+          0%   { transform: translateY(0); }
+          100% { transform: translateY(-50%); }
+        }
+      `}</style>
     </div>
   );
 }
