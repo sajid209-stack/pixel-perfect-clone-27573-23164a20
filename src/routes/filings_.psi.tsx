@@ -91,38 +91,8 @@ function PsiPage() {
           className="flex flex-col h-full"
           style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
         >
-          {/* Header */}
-          <div
-            className="px-4 py-2.5 flex items-center justify-between"
-            style={{
-              background:
-                "linear-gradient(180deg, var(--brand-700, #093d6b), var(--brand-600, #0b4f8a))",
-              color: "#fff",
-            }}
-          >
-            <div className="flex items-center gap-2">
-              <span
-                className="w-1.5 h-1.5 rounded-full inline-block"
-                style={{ background: "#22c55e", boxShadow: "0 0 0 3px rgba(34,197,94,0.25)" }}
-              />
-              <div className="text-[12.5px] font-semibold tracking-wider uppercase">
-                Live PSI & Material Information
-              </div>
-              <span className="text-[10.5px] uppercase tracking-wider opacity-80">
-                · {items.length} {items.length === 1 ? "notice" : "notices"}
-              </span>
-            </div>
-            <Link
-              to="/news"
-              className="text-[11.5px] inline-flex items-center gap-1 opacity-90 hover:opacity-100"
-              style={{ color: "#fff" }}
-            >
-              All notices
-              <ArrowUpRight className="w-3 h-3" />
-            </Link>
-          </div>
-
           {/* Toolbar */}
+
           <div
             className="px-3 py-2 flex flex-wrap items-center gap-2 justify-between"
             style={{ borderBottom: "1px solid var(--line)", background: "var(--surface-2)" }}
