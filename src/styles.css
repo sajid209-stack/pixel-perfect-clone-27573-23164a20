@@ -763,8 +763,10 @@
   h2 br, h3 br { display: none !important; }
 }
 
-/* Global overflow guard — prevent any element from forcing horizontal scroll */
-html, body { overflow-x: hidden; max-width: 100%; }
+/* Global overflow guard — prevent any element from forcing horizontal scroll.
+   Use `clip` (not `hidden`) so body does NOT become a scroll container, which
+   would break position: sticky on the TopBar, Ticker, and Nav. */
+html, body { overflow-x: clip; max-width: 100%; }
 
 /* Homepage section spacing — tightened */
 .home-section {
