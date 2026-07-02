@@ -163,8 +163,8 @@ function MarketComparisonPage() {
             </thead>
             <tbody>
               {GROUPS.map((g) => (
-                <>
-                  <tr key={`h-${g.region}`}>
+                <Fragment key={g.region}>
+                  <tr>
                     <td
                       colSpan={9}
                       className="px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider"
