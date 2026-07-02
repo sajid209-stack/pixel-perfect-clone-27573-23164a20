@@ -234,20 +234,23 @@ function MarketComparisonPage() {
                 <th colSpan={4} className="text-center px-3 py-2 font-semibold text-[11px] uppercase tracking-wider border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
                   Index
                 </th>
-                <th colSpan={2} className="text-center px-3 py-2 font-semibold text-[11px] uppercase tracking-wider border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
-                  Macro (YoY %)
+                <th className="text-center px-3 py-2 font-semibold text-[11px] uppercase tracking-wider border-l align-bottom" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
+                  GDP (Current Mkt. Price)
                 </th>
-                <th rowSpan={2} className="text-right px-3 py-2 font-semibold text-[11px] uppercase tracking-wider align-bottom border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
-                  10-yr Bond
+                <th className="text-center px-3 py-2 font-semibold text-[11px] uppercase tracking-wider border-l align-bottom" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
+                  Inflation
+                </th>
+                <th rowSpan={2} className="text-right px-3 py-2 font-semibold text-[11px] uppercase tracking-wider align-bottom border-l leading-tight" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
+                  Interest Rate (%)<br /><span className="font-normal opacity-80">(10-year Govt. Bond)</span>
                 </th>
               </tr>
               <tr style={{ background: "var(--brand)", color: "#fff" }}>
-                <th className="text-right px-3 py-1.5 font-medium text-[10.5px] border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>Current</th>
-                <th className="text-right px-3 py-1.5 font-medium text-[10.5px]">Previous</th>
-                <th className="text-right px-3 py-1.5 font-medium text-[10.5px]">% Chg (M)</th>
-                <th className="text-right px-3 py-1.5 font-medium text-[10.5px]">% Chg (Y)</th>
-                <th className="text-right px-3 py-1.5 font-medium text-[10.5px] border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>GDP</th>
-                <th className="text-right px-3 py-1.5 font-medium text-[10.5px]">Inflation</th>
+                <th className="text-right px-3 py-1.5 font-medium text-[10.5px] border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>May, 2026</th>
+                <th className="text-right px-3 py-1.5 font-medium text-[10.5px]">April, 2026</th>
+                <th className="text-right px-3 py-1.5 font-medium text-[10.5px]">% Change Last month</th>
+                <th className="text-right px-3 py-1.5 font-medium text-[10.5px]">% Change Last year current month</th>
+                <th className="text-right px-3 py-1.5 font-medium text-[10.5px] border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>% change previous year</th>
+                <th className="text-right px-3 py-1.5 font-medium text-[10.5px] border-l" style={{ borderColor: "rgba(255,255,255,0.2)" }}>% change previous year</th>
               </tr>
             </thead>
             <tbody>
