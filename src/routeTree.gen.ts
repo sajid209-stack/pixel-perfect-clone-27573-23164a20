@@ -64,6 +64,7 @@ import { Route as PublicationsPressRouteImport } from './routes/publications_.pr
 import { Route as PublicationsMonthlyRouteImport } from './routes/publications_.monthly'
 import { Route as PublicationsFortnightlyRouteImport } from './routes/publications_.fortnightly'
 import { Route as MarketsOverviewRouteImport } from './routes/markets_.overview'
+import { Route as MarketsComparisonRouteImport } from './routes/markets_.comparison'
 import { Route as MarketsAtAGlanceRouteImport } from './routes/markets_.at-a-glance'
 import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
 import { Route as ListingShareTransferRouteImport } from './routes/listing_.share-transfer'
@@ -368,6 +369,11 @@ const MarketsOverviewRoute = MarketsOverviewRouteImport.update({
   path: '/markets/overview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketsComparisonRoute = MarketsComparisonRouteImport.update({
+  id: '/markets_/comparison',
+  path: '/markets/comparison',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketsAtAGlanceRoute = MarketsAtAGlanceRouteImport.update({
   id: '/markets_/at-a-glance',
   path: '/markets/at-a-glance',
@@ -584,6 +590,7 @@ export interface FileRoutesByFullPath {
   '/listing/share-transfer': typeof ListingShareTransferRoute
   '/listing/why-list': typeof ListingWhyListRoute
   '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
+  '/markets/comparison': typeof MarketsComparisonRoute
   '/markets/overview': typeof MarketsOverviewRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
@@ -668,6 +675,7 @@ export interface FileRoutesByTo {
   '/listing/share-transfer': typeof ListingShareTransferRoute
   '/listing/why-list': typeof ListingWhyListRoute
   '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
+  '/markets/comparison': typeof MarketsComparisonRoute
   '/markets/overview': typeof MarketsOverviewRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
@@ -753,6 +761,7 @@ export interface FileRoutesById {
   '/listing_/share-transfer': typeof ListingShareTransferRoute
   '/listing_/why-list': typeof ListingWhyListRoute
   '/markets_/at-a-glance': typeof MarketsAtAGlanceRoute
+  '/markets_/comparison': typeof MarketsComparisonRoute
   '/markets_/overview': typeof MarketsOverviewRoute
   '/publications_/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications_/monthly': typeof PublicationsMonthlyRoute
@@ -839,6 +848,7 @@ export interface FileRouteTypes {
     | '/listing/share-transfer'
     | '/listing/why-list'
     | '/markets/at-a-glance'
+    | '/markets/comparison'
     | '/markets/overview'
     | '/publications/fortnightly'
     | '/publications/monthly'
@@ -923,6 +933,7 @@ export interface FileRouteTypes {
     | '/listing/share-transfer'
     | '/listing/why-list'
     | '/markets/at-a-glance'
+    | '/markets/comparison'
     | '/markets/overview'
     | '/publications/fortnightly'
     | '/publications/monthly'
@@ -1007,6 +1018,7 @@ export interface FileRouteTypes {
     | '/listing_/share-transfer'
     | '/listing_/why-list'
     | '/markets_/at-a-glance'
+    | '/markets_/comparison'
     | '/markets_/overview'
     | '/publications_/fortnightly'
     | '/publications_/monthly'
@@ -1090,6 +1102,7 @@ export interface RootRouteChildren {
   ListingShareTransferRoute: typeof ListingShareTransferRoute
   ListingWhyListRoute: typeof ListingWhyListRoute
   MarketsAtAGlanceRoute: typeof MarketsAtAGlanceRoute
+  MarketsComparisonRoute: typeof MarketsComparisonRoute
   MarketsOverviewRoute: typeof MarketsOverviewRoute
   PublicationsFortnightlyRoute: typeof PublicationsFortnightlyRoute
   PublicationsMonthlyRoute: typeof PublicationsMonthlyRoute
@@ -1484,6 +1497,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketsOverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/markets_/comparison': {
+      id: '/markets_/comparison'
+      path: '/markets/comparison'
+      fullPath: '/markets/comparison'
+      preLoaderRoute: typeof MarketsComparisonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/markets_/at-a-glance': {
       id: '/markets_/at-a-glance'
       path: '/markets/at-a-glance'
@@ -1775,6 +1795,7 @@ const rootRouteChildren: RootRouteChildren = {
   ListingShareTransferRoute: ListingShareTransferRoute,
   ListingWhyListRoute: ListingWhyListRoute,
   MarketsAtAGlanceRoute: MarketsAtAGlanceRoute,
+  MarketsComparisonRoute: MarketsComparisonRoute,
   MarketsOverviewRoute: MarketsOverviewRoute,
   PublicationsFortnightlyRoute: PublicationsFortnightlyRoute,
   PublicationsMonthlyRoute: PublicationsMonthlyRoute,

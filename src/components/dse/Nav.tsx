@@ -81,7 +81,7 @@ const megaContent: Record<string, MegaContent> = {
           { label: "Recent Market Information", to: "/recent-market-information" },
           { label: "Monthly Reviews & Graphs", to: "/publications/monthly" },
           { label: "Fortnightly Capital Market", to: "/publications/fortnightly" },
-          { label: "Comparison of Market", to: "/reports" },
+          { label: "Comparison of Market", to: "/markets/comparison" },
         ],
       },
     ],
