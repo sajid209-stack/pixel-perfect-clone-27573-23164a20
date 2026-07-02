@@ -196,7 +196,7 @@ function MarketComparisonPage() {
                       <td className="px-3 py-2 text-right tnum" style={{ color: "var(--ink)" }}>{r.bond.toFixed(2)}</td>
                     </tr>
                   ))}
-                </>
+                </Fragment>
               ))}
             </tbody>
           </table>
