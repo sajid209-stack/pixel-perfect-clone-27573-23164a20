@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ArrowUp, ArrowDown, Search, FileText, Download } from "lucide-react";
+import { ArrowUp, ArrowDown, Search, FileText, Download, Inbox, FileDown } from "lucide-react";
 
 const GSEC_DOCS = [
   { title: "G-Sec Primary Auction Process — BGTB Directive June 2023", file: "BGTB_G-Sec Primary Auction Process_Directive_22.06.2023.pdf", category: "Directive" },
@@ -399,6 +399,10 @@ function BondsPage() {
 
       <GSecDocsSection />
 
+      <BondSukukDocsSection />
+
+      <BondArchiveSection />
+
       <Footer />
     </div>
   );
@@ -458,5 +462,180 @@ function FilterSelect({
         ))}
       </select>
     </label>
+  );
+}
+
+/* ============================================================
+ * Bond/Sukuk Documents (empty state — legacy lists are empty)
+ * ============================================================ */
+
+const BOND_DOC_SECTIONS = [
+  "Summary of Forthcoming Bond/Sukuk Approved by BSEC",
+  "Information Memorandum of Forthcoming Bond/Sukuk",
+  "Company's circular to Stock Brokers/Merchant Bankers regarding Bond/Sukuk",
+  "Consent Letter for Forthcoming Bond/Sukuk",
+  "Consolidated List for Bond/Sukuk",
+];
+
+function BondSukukDocsSection() {
+  return (
+    <section className="border-t" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-10">
+        <h2 className="text-xl md:text-2xl font-semibold mb-1" style={{ color: "var(--ink)" }}>
+          Bond/Sukuk Documents
+        </h2>
+        <p className="text-xs mb-5" style={{ color: "var(--text-muted)" }}>
+          CMS-fillable — legacy lists are currently empty.
+        </p>
+        <div className="space-y-3">
+          {BOND_DOC_SECTIONS.map((heading) => (
+            <div
+              key={heading}
+              className="p-4"
+              style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+            >
+              <h3 className="text-[13.5px] font-semibold mb-2" style={{ color: "var(--ink)" }}>
+                {heading}
+              </h3>
+              <div
+                className="flex items-center gap-2 px-3 py-3 text-[12.5px]"
+                style={{
+                  background: "var(--surface-2, rgba(0,0,0,0.03))",
+                  border: "1px dashed var(--line)",
+                  borderRadius: 2,
+                  color: "var(--text-muted)",
+                }}
+              >
+                <Inbox className="w-4 h-4" />
+                No items currently published.
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+ * Bond Archive
+ * ============================================================ */
+
+// SAMPLE — names partially real, complete from mirror
+const BOND_ARCHIVE: Record<string, string[]> = {
+  "2024": [
+    "Southeast Bank 1st Perpetual Bond",
+    "Bank Asia 1st Perpetual Bond",
+    "MTB Perpetual Bond",
+  ],
+  "2023": [
+    "BEXIMCO Green Sukuk",
+    "SJIBL Mudaraba Perpetual Bond",
+    "Trust Bank 2nd Subordinated Bond",
+    "Pubali Bank Perpetual Bond",
+  ],
+  "2022": [
+    "Mercantile Bank Perpetual Bond",
+    "Prime Bank Perpetual Bond",
+    "One Bank Perpetual Bond",
+    "NRBC Bank Perpetual Bond",
+  ],
+  "2021": [
+    "City Bank Perpetual Bond",
+    "United Commercial Bank Perpetual Bond",
+    "BRAC Bank Perpetual Bond",
+  ],
+};
+
+function BondArchiveSection() {
+  const years = ["2024", "2023", "2022", "2021"];
+  let counter = 0;
+  return (
+    <section className="border-t" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-10">
+        <h2 className="text-xl md:text-2xl font-semibold mb-1" style={{ color: "var(--ink)" }}>
+          Bond Archive
+        </h2>
+        <p className="text-xs mb-5" style={{ color: "var(--text-muted)" }}>
+          Historical listed bond and sukuk documents.
+        </p>
+
+        <div
+          className="overflow-x-auto"
+          style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+        >
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr>
+                <th
+                  className="text-left px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] w-16"
+                  style={{ color: "var(--text-muted)", borderBottom: "1px solid var(--line)" }}
+                >
+                  #
+                </th>
+                <th
+                  className="text-left px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em]"
+                  style={{ color: "var(--text-muted)", borderBottom: "1px solid var(--line)" }}
+                >
+                  Name of the Company
+                </th>
+                <th
+                  className="text-left px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] w-40"
+                  style={{ color: "var(--text-muted)", borderBottom: "1px solid var(--line)" }}
+                >
+                  Issue Details
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {years.map((year) => (
+                <BondArchiveYearRows
+                  key={year}
+                  year={year}
+                  names={BOND_ARCHIVE[year] ?? []}
+                  startIndex={(() => { const s = counter; counter += (BOND_ARCHIVE[year] ?? []).length; return s; })()}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BondArchiveYearRows({ year, names, startIndex }: { year: string; names: string[]; startIndex: number }) {
+  return (
+    <>
+      <tr>
+        <td
+          colSpan={3}
+          className="px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em]"
+          style={{
+            background: "var(--surface-2, rgba(0,0,0,0.04))",
+            color: "var(--ink)",
+            borderTop: "1px solid var(--line)",
+            borderBottom: "1px solid var(--line)",
+          }}
+        >
+          {year}
+        </td>
+      </tr>
+      {names.map((name, i) => (
+        <tr key={`${year}-${name}`} style={{ borderTop: "1px solid var(--line)" }}>
+          <td className="px-3 py-2.5 tnum" style={{ color: "var(--text-muted)" }}>
+            {startIndex + i + 1}
+          </td>
+          <td className="px-3 py-2.5" style={{ color: "var(--ink)" }}>
+            {name}
+          </td>
+          <td className="px-3 py-2.5">
+            <a href="#" className="inline-flex items-center gap-1 text-[12.5px]" style={{ color: "var(--brand-600)" }}>
+              <FileDown className="w-4 h-4" /> PDF
+            </a>
+          </td>
+        </tr>
+      ))}
+    </>
   );
 }
