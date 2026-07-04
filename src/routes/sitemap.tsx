@@ -32,7 +32,11 @@ const GROUPS: Group[] = [
       { label: "Block Transactions", to: "/markets", hash: "block" },
       { label: "Foreign Trade", to: "/foreign-investors" },
       { label: "Margin Financeable Securities", to: "/markets", hash: "margin" },
-      { label: "Market Statistics", to: "/reports" },
+      { label: "Market Statistics", to: "/markets" },
+      { label: "Performance of DSE at a Glance", to: "/markets/at-a-glance" },
+      { label: "Comparison of Market", to: "/markets/comparison" },
+      { label: "Latest Share Price", to: "/markets/latest-share-price" },
+      { label: "Top Shares", to: "/markets/top-shares" },
       { label: "Holidays & Trading Sessions", to: "/holidays" },
       { label: "Going Concern List", to: "/going-concern" },
       { label: "Financial Statement Status", to: "/financial-statement-status" },
@@ -44,6 +48,7 @@ const GROUPS: Group[] = [
     title: "Companies",
     items: [
       { label: "Listed Companies", to: "/companies" },
+      { label: "Sector-wise Company List", to: "/companies/sectors" },
       { label: "By Industry", to: "/companies", hash: "industry" },
       { label: "By Category", to: "/companies", hash: "category" },
       { label: "Company Profile", to: "/companies" },
@@ -55,12 +60,12 @@ const GROUPS: Group[] = [
   {
     title: "Disclosures & Filings",
     items: [
-      { label: "Auditor's Opinion", to: "/filings" },
-      { label: "Proceeds Utilisation", to: "/filings" },
+      { label: "Auditor's Opinion", to: "/filings/auditors-opinion" },
+      { label: "Proceeds Utilisation", to: "/filings/proceeds-utilisation" },
       { label: "Right Offer Documents", to: "/companies/right-offers" },
       { label: "Direct Listing", to: "/companies/direct-listing" },
       { label: "Re-listing", to: "/companies/re-listing" },
-      { label: "PSI & Material Information", to: "/news" },
+      { label: "PSI & Material Information", to: "/filings/psi" },
     ],
   },
   {
