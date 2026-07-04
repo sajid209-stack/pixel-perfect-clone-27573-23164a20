@@ -57,11 +57,12 @@ function LearnPage() {
             Investor Education
           </div>
           <h1 className="mt-2 text-[26px] md:text-[34px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
-            DSE Training Academy
+            Learn — Investor Education
           </h1>
           <p className="mt-3 text-[14px] max-w-[720px]" style={{ color: "var(--text-secondary)" }}>
-            Human resource development for Bangladesh's capital market.
+            Guides, glossaries and training pathways for investors and market professionals — including the DSE Training Academy (DTA).
           </p>
+
         </div>
       </section>
 
