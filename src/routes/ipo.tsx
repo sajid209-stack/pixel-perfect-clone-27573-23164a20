@@ -415,6 +415,10 @@ function IpoPage() {
           </ol>
         </div>
       </section>
+      </>)}
+
+      {mainTab === "archive" && <IpoArchive />}
+      {mainTab === "documents" && <IpoDocuments />}
 
       <Footer />
     </div>
