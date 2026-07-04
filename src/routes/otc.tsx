@@ -759,3 +759,153 @@ function News() {
     </section>
   );
 }
+
+/* ---------- 8) Sale Orders ---------- */
+// SAMPLE — replace at wiring with real OTC sale-order feed.
+type SaleOrder = {
+  code: string;
+  qty: number;
+  rate: number;
+  orderType: string;
+  saleDate: string;
+  status: string;
+  lastRate: number;
+  lastDate: string;
+  inst: "Demated" | "Paper";
+  memId: string;
+  member: string;
+};
+
+const SALE_ORDERS: SaleOrder[] = [
+  { code: "UNITEDAIR", qty: 1699, rate: 1.8, orderType: "", saleDate: "17-06-26", status: "", lastRate: 1.8, lastDate: "25-01-26", inst: "Demated", memId: "021", member: "Royal Capital Ltd." },
+  { code: "RAHIMTEXT", qty: 500, rate: 12.5, orderType: "", saleDate: "16-06-26", status: "", lastRate: 12.3, lastDate: "22-05-26", inst: "Demated", memId: "045", member: "LankaBangla Securities Ltd." },
+  { code: "MEGHNAPET", qty: 2000, rate: 4.2, orderType: "", saleDate: "16-06-26", status: "", lastRate: 4.1, lastDate: "10-04-26", inst: "Paper", memId: "112", member: "IDLC Securities Ltd." },
+  { code: "SHYAMPSUG", qty: 350, rate: 22.6, orderType: "", saleDate: "15-06-26", status: "", lastRate: 22.6, lastDate: "12-03-26", inst: "Paper", memId: "007", member: "AB Securities Ltd." },
+  { code: "MODERNIND", qty: 1200, rate: 6.7, orderType: "", saleDate: "15-06-26", status: "", lastRate: 6.5, lastDate: "02-06-26", inst: "Demated", memId: "078", member: "BRAC EPL Stock Brokerage Ltd." },
+  { code: "MEGHNACON", qty: 800, rate: 9.1, orderType: "", saleDate: "14-06-26", status: "", lastRate: 9.0, lastDate: "18-05-26", inst: "Demated", memId: "156", member: "UCB Stock Brokerage Ltd." },
+  { code: "SAVARREF", qty: 250, rate: 15.4, orderType: "", saleDate: "14-06-26", status: "", lastRate: 15.4, lastDate: "05-02-26", inst: "Paper", memId: "094", member: "City Brokerage Ltd." },
+  { code: "PADMAOIL", qty: 3000, rate: 2.9, orderType: "", saleDate: "13-06-26", status: "", lastRate: 2.8, lastDate: "20-05-26", inst: "Demated", memId: "203", member: "EBL Securities Ltd." },
+  { code: "BDWELDING", qty: 700, rate: 5.6, orderType: "", saleDate: "13-06-26", status: "", lastRate: 5.5, lastDate: "11-04-26", inst: "Paper", memId: "061", member: "Prime Bank Securities Ltd." },
+  { code: "GACHIHATA", qty: 450, rate: 7.8, orderType: "", saleDate: "12-06-26", status: "", lastRate: 7.7, lastDate: "28-03-26", inst: "Demated", memId: "134", member: "MTB Securities Ltd." },
+  { code: "BEACHHATCH", qty: 900, rate: 3.4, orderType: "", saleDate: "12-06-26", status: "", lastRate: 3.4, lastDate: "15-05-26", inst: "Paper", memId: "088", member: "Southeast Bank Capital Services Ltd." },
+  { code: "TULIPDAIRY", qty: 1500, rate: 4.6, orderType: "", saleDate: "11-06-26", status: "", lastRate: 4.5, lastDate: "01-06-26", inst: "Demated", memId: "042", member: "IIDFC Securities Ltd." },
+  { code: "AZADIPRINT", qty: 620, rate: 8.2, orderType: "", saleDate: "11-06-26", status: "", lastRate: 8.1, lastDate: "19-04-26", inst: "Paper", memId: "175", member: "Sonali Securities Ltd." },
+  { code: "MITAT", qty: 1100, rate: 11.0, orderType: "", saleDate: "10-06-26", status: "", lastRate: 10.9, lastDate: "07-05-26", inst: "Demated", memId: "059", member: "ICB Securities Trading Company Ltd." },
+  { code: "MEHNAJUTE", qty: 400, rate: 17.3, orderType: "", saleDate: "10-06-26", status: "", lastRate: 17.2, lastDate: "22-02-26", inst: "Paper", memId: "126", member: "Popular Life Securities Ltd." },
+  { code: "SUHRIDIND", qty: 250, rate: 24.8, orderType: "", saleDate: "09-06-26", status: "", lastRate: 24.5, lastDate: "18-03-26", inst: "Demated", memId: "017", member: "Standard Chartered Securities (Bangladesh) Ltd." },
+  { code: "BDMONOPOOL", qty: 780, rate: 3.9, orderType: "", saleDate: "09-06-26", status: "", lastRate: 3.9, lastDate: "26-05-26", inst: "Paper", memId: "099", member: "Trust Bank Securities Ltd." },
+  { code: "MEGHNASH", qty: 1300, rate: 6.1, orderType: "", saleDate: "08-06-26", status: "", lastRate: 6.0, lastDate: "12-05-26", inst: "Demated", memId: "148", member: "Dhaka Bank Securities Ltd." },
+  { code: "APOLONIT", qty: 950, rate: 5.2, orderType: "", saleDate: "08-06-26", status: "", lastRate: 5.1, lastDate: "03-06-26", inst: "Paper", memId: "071", member: "NCC Bank Securities & Financial Services Ltd." },
+  { code: "RANFOUNDRY", qty: 560, rate: 10.4, orderType: "", saleDate: "07-06-26", status: "", lastRate: 10.3, lastDate: "24-04-26", inst: "Demated", memId: "182", member: "Uttara Finance Securities Ltd." },
+];
+
+function SaleOrders() {
+  const { t } = useLang();
+  const [sort, setSort] = useState<"date" | "code">("date");
+  const [visible, setVisible] = useState(20);
+
+  const now = useMemo(() => new Date(), []);
+  const dateStr = now.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  const timeStr = now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+
+  const rows = useMemo(() => {
+    const arr = [...SALE_ORDERS];
+    if (sort === "code") arr.sort((a, b) => a.code.localeCompare(b.code));
+    else arr.sort((a, b) => b.saleDate.localeCompare(a.saleDate));
+    return arr.slice(0, visible);
+  }, [sort, visible]);
+
+  const COLS = [
+    "Sl No.", "Trade Code", "Qty.", "Rate", "Order Type", "Sale Order Date",
+    "Order Status", "Last Traded Rate", "Last Traded Date", "Inst. Type", "Mem. ID", "Name of the Member Company",
+  ];
+
+  return (
+    <section>
+      <SectionTitle>
+        {t("OTC Sale Order on")} {dateStr} {t("at")} {timeStr}
+      </SectionTitle>
+
+      <div className="flex flex-wrap gap-1 mb-3">
+        {([
+          { id: "date", label: "By Order Date" },
+          { id: "code", label: "By Trade Code" },
+        ] as const).map((o) => {
+          const active = sort === o.id;
+          return (
+            <button
+              key={o.id}
+              onClick={() => setSort(o.id)}
+              className="h-7 px-3 text-[12px] font-semibold"
+              style={{
+                border: "1px solid var(--line)",
+                background: active ? "var(--brand-600)" : "var(--surface)",
+                color: active ? "#fff" : "var(--ink)",
+              }}
+            >
+              {t(o.label)}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="overflow-x-auto" style={{ border: "1px solid var(--line)", background: "var(--surface)" }}>
+        <table className="w-full text-[13px]" style={{ minWidth: 1100 }}>
+          <thead>
+            <tr style={{ background: "var(--surface-2)", borderBottom: "1px solid var(--line)" }}>
+              {COLS.map((c) => (
+                <th
+                  key={c}
+                  className="px-3 py-2 text-left text-[11px] font-semibold uppercase whitespace-nowrap"
+                  style={{ letterSpacing: "0.08em", color: "var(--text-secondary)" }}
+                >
+                  {c}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr
+                key={`${r.code}-${i}`}
+                style={{
+                  borderTop: i === 0 ? "none" : "1px solid var(--line)",
+                  background: i % 2 === 1 ? "rgba(0,0,0,0.018)" : "transparent",
+                }}
+              >
+                <td className="px-3 py-2 tnum" style={{ color: "var(--text-secondary)" }}>{i + 1}</td>
+                <td className="px-3 py-2 font-bold" style={{ color: "var(--brand-600)" }}>{r.code}</td>
+                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.qty.toLocaleString()}</td>
+                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.rate.toFixed(2)}</td>
+                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.orderType}</td>
+                <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--ink)" }}>{r.saleDate}</td>
+                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.status}</td>
+                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.lastRate.toFixed(2)}</td>
+                <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--ink)" }}>{r.lastDate}</td>
+                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.inst}</td>
+                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.memId}</td>
+                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.member}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {visible < SALE_ORDERS.length && (
+        <div className="mt-3">
+          <button
+            onClick={() => setVisible((v) => Math.min(v + 20, SALE_ORDERS.length))}
+            className="h-8 px-4 text-[12.5px] font-semibold"
+            style={{ border: "1px solid var(--line)", background: "var(--surface)", color: "var(--ink)" }}
+          >
+            {t("Load more")}
+          </button>
+        </div>
+      )}
+
+      <Footnote id="otc.sale.footnote">
+        {t("Sample rows shown — legacy feed contains ~499 entries; wire to live OTC sale-order source.")}
+      </Footnote>
+    </section>
+  );
+}
