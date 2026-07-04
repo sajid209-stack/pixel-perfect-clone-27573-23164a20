@@ -240,6 +240,37 @@ function IpoPage() {
         </div>
       </section>
 
+      {/* Main tabs */}
+      <section className="border-b" style={{ borderColor: "rgb(var(--ov) / 0.06)" }}>
+        <div className="max-w-[1440px] mx-auto px-6 flex items-center gap-6">
+          {[
+            { key: "pipeline", label: "IPO Pipeline" },
+            { key: "archive", label: "IPO Archive" },
+            { key: "documents", label: "Documents & Circulars" },
+          ].map((t) => {
+            const active = mainTab === t.key;
+            return (
+              <button
+                key={t.key}
+                onClick={() => setMainTab(t.key as typeof mainTab)}
+                className="relative py-4 text-[13px] font-medium transition"
+                style={{ color: active ? "var(--text-primary)" : "var(--text-muted)" }}
+              >
+                {t.label}
+                {active && (
+                  <motion.span
+                    layoutId="ipoMainTab"
+                    className="absolute left-0 right-0 -bottom-px h-[2px]"
+                    style={{ background: "var(--primary)" }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {mainTab === "pipeline" && (<>
       {/* Tabs */}
       <section className="sticky top-[104px] z-30" style={{
         background: "rgb(var(--surface-rgb) / 0.85)",
