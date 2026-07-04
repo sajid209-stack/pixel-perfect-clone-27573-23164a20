@@ -1,9 +1,43 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { zodValidator, fallback } from "@tanstack/zod-adapter";
+import { z } from "zod";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
+// Same 22-sector taxonomy as /companies/sectors
+const SECTORS: { name: string; slug: string }[] = [
+  { name: "Bank", slug: "bank" },
+  { name: "Financial Institutions", slug: "financial-institutions" },
+  { name: "Insurance", slug: "insurance" },
+  { name: "Mutual Funds", slug: "mutual-funds" },
+  { name: "Food & Allied", slug: "food-allied" },
+  { name: "Pharmaceuticals & Chemicals", slug: "pharmaceuticals-chemicals" },
+  { name: "Textile", slug: "textile" },
+  { name: "Engineering", slug: "engineering" },
+  { name: "Ceramics Sector", slug: "ceramics" },
+  { name: "Tannery Industries", slug: "tannery" },
+  { name: "Paper & Printing", slug: "paper-printing" },
+  { name: "Jute", slug: "jute" },
+  { name: "Cement", slug: "cement" },
+  { name: "Fuel & Power", slug: "fuel-power" },
+  { name: "Services & Real Estate", slug: "services-real-estate" },
+  { name: "IT Sector", slug: "it" },
+  { name: "Telecommunication", slug: "telecommunication" },
+  { name: "Travel & Leisure", slug: "travel-leisure" },
+  { name: "Miscellaneous", slug: "miscellaneous" },
+  { name: "Bond", slug: "bond" },
+  { name: "Corporate Bond", slug: "corporate-bond" },
+  { name: "Debenture", slug: "debenture" },
+];
+const SECTOR_SLUGS = SECTORS.map((s) => s.slug) as [string, ...string[]];
+
+const searchSchema = z.object({
+  sector: fallback(z.enum(SECTOR_SLUGS).optional(), undefined),
+});
+
 export const Route = createFileRoute("/markets_/latest-share-price")({
+  validateSearch: zodValidator(searchSchema),
   head: () => ({
     meta: [
       { title: "Latest Share Price | Dhaka Stock Exchange" },
