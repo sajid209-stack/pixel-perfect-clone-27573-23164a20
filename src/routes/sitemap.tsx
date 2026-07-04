@@ -114,7 +114,7 @@ const GROUPS: Group[] = [
   {
     title: "Publications",
     items: [
-      { label: "Weekly Review", to: "/publications" },
+      { label: "Weekly Review", to: "/publications/weekly" },
       { label: "Monthly Reviews & Graphs", to: "/publications" },
       { label: "Fortnightly Capital Market", to: "/publications" },
       { label: "Annual Report", to: "/reports" },
