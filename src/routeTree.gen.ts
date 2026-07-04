@@ -73,6 +73,7 @@ import { Route as HelpDeskNrbRouteImport } from './routes/help-desk.nrb'
 import { Route as ForeignInvestorsGeneralProfileRouteImport } from './routes/foreign-investors_.general-profile'
 import { Route as ForeignInvestorsEconomyRouteImport } from './routes/foreign-investors_.economy'
 import { Route as FilingsPsiRouteImport } from './routes/filings_.psi'
+import { Route as FilingsProceedsUtilisationRouteImport } from './routes/filings_.proceeds-utilisation'
 import { Route as FilingsAuditorsOpinionRouteImport } from './routes/filings_.auditors-opinion'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 import { Route as CompaniesRightOffersRouteImport } from './routes/companies_.right-offers'
@@ -415,6 +416,12 @@ const FilingsPsiRoute = FilingsPsiRouteImport.update({
   path: '/filings/psi',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FilingsProceedsUtilisationRoute =
+  FilingsProceedsUtilisationRouteImport.update({
+    id: '/filings_/proceeds-utilisation',
+    path: '/filings/proceeds-utilisation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const FilingsAuditorsOpinionRoute = FilingsAuditorsOpinionRouteImport.update({
   id: '/filings_/auditors-opinion',
   path: '/filings/auditors-opinion',
@@ -575,6 +582,7 @@ export interface FileRoutesByFullPath {
   '/companies/right-offers': typeof CompaniesRightOffersRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/filings/auditors-opinion': typeof FilingsAuditorsOpinionRoute
+  '/filings/proceeds-utilisation': typeof FilingsProceedsUtilisationRoute
   '/filings/psi': typeof FilingsPsiRoute
   '/foreign-investors/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
@@ -659,6 +667,7 @@ export interface FileRoutesByTo {
   '/companies/right-offers': typeof CompaniesRightOffersRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/filings/auditors-opinion': typeof FilingsAuditorsOpinionRoute
+  '/filings/proceeds-utilisation': typeof FilingsProceedsUtilisationRoute
   '/filings/psi': typeof FilingsPsiRoute
   '/foreign-investors/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors/general-profile': typeof ForeignInvestorsGeneralProfileRoute
@@ -744,6 +753,7 @@ export interface FileRoutesById {
   '/companies_/right-offers': typeof CompaniesRightOffersRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/filings_/auditors-opinion': typeof FilingsAuditorsOpinionRoute
+  '/filings_/proceeds-utilisation': typeof FilingsProceedsUtilisationRoute
   '/filings_/psi': typeof FilingsPsiRoute
   '/foreign-investors_/economy': typeof ForeignInvestorsEconomyRoute
   '/foreign-investors_/general-profile': typeof ForeignInvestorsGeneralProfileRoute
@@ -830,6 +840,7 @@ export interface FileRouteTypes {
     | '/companies/right-offers'
     | '/company/$ticker'
     | '/filings/auditors-opinion'
+    | '/filings/proceeds-utilisation'
     | '/filings/psi'
     | '/foreign-investors/economy'
     | '/foreign-investors/general-profile'
@@ -914,6 +925,7 @@ export interface FileRouteTypes {
     | '/companies/right-offers'
     | '/company/$ticker'
     | '/filings/auditors-opinion'
+    | '/filings/proceeds-utilisation'
     | '/filings/psi'
     | '/foreign-investors/economy'
     | '/foreign-investors/general-profile'
@@ -998,6 +1010,7 @@ export interface FileRouteTypes {
     | '/companies_/right-offers'
     | '/company/$ticker'
     | '/filings_/auditors-opinion'
+    | '/filings_/proceeds-utilisation'
     | '/filings_/psi'
     | '/foreign-investors_/economy'
     | '/foreign-investors_/general-profile'
@@ -1083,6 +1096,7 @@ export interface RootRouteChildren {
   CompaniesRightOffersRoute: typeof CompaniesRightOffersRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
   FilingsAuditorsOpinionRoute: typeof FilingsAuditorsOpinionRoute
+  FilingsProceedsUtilisationRoute: typeof FilingsProceedsUtilisationRoute
   FilingsPsiRoute: typeof FilingsPsiRoute
   ForeignInvestorsEconomyRoute: typeof ForeignInvestorsEconomyRoute
   ForeignInvestorsGeneralProfileRoute: typeof ForeignInvestorsGeneralProfileRoute
@@ -1547,6 +1561,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FilingsPsiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/filings_/proceeds-utilisation': {
+      id: '/filings_/proceeds-utilisation'
+      path: '/filings/proceeds-utilisation'
+      fullPath: '/filings/proceeds-utilisation'
+      preLoaderRoute: typeof FilingsProceedsUtilisationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/filings_/auditors-opinion': {
       id: '/filings_/auditors-opinion'
       path: '/filings/auditors-opinion'
@@ -1768,6 +1789,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompaniesRightOffersRoute: CompaniesRightOffersRoute,
   CompanyTickerRoute: CompanyTickerRoute,
   FilingsAuditorsOpinionRoute: FilingsAuditorsOpinionRoute,
+  FilingsProceedsUtilisationRoute: FilingsProceedsUtilisationRoute,
   FilingsPsiRoute: FilingsPsiRoute,
   ForeignInvestorsEconomyRoute: ForeignInvestorsEconomyRoute,
   ForeignInvestorsGeneralProfileRoute: ForeignInvestorsGeneralProfileRoute,
