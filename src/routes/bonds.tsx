@@ -399,6 +399,10 @@ function BondsPage() {
 
       <GSecDocsSection />
 
+      <BondSukukDocsSection />
+
+      <BondArchiveSection />
+
       <Footer />
     </div>
   );
