@@ -17,10 +17,10 @@ export const Route = createFileRoute("/sectoral-pe")({
 
 const AS_OF = "20 Jun, 2026";
 
-const ROWS: { sector: string; pe: string }[] = [
-  { sector: "Bank", pe: "8.42" },
-  { sector: "Pharmaceuticals & Chemicals", pe: "14.71" },
-  { sector: "Food & Allied", pe: "19.36" },
+const ROWS: { sector: string; slug: string; pe: string }[] = [
+  { sector: "Bank", slug: "bank", pe: "8.42" },
+  { sector: "Pharmaceuticals & Chemicals", slug: "pharmaceuticals-chemicals", pe: "14.71" },
+  { sector: "Food & Allied", slug: "food-allied", pe: "19.36" },
 ];
 
 function SectoralPePage() {
