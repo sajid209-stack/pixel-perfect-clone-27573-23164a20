@@ -161,16 +161,33 @@ function fmt(n: number, digits = 2) {
 }
 
 function LatestSharePricePage() {
+  const search = Route.useSearch();
+  const navigate = Route.useNavigate();
   const [sort, setSort] = useState<SortKey>("code");
-  const [view, setView] = useState<ViewMode>("all");
+  const [view, setView] = useState<ViewMode>(search.sector ? "sector" : "all");
   const [cat, setCat] = useState<(typeof CATS)[number]>("A");
   const [letter, setLetter] = useState<string>("A");
+  const [sector, setSectorState] = useState<string>(search.sector ?? "bank");
   const [limit, setLimit] = useState<number>(PAGE);
+
+  // Sync from URL when user hits back/forward or arrives via ?sector=
+  useEffect(() => {
+    if (search.sector) {
+      setView("sector");
+      setSectorState(search.sector);
+    }
+  }, [search.sector]);
+
+  const setSector = (slug: string) => {
+    setSectorState(slug);
+    navigate({ search: { sector: slug }, replace: true });
+  };
 
   const filtered = useMemo(() => {
     let rows = ROWS.slice();
     if (view === "category") rows = rows.filter((r) => r.category === cat);
     if (view === "alphabet") rows = rows.filter((r) => r.code.startsWith(letter));
+    if (view === "sector") rows = rows.filter((r) => sectorOf(r.code) === sector);
     const change = (r: Row) => r.ltp - r.ycp;
     const pct = (r: Row) => (r.ycp ? (change(r) * 100) / r.ycp : 0);
     rows.sort((a, b) => {
@@ -184,7 +201,7 @@ function LatestSharePricePage() {
       }
     });
     return rows;
-  }, [sort, view, cat, letter]);
+  }, [sort, view, cat, letter, sector]);
 
   const shown = view === "all" ? filtered.slice(0, limit) : filtered;
 
