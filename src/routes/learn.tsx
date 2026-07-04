@@ -45,19 +45,6 @@ const RELATED: { label: string; to: string }[] = [
   { label: "Foreign Investor Guide", to: "/foreign-investors" },
 ];
 
-// Driven by a Payload 'courses' collection: { title, description, duration, format, category }
-const COURSES = [
-  { title: "Certificate Programme on Basics of Stock Market", desc: "Fundamentals of the capital market, trading mechanics, regulatory framework and investor protection. Suitable for new entrants.", meta: "3 days · Classroom" },
-  { title: "TREC Holder Compliance Training", desc: "Regulatory obligations for TREC-holding brokerage houses — reporting, margin, client KYC and BSEC directives.", meta: "2 days · Classroom" },
-  { title: "Financial Statement Analysis", desc: "Reading and interpreting listed company financials — income statement, balance sheet, cash flow, and ratio analysis.", meta: "2 days · Classroom" },
-  { title: "Corporate Governance for Listed Companies", desc: "Board responsibilities, disclosure obligations and the BSEC Corporate Governance Code for listed company officers.", meta: "1 day · Classroom" },
-  { title: "Derivatives & Future Products", desc: "Introduction to derivative instruments, futures mechanics and their application in the Bangladeshi capital market context.", meta: "2 days · Classroom" },
-  { title: "Portfolio Management & Asset Allocation", desc: "Modern portfolio theory, asset class selection, rebalancing strategies and performance measurement.", meta: "2 days · Classroom" },
-  { title: "Mutual Fund Operations", desc: "Structure, regulation, NAV calculation, fund accounting and investor rights for mutual fund professionals.", meta: "2 days · Classroom" },
-  { title: "Market Surveillance & Risk Management", desc: "Surveillance methodologies, circuit breaker mechanisms and risk management frameworks for exchange operations staff.", meta: "1 day · Classroom" },
-  { title: "Fixed Income & Government Securities", desc: "G-Sec auction process, bond valuation, yield curves and the secondary market for debt instruments on DSE.", meta: "1 day · Classroom" },
-  { title: "OTC Market Operations", desc: "Trading mechanics, settlement and compliance requirements for over-the-counter market participants.", meta: "1 day · Classroom" },
-];
 
 function LearnPage() {
   return (
