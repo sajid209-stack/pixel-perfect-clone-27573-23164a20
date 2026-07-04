@@ -289,6 +289,136 @@ function NewsPage() {
         </div>
       </section>
 
+      {/* Advanced search */}
+      <section className="max-w-[1440px] mx-auto px-6 pt-6">
+        <div
+          className="rounded-2xl p-5"
+          style={{
+            background: "rgb(var(--surface-rgb) / 0.6)",
+            border: "1px solid rgb(var(--ov) / 0.06)",
+          }}
+        >
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <div className="text-[12px] uppercase tracking-[0.2em]" style={{ color: "var(--text-muted)" }}>
+              Advanced search
+            </div>
+            <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+              *(Last 2 years data)
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-5">
+            {/* Search by Trading Code */}
+            <div>
+              <div className="text-[12px] font-medium mb-2" style={{ color: "var(--text-secondary)" }}>
+                Search by Trading Code
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <input
+                  list="news-symbols"
+                  value={symbolInput}
+                  onChange={(e) => setSymbolInput(e.target.value)}
+                  placeholder="Select or type trading code…"
+                  className="flex-1 min-w-[180px] h-9 px-3 rounded-full text-[13px] bg-transparent outline-none"
+                  style={{
+                    background: "rgb(var(--ov) / 0.04)",
+                    border: "1px solid rgb(var(--ov) / 0.06)",
+                    color: "var(--text-primary)",
+                  }}
+                />
+                <datalist id="news-symbols">
+                  {companies.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.name}
+                    </option>
+                  ))}
+                </datalist>
+                <button
+                  onClick={() => setSymbolFilter(symbolInput.trim())}
+                  className="h-9 px-4 rounded-full text-[12.5px] font-semibold"
+                  style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
+                >
+                  Search By Symbol
+                </button>
+                {symbolFilter && (
+                  <button
+                    onClick={() => {
+                      setSymbolFilter("");
+                      setSymbolInput("");
+                    }}
+                    className="h-9 px-3 rounded-full text-[12px]"
+                    style={{ border: "1px solid rgb(var(--ov) / 0.1)", color: "var(--text-secondary)" }}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Search by Date */}
+            <div>
+              <div className="text-[12px] font-medium mb-2" style={{ color: "var(--text-secondary)" }}>
+                Search by Date
+              </div>
+              <div className="flex gap-2 flex-wrap items-center">
+                <label className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--text-muted)" }}>
+                  From
+                  <input
+                    type="date"
+                    min={TWO_YEARS_AGO_ISO}
+                    max={TODAY_ISO}
+                    value={fromInput}
+                    onChange={(e) => setFromInput(e.target.value)}
+                    className="h-9 px-2 rounded-full text-[12.5px]"
+                    style={{
+                      background: "rgb(var(--ov) / 0.04)",
+                      border: "1px solid rgb(var(--ov) / 0.06)",
+                      color: "var(--text-primary)",
+                    }}
+                  />
+                </label>
+                <label className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--text-muted)" }}>
+                  To
+                  <input
+                    type="date"
+                    min={TWO_YEARS_AGO_ISO}
+                    max={TODAY_ISO}
+                    value={toInput}
+                    onChange={(e) => setToInput(e.target.value)}
+                    className="h-9 px-2 rounded-full text-[12.5px]"
+                    style={{
+                      background: "rgb(var(--ov) / 0.04)",
+                      border: "1px solid rgb(var(--ov) / 0.06)",
+                      color: "var(--text-primary)",
+                    }}
+                  />
+                </label>
+                <button
+                  onClick={() => setDateRange({ from: fromInput, to: toInput })}
+                  className="h-9 px-4 rounded-full text-[12.5px] font-semibold"
+                  style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
+                >
+                  Search By Date
+                </button>
+                {dateRange && (
+                  <button
+                    onClick={() => {
+                      setDateRange(null);
+                      setFromInput("");
+                      setToInput("");
+                    }}
+                    className="h-9 px-3 rounded-full text-[12px]"
+                    style={{ border: "1px solid rgb(var(--ov) / 0.1)", color: "var(--text-secondary)" }}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Feed + detail */}
       <section className="max-w-[1440px] mx-auto px-6 py-8 grid lg:grid-cols-[1.1fr_1fr] gap-6">
         {/* Feed */}
