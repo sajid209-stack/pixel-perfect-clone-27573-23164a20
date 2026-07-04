@@ -135,6 +135,7 @@ function OtcPage() {
           {sec === "manuals" && <Manuals />}
           {sec === "breaker" && <Breaker />}
           {sec === "news" && <News />}
+          {sec === "sale" && <SaleOrders />}
         </main>
       </div>
 
