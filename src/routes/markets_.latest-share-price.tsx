@@ -33,7 +33,7 @@ const SECTORS: { name: string; slug: string }[] = [
 const SECTOR_SLUGS = SECTORS.map((s) => s.slug) as [string, ...string[]];
 
 const searchSchema = z.object({
-  sector: fallback(z.enum(SECTOR_SLUGS).optional(), undefined),
+  sector: fallback(z.string().optional(), undefined).optional(),
 });
 
 export const Route = createFileRoute("/markets_/latest-share-price")({
