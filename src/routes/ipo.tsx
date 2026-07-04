@@ -6,6 +6,7 @@ import { ArrowUpRight, CalendarDays, CheckCircle2, ChevronDown, ChevronRight, Cl
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSlider";
+import { Segmented } from "@/components/dse/Segmented";
 
 export const Route = createFileRoute("/ipo")({
   head: () => ({
