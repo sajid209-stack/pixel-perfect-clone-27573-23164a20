@@ -125,7 +125,30 @@ const ROWS: Row[] = [
 ];
 
 type SortKey = "code" | "ltp" | "pct" | "value" | "volume" | "trade";
-type ViewMode = "all" | "category" | "alphabet";
+type ViewMode = "all" | "category" | "alphabet" | "sector";
+
+// SAMPLE — sector mapping per instrument (populate from taxonomy at wiring)
+const SECTOR_BY_CODE: Record<string, string> = {
+  RECKITTBEN: "miscellaneous", BXPHARMA: "pharmaceuticals-chemicals",
+  NCCBANK: "bank", "1JANATAMF": "mutual-funds", AAMRANET: "it",
+  SQURPHARMA: "pharmaceuticals-chemicals", GRAMEENPHONE: "telecommunication",
+  BEXIMCO: "miscellaneous", BATBC: "food-allied", LAFSURCEML: "cement",
+  OLYMPIC: "food-allied", MARICO: "pharmaceuticals-chemicals",
+  UNITEDPOWER: "fuel-power", SUMITPOWER: "fuel-power", TITASGAS: "fuel-power",
+  PADMAOIL: "fuel-power", MEGHNAPET: "fuel-power", JAMUNAOIL: "fuel-power",
+  POWERGRID: "fuel-power", DESCO: "fuel-power",
+  DHAKABANK: "bank", CITYBANK: "bank", PRIMEBANK: "bank", EBLTD: "bank",
+  BRACBANK: "bank", IFIC: "bank", PUBALIBANK: "bank", SOUTHEASTB: "bank",
+  MERCANBANK: "bank", ISLAMIBANK: "bank", TRUSTBANK: "bank",
+  GENEXIL: "it", ROBI: "telecommunication", WALTONHIL: "engineering",
+  BSCCL: "telecommunication", KDSALTD: "miscellaneous", MJLBD: "fuel-power",
+  SINGERBD: "engineering", BERGERPBL: "miscellaneous",
+  RENATA: "pharmaceuticals-chemicals", IBNSINA: "pharmaceuticals-chemicals",
+  ACI: "pharmaceuticals-chemicals", APOLOISPAT: "engineering",
+  GQBALLPEN: "miscellaneous", ZEALBANGLA: "food-allied",
+};
+const sectorOf = (code: string) => SECTOR_BY_CODE[code] ?? "miscellaneous";
+const sectorName = (slug: string) => SECTORS.find((s) => s.slug === slug)?.name ?? slug;
 const CATS = ["A", "B", "G", "N", "Z"] as const;
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const PAGE = 40;
