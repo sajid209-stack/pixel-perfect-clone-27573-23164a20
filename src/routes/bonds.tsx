@@ -596,45 +596,6 @@ function BondArchiveSection() {
                   startIndex={(() => { const s = counter; counter += (BOND_ARCHIVE[year] ?? []).length; return s; })()}
                 />
               ))}
-                <>
-                  <tr key={`year-${year}`}>
-                    <td
-                      colSpan={3}
-                      className="px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em]"
-                      style={{
-                        background: "var(--surface-2, rgba(0,0,0,0.04))",
-                        color: "var(--ink)",
-                        borderTop: "1px solid var(--line)",
-                        borderBottom: "1px solid var(--line)",
-                      }}
-                    >
-                      {year}
-                    </td>
-                  </tr>
-                  {(BOND_ARCHIVE[year] ?? []).map((name) => {
-                    counter += 1;
-                    return (
-                      <tr key={`${year}-${name}`} style={{ borderTop: "1px solid var(--line)" }}>
-                        <td className="px-3 py-2.5 tnum" style={{ color: "var(--text-muted)" }}>
-                          {counter}
-                        </td>
-                        <td className="px-3 py-2.5" style={{ color: "var(--ink)" }}>
-                          {name}
-                        </td>
-                        <td className="px-3 py-2.5">
-                          <a
-                            href="#"
-                            className="inline-flex items-center gap-1 text-[12.5px]"
-                            style={{ color: "var(--brand-600)" }}
-                          >
-                            <FileDown className="w-4 h-4" /> PDF
-                          </a>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </>
-              ))}
             </tbody>
           </table>
         </div>
