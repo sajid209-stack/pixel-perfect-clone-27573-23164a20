@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowUp, ArrowDown, Search, FileText, Download } from "lucide-react";
 
@@ -195,13 +195,20 @@ function BondsPage() {
           <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
             {t("Sample data for demonstration — live data will connect to the DSE API")}
           </div>
-          <div
-            className="mt-3 inline-flex items-center gap-1.5 text-[11px]"
-            style={{ color: "var(--text-muted)" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--brand-600)" }} />
-            {t("as provided by DSE")} · {t("end-of-day")} {fmtDate("2026-06-18")}
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-[11px]" style={{ color: "var(--text-muted)" }}>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--brand-600)" }} />
+              {t("as provided by DSE")} · {t("end-of-day")} {fmtDate("2026-06-18")}
+            </span>
+            <Link
+              to="/bonds/government-securities"
+              className="hover:underline font-semibold"
+              style={{ color: "var(--brand-600)" }}
+            >
+              G-Sec announcements →
+            </Link>
           </div>
+
         </div>
       </section>
 
