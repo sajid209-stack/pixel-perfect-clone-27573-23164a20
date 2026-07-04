@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, CalendarDays, CheckCircle2, ChevronRight, Clock, FileText, TrendingUp } from "lucide-react";
+import { ArrowUpRight, CalendarDays, CheckCircle2, ChevronDown, ChevronRight, Clock, FileDown, FileText, Inbox, TrendingUp } from "lucide-react";
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
