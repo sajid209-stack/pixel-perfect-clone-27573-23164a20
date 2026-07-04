@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ArrowUp, ArrowDown, Search, FileText, Download } from "lucide-react";
+import { ArrowUp, ArrowDown, Search, FileText, Download, Inbox, FileDown } from "lucide-react";
 
 const GSEC_DOCS = [
   { title: "G-Sec Primary Auction Process — BGTB Directive June 2023", file: "BGTB_G-Sec Primary Auction Process_Directive_22.06.2023.pdf", category: "Directive" },
