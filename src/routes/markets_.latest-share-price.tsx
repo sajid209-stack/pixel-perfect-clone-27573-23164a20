@@ -255,10 +255,15 @@ function LatestSharePricePage() {
           </label>
 
           <div className="flex items-center gap-1" role="tablist" aria-label="View">
-            {(["all", "category", "alphabet"] as ViewMode[]).map((m) => (
+            {(["all", "category", "alphabet", "sector"] as ViewMode[]).map((m) => (
               <button
                 key={m}
-                onClick={() => { setView(m); setLimit(PAGE); }}
+                onClick={() => {
+                  setView(m);
+                  setLimit(PAGE);
+                  if (m === "sector") navigate({ search: { sector }, replace: true });
+                  else if (search.sector) navigate({ search: { sector: undefined }, replace: true });
+                }}
                 className="text-[12px] px-3 py-1 uppercase tracking-wider font-semibold"
                 style={{
                   border: "1px solid var(--line)",
@@ -266,11 +271,32 @@ function LatestSharePricePage() {
                   color: view === m ? "#fff" : "var(--ink)",
                 }}
               >
-                {m === "all" ? "All" : m === "category" ? "By Category" : "By Alphabet"}
+                {m === "all" ? "All" : m === "category" ? "By Category" : m === "alphabet" ? "By Alphabet" : "By Sector"}
               </button>
             ))}
           </div>
         </div>
+
+        {view === "sector" && (
+          <div className="mb-3">
+            <label className="flex items-center gap-2 text-[12px] mb-2" style={{ color: "var(--text-secondary)" }}>
+              <span className="uppercase tracking-wider font-semibold">Sector</span>
+              <select
+                value={sector}
+                onChange={(e) => setSector(e.target.value)}
+                className="text-[13px] px-2 py-1"
+                style={{ border: "1px solid var(--line)", background: "var(--surface)", color: "var(--ink)" }}
+              >
+                {SECTORS.map((s) => (
+                  <option key={s.slug} value={s.slug}>{s.name}</option>
+                ))}
+              </select>
+            </label>
+            <div className="text-[13px]" style={{ color: "var(--text-secondary)" }}>
+              ( Sector - {sectorName(sector)} )
+            </div>
+          </div>
+        )}
 
         {view === "category" && (
           <div className="mb-3">
