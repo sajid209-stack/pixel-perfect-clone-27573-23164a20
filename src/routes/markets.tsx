@@ -116,7 +116,9 @@ function MarketsPage() {
       </section>
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-10">
+        <MarketSummaryStrip />
         <CategorySummary />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <TotalTransactions />
           <MarketCap />
@@ -131,8 +133,121 @@ function MarketsPage() {
   );
 }
 
+// SAMPLE — replace at wiring
+const AS_OF_TIME = "14:30";
+// SAMPLE — replace at wiring
+const INDEX_CARDS = [
+  { label: "DSEX", value: "6,241.30", delta: "+0.30%", up: true },
+  { label: "DS30", value: "2,118.40", delta: "+0.18%", up: true },
+  { label: "DSES", value: "1,340.20", delta: "−0.05%", up: false },
+] as const;
+
+/**
+ * CRITICAL DATA RULE: Turnover, Volume, Trades, Market Cap and Breadth
+ * values in this strip MUST reference the same source objects that render
+ * the tables below (TOTAL_TRANSACTIONS, MARKET_CAP, CATEGORY_SUMMARY).
+ * Never introduce parallel numbers here — if the tables change, the strip
+ * changes with them by construction.
+ */
+function MarketSummaryStrip() {
+  // Derived from the same consts used by the tables below — do not inline literals.
+  const trades = TOTAL_TRANSACTIONS.find((r) => r.label.startsWith("A."))?.value ?? "";
+  const volume = TOTAL_TRANSACTIONS.find((r) => r.label.startsWith("B."))?.value ?? "";
+  const valueTk = TOTAL_TRANSACTIONS.find((r) => r.label.startsWith("C."))?.value ?? "";
+  const marketCapTotal = MARKET_CAP.find((r) => r.label === "TOTAL")?.value ?? "";
+  const allCat = CATEGORY_SUMMARY[0]; // "All Category" — same object as the Issues Summary card
+
+  // Turnover shown in Crore (1 Cr = 10,000,000). Uses the same underlying VALUE(Tk).
+  const turnoverCr = (Number(valueTk) / 1e7).toLocaleString("en-IN", {
+    maximumFractionDigits: 0,
+  });
+  const marketCapCr = (Number(marketCapTotal) / 1e7).toLocaleString("en-IN", {
+    maximumFractionDigits: 0,
+  });
+
+  const cards: {
+    label: string;
+    value: string;
+    sub?: string;
+    delta?: string;
+    up?: boolean;
+  }[] = [
+    ...INDEX_CARDS.map((c) => ({ label: c.label, value: c.value, delta: c.delta, up: c.up })),
+    { label: "Turnover", value: `৳${turnoverCr} Cr`, sub: `${Number(volume).toLocaleString()} shares` },
+    { label: "Volume", value: Number(volume).toLocaleString(), sub: "shares" },
+    { label: "Trades", value: Number(trades).toLocaleString(), sub: "executions" },
+    { label: "Market Cap", value: `৳${marketCapCr} Cr`, sub: "total" },
+    { label: "Breadth", value: `${allCat.adv} / ${allCat.dec}`, sub: "adv / dec" },
+  ];
+
+  return (
+    <section>
+      <div className="flex items-baseline justify-between mb-3">
+        <h2
+          className="text-[15px] font-semibold uppercase"
+          style={{ color: "var(--ink)", letterSpacing: "0.08em" }}
+        >
+          Market Summary
+        </h2>
+        <div
+          className="text-[11px] uppercase"
+          style={{ color: "var(--text-secondary)", letterSpacing: "0.08em" }}
+        >
+          as of {AS_OF} at {AS_OF_TIME}
+        </div>
+      </div>
+      <div
+        className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8"
+        style={{ border: "1px solid var(--line)", background: "var(--surface)", borderRadius: 2 }}
+      >
+        {cards.map((c, i) => (
+          <div
+            key={c.label}
+            className="px-3 py-3"
+            style={{
+              borderLeft: i > 0 ? "1px solid var(--line)" : "none",
+            }}
+          >
+            <div
+              className="text-[10px] font-semibold uppercase"
+              style={{ letterSpacing: "0.12em", color: "var(--text-muted, var(--text-secondary))" }}
+            >
+              {c.label}
+            </div>
+            <div
+              className="mt-1.5 tnum text-[16px] font-semibold leading-none"
+              style={{ color: "var(--ink)", fontFamily: "var(--font-mono)" }}
+            >
+              {c.value}
+            </div>
+            {c.delta ? (
+              <div
+                className="mt-1.5 tnum text-[12px] font-semibold"
+                style={{
+                  color: c.up ? "var(--green-up)" : "var(--red-down)",
+                  fontFamily: "var(--font-mono)",
+                }}
+              >
+                {c.up ? "▲" : "▼"} {c.delta.replace(/^[−+]/, "")}
+              </div>
+            ) : c.sub ? (
+              <div
+                className="mt-1.5 text-[11px]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {c.sub}
+              </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function SectionHeader({ title }: { title: string }) {
   return (
+
     <div className="flex items-baseline justify-between mb-3">
       <h2
         className="text-[15px] font-semibold uppercase"
