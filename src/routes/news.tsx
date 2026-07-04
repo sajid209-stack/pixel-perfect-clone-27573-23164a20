@@ -126,12 +126,34 @@ const types: ("All" | DisclosureType)[] = [
   "Regulatory",
 ];
 
+/* Rolling 2-year window for the Advanced Search date pickers */
+const TODAY_ISO = new Date().toISOString().slice(0, 10);
+const TWO_YEARS_AGO_ISO = (() => {
+  const d = new Date();
+  d.setFullYear(d.getFullYear() - 2);
+  return d.toISOString().slice(0, 10);
+})();
+
+/* Parse the feed's "MMM DD" strings against the current year */
+function parseFeedDate(s: string): Date | null {
+  const d = new Date(`${s} ${new Date().getFullYear()}`);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 function NewsPage() {
   const all = useMemo(() => buildFeed(), []);
   const [type, setType] = useState<(typeof types)[number]>("All");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string>(all[0]?.id ?? "");
   const [loading, setLoading] = useState(true);
+
+  // Advanced search state
+  const [symbolInput, setSymbolInput] = useState("");
+  const [symbolFilter, setSymbolFilter] = useState("");
+  const [fromInput, setFromInput] = useState("");
+  const [toInput, setToInput] = useState("");
+  const [dateRange, setDateRange] = useState<{ from: string; to: string } | null>(null);
+
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 400);
     return () => clearTimeout(t);
@@ -139,13 +161,23 @@ function NewsPage() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
+    const sym = symbolFilter.trim().toUpperCase();
+    const from = dateRange?.from ? new Date(dateRange.from) : null;
+    const to = dateRange?.to ? new Date(dateRange.to) : null;
     return all.filter((d) => {
       if (type !== "All" && d.type !== type) return false;
       if (q && !(d.code.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.summary.toLowerCase().includes(q)))
         return false;
+      if (sym && d.code.toUpperCase() !== sym) return false;
+      if (from || to) {
+        const dt = parseFeedDate(d.date);
+        if (!dt) return false;
+        if (from && dt < from) return false;
+        if (to && dt > to) return false;
+      }
       return true;
     });
-  }, [all, type, query]);
+  }, [all, type, query, symbolFilter, dateRange]);
 
   const selected = useMemo(
     () => filtered.find((d) => d.id === selectedId) ?? filtered[0],
