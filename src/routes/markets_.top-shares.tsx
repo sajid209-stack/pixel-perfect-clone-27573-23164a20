@@ -178,8 +178,14 @@ const H20 = ["#", "TRADING CODE", "LTP*", "HIGH", "LOW", "YCP*", "CLOSEP*", "TRA
 const HCP = ["#", "TRADING CODE", "CLOSEP*", "HIGH", "LOW", "YCP*", "% CHANGE"];
 const HOL = ["#", "TRADING CODE", "OPEN*", "HIGH", "LOW", "LTP*", "DEVIATION %"];
 
+type Top20Seg = "value" | "volume" | "trade";
+type CpOlSeg = "cp" | "ol";
+
 function TopSharesPage() {
   const [tab, setTab] = useState<TabKey>("top20");
+  const [top20Seg, setTop20Seg] = useState<Top20Seg>("value");
+  const [gainSeg, setGainSeg] = useState<CpOlSeg>("cp");
+  const [loseSeg, setLoseSeg] = useState<CpOlSeg>("cp");
 
   return (
     <div className="min-h-screen" style={{ background: "var(--surface)", color: "var(--ink)" }}>
@@ -221,15 +227,33 @@ function TopSharesPage() {
 
         {tab === "top20" && (
           <>
-            <TableShell title={`Top Twenty Shares by Value On ${TS}`} headers={H20}>
-              {BY_VALUE.slice(0, 20).map((r, i) => <Row20 key={"v" + r.code + i} r={r} i={i} />)}
-            </TableShell>
-            <TableShell title={`Top Twenty Shares by Volume On ${TS}`} headers={H20}>
-              {BY_VOLUME.slice(0, 20).map((r, i) => <Row20 key={"o" + r.code + i} r={r} i={i} />)}
-            </TableShell>
-            <TableShell title={`Top Twenty Shares by Trade On ${TS}`} headers={H20}>
-              {BY_TRADE.slice(0, 20).map((r, i) => <Row20 key={"t" + r.code + i} r={r} i={i} />)}
-            </TableShell>
+            <div className="mb-5">
+              <Segmented
+                ariaLabel="Top 20 shares by"
+                value={top20Seg}
+                onChange={setTop20Seg}
+                options={[
+                  { key: "value", label: "By Value" },
+                  { key: "volume", label: "By Volume" },
+                  { key: "trade", label: "By Trade" },
+                ]}
+              />
+            </div>
+            {top20Seg === "value" && (
+              <TableShell title={`Top Twenty Shares by Value On ${TS}`} headers={H20}>
+                {BY_VALUE.slice(0, 20).map((r, i) => <Row20 key={"v" + r.code + i} r={r} i={i} />)}
+              </TableShell>
+            )}
+            {top20Seg === "volume" && (
+              <TableShell title={`Top Twenty Shares by Volume On ${TS}`} headers={H20}>
+                {BY_VOLUME.slice(0, 20).map((r, i) => <Row20 key={"o" + r.code + i} r={r} i={i} />)}
+              </TableShell>
+            )}
+            {top20Seg === "trade" && (
+              <TableShell title={`Top Twenty Shares by Trade On ${TS}`} headers={H20}>
+                {BY_TRADE.slice(0, 20).map((r, i) => <Row20 key={"t" + r.code + i} r={r} i={i} />)}
+              </TableShell>
+            )}
             <div className="mt-2 text-[11.5px] leading-6" style={{ color: "var(--text-secondary)" }}>
               <div>LTP* - Last Traded Price</div>
               <div>CLOSEP* - Closing Price</div>
@@ -241,12 +265,27 @@ function TopSharesPage() {
 
         {tab === "gainers" && (
           <>
-            <TableShell title={`Top Ten Gainer Considering Close Price & YCP on ${TS}`} headers={HCP}>
-              {GAINERS_CP.slice(0, 10).map((r, i) => <RowCP key={"gcp" + r.code + i} r={r} i={i} />)}
-            </TableShell>
-            <TableShell title={`Top Ten Gainer Considering Open Price and LTP on ${TS}`} headers={HOL}>
-              {GAINERS_OL.slice(0, 10).map((r, i) => <RowOL key={"gol" + r.code + i} r={r} i={i} />)}
-            </TableShell>
+            <div className="mb-5">
+              <Segmented
+                ariaLabel="Top 10 gainers view"
+                value={gainSeg}
+                onChange={setGainSeg}
+                options={[
+                  { key: "cp", label: "Close Price & YCP" },
+                  { key: "ol", label: "Open Price & LTP" },
+                ]}
+              />
+            </div>
+            {gainSeg === "cp" && (
+              <TableShell title={`Top Ten Gainer Considering Close Price & YCP on ${TS}`} headers={HCP}>
+                {GAINERS_CP.slice(0, 10).map((r, i) => <RowCP key={"gcp" + r.code + i} r={r} i={i} />)}
+              </TableShell>
+            )}
+            {gainSeg === "ol" && (
+              <TableShell title={`Top Ten Gainer Considering Open Price and LTP on ${TS}`} headers={HOL}>
+                {GAINERS_OL.slice(0, 10).map((r, i) => <RowOL key={"gol" + r.code + i} r={r} i={i} />)}
+              </TableShell>
+            )}
             <div className="mt-2 text-[11.5px] leading-6" style={{ color: "var(--text-secondary)" }}>
               <div>LTP* - Last Traded Price</div>
               <div>OPEN* - Opening Price</div>
@@ -257,12 +296,27 @@ function TopSharesPage() {
 
         {tab === "losers" && (
           <>
-            <TableShell title={`Top Ten Loser Considering Close Price and YCP on ${TS}`} headers={HCP}>
-              {LOSERS_CP.slice(0, 10).map((r, i) => <RowCP key={"lcp" + r.code + i} r={r} i={i} />)}
-            </TableShell>
-            <TableShell title={`Top Ten Loser Considering Open Price & LTP on ${TS}`} headers={HOL}>
-              {LOSERS_OL.slice(0, 10).map((r, i) => <RowOL key={"lol" + r.code + i} r={r} i={i} />)}
-            </TableShell>
+            <div className="mb-5">
+              <Segmented
+                ariaLabel="Top 10 losers view"
+                value={loseSeg}
+                onChange={setLoseSeg}
+                options={[
+                  { key: "cp", label: "Close Price & YCP" },
+                  { key: "ol", label: "Open Price & LTP" },
+                ]}
+              />
+            </div>
+            {loseSeg === "cp" && (
+              <TableShell title={`Top Ten Loser Considering Close Price and YCP on ${TS}`} headers={HCP}>
+                {LOSERS_CP.slice(0, 10).map((r, i) => <RowCP key={"lcp" + r.code + i} r={r} i={i} />)}
+              </TableShell>
+            )}
+            {loseSeg === "ol" && (
+              <TableShell title={`Top Ten Loser Considering Open Price & LTP on ${TS}`} headers={HOL}>
+                {LOSERS_OL.slice(0, 10).map((r, i) => <RowOL key={"lol" + r.code + i} r={r} i={i} />)}
+              </TableShell>
+            )}
             <div className="mt-2 text-[11.5px] leading-6" style={{ color: "var(--text-secondary)" }}>
               <div>LTP* - Last Traded Price</div>
               <div>OPEN* - Opening Price</div>
