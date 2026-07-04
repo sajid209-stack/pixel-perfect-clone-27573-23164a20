@@ -642,3 +642,411 @@ function Spec({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+/* ============================================================
+ * IPO Archive
+ * ============================================================ */
+
+// SAMPLE — replace with real archive
+const FIXED_PRICE_ARCHIVE: Record<string, { name: string }[]> = {
+  "2024": [
+    { name: "Sonali Life Insurance Co. Ltd." },
+    { name: "Trust Islami Life Insurance Ltd." },
+    { name: "NRB Bank PLC" },
+    { name: "Midland Bank Ltd." },
+  ],
+  "2023": [
+    { name: "Sikder Insurance Co. Ltd." },
+    { name: "Yeakin Polymer Ltd." },
+    { name: "Ring Shine Textiles Ltd." },
+  ],
+  "2022": [
+    { name: "Navana Pharmaceuticals Ltd." },
+    { name: "JMI Hospital Requisite Manufacturing Ltd." },
+    { name: "Union Insurance Co. Ltd." },
+    { name: "Chartered Life Insurance Co. Ltd." },
+  ],
+  "2021": [
+    { name: "BD Thai Food & Beverage Ltd." },
+    { name: "Sonali Paper & Board Mills Ltd." },
+    { name: "Taufika Foods and Lovello Ice-cream PLC" },
+    { name: "eGeneration Ltd." },
+    { name: "South Bangla Agriculture & Commerce Bank Ltd." },
+  ],
+  "2020": [
+    { name: "Robi Axiata Limited" },
+    { name: "Energypac Power Generation Ltd." },
+    { name: "Associated Oxygen Ltd." },
+    { name: "Mir Akhter Hossain Ltd." },
+    { name: "Express Insurance Ltd." },
+    { name: "Crystal Insurance Company Ltd." },
+  ],
+  "2019": [
+    { name: "New Line Clothings Ltd." },
+    { name: "SS Steel Ltd." },
+    { name: "Bengal Windsor Thermoplastics Ltd." },
+    { name: "Silva Pharmaceuticals Ltd." },
+  ],
+  "2018": [
+    { name: "Kattali Textile Ltd." },
+    { name: "Queen South Textile Mills Ltd." },
+    { name: "Intraco Refueling Station Ltd." },
+    { name: "SK Trims & Industries Ltd." },
+  ],
+  "2017": [
+    { name: "Nahee Aluminum Composite Panel Ltd." },
+    { name: "Aamra Networks Ltd." },
+    { name: "Advent Pharma Ltd." },
+  ],
+  "2016": [
+    { name: "Bangladesh National Insurance Company Ltd." },
+    { name: "Yeakin Polymer Ltd." },
+    { name: "Ratanpur Steel Re-Rolling Mills Ltd." },
+  ],
+  "2015": [
+    { name: "Zaheen Spinning Ltd." },
+    { name: "Shasha Denims Ltd." },
+    { name: "Simtex Industries Ltd." },
+    { name: "Khulna Printing & Packaging Ltd." },
+  ],
+  "2014": [
+    { name: "Hamid Fabrics Ltd." },
+    { name: "The Peninsula Chittagong Ltd." },
+    { name: "Matin Spinning Mills Ltd." },
+  ],
+  "2013": [
+    { name: "Familytex (BD) Ltd." },
+    { name: "Generation Next Fashions Ltd." },
+    { name: "Regent Textile Mills Ltd." },
+  ],
+  "2012": [
+    { name: "Global Heavy Chemicals Ltd." },
+    { name: "Salvo Chemical Industry Ltd." },
+    { name: "Saif Powertec Ltd." },
+  ],
+  "2011": [
+    { name: "MI Cement Factory Ltd." },
+    { name: "Mercantile Insurance Company Ltd." },
+    { name: "Padma Life Insurance Ltd." },
+  ],
+};
+
+type BookBuildRecord = {
+  name: string;
+  fields: Record<string, string>;
+};
+
+const BB_FIELDS = [
+  "Nature of Business",
+  "Subscription open",
+  "Subscription Close",
+  "For Non-Resident Bangladeshi",
+  "Bidding Period for EII",
+  "Listing Date",
+  "Trading Date",
+  "Reason for IPO",
+  "Offer Price Per Share",
+  "Indicative Price",
+  "Face Value Per Share",
+  "Market Lot (Shares)",
+  "Pre IPO Placement (Shares)",
+  "Sponsors Portion (Shares)",
+  "Pre-IPO paid up capital",
+  "Public Offer (Shares)",
+] as const;
+
+// SAMPLE — replace with real archive
+function bbPlaceholder(name: string, nature = "—"): BookBuildRecord {
+  return {
+    name,
+    fields: {
+      "Nature of Business": nature,
+      "Subscription open": "—",
+      "Subscription Close": "—",
+      "For Non-Resident Bangladeshi": "—",
+      "Bidding Period for EII": "—",
+      "Listing Date": "—",
+      "Trading Date": "—",
+      "Reason for IPO": "—",
+      "Offer Price Per Share": "—",
+      "Indicative Price": "—",
+      "Face Value Per Share": "Tk. 10.00",
+      "Market Lot (Shares)": "—",
+      "Pre IPO Placement (Shares)": "—",
+      "Sponsors Portion (Shares)": "—",
+      "Pre-IPO paid up capital": "—",
+      "Public Offer (Shares)": "—",
+    },
+  };
+}
+
+const BOOK_BUILDING_ARCHIVE: Record<string, BookBuildRecord[]> = {
+  "2024": [bbPlaceholder("Best Holdings Limited")],
+  "2022": [bbPlaceholder("Navana Pharmaceuticals Ltd.")],
+  "2021": [bbPlaceholder("Walton Hi-Tech Industries Ltd.")],
+  "2020": [bbPlaceholder("Energypac Power Generation Ltd.")],
+  "2019": [bbPlaceholder("Runner Automobiles Ltd.")],
+  "2018": [bbPlaceholder("Esquire Knit Composite Ltd.")],
+  "2017": [bbPlaceholder("Oimex Electrode Ltd.")],
+  "2016": [bbPlaceholder("Bashundhara Paper Mills Ltd.")],
+  "2015": [bbPlaceholder("Aamra Technologies Ltd.")],
+  "2011": [bbPlaceholder("MJL Bangladesh Ltd.")],
+  "2010": [
+    {
+      name: "RAK Ceramics (Bangladesh) Limited",
+      fields: {
+        "Nature of Business":
+          "The core business of RAK Ceramics (Bangladesh) Limited is to manufacture and sell tiles and sanitary wares.",
+        "Subscription open": "November 21, 2010",
+        "Subscription Close": "November 25, 2010",
+        "For Non-Resident Bangladeshi": "December 04, 2010",
+        "Bidding Period for EII": "October 24 – October 28, 2010",
+        "Listing Date": "December 20, 2010",
+        "Trading Date": "December 22, 2010",
+        "Reason for IPO":
+          "To repay long-term loans and finance BMRE of existing facilities.",
+        "Offer Price Per Share": "Tk. 48.00",
+        "Indicative Price": "Tk. 48.00",
+        "Face Value Per Share": "Tk. 10.00",
+        "Market Lot (Shares)": "100",
+        "Pre IPO Placement (Shares)": "8,343,750",
+        "Sponsors Portion (Shares)": "255,150,000",
+        "Pre-IPO paid up capital": "Tk. 2,634,375,000",
+        "Public Offer (Shares)": "34,687,500",
+      },
+    },
+  ],
+};
+
+const FIXED_PRICE_YEARS = ["2024","2023","2022","2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011"];
+const BOOK_BUILDING_YEARS = ["2024","2022","2021","2020","2019","2018","2017","2016","2015","2011","2010"];
+
+function IpoArchive() {
+  const [method, setMethod] = useState<"fixed" | "book">("fixed");
+  const [openYear, setOpenYear] = useState<string | null>(method === "fixed" ? "2020" : "2010");
+
+  return (
+    <section className="max-w-[1440px] mx-auto px-6 pt-10 pb-16">
+      <div className="mb-6 flex items-center gap-2">
+        {[
+          { key: "fixed", label: "Fixed Price Method" },
+          { key: "book", label: "Book Building Method" },
+        ].map((m) => {
+          const active = method === m.key;
+          return (
+            <button
+              key={m.key}
+              onClick={() => {
+                setMethod(m.key as "fixed" | "book");
+                setOpenYear(m.key === "fixed" ? "2020" : "2010");
+              }}
+              className="px-4 h-9 rounded-full text-[12.5px] font-medium transition"
+              style={{
+                background: active ? "var(--primary)" : "transparent",
+                color: active ? "var(--primary-foreground)" : "var(--text-secondary)",
+                border: `1px solid ${active ? "var(--primary)" : "rgb(var(--ov) / 0.12)"}`,
+              }}
+            >
+              {m.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="space-y-2">
+        {(method === "fixed" ? FIXED_PRICE_YEARS : BOOK_BUILDING_YEARS).map((year) => {
+          const open = openYear === year;
+          return (
+            <div
+              key={year}
+              className="rounded-xl overflow-hidden"
+              style={{ border: "1px solid rgb(var(--ov) / 0.08)", background: "rgb(var(--surface-rgb) / 0.5)" }}
+            >
+              <button
+                onClick={() => setOpenYear(open ? null : year)}
+                className="w-full flex items-center justify-between px-5 py-3 text-left"
+              >
+                <span className="text-[15px] font-semibold tnum">{year}</span>
+                <ChevronDown
+                  className="w-4 h-4 transition-transform"
+                  style={{ transform: open ? "rotate(180deg)" : "none", color: "var(--text-muted)" }}
+                />
+              </button>
+              {open && (
+                <div className="px-5 pb-5 pt-1">
+                  {method === "fixed" ? (
+                    <FixedPriceTable rows={FIXED_PRICE_ARCHIVE[year] ?? []} />
+                  ) : (
+                    <div className="space-y-8">
+                      {(BOOK_BUILDING_ARCHIVE[year] ?? []).map((rec) => (
+                        <BookBuildingBlock key={rec.name} rec={rec} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function FixedPriceTable({ rows }: { rows: { name: string }[] }) {
+  return (
+    <div className="overflow-x-auto rounded-lg" style={{ border: "1px solid rgb(var(--ov) / 0.06)" }}>
+      <table className="w-full text-[13px]">
+        <thead>
+          <tr style={{ background: "rgb(var(--ov) / 0.04)", color: "var(--text-muted)" }}>
+            <th className="text-left px-4 py-2 font-medium w-16">#</th>
+            <th className="text-left px-4 py-2 font-medium">Name of the Company</th>
+            <th className="text-left px-4 py-2 font-medium w-32">IPO Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={r.name} style={{ borderTop: "1px solid rgb(var(--ov) / 0.06)" }}>
+              <td className="px-4 py-2 tnum" style={{ color: "var(--text-muted)" }}>{i + 1}</td>
+              <td className="px-4 py-2">{r.name}</td>
+              <td className="px-4 py-2">
+                <a href="#" className="inline-flex items-center gap-1 text-[12.5px]" style={{ color: "var(--primary)" }}>
+                  <FileDown className="w-4 h-4" /> PDF
+                </a>
+              </td>
+            </tr>
+          ))}
+          {rows.length === 0 && (
+            <tr>
+              <td colSpan={3} className="px-4 py-6 text-center text-[12.5px]" style={{ color: "var(--text-muted)" }}>
+                No entries.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function BookBuildingBlock({ rec }: { rec: BookBuildRecord }) {
+  return (
+    <div>
+      <h3 className="text-[16px] font-semibold mb-2">{rec.name}</h3>
+      <div className="overflow-x-auto rounded-lg" style={{ border: "1px solid rgb(var(--ov) / 0.06)" }}>
+        <table className="w-full text-[13px]">
+          <tbody>
+            {BB_FIELDS.map((label, i) => (
+              <tr key={label} style={{ borderTop: i === 0 ? "none" : "1px solid rgb(var(--ov) / 0.06)" }}>
+                <td
+                  className="px-4 py-2 align-top w-[280px]"
+                  style={{ background: "rgb(var(--ov) / 0.03)", color: "var(--text-secondary)" }}
+                >
+                  {label}
+                </td>
+                <td className="px-4 py-2">{rec.fields[label] ?? "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+ * Documents & Circulars
+ * ============================================================ */
+
+type DocSection =
+  | { heading: string; kind: "empty" }
+  | { heading: string; kind: "sub-empty"; subs: string[] }
+  | { heading: string; kind: "static"; body: string; linkLabel: string };
+
+const DOC_SECTIONS: DocSection[] = [
+  { heading: "Prospectus of Forthcoming IPO", kind: "empty" },
+  { heading: "IPO Allotment Result", kind: "empty" },
+  { heading: "Draft prospectus/Information Memorandum submitted by Issuer", kind: "empty" },
+  {
+    heading: "Company's circular to Stock Brokers/Merchant Bankers",
+    kind: "sub-empty",
+    subs: ["Fixed Price", "Book Building", "Public Placement"],
+  },
+  {
+    heading: "Consent Letter for forthcoming IPO(s)",
+    kind: "sub-empty",
+    subs: ["Fixed Price", "Book Building", "Public Placement"],
+  },
+  { heading: "Consolidated List for IPO", kind: "empty" },
+  { heading: "Bank-Branch Code for forthcoming IPO(s)", kind: "empty" },
+  {
+    heading: "New Public Issue Application Process",
+    kind: "static",
+    body:
+      "Applications for new public issues are submitted through the applicant's TREC-holding broker via the EBL IPO subscription portal. Investors must hold an active BO account and maintain sufficient balance in their consolidated customer account before the subscription cutoff.",
+    linkLabel: "Application process guideline (PDF)",
+  },
+  { heading: "Extract of Prospectus submitted for IPO", kind: "empty" },
+];
+
+function IpoDocuments() {
+  return (
+    <section className="max-w-[1440px] mx-auto px-6 pt-10 pb-16 space-y-4">
+      {DOC_SECTIONS.map((s) => (
+        <div
+          key={s.heading}
+          className="rounded-xl p-5"
+          style={{ background: "rgb(var(--surface-rgb) / 0.55)", border: "1px solid rgb(var(--ov) / 0.06)" }}
+        >
+          <h3 className="text-[14.5px] font-semibold mb-3">{s.heading}</h3>
+
+          {s.kind === "empty" && <EmptyDocList />}
+
+          {s.kind === "sub-empty" && (
+            <div className="space-y-4">
+              {s.subs.map((sub) => (
+                <div key={sub}>
+                  <div className="text-[12px] uppercase tracking-[0.18em] mb-2" style={{ color: "var(--text-muted)" }}>
+                    {sub}
+                  </div>
+                  <EmptyDocList />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {s.kind === "static" && (
+            <div>
+              <p className="text-[13px] leading-[1.7]" style={{ color: "var(--text-secondary)" }}>
+                {s.body}
+              </p>
+              <a
+                href="#"
+                className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-medium"
+                style={{ color: "var(--primary)" }}
+              >
+                <FileDown className="w-4 h-4" /> {s.linkLabel}
+              </a>
+            </div>
+          )}
+        </div>
+      ))}
+    </section>
+  );
+}
+
+function EmptyDocList() {
+  return (
+    <div
+      className="flex items-center gap-2 px-4 py-4 rounded-lg text-[12.5px]"
+      style={{
+        background: "rgb(var(--ov) / 0.03)",
+        border: "1px dashed rgb(var(--ov) / 0.12)",
+        color: "var(--text-muted)",
+      }}
+    >
+      <Inbox className="w-4 h-4" />
+      No items currently published.
+    </div>
+  );
+}
