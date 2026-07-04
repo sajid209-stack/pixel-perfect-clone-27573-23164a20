@@ -78,6 +78,7 @@ import { Route as FilingsPsiRouteImport } from './routes/filings_.psi'
 import { Route as FilingsProceedsUtilisationRouteImport } from './routes/filings_.proceeds-utilisation'
 import { Route as FilingsAuditorsOpinionRouteImport } from './routes/filings_.auditors-opinion'
 import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
+import { Route as CompaniesSectorsRouteImport } from './routes/companies_.sectors'
 import { Route as CompaniesRightOffersRouteImport } from './routes/companies_.right-offers'
 import { Route as CompaniesReListingRouteImport } from './routes/companies_.re-listing'
 import { Route as CompaniesDirectListingRouteImport } from './routes/companies_.direct-listing'
@@ -445,6 +446,11 @@ const CompanyTickerRoute = CompanyTickerRouteImport.update({
   path: '/company/$ticker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompaniesSectorsRoute = CompaniesSectorsRouteImport.update({
+  id: '/companies_/sectors',
+  path: '/companies/sectors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompaniesRightOffersRoute = CompaniesRightOffersRouteImport.update({
   id: '/companies_/right-offers',
   path: '/companies/right-offers',
@@ -600,6 +606,7 @@ export interface FileRoutesByFullPath {
   '/companies/direct-listing': typeof CompaniesDirectListingRoute
   '/companies/re-listing': typeof CompaniesReListingRoute
   '/companies/right-offers': typeof CompaniesRightOffersRoute
+  '/companies/sectors': typeof CompaniesSectorsRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/filings/auditors-opinion': typeof FilingsAuditorsOpinionRoute
   '/filings/proceeds-utilisation': typeof FilingsProceedsUtilisationRoute
@@ -688,6 +695,7 @@ export interface FileRoutesByTo {
   '/companies/direct-listing': typeof CompaniesDirectListingRoute
   '/companies/re-listing': typeof CompaniesReListingRoute
   '/companies/right-offers': typeof CompaniesRightOffersRoute
+  '/companies/sectors': typeof CompaniesSectorsRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/filings/auditors-opinion': typeof FilingsAuditorsOpinionRoute
   '/filings/proceeds-utilisation': typeof FilingsProceedsUtilisationRoute
@@ -777,6 +785,7 @@ export interface FileRoutesById {
   '/companies_/direct-listing': typeof CompaniesDirectListingRoute
   '/companies_/re-listing': typeof CompaniesReListingRoute
   '/companies_/right-offers': typeof CompaniesRightOffersRoute
+  '/companies_/sectors': typeof CompaniesSectorsRoute
   '/company/$ticker': typeof CompanyTickerRoute
   '/filings_/auditors-opinion': typeof FilingsAuditorsOpinionRoute
   '/filings_/proceeds-utilisation': typeof FilingsProceedsUtilisationRoute
@@ -867,6 +876,7 @@ export interface FileRouteTypes {
     | '/companies/direct-listing'
     | '/companies/re-listing'
     | '/companies/right-offers'
+    | '/companies/sectors'
     | '/company/$ticker'
     | '/filings/auditors-opinion'
     | '/filings/proceeds-utilisation'
@@ -955,6 +965,7 @@ export interface FileRouteTypes {
     | '/companies/direct-listing'
     | '/companies/re-listing'
     | '/companies/right-offers'
+    | '/companies/sectors'
     | '/company/$ticker'
     | '/filings/auditors-opinion'
     | '/filings/proceeds-utilisation'
@@ -1043,6 +1054,7 @@ export interface FileRouteTypes {
     | '/companies_/direct-listing'
     | '/companies_/re-listing'
     | '/companies_/right-offers'
+    | '/companies_/sectors'
     | '/company/$ticker'
     | '/filings_/auditors-opinion'
     | '/filings_/proceeds-utilisation'
@@ -1132,6 +1144,7 @@ export interface RootRouteChildren {
   CompaniesDirectListingRoute: typeof CompaniesDirectListingRoute
   CompaniesReListingRoute: typeof CompaniesReListingRoute
   CompaniesRightOffersRoute: typeof CompaniesRightOffersRoute
+  CompaniesSectorsRoute: typeof CompaniesSectorsRoute
   CompanyTickerRoute: typeof CompanyTickerRoute
   FilingsAuditorsOpinionRoute: typeof FilingsAuditorsOpinionRoute
   FilingsProceedsUtilisationRoute: typeof FilingsProceedsUtilisationRoute
@@ -1636,6 +1649,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompanyTickerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/companies_/sectors': {
+      id: '/companies_/sectors'
+      path: '/companies/sectors'
+      fullPath: '/companies/sectors'
+      preLoaderRoute: typeof CompaniesSectorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/companies_/right-offers': {
       id: '/companies_/right-offers'
       path: '/companies/right-offers'
@@ -1849,6 +1869,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompaniesDirectListingRoute: CompaniesDirectListingRoute,
   CompaniesReListingRoute: CompaniesReListingRoute,
   CompaniesRightOffersRoute: CompaniesRightOffersRoute,
+  CompaniesSectorsRoute: CompaniesSectorsRoute,
   CompanyTickerRoute: CompanyTickerRoute,
   FilingsAuditorsOpinionRoute: FilingsAuditorsOpinionRoute,
   FilingsProceedsUtilisationRoute: FilingsProceedsUtilisationRoute,
