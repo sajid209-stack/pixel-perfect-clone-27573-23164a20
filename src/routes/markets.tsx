@@ -376,7 +376,7 @@ function QuickLinks() {
     { title: "Marginable Securities", desc: "Eligible scrips and applicable margin ratios.", href: "/marginable-securities" },
     { title: "Sectoral Median P/E →", desc: "Median trailing P/E ratio by sector.", href: "/sectoral-pe" },
     { title: "Performance of DSE at a Glance", desc: "Yearly indices, market cap, turnover and volume.", href: "/markets/at-a-glance" },
-    { title: "Comparison of Market", desc: "Compare market snapshots across dates.", href: "/markets/comparison" },
+    { title: "Comparison of Market", desc: "Overview of global markets — indices, GDP, inflation and bond yields.", href: "/markets/comparison" },
     { title: "Latest Share Price", desc: "Consolidated latest share price board.", href: "/markets/latest-share-price" },
   ];
   return (
