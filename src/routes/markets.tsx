@@ -116,7 +116,9 @@ function MarketsPage() {
       </section>
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-10">
+        <MarketSummaryStrip />
         <CategorySummary />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <TotalTransactions />
           <MarketCap />
