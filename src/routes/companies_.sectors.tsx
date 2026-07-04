@@ -90,7 +90,7 @@ function SectorsPage() {
                   <td className="px-4 py-2 tnum text-right" style={{ fontFamily: "var(--font-mono)" }}>{s.quantity}</td>
                   <td className="px-4 py-2 text-center">
                     <Link
-                      to="/companies"
+                      to="/markets/latest-share-price"
                       search={{ sector: s.slug }}
                       className="text-[12.5px] hover:underline"
                       style={{ color: "var(--brand-600)" }}

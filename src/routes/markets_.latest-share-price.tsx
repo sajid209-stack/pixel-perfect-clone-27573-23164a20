@@ -1,9 +1,43 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { zodValidator, fallback } from "@tanstack/zod-adapter";
+import { z } from "zod";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 
+// Same 22-sector taxonomy as /companies/sectors
+const SECTORS: { name: string; slug: string }[] = [
+  { name: "Bank", slug: "bank" },
+  { name: "Financial Institutions", slug: "financial-institutions" },
+  { name: "Insurance", slug: "insurance" },
+  { name: "Mutual Funds", slug: "mutual-funds" },
+  { name: "Food & Allied", slug: "food-allied" },
+  { name: "Pharmaceuticals & Chemicals", slug: "pharmaceuticals-chemicals" },
+  { name: "Textile", slug: "textile" },
+  { name: "Engineering", slug: "engineering" },
+  { name: "Ceramics Sector", slug: "ceramics" },
+  { name: "Tannery Industries", slug: "tannery" },
+  { name: "Paper & Printing", slug: "paper-printing" },
+  { name: "Jute", slug: "jute" },
+  { name: "Cement", slug: "cement" },
+  { name: "Fuel & Power", slug: "fuel-power" },
+  { name: "Services & Real Estate", slug: "services-real-estate" },
+  { name: "IT Sector", slug: "it" },
+  { name: "Telecommunication", slug: "telecommunication" },
+  { name: "Travel & Leisure", slug: "travel-leisure" },
+  { name: "Miscellaneous", slug: "miscellaneous" },
+  { name: "Bond", slug: "bond" },
+  { name: "Corporate Bond", slug: "corporate-bond" },
+  { name: "Debenture", slug: "debenture" },
+];
+const SECTOR_SLUGS = SECTORS.map((s) => s.slug) as [string, ...string[]];
+
+const searchSchema = z.object({
+  sector: fallback(z.enum(SECTOR_SLUGS).optional(), undefined),
+});
+
 export const Route = createFileRoute("/markets_/latest-share-price")({
+  validateSearch: zodValidator(searchSchema),
   head: () => ({
     meta: [
       { title: "Latest Share Price | Dhaka Stock Exchange" },
@@ -91,7 +125,30 @@ const ROWS: Row[] = [
 ];
 
 type SortKey = "code" | "ltp" | "pct" | "value" | "volume" | "trade";
-type ViewMode = "all" | "category" | "alphabet";
+type ViewMode = "all" | "category" | "alphabet" | "sector";
+
+// SAMPLE — sector mapping per instrument (populate from taxonomy at wiring)
+const SECTOR_BY_CODE: Record<string, string> = {
+  RECKITTBEN: "miscellaneous", BXPHARMA: "pharmaceuticals-chemicals",
+  NCCBANK: "bank", "1JANATAMF": "mutual-funds", AAMRANET: "it",
+  SQURPHARMA: "pharmaceuticals-chemicals", GRAMEENPHONE: "telecommunication",
+  BEXIMCO: "miscellaneous", BATBC: "food-allied", LAFSURCEML: "cement",
+  OLYMPIC: "food-allied", MARICO: "pharmaceuticals-chemicals",
+  UNITEDPOWER: "fuel-power", SUMITPOWER: "fuel-power", TITASGAS: "fuel-power",
+  PADMAOIL: "fuel-power", MEGHNAPET: "fuel-power", JAMUNAOIL: "fuel-power",
+  POWERGRID: "fuel-power", DESCO: "fuel-power",
+  DHAKABANK: "bank", CITYBANK: "bank", PRIMEBANK: "bank", EBLTD: "bank",
+  BRACBANK: "bank", IFIC: "bank", PUBALIBANK: "bank", SOUTHEASTB: "bank",
+  MERCANBANK: "bank", ISLAMIBANK: "bank", TRUSTBANK: "bank",
+  GENEXIL: "it", ROBI: "telecommunication", WALTONHIL: "engineering",
+  BSCCL: "telecommunication", KDSALTD: "miscellaneous", MJLBD: "fuel-power",
+  SINGERBD: "engineering", BERGERPBL: "miscellaneous",
+  RENATA: "pharmaceuticals-chemicals", IBNSINA: "pharmaceuticals-chemicals",
+  ACI: "pharmaceuticals-chemicals", APOLOISPAT: "engineering",
+  GQBALLPEN: "miscellaneous", ZEALBANGLA: "food-allied",
+};
+const sectorOf = (code: string) => SECTOR_BY_CODE[code] ?? "miscellaneous";
+const sectorName = (slug: string) => SECTORS.find((s) => s.slug === slug)?.name ?? slug;
 const CATS = ["A", "B", "G", "N", "Z"] as const;
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const PAGE = 40;
@@ -104,16 +161,33 @@ function fmt(n: number, digits = 2) {
 }
 
 function LatestSharePricePage() {
+  const search = Route.useSearch();
+  const navigate = Route.useNavigate();
   const [sort, setSort] = useState<SortKey>("code");
-  const [view, setView] = useState<ViewMode>("all");
+  const [view, setView] = useState<ViewMode>(search.sector ? "sector" : "all");
   const [cat, setCat] = useState<(typeof CATS)[number]>("A");
   const [letter, setLetter] = useState<string>("A");
+  const [sector, setSectorState] = useState<string>(search.sector ?? "bank");
   const [limit, setLimit] = useState<number>(PAGE);
+
+  // Sync from URL when user hits back/forward or arrives via ?sector=
+  useEffect(() => {
+    if (search.sector) {
+      setView("sector");
+      setSectorState(search.sector);
+    }
+  }, [search.sector]);
+
+  const setSector = (slug: string) => {
+    setSectorState(slug);
+    navigate({ search: { sector: slug }, replace: true });
+  };
 
   const filtered = useMemo(() => {
     let rows = ROWS.slice();
     if (view === "category") rows = rows.filter((r) => r.category === cat);
     if (view === "alphabet") rows = rows.filter((r) => r.code.startsWith(letter));
+    if (view === "sector") rows = rows.filter((r) => sectorOf(r.code) === sector);
     const change = (r: Row) => r.ltp - r.ycp;
     const pct = (r: Row) => (r.ycp ? (change(r) * 100) / r.ycp : 0);
     rows.sort((a, b) => {
@@ -127,7 +201,7 @@ function LatestSharePricePage() {
       }
     });
     return rows;
-  }, [sort, view, cat, letter]);
+  }, [sort, view, cat, letter, sector]);
 
   const shown = view === "all" ? filtered.slice(0, limit) : filtered;
 
@@ -181,10 +255,15 @@ function LatestSharePricePage() {
           </label>
 
           <div className="flex items-center gap-1" role="tablist" aria-label="View">
-            {(["all", "category", "alphabet"] as ViewMode[]).map((m) => (
+            {(["all", "category", "alphabet", "sector"] as ViewMode[]).map((m) => (
               <button
                 key={m}
-                onClick={() => { setView(m); setLimit(PAGE); }}
+                onClick={() => {
+                  setView(m);
+                  setLimit(PAGE);
+                  if (m === "sector") navigate({ search: { sector }, replace: true });
+                  else if (search.sector) navigate({ search: { sector: undefined }, replace: true });
+                }}
                 className="text-[12px] px-3 py-1 uppercase tracking-wider font-semibold"
                 style={{
                   border: "1px solid var(--line)",
@@ -192,11 +271,32 @@ function LatestSharePricePage() {
                   color: view === m ? "#fff" : "var(--ink)",
                 }}
               >
-                {m === "all" ? "All" : m === "category" ? "By Category" : "By Alphabet"}
+                {m === "all" ? "All" : m === "category" ? "By Category" : m === "alphabet" ? "By Alphabet" : "By Sector"}
               </button>
             ))}
           </div>
         </div>
+
+        {view === "sector" && (
+          <div className="mb-3">
+            <label className="flex items-center gap-2 text-[12px] mb-2" style={{ color: "var(--text-secondary)" }}>
+              <span className="uppercase tracking-wider font-semibold">Sector</span>
+              <select
+                value={sector}
+                onChange={(e) => setSector(e.target.value)}
+                className="text-[13px] px-2 py-1"
+                style={{ border: "1px solid var(--line)", background: "var(--surface)", color: "var(--ink)" }}
+              >
+                {SECTORS.map((s) => (
+                  <option key={s.slug} value={s.slug}>{s.name}</option>
+                ))}
+              </select>
+            </label>
+            <div className="text-[13px]" style={{ color: "var(--text-secondary)" }}>
+              ( Sector - {sectorName(sector)} )
+            </div>
+          </div>
+        )}
 
         {view === "category" && (
           <div className="mb-3">

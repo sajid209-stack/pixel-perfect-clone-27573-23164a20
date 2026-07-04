@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -17,10 +17,10 @@ export const Route = createFileRoute("/sectoral-pe")({
 
 const AS_OF = "20 Jun, 2026";
 
-const ROWS: { sector: string; pe: string }[] = [
-  { sector: "Bank", pe: "8.42" },
-  { sector: "Pharmaceuticals & Chemicals", pe: "14.71" },
-  { sector: "Food & Allied", pe: "19.36" },
+const ROWS: { sector: string; slug: string; pe: string }[] = [
+  { sector: "Bank", slug: "bank", pe: "8.42" },
+  { sector: "Pharmaceuticals & Chemicals", slug: "pharmaceuticals-chemicals", pe: "14.71" },
+  { sector: "Food & Allied", slug: "food-allied", pe: "19.36" },
 ];
 
 function SectoralPePage() {
@@ -55,8 +55,17 @@ function SectoralPePage() {
             </thead>
             <tbody>
               {ROWS.map((r) => (
-                <tr key={r.sector} style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td className="px-4 py-3" style={{ color: "var(--ink)" }}>{t(r.sector)}</td>
+                <tr key={r.slug} style={{ borderBottom: "1px solid var(--line)" }}>
+                  <td className="px-4 py-3">
+                    <Link
+                      to="/markets/latest-share-price"
+                      search={{ sector: r.slug }}
+                      className="hover:underline"
+                      style={{ color: "var(--brand-600)" }}
+                    >
+                      {t(r.sector)}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3 text-right tnum" style={{ color: "var(--ink)", fontFamily: "var(--font-mono)" }}>{r.pe}</td>
                 </tr>
               ))}
