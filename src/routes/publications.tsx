@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { FileText, Download, CheckCircle2 } from "lucide-react";
+import { FileText, Download, CheckCircle2, ArrowUpRight } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -259,6 +259,16 @@ function PublicationCard({ section }: { section: Section }) {
           {section.items.length} {t("items")}
         </span>
       </div>
+      {section.key === "weekly" && (
+        <Link
+          to="/publications/weekly"
+          className="flex items-center justify-between px-4 py-3 text-[13px] font-semibold hover:bg-[var(--surface-2)] transition"
+          style={{ borderBottom: "1px solid var(--line)", color: "var(--brand)" }}
+        >
+          <span>{t("This week's market summary →")}</span>
+          <ArrowUpRight className="w-4 h-4" />
+        </Link>
+      )}
       <ul>
         {section.items.map((it, i) => (
           <li

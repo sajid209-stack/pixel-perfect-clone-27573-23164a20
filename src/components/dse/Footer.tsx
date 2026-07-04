@@ -204,11 +204,11 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <Link to="/circuit-breaker" className="hover:opacity-100 opacity-85">{t("Circuit breakers")}</Link>
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
-            <Link to="/markets" hash="margin" className="hover:opacity-100 opacity-85">{t("Margin securities")}</Link>
+            <Link to="/marginable-securities" className="hover:opacity-100 opacity-85">{t("Margin securities")}</Link>
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
             <Link to="/pe" className="hover:opacity-100 opacity-85">{t("P/E at a glance")}</Link>
             <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
-            <Link to="/markets" hash="sessions" className="hover:opacity-100 opacity-85">{t("Holiday calendar")}</Link>
+            <Link to="/holidays" className="hover:opacity-100 opacity-85">{t("Holiday calendar")}</Link>
           </div>
           <div className="text-[11.5px] uppercase tracking-[0.14em]" style={{ color: "rgba(255,255,255,0.6)" }}>
             {t("Regulated by BSEC")}
