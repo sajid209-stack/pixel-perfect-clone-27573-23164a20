@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { Segmented } from "@/components/dse/Segmented";
 
 export const Route = createFileRoute("/markets_/top-shares")({
   head: () => ({
