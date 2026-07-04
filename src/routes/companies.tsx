@@ -160,6 +160,13 @@ function ScreenerPage() {
                 Filter and sort every equity on the Dhaka Stock Exchange. Click any row to open the
                 full company profile.
               </p>
+              <Link
+                to="/companies/sectors"
+                className="inline-block mt-3 text-[13px] font-semibold hover:underline"
+                style={{ color: "var(--brand-600)" }}
+              >
+                Browse by sector →
+              </Link>
             </div>
             <StatGrid stats={stats} />
           </div>
