@@ -193,6 +193,7 @@ function daysBetween(a: string, b: string) {
 
 function IpoPage() {
   const [tab, setTab] = useState<Status>("open");
+  const [mainTab, setMainTab] = useState<"pipeline" | "archive" | "documents">("pipeline");
   const filtered = useMemo(() => ipos.filter((i) => i.status === tab), [tab]);
 
   const stats = useMemo(() => {
