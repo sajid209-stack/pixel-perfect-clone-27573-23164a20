@@ -81,6 +81,7 @@ import { Route as CompanyTickerRouteImport } from './routes/company.$ticker'
 import { Route as CompaniesRightOffersRouteImport } from './routes/companies_.right-offers'
 import { Route as CompaniesReListingRouteImport } from './routes/companies_.re-listing'
 import { Route as CompaniesDirectListingRouteImport } from './routes/companies_.direct-listing'
+import { Route as BondsGovernmentSecuritiesRouteImport } from './routes/bonds_.government-securities'
 import { Route as AboutVisionRouteImport } from './routes/about_.vision'
 import { Route as AboutSurveillanceRouteImport } from './routes/about_.surveillance'
 import { Route as AboutManagementRouteImport } from './routes/about_.management'
@@ -459,6 +460,12 @@ const CompaniesDirectListingRoute = CompaniesDirectListingRouteImport.update({
   path: '/companies/direct-listing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BondsGovernmentSecuritiesRoute =
+  BondsGovernmentSecuritiesRouteImport.update({
+    id: '/bonds_/government-securities',
+    path: '/bonds/government-securities',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AboutVisionRoute = AboutVisionRouteImport.update({
   id: '/about_/vision',
   path: '/about/vision',
@@ -589,6 +596,7 @@ export interface FileRoutesByFullPath {
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
+  '/bonds/government-securities': typeof BondsGovernmentSecuritiesRoute
   '/companies/direct-listing': typeof CompaniesDirectListingRoute
   '/companies/re-listing': typeof CompaniesReListingRoute
   '/companies/right-offers': typeof CompaniesRightOffersRoute
@@ -676,6 +684,7 @@ export interface FileRoutesByTo {
   '/about/management': typeof AboutManagementRoute
   '/about/surveillance': typeof AboutSurveillanceRoute
   '/about/vision': typeof AboutVisionRoute
+  '/bonds/government-securities': typeof BondsGovernmentSecuritiesRoute
   '/companies/direct-listing': typeof CompaniesDirectListingRoute
   '/companies/re-listing': typeof CompaniesReListingRoute
   '/companies/right-offers': typeof CompaniesRightOffersRoute
@@ -764,6 +773,7 @@ export interface FileRoutesById {
   '/about_/management': typeof AboutManagementRoute
   '/about_/surveillance': typeof AboutSurveillanceRoute
   '/about_/vision': typeof AboutVisionRoute
+  '/bonds_/government-securities': typeof BondsGovernmentSecuritiesRoute
   '/companies_/direct-listing': typeof CompaniesDirectListingRoute
   '/companies_/re-listing': typeof CompaniesReListingRoute
   '/companies_/right-offers': typeof CompaniesRightOffersRoute
@@ -853,6 +863,7 @@ export interface FileRouteTypes {
     | '/about/management'
     | '/about/surveillance'
     | '/about/vision'
+    | '/bonds/government-securities'
     | '/companies/direct-listing'
     | '/companies/re-listing'
     | '/companies/right-offers'
@@ -940,6 +951,7 @@ export interface FileRouteTypes {
     | '/about/management'
     | '/about/surveillance'
     | '/about/vision'
+    | '/bonds/government-securities'
     | '/companies/direct-listing'
     | '/companies/re-listing'
     | '/companies/right-offers'
@@ -1027,6 +1039,7 @@ export interface FileRouteTypes {
     | '/about_/management'
     | '/about_/surveillance'
     | '/about_/vision'
+    | '/bonds_/government-securities'
     | '/companies_/direct-listing'
     | '/companies_/re-listing'
     | '/companies_/right-offers'
@@ -1115,6 +1128,7 @@ export interface RootRouteChildren {
   AboutManagementRoute: typeof AboutManagementRoute
   AboutSurveillanceRoute: typeof AboutSurveillanceRoute
   AboutVisionRoute: typeof AboutVisionRoute
+  BondsGovernmentSecuritiesRoute: typeof BondsGovernmentSecuritiesRoute
   CompaniesDirectListingRoute: typeof CompaniesDirectListingRoute
   CompaniesReListingRoute: typeof CompaniesReListingRoute
   CompaniesRightOffersRoute: typeof CompaniesRightOffersRoute
@@ -1643,6 +1657,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompaniesDirectListingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bonds_/government-securities': {
+      id: '/bonds_/government-securities'
+      path: '/bonds/government-securities'
+      fullPath: '/bonds/government-securities'
+      preLoaderRoute: typeof BondsGovernmentSecuritiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about_/vision': {
       id: '/about_/vision'
       path: '/about/vision'
@@ -1824,6 +1845,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutManagementRoute: AboutManagementRoute,
   AboutSurveillanceRoute: AboutSurveillanceRoute,
   AboutVisionRoute: AboutVisionRoute,
+  BondsGovernmentSecuritiesRoute: BondsGovernmentSecuritiesRoute,
   CompaniesDirectListingRoute: CompaniesDirectListingRoute,
   CompaniesReListingRoute: CompaniesReListingRoute,
   CompaniesRightOffersRoute: CompaniesRightOffersRoute,
