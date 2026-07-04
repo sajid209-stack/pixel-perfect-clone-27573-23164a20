@@ -31,6 +31,7 @@ const SECTIONS = [
   { id: "manuals", label: "Trading Manuals" },
   { id: "breaker", label: "OTC Circuit Breaker" },
   { id: "news", label: "OTC News" },
+  { id: "sale", label: "Sale Orders" },
 ] as const;
 type SectionId = (typeof SECTIONS)[number]["id"];
 
