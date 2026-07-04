@@ -83,7 +83,7 @@ const GROUPS: Group[] = [
     title: "Bonds & G-Sec",
     items: [
       { label: "Bond/Sukuk", to: "/bonds" },
-      { label: "Government Securities (G-Sec)", to: "/bonds" },
+      { label: "Government Securities (G-Sec)", to: "/bonds/government-securities" },
     ],
   },
   {
