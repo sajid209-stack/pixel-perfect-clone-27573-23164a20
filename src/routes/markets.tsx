@@ -79,7 +79,7 @@ const BLOCK_TRADES: {
   { code: "RENATA", max: "1240.00", min: "1232.50", trades: 4, qty: 18220, value: "22.610" },
   { code: "ROBI", max: "31.20", min: "30.90", trades: 22, qty: 4102300, value: "127.812" },
   { code: "SQPHARMA", max: "218.40", min: "216.20", trades: 14, qty: 320180, value: "69.712" },
-  { code: "TITASGAS", name: "", max: "36.10", min: "35.80", trades: 6, qty: 480200, value: "17.310" } as any,
+  { code: "TITASGAS", max: "36.10", min: "35.80", trades: 6, qty: 480200, value: "17.310" },
   { code: "UNIONBANK", max: "10.20", min: "10.00", trades: 8, qty: 1120400, value: "11.310" },
   { code: "WALTONHIL", max: "782.50", min: "778.00", trades: 3, qty: 6120, value: "4.782" },
 ];
