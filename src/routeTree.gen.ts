@@ -63,7 +63,6 @@ import { Route as PublicationsWeeklyRouteImport } from './routes/publications_.w
 import { Route as PublicationsPressRouteImport } from './routes/publications_.press'
 import { Route as PublicationsMonthlyRouteImport } from './routes/publications_.monthly'
 import { Route as PublicationsFortnightlyRouteImport } from './routes/publications_.fortnightly'
-import { Route as MarketsOverviewRouteImport } from './routes/markets_.overview'
 import { Route as MarketsComparisonRouteImport } from './routes/markets_.comparison'
 import { Route as MarketsAtAGlanceRouteImport } from './routes/markets_.at-a-glance'
 import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
@@ -364,11 +363,6 @@ const PublicationsFortnightlyRoute = PublicationsFortnightlyRouteImport.update({
   path: '/publications/fortnightly',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MarketsOverviewRoute = MarketsOverviewRouteImport.update({
-  id: '/markets_/overview',
-  path: '/markets/overview',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MarketsComparisonRoute = MarketsComparisonRouteImport.update({
   id: '/markets_/comparison',
   path: '/markets/comparison',
@@ -591,7 +585,6 @@ export interface FileRoutesByFullPath {
   '/listing/why-list': typeof ListingWhyListRoute
   '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
   '/markets/comparison': typeof MarketsComparisonRoute
-  '/markets/overview': typeof MarketsOverviewRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -676,7 +669,6 @@ export interface FileRoutesByTo {
   '/listing/why-list': typeof ListingWhyListRoute
   '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
   '/markets/comparison': typeof MarketsComparisonRoute
-  '/markets/overview': typeof MarketsOverviewRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -762,7 +754,6 @@ export interface FileRoutesById {
   '/listing_/why-list': typeof ListingWhyListRoute
   '/markets_/at-a-glance': typeof MarketsAtAGlanceRoute
   '/markets_/comparison': typeof MarketsComparisonRoute
-  '/markets_/overview': typeof MarketsOverviewRoute
   '/publications_/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications_/monthly': typeof PublicationsMonthlyRoute
   '/publications_/press': typeof PublicationsPressRoute
@@ -849,7 +840,6 @@ export interface FileRouteTypes {
     | '/listing/why-list'
     | '/markets/at-a-glance'
     | '/markets/comparison'
-    | '/markets/overview'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -934,7 +924,6 @@ export interface FileRouteTypes {
     | '/listing/why-list'
     | '/markets/at-a-glance'
     | '/markets/comparison'
-    | '/markets/overview'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -1019,7 +1008,6 @@ export interface FileRouteTypes {
     | '/listing_/why-list'
     | '/markets_/at-a-glance'
     | '/markets_/comparison'
-    | '/markets_/overview'
     | '/publications_/fortnightly'
     | '/publications_/monthly'
     | '/publications_/press'
@@ -1103,7 +1091,6 @@ export interface RootRouteChildren {
   ListingWhyListRoute: typeof ListingWhyListRoute
   MarketsAtAGlanceRoute: typeof MarketsAtAGlanceRoute
   MarketsComparisonRoute: typeof MarketsComparisonRoute
-  MarketsOverviewRoute: typeof MarketsOverviewRoute
   PublicationsFortnightlyRoute: typeof PublicationsFortnightlyRoute
   PublicationsMonthlyRoute: typeof PublicationsMonthlyRoute
   PublicationsPressRoute: typeof PublicationsPressRoute
@@ -1490,13 +1477,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicationsFortnightlyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/markets_/overview': {
-      id: '/markets_/overview'
-      path: '/markets/overview'
-      fullPath: '/markets/overview'
-      preLoaderRoute: typeof MarketsOverviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/markets_/comparison': {
       id: '/markets_/comparison'
       path: '/markets/comparison'
@@ -1796,7 +1776,6 @@ const rootRouteChildren: RootRouteChildren = {
   ListingWhyListRoute: ListingWhyListRoute,
   MarketsAtAGlanceRoute: MarketsAtAGlanceRoute,
   MarketsComparisonRoute: MarketsComparisonRoute,
-  MarketsOverviewRoute: MarketsOverviewRoute,
   PublicationsFortnightlyRoute: PublicationsFortnightlyRoute,
   PublicationsMonthlyRoute: PublicationsMonthlyRoute,
   PublicationsPressRoute: PublicationsPressRoute,
