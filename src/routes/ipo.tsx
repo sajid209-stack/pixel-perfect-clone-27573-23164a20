@@ -6,6 +6,7 @@ import { ArrowUpRight, CalendarDays, CheckCircle2, ChevronDown, ChevronRight, Cl
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSlider";
+import { Segmented } from "@/components/dse/Segmented";
 
 export const Route = createFileRoute("/ipo")({
   head: () => ({
@@ -827,30 +828,19 @@ function IpoArchive() {
 
   return (
     <section className="max-w-[1440px] mx-auto px-6 pt-10 pb-16">
-      <div className="mb-6 flex items-center gap-2">
-        {[
-          { key: "fixed", label: "Fixed Price Method" },
-          { key: "book", label: "Book Building Method" },
-        ].map((m) => {
-          const active = method === m.key;
-          return (
-            <button
-              key={m.key}
-              onClick={() => {
-                setMethod(m.key as "fixed" | "book");
-                setOpenYear(m.key === "fixed" ? "2020" : "2010");
-              }}
-              className="px-4 h-9 rounded-full text-[12.5px] font-medium transition"
-              style={{
-                background: active ? "var(--primary)" : "transparent",
-                color: active ? "var(--primary-foreground)" : "var(--text-secondary)",
-                border: `1px solid ${active ? "var(--primary)" : "rgb(var(--ov) / 0.12)"}`,
-              }}
-            >
-              {m.label}
-            </button>
-          );
-        })}
+      <div className="mb-6">
+        <Segmented
+          ariaLabel="IPO archive method"
+          value={method}
+          onChange={(k) => {
+            setMethod(k);
+            setOpenYear(k === "fixed" ? "2020" : "2010");
+          }}
+          options={[
+            { key: "fixed", label: "Fixed Price Method" },
+            { key: "book", label: "Book Building Method" },
+          ]}
+        />
       </div>
 
       <div className="space-y-2">
