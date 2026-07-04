@@ -126,12 +126,34 @@ const types: ("All" | DisclosureType)[] = [
   "Regulatory",
 ];
 
+/* Rolling 2-year window for the Advanced Search date pickers */
+const TODAY_ISO = new Date().toISOString().slice(0, 10);
+const TWO_YEARS_AGO_ISO = (() => {
+  const d = new Date();
+  d.setFullYear(d.getFullYear() - 2);
+  return d.toISOString().slice(0, 10);
+})();
+
+/* Parse the feed's "MMM DD" strings against the current year */
+function parseFeedDate(s: string): Date | null {
+  const d = new Date(`${s} ${new Date().getFullYear()}`);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 function NewsPage() {
   const all = useMemo(() => buildFeed(), []);
   const [type, setType] = useState<(typeof types)[number]>("All");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string>(all[0]?.id ?? "");
   const [loading, setLoading] = useState(true);
+
+  // Advanced search state
+  const [symbolInput, setSymbolInput] = useState("");
+  const [symbolFilter, setSymbolFilter] = useState("");
+  const [fromInput, setFromInput] = useState("");
+  const [toInput, setToInput] = useState("");
+  const [dateRange, setDateRange] = useState<{ from: string; to: string } | null>(null);
+
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 400);
     return () => clearTimeout(t);
@@ -139,13 +161,23 @@ function NewsPage() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
+    const sym = symbolFilter.trim().toUpperCase();
+    const from = dateRange?.from ? new Date(dateRange.from) : null;
+    const to = dateRange?.to ? new Date(dateRange.to) : null;
     return all.filter((d) => {
       if (type !== "All" && d.type !== type) return false;
       if (q && !(d.code.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.summary.toLowerCase().includes(q)))
         return false;
+      if (sym && d.code.toUpperCase() !== sym) return false;
+      if (from || to) {
+        const dt = parseFeedDate(d.date);
+        if (!dt) return false;
+        if (from && dt < from) return false;
+        if (to && dt > to) return false;
+      }
       return true;
     });
-  }, [all, type, query]);
+  }, [all, type, query, symbolFilter, dateRange]);
 
   const selected = useMemo(
     () => filtered.find((d) => d.id === selectedId) ?? filtered[0],
@@ -253,6 +285,136 @@ function NewsPage() {
           <div className="flex-1" />
           <div className="text-[12px] tnum flex items-center gap-1.5" style={{ color: "var(--text-muted)" }}>
             <Filter className="w-3 h-3" /> {filtered.length} disclosure{filtered.length === 1 ? "" : "s"}
+          </div>
+        </div>
+      </section>
+
+      {/* Advanced search */}
+      <section className="max-w-[1440px] mx-auto px-6 pt-6">
+        <div
+          className="rounded-2xl p-5"
+          style={{
+            background: "rgb(var(--surface-rgb) / 0.6)",
+            border: "1px solid rgb(var(--ov) / 0.06)",
+          }}
+        >
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <div className="text-[12px] uppercase tracking-[0.2em]" style={{ color: "var(--text-muted)" }}>
+              Advanced search
+            </div>
+            <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+              *(Last 2 years data)
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-5">
+            {/* Search by Trading Code */}
+            <div>
+              <div className="text-[12px] font-medium mb-2" style={{ color: "var(--text-secondary)" }}>
+                Search by Trading Code
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <input
+                  list="news-symbols"
+                  value={symbolInput}
+                  onChange={(e) => setSymbolInput(e.target.value)}
+                  placeholder="Select or type trading code…"
+                  className="flex-1 min-w-[180px] h-9 px-3 rounded-full text-[13px] bg-transparent outline-none"
+                  style={{
+                    background: "rgb(var(--ov) / 0.04)",
+                    border: "1px solid rgb(var(--ov) / 0.06)",
+                    color: "var(--text-primary)",
+                  }}
+                />
+                <datalist id="news-symbols">
+                  {companies.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.name}
+                    </option>
+                  ))}
+                </datalist>
+                <button
+                  onClick={() => setSymbolFilter(symbolInput.trim())}
+                  className="h-9 px-4 rounded-full text-[12.5px] font-semibold"
+                  style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
+                >
+                  Search By Symbol
+                </button>
+                {symbolFilter && (
+                  <button
+                    onClick={() => {
+                      setSymbolFilter("");
+                      setSymbolInput("");
+                    }}
+                    className="h-9 px-3 rounded-full text-[12px]"
+                    style={{ border: "1px solid rgb(var(--ov) / 0.1)", color: "var(--text-secondary)" }}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Search by Date */}
+            <div>
+              <div className="text-[12px] font-medium mb-2" style={{ color: "var(--text-secondary)" }}>
+                Search by Date
+              </div>
+              <div className="flex gap-2 flex-wrap items-center">
+                <label className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--text-muted)" }}>
+                  From
+                  <input
+                    type="date"
+                    min={TWO_YEARS_AGO_ISO}
+                    max={TODAY_ISO}
+                    value={fromInput}
+                    onChange={(e) => setFromInput(e.target.value)}
+                    className="h-9 px-2 rounded-full text-[12.5px]"
+                    style={{
+                      background: "rgb(var(--ov) / 0.04)",
+                      border: "1px solid rgb(var(--ov) / 0.06)",
+                      color: "var(--text-primary)",
+                    }}
+                  />
+                </label>
+                <label className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--text-muted)" }}>
+                  To
+                  <input
+                    type="date"
+                    min={TWO_YEARS_AGO_ISO}
+                    max={TODAY_ISO}
+                    value={toInput}
+                    onChange={(e) => setToInput(e.target.value)}
+                    className="h-9 px-2 rounded-full text-[12.5px]"
+                    style={{
+                      background: "rgb(var(--ov) / 0.04)",
+                      border: "1px solid rgb(var(--ov) / 0.06)",
+                      color: "var(--text-primary)",
+                    }}
+                  />
+                </label>
+                <button
+                  onClick={() => setDateRange({ from: fromInput, to: toInput })}
+                  className="h-9 px-4 rounded-full text-[12.5px] font-semibold"
+                  style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
+                >
+                  Search By Date
+                </button>
+                {dateRange && (
+                  <button
+                    onClick={() => {
+                      setDateRange(null);
+                      setFromInput("");
+                      setToInput("");
+                    }}
+                    className="h-9 px-3 rounded-full text-[12px]"
+                    style={{ border: "1px solid rgb(var(--ov) / 0.1)", color: "var(--text-secondary)" }}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </section>
