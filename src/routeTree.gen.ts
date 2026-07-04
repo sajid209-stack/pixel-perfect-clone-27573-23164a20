@@ -63,6 +63,7 @@ import { Route as PublicationsWeeklyRouteImport } from './routes/publications_.w
 import { Route as PublicationsPressRouteImport } from './routes/publications_.press'
 import { Route as PublicationsMonthlyRouteImport } from './routes/publications_.monthly'
 import { Route as PublicationsFortnightlyRouteImport } from './routes/publications_.fortnightly'
+import { Route as MarketsLatestSharePriceRouteImport } from './routes/markets_.latest-share-price'
 import { Route as MarketsComparisonRouteImport } from './routes/markets_.comparison'
 import { Route as MarketsAtAGlanceRouteImport } from './routes/markets_.at-a-glance'
 import { Route as ListingWhyListRouteImport } from './routes/listing_.why-list'
@@ -364,6 +365,11 @@ const PublicationsFortnightlyRoute = PublicationsFortnightlyRouteImport.update({
   path: '/publications/fortnightly',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketsLatestSharePriceRoute = MarketsLatestSharePriceRouteImport.update({
+  id: '/markets_/latest-share-price',
+  path: '/markets/latest-share-price',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketsComparisonRoute = MarketsComparisonRouteImport.update({
   id: '/markets_/comparison',
   path: '/markets/comparison',
@@ -593,6 +599,7 @@ export interface FileRoutesByFullPath {
   '/listing/why-list': typeof ListingWhyListRoute
   '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
   '/markets/comparison': typeof MarketsComparisonRoute
+  '/markets/latest-share-price': typeof MarketsLatestSharePriceRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -678,6 +685,7 @@ export interface FileRoutesByTo {
   '/listing/why-list': typeof ListingWhyListRoute
   '/markets/at-a-glance': typeof MarketsAtAGlanceRoute
   '/markets/comparison': typeof MarketsComparisonRoute
+  '/markets/latest-share-price': typeof MarketsLatestSharePriceRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -764,6 +772,7 @@ export interface FileRoutesById {
   '/listing_/why-list': typeof ListingWhyListRoute
   '/markets_/at-a-glance': typeof MarketsAtAGlanceRoute
   '/markets_/comparison': typeof MarketsComparisonRoute
+  '/markets_/latest-share-price': typeof MarketsLatestSharePriceRoute
   '/publications_/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications_/monthly': typeof PublicationsMonthlyRoute
   '/publications_/press': typeof PublicationsPressRoute
@@ -851,6 +860,7 @@ export interface FileRouteTypes {
     | '/listing/why-list'
     | '/markets/at-a-glance'
     | '/markets/comparison'
+    | '/markets/latest-share-price'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -936,6 +946,7 @@ export interface FileRouteTypes {
     | '/listing/why-list'
     | '/markets/at-a-glance'
     | '/markets/comparison'
+    | '/markets/latest-share-price'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -1021,6 +1032,7 @@ export interface FileRouteTypes {
     | '/listing_/why-list'
     | '/markets_/at-a-glance'
     | '/markets_/comparison'
+    | '/markets_/latest-share-price'
     | '/publications_/fortnightly'
     | '/publications_/monthly'
     | '/publications_/press'
@@ -1105,6 +1117,7 @@ export interface RootRouteChildren {
   ListingWhyListRoute: typeof ListingWhyListRoute
   MarketsAtAGlanceRoute: typeof MarketsAtAGlanceRoute
   MarketsComparisonRoute: typeof MarketsComparisonRoute
+  MarketsLatestSharePriceRoute: typeof MarketsLatestSharePriceRoute
   PublicationsFortnightlyRoute: typeof PublicationsFortnightlyRoute
   PublicationsMonthlyRoute: typeof PublicationsMonthlyRoute
   PublicationsPressRoute: typeof PublicationsPressRoute
@@ -1491,6 +1504,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicationsFortnightlyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/markets_/latest-share-price': {
+      id: '/markets_/latest-share-price'
+      path: '/markets/latest-share-price'
+      fullPath: '/markets/latest-share-price'
+      preLoaderRoute: typeof MarketsLatestSharePriceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/markets_/comparison': {
       id: '/markets_/comparison'
       path: '/markets/comparison'
@@ -1798,6 +1818,7 @@ const rootRouteChildren: RootRouteChildren = {
   ListingWhyListRoute: ListingWhyListRoute,
   MarketsAtAGlanceRoute: MarketsAtAGlanceRoute,
   MarketsComparisonRoute: MarketsComparisonRoute,
+  MarketsLatestSharePriceRoute: MarketsLatestSharePriceRoute,
   PublicationsFortnightlyRoute: PublicationsFortnightlyRoute,
   PublicationsMonthlyRoute: PublicationsMonthlyRoute,
   PublicationsPressRoute: PublicationsPressRoute,
