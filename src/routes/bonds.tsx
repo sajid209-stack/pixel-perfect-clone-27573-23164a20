@@ -589,6 +589,13 @@ function BondArchiveSection() {
             </thead>
             <tbody>
               {years.map((year) => (
+                <BondArchiveYearRows
+                  key={year}
+                  year={year}
+                  names={BOND_ARCHIVE[year] ?? []}
+                  startIndex={(() => { const s = counter; counter += (BOND_ARCHIVE[year] ?? []).length; return s; })()}
+                />
+              ))}
                 <>
                   <tr key={`year-${year}`}>
                     <td
