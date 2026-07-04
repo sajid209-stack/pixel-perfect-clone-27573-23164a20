@@ -148,6 +148,185 @@ function LearnPage() {
       </section>
 
       <Footer />
+      <TrainingAcademySection />
+
+      <Footer />
     </div>
+  );
+}
+
+/* ============================================================
+ * Training Academy — DTA programme catalogue
+ * NOTE: DTA's separate news/events/gallery pages consolidate
+ * into the main site's News and Gallery — do not build them here.
+ * ============================================================ */
+
+// SAMPLE — populate from mirror
+const DTA_PROGRAMMES: { title: string; overview: string; audience: string; contents: string; duration: string; fees: string }[] = [
+  "Certificate Program on Basics of Stock Market",
+  "Compliance & Interactive Issues for The TREC Holders",
+  "Investment Awareness Program for General (IAP)",
+  "Orientation Program for ERF (Economic Reporters' Forum)",
+  "Program On Prevention of Money Laundering and Terrorist Financing",
+  "Training Program on Asset Management: Mutual funds/ Collective Investment Scheme",
+  "Awareness Program for Officials",
+  "Basic Technical Analysis",
+  "Continuing Listing Requirements Post IPO",
+  "Financial Derivatives",
+  "Financial Statement Analysis",
+  "Fundamental Analysis, Investment Techniques & Tools",
+  "Internal Audit, Risk Management & Control (IARMC)",
+  "Training on IPO & Direct Listing",
+  "Merger & Acquisition",
+  "Portfolio Management & Security Analysis",
+  "Investors' Awareness Program for Women",
+  "Regional Investors' Awareness Program (RIAP)",
+  "Securities Market Rules and Regulation",
+  "Advanced Technical Analysis with Practical Analytics",
+  "Valuation of Securities",
+  "Capital Market Centric Academic Literacy Awareness Program (for Public and Private Entities)",
+  "ICT Security Guideline for TREC Holder Companies",
+  "Risk-Based Capital Adequacy Requirements for the Capital Market Intermediaries",
+  "Risk Management & Control",
+  "Training on Compliance in Corporate Governance (CG) by Capital Market Intermediaries",
+  "Beginners on the basics of investment procedures",
+  "Capital Market Journalist Orientation Program",
+].map((title) => ({
+  title,
+  overview: "Programme overview to be published by DTA.",
+  audience: "TREC holders, listed-company officers, market professionals and interested investors.",
+  contents: "Detailed contents and session outline will be published with each intake.",
+  duration: "1–3 days",
+  fees: "As per DTA schedule",
+}));
+
+function TrainingAcademySection() {
+  const [query, setQuery] = useState("");
+  const [openTitle, setOpenTitle] = useState<string | null>(null);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return DTA_PROGRAMMES;
+    return DTA_PROGRAMMES.filter((p) => p.title.toLowerCase().includes(q));
+  }, [query]);
+
+  return (
+    <section
+      className="border-t"
+      style={{ borderColor: "var(--line)", background: "var(--bg)" }}
+    >
+      <div className="max-w-[960px] mx-auto px-4 md:px-6 py-10 md:py-12">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--brand-600)" }}>
+          Programmes
+        </div>
+        <h2 className="mt-2 text-[24px] md:text-[28px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
+          DSE Training Academy (DTA)
+        </h2>
+        <p
+          data-cms="dta.about"
+          className="mt-3 text-[14px] leading-relaxed max-w-[720px]"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          The DSE Training Academy is the exchange's dedicated capital-market education arm.
+          It delivers certification, compliance and awareness programmes for TREC holders, listed
+          companies, market intermediaries, journalists and general investors across Bangladesh.
+          Programme content and schedules are curated with BSEC and industry practitioners.
+        </p>
+
+        {/* Search */}
+        <div className="mt-6 flex items-center gap-2 px-3 py-2 max-w-[420px]"
+          style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 2 }}
+        >
+          <Search className="w-3.5 h-3.5" style={{ color: "var(--text-muted)" }} />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search programmes"
+            className="bg-transparent outline-none text-[13px] w-full"
+            style={{ color: "var(--ink)" }}
+          />
+          <span className="text-[11px] tnum" style={{ color: "var(--text-muted)" }}>
+            {filtered.length}/{DTA_PROGRAMMES.length}
+          </span>
+        </div>
+
+        {/* Programme catalogue */}
+        <ul className="mt-4 divide-y" style={{ borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", borderColor: "var(--line)" }}>
+          {filtered.map((p) => {
+            const open = openTitle === p.title;
+            return (
+              <li key={p.title}>
+                <button
+                  onClick={() => setOpenTitle(open ? null : p.title)}
+                  className="w-full flex items-start justify-between gap-3 py-3 text-left"
+                >
+                  <span className="text-[14px] font-medium" style={{ color: "var(--ink)" }}>
+                    {p.title}
+                  </span>
+                  <ChevronDown
+                    className="w-4 h-4 mt-1 shrink-0 transition-transform"
+                    style={{
+                      transform: open ? "rotate(180deg)" : "none",
+                      color: "var(--text-muted)",
+                    }}
+                  />
+                </button>
+                {open && (
+                  <dl className="pb-5 grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-2 text-[13px]" style={{ color: "var(--ink)" }}>
+                    <DtaField label="Overview" value={p.overview} />
+                    <DtaField label="Who should attend" value={p.audience} />
+                    <DtaField label="Contents" value={p.contents} />
+                    <DtaField label="Duration" value={p.duration} />
+                    <DtaField label="Fees" value={p.fees} />
+                  </dl>
+                )}
+              </li>
+            );
+          })}
+          {filtered.length === 0 && (
+            <li className="py-6 text-center text-[13px]" style={{ color: "var(--text-muted)" }}>
+              No programmes match your search.
+            </li>
+          )}
+        </ul>
+
+        {/* Training Calendar */}
+        <div className="mt-10">
+          <h3 className="text-[16px] font-semibold mb-2" style={{ color: "var(--ink)" }}>
+            Training Calendar
+          </h3>
+          <div
+            className="px-4 py-6 text-[13px] text-center"
+            style={{
+              background: "var(--surface)",
+              border: "1px dashed var(--line)",
+              borderRadius: 2,
+              color: "var(--text-muted)",
+            }}
+          >
+            The upcoming training calendar will be published here.
+          </div>
+        </div>
+
+        {/* Academy contact */}
+        <div className="mt-6 text-[13px]" style={{ color: "var(--text-secondary)" }}>
+          <span className="font-semibold" style={{ color: "var(--ink)" }}>DTA contact:</span>{" "}
+          <a href="mailto:training@dsebd.org" style={{ color: "var(--brand-600)" }}>training@dsebd.org</a>
+          {" · "}
+          <a href="tel:+8809610000000" style={{ color: "var(--brand-600)" }}>+880 96-1000-0000</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DtaField({ label, value }: { label: string; value: string }) {
+  return (
+    <>
+      <dt className="text-[11px] uppercase tracking-[0.16em]" style={{ color: "var(--text-muted)" }}>
+        {label}
+      </dt>
+      <dd className="leading-relaxed">{value}</dd>
+    </>
   );
 }
