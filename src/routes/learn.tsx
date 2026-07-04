@@ -8,20 +8,21 @@ import { PageHeroSlider, DEFAULT_HERO_SLIDES } from "@/components/dse/PageHeroSl
 export const Route = createFileRoute("/learn")({
   head: () => ({
     meta: [
-      { title: "DSE Training Academy | Dhaka Stock Exchange" },
+      { title: "Learn — Investor Education | Dhaka Stock Exchange" },
       {
         name: "description",
-        content: "Human resource development for Bangladesh's capital market — DSE Training Academy (DTA).",
+        content: "Investor education resources from the Dhaka Stock Exchange, including the DSE Training Academy (DTA).",
       },
-      { property: "og:title", content: "DSE Training Academy" },
+      { property: "og:title", content: "Learn — Investor Education" },
       {
         property: "og:description",
-        content: "Human resource development for Bangladesh's capital market.",
+        content: "Investor education and capital-market training resources from the Dhaka Stock Exchange.",
       },
     ],
   }),
   component: LearnPage,
 });
+
 
 const OBJECTIVES = [
   "To educate and develop professionals for the securities industry in Bangladesh",
