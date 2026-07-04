@@ -55,8 +55,17 @@ function SectoralPePage() {
             </thead>
             <tbody>
               {ROWS.map((r) => (
-                <tr key={r.sector} style={{ borderBottom: "1px solid var(--line)" }}>
-                  <td className="px-4 py-3" style={{ color: "var(--ink)" }}>{t(r.sector)}</td>
+                <tr key={r.slug} style={{ borderBottom: "1px solid var(--line)" }}>
+                  <td className="px-4 py-3">
+                    <Link
+                      to="/markets/latest-share-price"
+                      search={{ sector: r.slug }}
+                      className="hover:underline"
+                      style={{ color: "var(--brand-600)" }}
+                    >
+                      {t(r.sector)}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3 text-right tnum" style={{ color: "var(--ink)", fontFamily: "var(--font-mono)" }}>{r.pe}</td>
                 </tr>
               ))}
