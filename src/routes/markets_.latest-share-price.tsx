@@ -163,16 +163,21 @@ function fmt(n: number, digits = 2) {
 function LatestSharePricePage() {
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
+  const isValidSector = (s: string | undefined): s is string =>
+    !!s && SECTORS.some((x) => x.slug === s);
+  const initialSector = isValidSector(search.sector) ? search.sector : "bank";
   const [sort, setSort] = useState<SortKey>("code");
-  const [view, setView] = useState<ViewMode>(search.sector ? "sector" : "all");
+  const [view, setView] = useState<ViewMode>(
+    isValidSector(search.sector) ? "sector" : "all",
+  );
   const [cat, setCat] = useState<(typeof CATS)[number]>("A");
   const [letter, setLetter] = useState<string>("A");
-  const [sector, setSectorState] = useState<string>(search.sector ?? "bank");
+  const [sector, setSectorState] = useState<string>(initialSector);
   const [limit, setLimit] = useState<number>(PAGE);
 
   // Sync from URL when user hits back/forward or arrives via ?sector=
   useEffect(() => {
-    if (search.sector) {
+    if (isValidSector(search.sector)) {
       setView("sector");
       setSectorState(search.sector);
     }
