@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
@@ -5,148 +6,203 @@ import { Footer } from "@/components/dse/Footer";
 export const Route = createFileRoute("/markets_/at-a-glance")({
   head: () => ({
     meta: [
-      { title: "Market at a Glance | Dhaka Stock Exchange" },
+      { title: "Performance of DSE at a glance | Dhaka Stock Exchange" },
       {
         name: "description",
-        content: "Performance of DSE at a glance — turnover, indices, market cap and breadth.",
+        content:
+          "Performance of DSE at a glance — indices, market capitalisation, turnover and volume by year.",
       },
-      { property: "og:title", content: "Market at a Glance" },
+      { property: "og:title", content: "Performance of DSE at a glance" },
       {
         property: "og:description",
-        content: "Performance of DSE at a glance — turnover, indices, market cap and breadth.",
+        content: "Yearly indices, market capitalisation, turnover and volume.",
       },
     ],
   }),
   component: MarketAtAGlancePage,
 });
 
-type Stat = { label: string; unit?: string };
-type Group = { title: string; stats: Stat[] };
+type Row = { label: string; v2023: string; v2024: string; v2025: string };
+type Section = { header: string; rows: Row[] };
 
-const GROUPS: Group[] = [
+// SAMPLE — replace at wiring
+const TOP_ROW: Row = {
+  // legacy spelling
+  label: "Listed Secrities",
+  v2023: "654",
+  v2024: "656",
+  v2025: "653",
+};
+
+// SAMPLE — replace at wiring
+const SECTIONS: Section[] = [
   {
-    title: "Turnover",
-    stats: [
-      { label: "Total turnover", unit: "BDT crore" },
-      { label: "Total traded value", unit: "BDT crore" },
-      { label: "Total traded volume", unit: "shares" },
-      { label: "Total trades", unit: "count" },
-      { label: "Block market turnover", unit: "BDT crore" },
-      { label: "Odd-lot turnover", unit: "BDT crore" },
+    header: "DSE Broad Index (DSEX)",
+    rows: [
+      { label: "Opening Index", v2023: "6,206.81", v2024: "6,242.10", v2025: "5,984.55" },
+      { label: "Closing Index", v2023: "6,242.10", v2024: "5,984.55", v2025: "6,241.30" },
+      { label: "% of change", v2023: "0.57", v2024: "-4.13", v2025: "4.29" },
+      { label: "Highest Index", v2023: "6,721.44", v2024: "6,502.18", v2025: "6,398.72" },
+      { label: "Lowest Index", v2023: "5,988.20", v2024: "5,321.06", v2025: "5,742.10" },
     ],
   },
   {
-    title: "Market capitalisation",
-    stats: [
-      { label: "Total market capitalisation", unit: "BDT crore" },
-      { label: "Equity market cap", unit: "BDT crore" },
-      { label: "Debt market cap", unit: "BDT crore" },
-      { label: "Mutual fund market cap", unit: "BDT crore" },
+    header: "DSE 30 Index (DS30)",
+    rows: [
+      { label: "Opening Index", v2023: "2,142.60", v2024: "2,158.32", v2025: "2,041.10" },
+      { label: "Closing Index", v2023: "2,158.32", v2024: "2,041.10", v2025: "2,118.40" },
+      { label: "% of change", v2023: "0.73", v2024: "-5.43", v2025: "3.79" },
+      { label: "Highest Index", v2023: "2,326.14", v2024: "2,241.90", v2025: "2,201.66" },
+      { label: "Lowest Index", v2023: "2,050.11", v2024: "1,884.55", v2025: "1,970.44" },
     ],
   },
   {
-    title: "Indices",
-    stats: [
-      { label: "DSEX" },
-      { label: "DS30" },
-      { label: "DSES" },
-      { label: "DSEX change", unit: "%" },
-      { label: "DS30 change", unit: "%" },
-      { label: "DSES change", unit: "%" },
+    header: "DSEX Shariah Index (DSES)",
+    rows: [
+      { label: "Opening Index", v2023: "1,362.41", v2024: "1,374.02", v2025: "1,308.55" },
+      { label: "Closing Index", v2023: "1,374.02", v2024: "1,308.55", v2025: "1,340.20" },
+      { label: "% of change", v2023: "0.85", v2024: "-4.77", v2025: "2.42" },
+      { label: "Highest Index", v2023: "1,462.11", v2024: "1,411.63", v2025: "1,388.94" },
+      { label: "Lowest Index", v2023: "1,310.02", v2024: "1,201.44", v2025: "1,280.11" },
     ],
   },
   {
-    title: "Market breadth",
-    stats: [
-      { label: "Advances", unit: "issues" },
-      { label: "Declines", unit: "issues" },
-      { label: "Unchanged", unit: "issues" },
-      { label: "Issues traded", unit: "issues" },
-      { label: "Not traded", unit: "issues" },
+    header: "Market Capitalisation Tk. In mn",
+    rows: [
+      { label: "Opening Market Cap.", v2023: "7,586,120.10", v2024: "7,712,088.44", v2025: "7,244,180.62" },
+      { label: "Closing Market Cap.", v2023: "7,712,088.44", v2024: "7,244,180.62", v2025: "6,920,502.18" },
+      { label: "Highest Market Cap", v2023: "8,120,442.66", v2024: "7,924,110.20", v2025: "7,442,006.11" },
+      { label: "Lowest Market Cap", v2023: "7,201,882.05", v2024: "6,720,014.30", v2025: "6,610,220.44" },
     ],
   },
   {
-    title: "Listed securities",
-    stats: [
-      { label: "Listed companies", unit: "count" },
-      { label: "Listed mutual funds", unit: "count" },
-      { label: "Listed debentures", unit: "count" },
-      { label: "Listed Govt. T-bonds", unit: "count" },
-      { label: "Listed corporate bonds", unit: "count" },
+    header: "Turnover",
+    rows: [
+      { label: "Total Turnover in Tk. mn", v2023: "1,406,120.44", v2024: "1,088,410.30", v2025: "1,220,682.10" },
+      { label: "% of Change", v2023: "-8.21", v2024: "-22.60", v2025: "12.15" },
+      { label: "Total Trading Days", v2023: "238", v2024: "241", v2025: "236" },
+      { label: "Daily Average Turnover", v2023: "5,908.06", v2024: "4,517.05", v2025: "5,172.38" },
+      { label: "Highest Turnover", v2023: "22,344.10", v2024: "18,220.55", v2025: "19,884.20" },
+      // legacy spelling
+      { label: "Lowest Turnove", v2023: "1,204.30", v2024: "988.44", v2025: "1,102.60" },
+    ],
+  },
+  {
+    header: "Volume",
+    rows: [
+      { label: "Total Turnover in Volume (mn)", v2023: "72,410.44", v2024: "66,210.30", v2025: "70,822.10" },
+      { label: "% of Change", v2023: "-4.10", v2024: "-8.56", v2025: "6.96" },
+      { label: "Daily Average Turnover in Volume", v2023: "304.24", v2024: "274.73", v2025: "300.09" },
+      { label: "Highest Turnover in Volume", v2023: "812.44", v2024: "744.02", v2025: "780.11" },
+      { label: "Lowest Turnover in Volume", v2023: "62.10", v2024: "58.20", v2025: "60.44" },
     ],
   },
 ];
 
 function MarketAtAGlancePage() {
   return (
-    <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
+    <div className="min-h-screen" style={{ background: "var(--surface)", color: "var(--ink)" }}>
       <Nav />
-      <section className="border-b" style={{ borderColor: "var(--line)" }}>
-        <div className="max-w-[960px] mx-auto px-4 md:px-6 py-6 md:py-8">
+
+      <section style={{ borderBottom: "1px solid var(--line)", background: "var(--surface-2)" }}>
+        <div className="max-w-[1100px] mx-auto px-4 md:px-6 py-8">
           <div
-            className="text-[10px] font-semibold uppercase tracking-[0.18em]"
-            style={{ color: "var(--brand-600)" }}
+            className="text-[11px] font-semibold uppercase mb-2"
+            style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
           >
-            Markets
+            Dhaka Stock Exchange
           </div>
           <h1
-            className="mt-2 text-[26px] md:text-[34px] font-semibold leading-tight"
+            className="text-[26px] md:text-[32px] font-semibold tracking-tight leading-[1.1]"
             style={{ color: "var(--ink)" }}
           >
-            Market at a Glance
+            Performance of DSE at a glance
           </h1>
-          <p className="mt-2 text-[12.5px]" style={{ color: "var(--text-muted)" }}>
-            Original page title: “Performance of DSE at a glance”.
-          </p>
-          <div className="mt-2 text-[11px]" style={{ color: "var(--text-secondary)" }}>
-            Sample data for demonstration — live data will connect to the DSE API
-          </div>
         </div>
       </section>
 
-      <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-8">
-        {GROUPS.map((g) => (
-          <div key={g.title} data-cms={`markets.glance.${g.title}`}>
-            <h2
-              className="text-[12px] font-semibold uppercase tracking-[0.14em] mb-3"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              {g.title}
-            </h2>
-            <div
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-              style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
-            >
-              {g.stats.map((s, i) => (
-                <div
-                  key={s.label}
-                  className="px-3 py-2.5"
-                  style={{
-                    borderTop: "1px solid var(--line)",
-                    borderLeft: i % 4 === 0 ? "none" : "1px solid var(--line)",
-                  }}
+      <section className="max-w-[1100px] mx-auto px-4 md:px-6 py-8 md:py-10">
+        <div
+          className="overflow-x-auto"
+          style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
+        >
+          <table className="w-full text-[13px]" style={{ minWidth: 640 }}>
+            <thead>
+              <tr style={{ background: "var(--surface-2)", borderBottom: "1px solid var(--line)" }}>
+                <th
+                  className="px-3 py-2 text-left text-[11px] font-semibold uppercase"
+                  style={{ letterSpacing: "0.1em", color: "var(--text-secondary)" }}
                 >
-                  <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
-                    {s.label}
-                    {s.unit ? ` (${s.unit})` : ""}
-                  </div>
-                  <div
-                    className="mt-1 text-[18px] font-semibold tnum"
-                    style={{ color: "var(--ink)" }}
+                  Particulars
+                </th>
+                {["2023", "2024", "2025"].map((y) => (
+                  <th
+                    key={y}
+                    className="px-3 py-2 text-right text-[11px] font-semibold uppercase"
+                    style={{
+                      letterSpacing: "0.1em",
+                      color: "var(--text-secondary)",
+                      fontFamily: "var(--font-mono)",
+                    }}
                   >
-                    —
-                  </div>
-                </div>
+                    {y}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <Tr row={TOP_ROW} />
+              {SECTIONS.map((s) => (
+                <Fragment key={s.header}>
+                  <tr style={{ borderTop: "1px solid var(--line)" }}>
+                    <td
+                      colSpan={4}
+                      className="px-3 py-2 text-[11.5px] font-semibold uppercase"
+                      style={{
+                        background: "var(--brand-600)",
+                        color: "#fff",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      {s.header}
+                    </td>
+                  </tr>
+                  {s.rows.map((r, i) => (
+                    <Tr key={s.header + r.label} row={r} zebra={i % 2 === 1} />
+                  ))}
+                </Fragment>
               ))}
-            </div>
-          </div>
-        ))}
-        <p className="text-[11.5px]" style={{ color: "var(--text-muted)" }}>
-          Figures populate from the DSE market data feed.
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-[11px]" style={{ color: "var(--text-secondary)" }}>
+          Sample data for demonstration — live data will connect to the DSE API.
         </p>
       </section>
 
       <Footer />
     </div>
+  );
+}
+
+function Tr({ row, zebra }: { row: Row; zebra?: boolean }) {
+  const cellNum: React.CSSProperties = {
+    color: "var(--ink)",
+    fontFamily: "var(--font-mono)",
+  };
+  return (
+    <tr
+      style={{
+        borderTop: "1px solid var(--line)",
+        background: zebra ? "rgba(0,0,0,0.018)" : "transparent",
+      }}
+    >
+      <td className="px-3 py-2" style={{ color: "var(--text-secondary)" }}>
+        {row.label}
+      </td>
+      <td className="px-3 py-2 tnum text-right" style={cellNum}>{row.v2023}</td>
+      <td className="px-3 py-2 tnum text-right" style={cellNum}>{row.v2024}</td>
+      <td className="px-3 py-2 tnum text-right" style={cellNum}>{row.v2025}</td>
+    </tr>
   );
 }
