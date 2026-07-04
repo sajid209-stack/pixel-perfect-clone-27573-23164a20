@@ -152,8 +152,8 @@ function MarketAtAGlancePage() {
             <tbody>
               <Tr row={TOP_ROW} />
               {SECTIONS.map((s) => (
-                <>
-                  <tr key={s.header} style={{ borderTop: "1px solid var(--line)" }}>
+                <React.Fragment key={s.header}>
+                  <tr style={{ borderTop: "1px solid var(--line)" }}>
                     <td
                       colSpan={4}
                       className="px-3 py-2 text-[11.5px] font-semibold uppercase"
@@ -169,7 +169,7 @@ function MarketAtAGlancePage() {
                   {s.rows.map((r, i) => (
                     <Tr key={s.header + r.label} row={r} zebra={i % 2 === 1} />
                   ))}
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>
