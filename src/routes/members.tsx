@@ -1,736 +1,403 @@
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
-import { PageHero } from "@/components/dse/PageHero";
-import heroAsset from "@/assets/dse-automation-5.jpg.asset.json";
-import { motion, AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
-import {
-  Search,
-  MapPin,
-  Phone,
-  Globe,
-  Mail,
-  ShieldCheck,
-  Building2,
-  Star,
-  ArrowUpRight,
-  Filter,
-  Award,
-  FileText,
-  Download,
-} from "lucide-react";
-
-const BSEC_BROKER_DOCS = [
-  { title: "BSEC Pilot Project Approved Broker List — Alphabetical Order", file: "BSEC-list-by-alphabetic-order.pdf", category: "Regulatory List" },
-  { title: "BSEC Pilot Project Approved Broker List — By TREC Number", file: "BSEC-list-by-TREC-no.pdf", category: "Regulatory List" },
-];
-
-function BsecBrokerListsSection() {
-  return (
-    <section className="border-t border-border bg-muted/20">
-      <div className="mx-auto max-w-[960px] px-4 py-8 md:py-10">
-        <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-1">BSEC Approved Broker Lists</h2>
-        <p className="text-xs text-muted-foreground mb-4">Payload CMS placeholder · documents to be wired to live data.</p>
-        <div className="divide-y divide-border border border-border rounded-md bg-card">
-          {BSEC_BROKER_DOCS.map((d) => (
-            <a key={d.file} href="#" className="flex items-center gap-3 px-4 py-3 hover:bg-muted/40 transition-colors group">
-              <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
-              <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-foreground truncate">{d.title}</div>
-                <div className="text-xs text-muted-foreground">{d.category} · {d.file}</div>
-              </div>
-              <Download className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export const Route = createFileRoute("/members")({
   head: () => ({
     meta: [
-      { title: "Member Brokers — Dhaka Stock Exchange" },
-      {
-        name: "description",
-        content:
-          "Find a licensed DSE trading member. Browse brokerage houses with branch coverage, service tier and contact details.",
-      },
-      { property: "og:title", content: "DSE Member Brokers" },
-      {
-        property: "og:description",
-        content: "Licensed trading members of the Dhaka Stock Exchange.",
-      },
+      { title: "TREC Holders' Directory | Dhaka Stock Exchange" },
+      { name: "description", content: "Directory of Dhaka Stock Exchange TREC Holders — 307 registered members." },
+      { property: "og:title", content: "TREC Holders' Directory — DSE" },
+      { property: "og:description", content: "Search DSE TREC Holders by name, location, or representative." },
     ],
   }),
   component: MembersPage,
 });
 
-type Tier = "Full service" | "Discount" | "Institutional";
-
+// SAMPLE — replace at wiring (real dataset has 307 entries)
 type Member = {
-  id: string;
   name: string;
-  code: string;
-  city: "Dhaka" | "Chittagong" | "Sylhet" | "Khulna" | "Rajshahi";
-  branches: number;
-  tier: Tier;
-  rating: number;
-  founded: number;
-  services: string[];
+  trecNo: string;
+  trecCode: string;
+  address: string;
+  district: string;
+  area: string;
+  repName: string;
+  repDesignation: string;
   phone: string;
+  mobile: string;
+  fax: string;
   email: string;
-  website: string;
-  featured?: boolean;
+  website?: string;
+  dealer: "Yes" | "No";
 };
 
-const members: Member[] = [
-  {
-    id: "m1",
-    name: "LankaBangla Securities",
-    code: "TREC-042",
-    city: "Dhaka",
-    branches: 23,
-    tier: "Full service",
-    rating: 4.7,
-    founded: 1997,
-    services: ["Equity", "Mutual fund", "Margin", "Advisory", "Mobile app"],
-    phone: "+880 9612 116666",
-    email: "info@lbsbd.com",
-    website: "lankabangla.com",
-    featured: true,
-  },
-  {
-    id: "m2",
-    name: "BRAC EPL Stock Brokerage",
-    code: "TREC-018",
-    city: "Dhaka",
-    branches: 15,
-    tier: "Full service",
-    rating: 4.6,
-    founded: 2009,
-    services: ["Equity", "Research", "Institutional", "Mobile app"],
-    phone: "+880 2 9852442",
-    email: "info@bracepl.com",
-    website: "bracepl.com",
-    featured: true,
-  },
-  {
-    id: "m3",
-    name: "IDLC Securities",
-    code: "TREC-076",
-    city: "Dhaka",
-    branches: 12,
-    tier: "Full service",
-    rating: 4.5,
-    founded: 2006,
-    services: ["Equity", "Margin", "Advisory", "Portfolio"],
-    phone: "+880 2 9514304",
-    email: "info@idlc.com",
-    website: "idlc.com",
-  },
-  {
-    id: "m4",
-    name: "City Brokerage",
-    code: "TREC-104",
-    city: "Dhaka",
-    branches: 8,
-    tier: "Full service",
-    rating: 4.3,
-    founded: 2010,
-    services: ["Equity", "Mutual fund", "Mobile app"],
-    phone: "+880 2 9569810",
-    email: "info@citybrokerage.com.bd",
-    website: "citybrokerage.com.bd",
-  },
-  {
-    id: "m5",
-    name: "EBL Securities",
-    code: "TREC-188",
-    city: "Dhaka",
-    branches: 11,
-    tier: "Full service",
-    rating: 4.4,
-    founded: 2009,
-    services: ["Equity", "Margin", "Research", "Custody"],
-    phone: "+880 2 9569480",
-    email: "info@eblsecurities.com",
-    website: "eblsecurities.com",
-  },
-  {
-    id: "m6",
-    name: "UCB Stock Brokerage",
-    code: "TREC-211",
-    city: "Dhaka",
-    branches: 9,
-    tier: "Discount",
-    rating: 4.1,
-    founded: 2013,
-    services: ["Equity", "Low commission", "Mobile app"],
-    phone: "+880 2 9551105",
-    email: "info@ucbstock.com",
-    website: "ucbstock.com",
-  },
-  {
-    id: "m7",
-    name: "MTB Securities",
-    code: "TREC-159",
-    city: "Dhaka",
-    branches: 6,
-    tier: "Discount",
-    rating: 4.0,
-    founded: 2010,
-    services: ["Equity", "Low commission"],
-    phone: "+880 2 8332297",
-    email: "info@mtbsecurities.com",
-    website: "mtbsecurities.com",
-  },
-  {
-    id: "m8",
-    name: "Royal Capital",
-    code: "TREC-067",
-    city: "Chittagong",
-    branches: 5,
-    tier: "Full service",
-    rating: 4.2,
-    founded: 1999,
-    services: ["Equity", "Advisory", "Margin"],
-    phone: "+880 31 2517901",
-    email: "info@royalcapitalbd.com",
-    website: "royalcapitalbd.com",
-  },
-  {
-    id: "m9",
-    name: "PFI Securities",
-    code: "TREC-091",
-    city: "Chittagong",
-    branches: 4,
-    tier: "Full service",
-    rating: 4.0,
-    founded: 2001,
-    services: ["Equity", "Mutual fund", "Custody"],
-    phone: "+880 31 2510700",
-    email: "info@pfisecurities.com",
-    website: "pfisecurities.com",
-  },
-  {
-    id: "m10",
-    name: "AAA Finance & Investment",
-    code: "TREC-008",
-    city: "Dhaka",
-    branches: 7,
-    tier: "Institutional",
-    rating: 4.4,
-    founded: 1994,
-    services: ["Institutional", "Research", "Custody", "Block deals"],
-    phone: "+880 2 9551414",
-    email: "info@aaafinance.com",
-    website: "aaafinance.com",
-  },
-  {
-    id: "m11",
-    name: "Prime Bank Securities",
-    code: "TREC-128",
-    city: "Sylhet",
-    branches: 3,
-    tier: "Full service",
-    rating: 4.1,
-    founded: 2010,
-    services: ["Equity", "Margin", "Advisory"],
-    phone: "+880 821 711234",
-    email: "info@primebanksec.com",
-    website: "primebanksec.com",
-  },
-  {
-    id: "m12",
-    name: "Standard Capital",
-    code: "TREC-053",
-    city: "Khulna",
-    branches: 2,
-    tier: "Discount",
-    rating: 3.9,
-    founded: 2005,
-    services: ["Equity", "Low commission"],
-    phone: "+880 41 2830501",
-    email: "info@standardcapital.com.bd",
-    website: "standardcapital.com.bd",
-  },
+const DISTRICTS = [
+  "Dhaka","Chattogram","Sylhet","Khulna","Rajshahi","Barishal","Rangpur","Mymensingh",
+  "Cumilla","Narayanganj","Gazipur","Bogura","Jashore","Cox's Bazar","Faridpur",
+  "Feni","Noakhali","Dinajpur","Pabna","Tangail","Kishoreganj","Manikganj","Munshiganj",
+  "Narsingdi","Netrokona","Sherpur","Jamalpur","Habiganj","Moulvibazar","Sunamganj",
+  "Chandpur","Lakshmipur","Brahmanbaria","Kushtia","Meherpur","Chuadanga","Jhenaidah",
+  "Magura","Narail","Satkhira","Bagerhat","Pirojpur","Bhola","Patuakhali","Barguna",
+  "Jhalokati","Nilphamari","Panchagarh","Thakurgaon",
+];
+const AREAS = [
+  "Motijheel","Gulshan","Dhanmondi","Banani","Uttara","Mirpur","Mohakhali","Tejgaon",
+  "Agrabad","Nasirabad","Halishahar","Zindabazar","Ambarkhana","Boyra","Khalishpur",
+  "Shaheb Bazar","Naogaon Road","Bandar Bazar",
 ];
 
-const cities = ["All", "Dhaka", "Chittagong", "Sylhet", "Khulna", "Rajshahi"] as const;
-const tiers = ["All", "Full service", "Discount", "Institutional"] as const;
+// SAMPLE — ~36 sample members across letters
+const NAMES = [
+  "A N F Management Company Limited","AB Investments Limited","Al-Muntaha Trading Limited",
+  "Apex Investments Limited","Alpha Securities Ltd.","Anwar Securities Ltd.",
+  "BLI Securities Limited","Bengal Investments Ltd.","B & B Enterprise Limited","BD Sunlife Securities Ltd.",
+  "City Brokerage Limited","Continental Trading (Pvt) Ltd.","Crest Securities Ltd.","Chowdhury Equities Ltd.",
+  "DBH Finance Ltd.","Delta Capital Ltd.","Dhaka Bank Securities Ltd.",
+  "EBL Securities Ltd.","Eastern Bank Investments Ltd.","Eskayef Capital Ltd.",
+  "First Securities Services Ltd.","Fareast Islami Securities Ltd.",
+  "Green Delta Capital Ltd.","Grameen Capital Management Ltd.",
+  "Habib Securities Ltd.","Harun Traders Ltd.",
+  "IDLC Securities Ltd.","International Leasing Securities Ltd.","Islami Bank Capital Mgmt. Ltd.",
+  "Janata Capital Ltd.","Jamuna Bank Securities Ltd.",
+  "K-Securities & Consultants Ltd.","Karim Securities Ltd.",
+  "LankaBangla Investments Ltd.","Lafarge Capital Ltd.",
+  "Modern Securities Ltd.","Mutual Trust Securities Ltd.",
+];
 
-const tierMeta: Record<Tier, { bg: string; fg: string; border: string }> = {
-  "Full service": {
-    bg: "rgb(var(--brand-tint) / 0.10)",
-    fg: "var(--primary)",
-    border: "rgb(var(--brand-tint) / 0.30)",
-  },
-  Discount: {
-    bg: "rgba(116,170,255,0.10)",
-    fg: "#74AAFF",
-    border: "rgba(116,170,255,0.30)",
-  },
-  Institutional: {
-    bg: "rgba(201,168,76,0.12)",
-    fg: "#C9A84C",
-    border: "rgba(201,168,76,0.30)",
-  },
-};
+const CODES = ["001","002","003","007","010","012","015","018","021","024","027","033","040","045","051","058","063","070","076","082","088","094","101","108","115","122","129","136","143","150","157","164","171","178","185","192","199","206"];
+
+function synthMember(name: string, i: number): Member {
+  const district = DISTRICTS[i % DISTRICTS.length];
+  const area = AREAS[i % AREAS.length];
+  const code = CODES[i % CODES.length];
+  return {
+    name,
+    trecNo: code,
+    trecCode: code,
+    address: `${100 + i}, ${area} C/A, ${district}`,
+    district,
+    area,
+    repName: ["Md. Rahman","Farhana Islam","Kamrul Hasan","Nusrat Jahan","Tanvir Ahmed","Sabrina Akter"][i % 6],
+    repDesignation: ["Chief Executive Officer","Managing Director","Director","CEO & Head of Brokerage"][i % 4],
+    phone: `+880-2-955${(1000 + i).toString()}`,
+    mobile: `+8801${700 + (i % 90)}${(100000 + i * 137).toString().slice(0, 6)}`,
+    fax: `+880-2-956${(1000 + i).toString()}`,
+    email: `info@${name.toLowerCase().replace(/[^a-z]/g, "").slice(0, 10)}.com`,
+    website: i % 3 === 0 ? `https://www.${name.toLowerCase().replace(/[^a-z]/g, "").slice(0, 10)}.com` : undefined,
+    dealer: i % 3 === 0 ? "No" : "Yes",
+  };
+}
+
+const MEMBERS: Member[] = NAMES.map(synthMember);
+
+// SAMPLE — ~15 sample web-links rows of ~75
+const WEB_LINKS: { serial: number; trecNo: string; company: string; dealer: "Yes" | "No"; url: string }[] =
+  MEMBERS.slice(0, 15).map((m, i) => ({
+    serial: i + 1,
+    trecNo: m.trecNo,
+    company: m.name,
+    dealer: m.dealer,
+    url: "#",
+  }));
+
+const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+type TabKey = "alpha" | "location" | "search" | "web";
+const TABS: { key: TabKey; label: string }[] = [
+  { key: "alpha", label: "By Alphabetic Order" },
+  { key: "location", label: "By Location" },
+  { key: "search", label: "Search" },
+  { key: "web", label: "Web Links" },
+];
 
 function MembersPage() {
-  const [query, setQuery] = useState("");
-  const [city, setCity] = useState<(typeof cities)[number]>("All");
-  const [tier, setTier] = useState<(typeof tiers)[number]>("All");
-
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return members.filter((m) => {
-      if (city !== "All" && m.city !== city) return false;
-      if (tier !== "All" && m.tier !== tier) return false;
-      if (q && !(m.name.toLowerCase().includes(q) || m.code.toLowerCase().includes(q))) return false;
-      return true;
-    });
-  }, [query, city, tier]);
-
-  const stats = useMemo(
-    () => ({
-      total: members.length,
-      branches: members.reduce((a, m) => a + m.branches, 0),
-      cities: new Set(members.map((m) => m.city)).size,
-      avgRating: (members.reduce((a, m) => a + m.rating, 0) / members.length).toFixed(1),
-    }),
-    [],
-  );
+  const [tab, setTab] = useState<TabKey>("alpha");
+  const [active, setActive] = useState<Member | null>(null);
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+    <div className="min-h-screen" style={{ background: "var(--surface)", color: "var(--ink)" }}>
       <Nav />
-      <PageHero src={heroAsset} alt="DSE TREC members" />
 
-
-
-      {/* Hero */}
-      <section className="max-w-[1440px] mx-auto px-6 pt-12 pb-8">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.22em] mb-5"
-            style={{
-              background: "rgb(var(--brand-tint) / 0.08)",
-              border: "1px solid rgb(var(--brand-tint) / 0.25)",
-              color: "var(--primary)",
-            }}
-          >
-            <ShieldCheck className="w-3 h-3" />
-            Licensed members
+      <section style={{ borderBottom: "1px solid var(--line)", background: "var(--surface-2)" }}>
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8">
+          <div className="text-[11px] font-semibold uppercase mb-2" style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}>
+            Dhaka Stock Exchange
           </div>
-          <h1
-            className="text-[44px] md:text-[56px] leading-[1.04] tracking-[-0.02em] font-semibold max-w-3xl"
-            style={{ color: "var(--text-primary)" }}
-          >
-            TREC Holder Directory
+          <h1 className="text-[26px] md:text-[32px] font-semibold tracking-tight leading-[1.1]" style={{ color: "var(--ink)" }}>
+            TREC Holders' Directory
           </h1>
-
-          <p
-            className="mt-4 text-[16px] max-w-2xl"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Every brokerage house listed here holds an active Trading Right Entitlement Certificate
-            from the Dhaka Stock Exchange. Compare service tiers, branch coverage and contact details
-            before you open a BO account.
+          <p className="mt-2 text-[13px]" style={{ color: "var(--text-secondary)" }}>
+            Total DSE TREC Holder: 307
           </p>
-        </motion.div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10">
-          {[
-            { label: "Active members", value: stats.total, icon: Building2 },
-            { label: "Combined branches", value: stats.branches, icon: MapPin },
-            { label: "Cities covered", value: stats.cities, icon: Globe },
-            { label: "Avg. rating", value: stats.avgRating, icon: Star },
-          ].map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.05 }}
-              className="p-5 rounded-2xl"
-              style={{
-                background: "rgb(var(--surface-rgb) / 0.55)",
-                border: "1px solid rgb(var(--ov) / 0.06)",
-              }}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <s.icon className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
-              </div>
-              <div
-                className="text-[28px] font-semibold tnum tracking-tight"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {s.value}
-              </div>
-              <div
-                className="text-[11px] uppercase tracking-[0.18em] mt-1"
-                style={{ color: "var(--text-muted)" }}
-              >
-                {s.label}
-              </div>
-            </motion.div>
-          ))}
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="max-w-[1440px] mx-auto px-6 pt-2 pb-6">
-        <div
-          className="sticky top-[88px] z-30 p-3 rounded-2xl flex flex-col lg:flex-row gap-3 lg:items-center"
-          style={{
-            background: "rgb(var(--surface-rgb) / 0.7)",
-            backdropFilter: "blur(18px) saturate(180%)",
-            border: "1px solid rgb(var(--ov) / 0.06)",
-          }}
-        >
-          <div
-            className="flex items-center gap-2 px-3 h-10 rounded-xl flex-1"
-            style={{
-              background: "rgb(var(--ov) / 0.04)",
-              border: "1px solid rgb(var(--ov) / 0.06)",
-            }}
-          >
-            <Search className="w-3.5 h-3.5" style={{ color: "var(--text-muted)" }} />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by broker name or TREC code…"
-              className="flex-1 bg-transparent outline-none text-[13.5px] placeholder:opacity-60"
-              style={{ color: "var(--text-primary)" }}
-            />
-          </div>
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 py-6 md:py-8">
+        <div role="tablist" className="flex flex-wrap gap-1 mb-6" style={{ borderBottom: "1px solid var(--line)" }}>
+          {TABS.map((t) => (
+            <button
+              key={t.key}
+              role="tab"
+              aria-selected={tab === t.key}
+              onClick={() => setTab(t.key)}
+              className="text-[13px] px-4 py-2 uppercase tracking-wider font-semibold"
+              style={{
+                borderBottom: tab === t.key ? "2px solid var(--brand-600)" : "2px solid transparent",
+                color: tab === t.key ? "var(--brand-600)" : "var(--text-secondary)",
+                background: "transparent",
+              }}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
 
-          <div className="flex items-center gap-2">
-            <Filter className="w-3.5 h-3.5" style={{ color: "var(--text-muted)" }} />
-            <div className="flex gap-1 flex-wrap">
-              {cities.map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setCity(c)}
-                  className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                  style={{
-                    color: city === c ? "var(--primary-foreground)" : "var(--text-secondary)",
-                  }}
-                >
-                  {city === c && (
-                    <motion.span
-                      layoutId="memberCityPill"
-                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                      className="absolute inset-0 rounded-full"
-                      style={{ background: "var(--primary)" }}
-                    />
-                  )}
-                  <span className="relative">{c}</span>
+        {tab === "alpha" && <AlphaTab members={MEMBERS} onOpen={setActive} />}
+        {tab === "location" && <LocationTab members={MEMBERS} onOpen={setActive} />}
+        {tab === "search" && <SearchTab members={MEMBERS} onOpen={setActive} />}
+        {tab === "web" && <WebLinksTab />}
+      </section>
+
+      {active && <MemberModal member={active} onClose={() => setActive(null)} />}
+
+      <Footer />
+    </div>
+  );
+}
+
+function AlphaTab({ members, onOpen }: { members: Member[]; onOpen: (m: Member) => void }) {
+  const grouped = useMemo(() => {
+    const g: Record<string, Member[]> = {};
+    for (const m of members) {
+      const L = m.name[0].toUpperCase();
+      (g[L] ||= []).push(m);
+    }
+    for (const k of Object.keys(g)) g[k].sort((a, b) => a.name.localeCompare(b.name));
+    return g;
+  }, [members]);
+
+  return (
+    <div>
+      <h2 className="text-[15px] font-semibold mb-3" style={{ color: "var(--ink)" }}>
+        TREC Holder List by Alphabetical Order: 307
+      </h2>
+      <div className="mb-6 flex flex-wrap gap-1 p-3" style={{ border: "1px solid var(--line)", background: "var(--surface-2)" }}>
+        {LETTERS.map((l) => {
+          const has = !!grouped[l];
+          return has ? (
+            <a key={l} href={`#letter-${l}`} className="w-8 h-8 flex items-center justify-center text-[12px] font-semibold"
+              style={{ border: "1px solid var(--line)", background: "var(--surface)", color: "var(--brand-600)", fontFamily: "var(--font-mono)" }}>
+              {l}
+            </a>
+          ) : (
+            <span key={l} className="w-8 h-8 flex items-center justify-center text-[12px]"
+              style={{ border: "1px solid var(--line)", color: "var(--text-secondary)", opacity: 0.4, fontFamily: "var(--font-mono)" }}>
+              {l}
+            </span>
+          );
+        })}
+      </div>
+
+      <div className="space-y-8">
+        {LETTERS.filter((l) => grouped[l]).map((l) => (
+          <div key={l} id={`letter-${l}`} style={{ scrollMarginTop: 100 }}>
+            <div className="mb-3 pb-2 flex items-baseline gap-3" style={{ borderBottom: "1px solid var(--line)" }}>
+              <span className="text-[22px] font-semibold" style={{ color: "var(--brand-600)", fontFamily: "var(--font-mono)" }}>{l}</span>
+              <span className="text-[11px] uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>
+                {grouped[l].length} member{grouped[l].length === 1 ? "" : "s"}
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+              {grouped[l].map((m) => (
+                <button key={m.trecNo + m.name} onClick={() => onOpen(m)} className="text-left text-[13px] hover:underline py-1"
+                  style={{ color: "var(--ink)" }}>
+                  {m.name}
                 </button>
               ))}
             </div>
           </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-          <div className="flex gap-1 flex-wrap">
-            {tiers.map((t) => (
-              <button
-                key={t}
-                onClick={() => setTier(t)}
-                className="relative px-3 h-8 rounded-full text-[12px] font-medium transition"
-                style={{
-                  color: tier === t ? "var(--text-primary)" : "var(--text-muted)",
-                  background:
-                    tier === t ? "rgb(var(--ov) / 0.08)" : "transparent",
-                  border:
-                    tier === t
-                      ? "1px solid rgb(var(--ov) / 0.10)"
-                      : "1px solid transparent",
-                }}
-              >
-                {t}
-              </button>
+function LocationTab({ members, onOpen }: { members: Member[]; onOpen: (m: Member) => void }) {
+  const [district, setDistrict] = useState<string>("");
+  const [area, setArea] = useState<string>("");
+  const results = useMemo(() => {
+    if (!district && !area) return [];
+    return members.filter((m) => (!district || m.district === district) && (!area || m.area === area));
+  }, [district, area, members]);
+
+  const selectStyle: React.CSSProperties = {
+    border: "1px solid var(--line)", background: "var(--surface)", color: "var(--ink)",
+  };
+
+  return (
+    <div>
+      <div className="flex flex-col md:flex-row md:items-end gap-4 mb-6">
+        <label className="flex-1 text-[12px] uppercase tracking-wider font-semibold" style={{ color: "var(--text-secondary)" }}>
+          District
+          <select value={district} onChange={(e) => setDistrict(e.target.value)}
+            className="w-full mt-1 px-3 py-2 text-[13px] font-normal normal-case tracking-normal" style={selectStyle}>
+            <option value="">— Select district —</option>
+            {DISTRICTS.map((d) => <option key={d} value={d}>{d}</option>)}
+          </select>
+        </label>
+        <div className="text-[12px] font-semibold uppercase pb-2 md:pb-3" style={{ color: "var(--text-secondary)" }}>OR</div>
+        <label className="flex-1 text-[12px] uppercase tracking-wider font-semibold" style={{ color: "var(--text-secondary)" }}>
+          Area
+          <select value={area} onChange={(e) => setArea(e.target.value)}
+            className="w-full mt-1 px-3 py-2 text-[13px] font-normal normal-case tracking-normal" style={selectStyle}>
+            <option value="">— Select area —</option>
+            {AREAS.map((a) => <option key={a} value={a}>{a}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <ResultsList results={results} onOpen={onOpen} empty="Select a district or area to see TREC Holders." />
+    </div>
+  );
+}
+
+function SearchTab({ members, onOpen }: { members: Member[]; onOpen: (m: Member) => void }) {
+  const [q1, setQ1] = useState("");
+  const [q2, setQ2] = useState("");
+  const [q3, setQ3] = useState("");
+
+  const results = useMemo(() => {
+    const s1 = q1.trim().toLowerCase(), s2 = q2.trim().toLowerCase(), s3 = q3.trim().toLowerCase();
+    if (!s1 && !s2 && !s3) return [];
+    return members.filter((m) => {
+      if (s1 && !(m.name.toLowerCase().includes(s1) || m.trecNo.includes(s1))) return false;
+      if (s2 && !m.repName.toLowerCase().includes(s2)) return false;
+      if (s3 && !(m.district.toLowerCase().includes(s3) || m.area.toLowerCase().includes(s3))) return false;
+      return true;
+    });
+  }, [q1, q2, q3, members]);
+
+  return (
+    <div className="space-y-5">
+      <SearchBlock label="Search TREC Holder by TREC No or Company Name" value={q1} onChange={setQ1} placeholder="Type TREC No or Company Name…" />
+      <SearchBlock label="Search TREC Holder by Authorized Representative Name" value={q2} onChange={setQ2} placeholder="Type representative name…" />
+      <SearchBlock label="Search TREC Holder's Offices by District or Location" value={q3} onChange={setQ3} placeholder="Type district or area…" />
+      <div className="pt-2">
+        <ResultsList results={results} onOpen={onOpen} empty="Enter a query above to search TREC Holders." />
+      </div>
+    </div>
+  );
+}
+
+function SearchBlock({ label, value, onChange, placeholder }: { label: string; value: string; onChange: (v: string) => void; placeholder: string }) {
+  return (
+    <div className="p-4" style={{ border: "1px solid var(--line)", background: "var(--surface-2)" }}>
+      <div className="text-[12px] font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-secondary)" }}>{label}</div>
+      <input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
+        className="w-full px-3 py-2 text-[13px]"
+        style={{ border: "1px solid var(--line)", background: "var(--surface)", color: "var(--ink)" }} />
+    </div>
+  );
+}
+
+function ResultsList({ results, onOpen, empty }: { results: Member[]; onOpen: (m: Member) => void; empty: string }) {
+  if (results.length === 0) {
+    return <p className="text-[13px] p-4" style={{ color: "var(--text-secondary)", border: "1px dashed var(--line)" }}>{empty}</p>;
+  }
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      {results.map((m) => (
+        <button key={m.trecNo + m.name} onClick={() => onOpen(m)} className="text-left p-4 hover:shadow-sm transition"
+          style={{ border: "1px solid var(--line)", background: "var(--surface)" }}>
+          <div className="text-[13.5px] font-semibold" style={{ color: "var(--ink)" }}>{m.name}</div>
+          <div className="mt-1 text-[12px]" style={{ color: "var(--text-secondary)" }}>
+            <span style={{ fontFamily: "var(--font-mono)" }}>TREC #{m.trecNo}</span> · {m.area}, {m.district}
+          </div>
+          <div className="mt-1 text-[12px]" style={{ color: "var(--text-secondary)" }}>
+            {m.repName} — {m.repDesignation}
+          </div>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function WebLinksTab() {
+  return (
+    <div>
+      <h2 className="text-[15px] font-semibold mb-3" style={{ color: "var(--ink)" }}>DSE TREC Holder Website Links</h2>
+      <div className="overflow-x-auto" style={{ border: "1px solid var(--line)", background: "var(--surface)" }}>
+        <table className="w-full text-[13px]" style={{ minWidth: 640 }}>
+          <thead>
+            <tr style={{ background: "var(--surface-2)", borderBottom: "1px solid var(--line)" }}>
+              {["Serial No.", "TREC Holder No.", "Company Name", "Dealer"].map((h, i) => (
+                <th key={h} className={`px-3 py-2 text-[11px] font-semibold uppercase ${i === 2 ? "text-left" : i === 3 ? "text-center" : "text-right"}`}
+                  style={{ letterSpacing: "0.1em", color: "var(--text-secondary)", whiteSpace: "nowrap" }}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {WEB_LINKS.map((r, i) => (
+              <tr key={r.serial} style={{ borderTop: "1px solid var(--line)", background: i % 2 === 1 ? "rgba(0,0,0,0.018)" : "transparent" }}>
+                <td className="px-3 py-2 tnum text-right" style={{ fontFamily: "var(--font-mono)", color: "var(--text-secondary)" }}>{r.serial}</td>
+                <td className="px-3 py-2 tnum text-right" style={{ fontFamily: "var(--font-mono)" }}>{r.trecNo}</td>
+                <td className="px-3 py-2">
+                  <a href={r.url} target="_blank" rel="noreferrer" className="font-semibold hover:underline" style={{ color: "var(--brand-600)" }}>
+                    {r.company}
+                  </a>
+                </td>
+                <td className="px-3 py-2 text-center" style={{ fontFamily: "var(--font-mono)" }}>{r.dealer}</td>
+              </tr>
             ))}
-          </div>
-        </div>
-      </section>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 
-      {/* Grid */}
-      <section className="max-w-[1440px] mx-auto px-6 pb-20">
-        <div className="flex items-center justify-between mb-5">
-          <div className="text-[13px]" style={{ color: "var(--text-muted)" }}>
-            Showing <span style={{ color: "var(--text-primary)" }}>{filtered.length}</span> of{" "}
-            {members.length} members
-          </div>
-        </div>
+function MemberModal({ member, onClose }: { member: Member; onClose: () => void }) {
+  const rows: [string, React.ReactNode][] = [
+    ["Company Name", member.name],
+    ["TREC Holder No.", <span style={{ fontFamily: "var(--font-mono)" }}>{member.trecNo}</span>],
+    ["TREC Code", <span style={{ fontFamily: "var(--font-mono)" }}>{member.trecCode}</span>],
+    ["Address", member.address],
+    ["District", member.district],
+    ["Area", member.area],
+    ["Authorized Representative", `${member.repName} — ${member.repDesignation}`],
+    ["Office Phone", <span style={{ fontFamily: "var(--font-mono)" }}>{member.phone}</span>],
+    ["Mobile", <span style={{ fontFamily: "var(--font-mono)" }}>{member.mobile}</span>],
+    ["Fax", <span style={{ fontFamily: "var(--font-mono)" }}>{member.fax}</span>],
+    ["E-mail", <a href={`mailto:${member.email}`} className="hover:underline" style={{ color: "var(--brand-600)" }}>{member.email}</a>],
+    ["Website", member.website ? <a href={member.website} target="_blank" rel="noreferrer" className="hover:underline" style={{ color: "var(--brand-600)" }}>{member.website}</a> : <span style={{ color: "var(--text-secondary)" }}>—</span>],
+    ["Dealer", member.dealer],
+  ];
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((m, i) => {
-              const meta = tierMeta[m.tier];
-              return (
-                <motion.article
-                  key={m.id}
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ delay: i * 0.03, duration: 0.25 }}
-                  className="group p-5 rounded-2xl flex flex-col gap-4 transition cursor-pointer"
-                  style={{
-                    background: "rgb(var(--surface-rgb) / 0.55)",
-                    border: "1px solid rgb(var(--ov) / 0.06)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "rgb(var(--brand-tint) / 0.25)";
-                    e.currentTarget.style.background = "rgb(var(--surface-rgb) / 0.75)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgb(var(--ov) / 0.06)";
-                    e.currentTarget.style.background = "rgb(var(--surface-rgb) / 0.55)";
-                  }}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span
-                          className="text-[10px] uppercase tracking-[0.22em] tnum"
-                          style={{ color: "var(--text-muted)" }}
-                        >
-                          {m.code}
-                        </span>
-                        {m.featured && (
-                          <span
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-[0.18em]"
-                            style={{
-                              background: "rgba(201,168,76,0.12)",
-                              color: "#C9A84C",
-                              border: "1px solid rgba(201,168,76,0.30)",
-                            }}
-                          >
-                            <Award className="w-2.5 h-2.5" />
-                            Featured
-                          </span>
-                        )}
-                      </div>
-                      <h3
-                        className="text-[16px] font-semibold leading-tight truncate"
-                        style={{ color: "var(--text-primary)" }}
-                      >
-                        {m.name}
-                      </h3>
-                    </div>
-                    <div
-                      className="px-2 py-1 rounded-full text-[10px] font-semibold whitespace-nowrap"
-                      style={{
-                        background: meta.bg,
-                        color: meta.fg,
-                        border: `1px solid ${meta.border}`,
-                      }}
-                    >
-                      {m.tier}
-                    </div>
-                  </div>
-
-                  <div
-                    className="grid grid-cols-3 gap-3 pt-3"
-                    style={{ borderTop: "1px solid rgb(var(--ov) / 0.06)" }}
-                  >
-                    <div>
-                      <div
-                        className="text-[10px] uppercase tracking-[0.18em] mb-1"
-                        style={{ color: "var(--text-muted)" }}
-                      >
-                        HQ
-                      </div>
-                      <div
-                        className="text-[13px] font-medium flex items-center gap-1"
-                        style={{ color: "var(--text-primary)" }}
-                      >
-                        <MapPin className="w-3 h-3" style={{ color: "var(--text-muted)" }} />
-                        {m.city}
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        className="text-[10px] uppercase tracking-[0.18em] mb-1"
-                        style={{ color: "var(--text-muted)" }}
-                      >
-                        Branches
-                      </div>
-                      <div
-                        className="text-[13px] font-medium tnum"
-                        style={{ color: "var(--text-primary)" }}
-                      >
-                        {m.branches}
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        className="text-[10px] uppercase tracking-[0.18em] mb-1"
-                        style={{ color: "var(--text-muted)" }}
-                      >
-                        Rating
-                      </div>
-                      <div
-                        className="text-[13px] font-medium tnum flex items-center gap-1"
-                        style={{ color: "var(--text-primary)" }}
-                      >
-                        <Star
-                          className="w-3 h-3"
-                          style={{ color: "#C9A84C", fill: "#C9A84C" }}
-                        />
-                        {m.rating.toFixed(1)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {m.services.slice(0, 4).map((s) => (
-                      <span
-                        key={s}
-                        className="px-2 py-1 rounded-md text-[10.5px]"
-                        style={{
-                          background: "rgb(var(--ov) / 0.04)",
-                          color: "var(--text-secondary)",
-                          border: "1px solid rgb(var(--ov) / 0.06)",
-                        }}
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div
-                    className="flex items-center justify-between pt-3 mt-auto"
-                    style={{ borderTop: "1px solid rgb(var(--ov) / 0.06)" }}
-                  >
-                    <div className="flex gap-3 text-[11.5px]" style={{ color: "var(--text-muted)" }}>
-                      <span className="flex items-center gap-1">
-                        <Phone className="w-3 h-3" />
-                        Call
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Mail className="w-3 h-3" />
-                        Email
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Globe className="w-3 h-3" />
-                        Site
-                      </span>
-                    </div>
-                    <span
-                      className="inline-flex items-center gap-1 text-[12px] font-semibold opacity-0 group-hover:opacity-100 transition"
-                      style={{ color: "var(--primary)" }}
-                    >
-                      View profile
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </motion.article>
-              );
-            })}
-          </AnimatePresence>
-        </div>
-
-        {filtered.length === 0 && (
-          <div
-            className="mt-10 p-12 text-center rounded-2xl"
-            style={{
-              background: "rgb(var(--surface-rgb) / 0.45)",
-              border: "1px dashed rgb(var(--ov) / 0.10)",
-              color: "var(--text-muted)",
-            }}
-          >
-            No member matches the current filters.
-          </div>
-        )}
-      </section>
-
-      {/* Become a member CTA */}
-      <section className="max-w-[1440px] mx-auto px-6 pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="p-10 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-6"
-          style={{
-            background:
-              "linear-gradient(135deg, rgb(var(--brand-tint) / 0.10) 0%, rgba(116,170,255,0.06) 100%)",
-            border: "1px solid rgb(var(--brand-tint) / 0.20)",
-          }}
-        >
-          <div className="max-w-xl">
-            <div
-              className="text-[11px] uppercase tracking-[0.22em] mb-2"
-              style={{ color: "var(--primary)" }}
-            >
-              Apply for TREC
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.55)" }} onClick={onClose}>
+      <div className="max-w-[720px] w-full max-h-[85vh] overflow-y-auto" style={{ background: "var(--surface)", border: "1px solid var(--line)" }} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-start justify-between p-5" style={{ borderBottom: "1px solid var(--line)", background: "var(--surface-2)" }}>
+          <div>
+            <div className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--brand-600)" }}>
+              TREC Holder
             </div>
-            <h3
-              className="text-[26px] md:text-[30px] font-semibold leading-tight tracking-tight"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Want to become a DSE trading member?
-            </h3>
-            <p
-              className="mt-2 text-[14px]"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              Review eligibility, capital adequacy and the application process for a Trading Right
-              Entitlement Certificate.
-            </p>
+            <h3 className="text-[18px] font-semibold mt-1" style={{ color: "var(--ink)" }}>{member.name}</h3>
           </div>
-          <a
-            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[13.5px] font-semibold cursor-pointer hover:scale-[1.02] transition"
-            style={{
-              background: "var(--primary)",
-              color: "var(--primary-foreground)",
-              boxShadow: "0 6px 20px -6px rgb(var(--brand-tint) / 0.55)",
-            }}
-          >
-            Membership guide
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
-        </motion.div>
-      </section>
-
-      <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-10">
-        <div className="rounded-md p-5" style={{ background: "var(--surface)", border: "1px solid var(--line)" }} data-cms="members.trec-views">
-          <h2 className="text-[16px] font-semibold mb-3" style={{ color: "var(--ink)" }}>TREC Holder Views</h2>
-          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[13px]">
-            {[
-              { label: "By Alphabetic Order", href: "#trec-alpha" },
-              { label: "By Location", href: "#trec-location" },
-              { label: "By Authorized Representative", href: "#trec-ar" },
-              { label: "TREC Holders' Web Links", href: "#trec-weblinks" },
-              { label: "TREC Holder Search", href: "#trec-search" },
-              { label: "TREC Regulations", href: "/regulations" },
-            ].map((i) => (
-              <li key={i.label}>
-                <a
-                  href={i.href}
-                  id={i.href.startsWith("#") ? i.href.slice(1) : undefined}
-                  className="hover:underline"
-                  style={{ color: "var(--brand-600)" }}
-                >
-                  {i.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <button onClick={onClose} className="text-[20px] leading-none px-2" style={{ color: "var(--text-secondary)" }} aria-label="Close">×</button>
         </div>
-      </section>
-
-      <BsecBrokerListsSection />
-      <Footer />
+        <dl className="divide-y" style={{ borderColor: "var(--line)" }}>
+          {rows.map(([k, v]) => (
+            <div key={k} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 px-5 py-3" style={{ borderTop: "1px solid var(--line)" }}>
+              <dt className="text-[12px] uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>{k}</dt>
+              <dd className="text-[13px]" style={{ color: "var(--ink)" }}>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </div>
   );
 }
