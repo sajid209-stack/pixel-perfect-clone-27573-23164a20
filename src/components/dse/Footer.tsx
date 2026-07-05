@@ -7,92 +7,88 @@ import { useLang } from "@/i18n/LanguageContext";
 
 type FooterLink = { label: string; to: string; hash?: string };
 
-const marketsLinks: FooterLink[] = [
-  { label: "Products & Services", to: "/products" },
-  { label: "Equities", to: "/companies" },
-  { label: "Bonds & GSec", to: "/bonds" },
-  { label: "Mutual Funds & ETFs", to: "/funds" },
-  { label: "OTC Market", to: "/otc" },
-  { label: "Disclosures & Filings", to: "/filings" },
-  { label: "Indices", to: "/indices" },
-  { label: "Corporate actions", to: "/corporate-actions" },
-  { label: "Historical data", to: "/reports" },
-  { label: "DSE-Mobile", to: "/dse-mobile" },
+const marketInformationLinks: FooterLink[] = [
+  { label: "Latest Share Price", to: "/markets/latest-share-price" },
+  { label: "Top Shares", to: "/markets/top-shares" },
+  { label: "Market Statistics", to: "/markets" },
+  { label: "Recent Market Information", to: "/recent-market-information" },
+  { label: "DSEX", to: "/indices/DSEX" },
+  { label: "DS30", to: "/indices/DS30" },
+  { label: "P/E at a Glance", to: "/pe" },
+  { label: "Circuit Breaker", to: "/circuit-breaker" },
+  { label: "Debt Board", to: "/bonds" },
+  { label: "G-Sec", to: "/bonds/government-securities" },
 ];
 
-type FooterLinkExt = FooterLink & { href?: string; external?: boolean };
+const companiesFilingsLinks: FooterLink[] = [
+  { label: "Company Listing", to: "/companies" },
+  { label: "Sector wise Company List", to: "/companies/sectors" },
+  { label: "Corporate Actions", to: "/corporate-actions" },
+  { label: "Financial Statement Status", to: "/financial-statement-status" },
+  { label: "Right Offer Documents", to: "/companies/right-offers" },
+  { label: "Direct Listing", to: "/companies/direct-listing" },
+  { label: "Re-listing", to: "/companies/re-listing" },
+  { label: "Proceeds Utilisation", to: "/filings/proceeds-utilisation" },
+  { label: "Auditor's Opinion and Others", to: "/filings/auditors-opinion" },
+  { label: "PSI and Material Information", to: "/filings/psi" },
+];
 
-const aboutLinks: FooterLinkExt[] = [
-  { label: "About us", to: "/about" },
-  { label: "Board of directors", to: "/about/board" },
-  { label: "Press releases", to: "/news" },
-  { label: "Gallery", to: "/gallery" },
-  { label: "Careers", to: "/careers" },
-  { label: "Sustainability", to: "/sustainability" },
-  { label: "Annual reports", to: "/reports" },
+const publicationsLinks: FooterLink[] = [
+  { label: "News", to: "/news" },
+  { label: "Weekly Report", to: "/publications/weekly" },
+  { label: "Publications", to: "/publications" },
+  { label: "Annual Reports", to: "/reports" },
+  { label: "Picture Gallery", to: "/gallery" },
   { label: "Major Events", to: "/about/major-events" },
-  { label: "DSE New Automation System", to: "/about/automation" },
-  { label: "Citizen Charter", to: "/citizen-charter" },
-  { label: "Back-Office Software Vendors", to: "/vendors" },
-  { label: "DSE Tower", to: "/", href: "https://dse.bd/", external: true },
-];
-
-const servicesLinks: FooterLinkExt[] = [
-  { label: "Broker directory", to: "/members" },
-  { label: "Listing requirements", to: "/listing" },
-  { label: "Regulations & Rulebook", to: "/regulations" },
-  { label: "BICM", to: "/", href: "https://www.bicm.ac.bd/", external: true },
-  { label: "Investor education", to: "/learn" },
-  { label: "Complaints portal", to: "/complaints" },
-  { label: "Data API", to: "/products" },
 ];
 
 const investorServicesLinks: FooterLink[] = [
+  { label: "Learn", to: "/learn" },
   { label: "Help Desk", to: "/help-desk" },
   { label: "NRB Help Desk", to: "/help-desk/nrb" },
-  { label: "Foreign investors", to: "/foreign-investors" },
-  { label: "General Profile of Bangladesh", to: "/foreign-investors/general-profile" },
+  { label: "Foreign Investors", to: "/foreign-investors" },
   { label: "Complaints", to: "/complaints" },
   { label: "Investor Protection Fund", to: "/investor-protection" },
   { label: "CDBL", to: "/cdbl" },
   { label: "FAQ", to: "/faq" },
   { label: "Downloads", to: "/downloads" },
+  { label: "DSE-Mobile", to: "/dse-mobile" },
 ];
 
-const marketInfoLinks: FooterLink[] = [
-  { label: "Holidays & Trading Sessions", to: "/holidays" },
-  { label: "Circuit Breaker", to: "/circuit-breaker" },
-  { label: "Recent Market Information", to: "/recent-market-information" },
-  { label: "Going Concern List", to: "/going-concern" },
-  { label: "Financial Statement Status", to: "/financial-statement-status" },
-  { label: "Sectoral Median P/E", to: "/sectoral-pe" },
-  { label: "Actuarial Valuation Status", to: "/actuarial-valuation" },
+const aboutDirectoryLinks: FooterLink[] = [
+  { label: "About DSE", to: "/about" },
+  { label: "TREC Holders' Directory", to: "/members" },
+  { label: "Regulations", to: "/regulations" },
+  { label: "Listing Requirements", to: "/listing" },
+  { label: "Sustainability", to: "/sustainability" },
+  { label: "Vendors", to: "/vendors" },
+  { label: "Careers", to: "/careers" },
+  { label: "Contact", to: "/contact" },
 ];
 
 const cols: { title: string; items: FooterLink[] }[] = [
-  { title: "Markets", items: marketsLinks },
-  { title: "Market Information", items: marketInfoLinks },
-  { title: "About DSE", items: aboutLinks },
-  { title: "Services", items: servicesLinks },
+  { title: "Market Information", items: marketInformationLinks },
+  { title: "Companies & Filings", items: companiesFilingsLinks },
+  { title: "Publications", items: publicationsLinks },
   { title: "Investor Services", items: investorServicesLinks },
+  { title: "About & Directory", items: aboutDirectoryLinks },
 ];
 
-function FooterLinkItem({ item }: { item: FooterLinkExt }) {
+const quickLinks: { label: string; href: string; external?: boolean }[] = [
+  { label: "BSEC", href: "https://sec.gov.bd/", external: true },
+  { label: "Nationwide Financial Literacy", href: "http://www.finlitbd.com/bn/index.php", external: true },
+  { label: "Customer Complaint Address Module", href: "https://www.cdbl.com.bd/complaints.sec.gov.bd/", external: true },
+  { label: "Electronic Subscription System (ESS)", href: "https://www.essbangladesh.com/", external: true },
+  { label: "DBA", href: "https://www.dba-bd.org/", external: true },
+  { label: "V-Next", href: "https://www.v-next.cn/categories/getCountrySpecial?id=24&objectid=30", external: true },
+  { label: "CDBL", href: "https://www.cdbl.com.bd/", external: true },
+  { label: "BIDA", href: "https://www.boi.gov.bd/", external: true },
+  { label: "Global Reporting Initiative (GRI)", href: "https://www.globalreporting.org/", external: true },
+  { label: "Other Links", href: "/links" },
+];
+
+function FooterLinkItem({ item }: { item: FooterLink }) {
   const { t } = useLang();
-  if (item.external && item.href) {
-    return (
-      <li>
-        <a
-          href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="transition hover:opacity-100 opacity-80 cursor-pointer"
-        >
-          {t(item.label)}
-        </a>
-      </li>
-    );
-  }
   return (
     <li>
       <Link
@@ -103,20 +99,6 @@ function FooterLinkItem({ item }: { item: FooterLinkExt }) {
         {t(item.label)}
       </Link>
     </li>
-  );
-}
-
-function FooterColumn({ col }: { col: typeof cols[number] }) {
-  const { t } = useLang();
-  return (
-    <div className="footer-col">
-      <div className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
-        {t(col.title)}
-      </div>
-      <ul className="space-y-2 text-sm" style={{ color: "var(--text-secondary)" }}>
-        {col.items.map((i) => <FooterLinkItem key={i.label} item={i} />)}
-      </ul>
-    </div>
   );
 }
 
@@ -167,6 +149,8 @@ export function Footer() {
           </div>
         ))}
       </div>
+
+      {/* Quick Links band */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-baseline justify-between mb-3">
@@ -176,28 +160,24 @@ export function Footer() {
             </Link>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-[12px]" style={{ color: "rgba(255,255,255,0.78)" }}>
-            {[
-              { label: "BSEC", href: "https://www.sec.gov.bd" },
-              { label: "Nationwide Financial Literacy", href: "https://nfls.gov.bd" },
-              { label: "Customer Complaint Address Module", href: "https://ccam.sec.gov.bd" },
-              { label: "Electronic Subscription System (ESS)", href: "https://ess.sec.gov.bd" },
-              { label: "DBA", href: "https://dsebd.com.bd" },
-              { label: "V-Next", href: "https://vnext.com.bd" },
-              { label: "CDBL", href: "https://www.cdbl.com.bd" },
-              { label: "BIDA", href: "https://bida.gov.bd" },
-              { label: "Global Reporting Initiative (GRI)", href: "https://www.globalreporting.org" },
-              { label: "Other Links", href: "/links" },
-            ].map((l) => (
-              <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-100 opacity-85">
+            {quickLinks.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-100 opacity-85"
+              >
                 {t(l.label)}
               </a>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Utility band (unchanged) */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div
-
           className="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-[12px]"
           style={{ color: "rgba(255,255,255,0.75)" }}
         >
@@ -215,6 +195,8 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Bottom bar */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div
           className="max-w-7xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-xs"
@@ -222,19 +204,18 @@ export function Footer() {
         >
           <div>{t("© 2026 Dhaka Stock Exchange PLC. Regulated by Bangladesh Securities and Exchange Commission.")}</div>
           <div className="flex gap-4 items-center flex-wrap">
+            <Link to="/" className="cursor-pointer hover:opacity-100 opacity-80">{t("Home")}</Link>
             <Link to="/sitemap" className="cursor-pointer hover:opacity-100 opacity-80">{t("Site Map")}</Link>
-            <Link to="/links" className="cursor-pointer hover:opacity-100 opacity-80">{t("Quick Links")}</Link>
             <Link to="/faq" className="cursor-pointer hover:opacity-100 opacity-80">{t("FAQ")}</Link>
             <Link to="/downloads" className="cursor-pointer hover:opacity-100 opacity-80">{t("Download")}</Link>
+            <Link to="/data-archives" className="cursor-pointer hover:opacity-100 opacity-80">{t("Data Archives")}</Link>
             <Link to="/careers" className="cursor-pointer hover:opacity-100 opacity-80">{t("Career")}</Link>
+            <Link to="/feedback" className="cursor-pointer hover:opacity-100 opacity-80">{t("Feedback")}</Link>
             <Link to="/terms" className="cursor-pointer hover:opacity-100 opacity-80">{t("Terms & Condition")}</Link>
             <Link to="/disclaimer" className="cursor-pointer hover:opacity-100 opacity-80">{t("Disclaimer")}</Link>
             <Link to="/copyright" className="cursor-pointer hover:opacity-100 opacity-80">{t("Copyright")}</Link>
-            <Link to="/data-archives" className="cursor-pointer hover:opacity-100 opacity-80">{t("Data Archives")}</Link>
-            <Link to="/feedback" className="cursor-pointer hover:opacity-100 opacity-80">{t("Feedback")}</Link>
           </div>
         </div>
-
       </div>
     </footer>
   );
