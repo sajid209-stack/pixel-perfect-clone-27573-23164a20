@@ -356,116 +356,148 @@ const megaContent: Record<string, MegaContent> = {
 
 
 function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
-  const image = content.promo?.image ?? assetUrl(heroTowerAsset);
-  const hasIntro = !!content.intro;
-  const hasPromo = !!content.promo;
-  const gridTemplate = [
-    hasIntro ? "minmax(200px,1fr)" : null,
-    `repeat(${content.columns.length}, minmax(180px,1fr))`,
-    hasPromo ? "minmax(260px,1.2fr)" : null,
-  ].filter(Boolean).join(" ");
+  const promoImage = content.promo?.image;
+  const useNavyFallback = !promoImage;
   return (
     <div
-      className="grid"
+      className="grid gap-0"
       style={{
-        gridTemplateColumns: gridTemplate,
-        gap: 28,
+        gridTemplateColumns: "22% 1px 53% 25%",
       }}
     >
-      {/* Intro */}
-      {content.intro && (
-        <div>
-          <div className="text-[17px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
-            {content.intro.title}
-          </div>
-          <p
-            className="mt-1.5 text-[12.5px] leading-[1.55]"
-            style={{ color: "var(--text-secondary)", maxWidth: 230 }}
-          >
-            {content.intro.desc}
-          </p>
-          <Link
-            to={content.intro.cta.to}
-            onClick={close}
-            className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold"
-            style={{ color: "var(--brand-600)" }}
-          >
-            {content.intro.cta.label} →
-          </Link>
-        </div>
-      )}
+      {/* LEFT RAIL — full section name, description, Explore hub link */}
+      <div style={{ paddingRight: 24 }}>
+        {content.intro && (
+          <>
+            <div
+              className="text-[10px] font-semibold uppercase mb-2"
+              style={{ letterSpacing: "0.18em", color: "var(--brand-600)" }}
+            >
+              Section
+            </div>
+            <div
+              className="text-[22px] font-semibold tracking-tight leading-[1.15]"
+              style={{ color: "var(--ink)" }}
+            >
+              {content.intro.title}
+            </div>
+            <p
+              className="mt-2 text-[13px] leading-[1.55]"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              {content.intro.desc}
+            </p>
+            <Link
+              to={content.intro.cta.to}
+              onClick={close}
+              className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold"
+              style={{ color: "var(--brand-600)" }}
+            >
+              {content.intro.cta.label} →
+            </Link>
+          </>
+        )}
+      </div>
 
-      {/* Category columns */}
-      {content.columns.map((col) => (
-        <div key={col.header}>
-          <div
-            className="text-[10px] font-semibold uppercase"
-            style={{ letterSpacing: "0.14em", color: "var(--text-muted)", marginBottom: 8 }}
-          >
-            {col.header}
-          </div>
-          <ul>
-            {col.links.map((l, idx) => (
-              <li key={l.label}>
-                <Link
-                  to={l.to}
-                  hash={l.hash}
-                  onClick={close}
-                  className="block text-[13px] mega-link"
-                  style={{
-                    color: "var(--ink)",
-                    paddingTop: 6,
-                    paddingBottom: 6,
-                    borderTop: idx === 0 ? "none" : "1px solid var(--line)",
-                  }}
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {/* Vertical divider */}
+      <div style={{ background: "var(--line)", width: 1, height: "100%" }} />
 
-      {/* Promo tile w/ image */}
+      {/* CENTER — link columns */}
+      <div style={{ paddingLeft: 28, paddingRight: 28 }}>
+        <div
+          className="grid"
+          style={{
+            gridTemplateColumns: `repeat(${Math.min(content.columns.length, 4)}, minmax(0, 1fr))`,
+            columnGap: 24,
+            rowGap: 20,
+          }}
+        >
+          {content.columns.map((col) => (
+            <div key={col.header}>
+              <div
+                className="text-[10px] font-semibold uppercase"
+                style={{ letterSpacing: "0.16em", color: "var(--text-muted)", marginBottom: 10 }}
+              >
+                {col.header}
+              </div>
+              <ul className="space-y-1.5">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      to={l.to}
+                      hash={l.hash}
+                      onClick={close}
+                      className="block text-[13px] leading-[1.5] mega-link"
+                      style={{ color: "var(--ink)", paddingTop: 2, paddingBottom: 2 }}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* RIGHT RAIL — feature card */}
       {content.promo && (
         <Link
           to={content.promo.to}
           onClick={close}
-          className="flex flex-col group overflow-hidden"
-          style={{ background: "var(--surface-2)", border: "1px solid var(--line)" }}
+          className="flex flex-col overflow-hidden group"
+          style={{
+            background: useNavyFallback ? "#0C2C53" : "var(--surface-2)",
+            border: "1px solid var(--line)",
+          }}
         >
           <div
             style={{
-              height: 180,
-              backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.35), rgba(24,95,165,0.05)), url("${image}")`,
+              height: 160,
+              background: useNavyFallback
+                ? "linear-gradient(135deg, #0C2C53 0%, #123a6c 100%)"
+                : `linear-gradient(180deg, rgba(12,44,83,0.15), rgba(12,44,83,0.55)), url("${promoImage}")`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           />
-          <div className="px-3 py-2">
+          <div className="px-4 py-3">
             <div
-              className="text-[10px] font-semibold uppercase mb-0.5"
-              style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
+              className="text-[10px] font-semibold uppercase mb-1"
+              style={{ letterSpacing: "0.16em", color: "var(--brand-600)" }}
             >
               {content.promo.tag}
             </div>
-            <div className="text-[13px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
+            <div
+              className="text-[14px] font-semibold leading-tight"
+              style={{ color: "var(--ink)" }}
+            >
               {content.promo.title}
             </div>
-            <p className="mt-0.5 text-[11px] leading-[1.4]" style={{ color: "var(--text-secondary)" }}>
+            <p
+              className="mt-1 text-[12px] leading-[1.45]"
+              style={{ color: "var(--text-secondary)" }}
+            >
               {content.promo.desc}
             </p>
+            <div
+              className="mt-2 inline-flex items-center gap-1 text-[12px] font-semibold"
+              style={{ color: "var(--brand-600)" }}
+            >
+              Open →
+            </div>
           </div>
         </Link>
       )}
 
       <style>{`
+        .mega-link { transition: color 120ms; }
         .mega-link:hover { color: var(--brand-600) !important; }
       `}</style>
     </div>
   );
 }
+
 
 
 type Item = { title: string; desc: string; to?: string; hash?: string; soon?: boolean };
