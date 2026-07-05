@@ -28,6 +28,7 @@ import { openCommandPalette } from "./CommandPalette";
 
 type NavItem = {
   label: string;
+  shortLabel?: string;
   to?: string;
   href?: string;
   mega?: keyof typeof megaPanels;
@@ -37,36 +38,42 @@ type NavItem = {
 const links: NavItem[] = [
   {
     label: "Markets",
+    shortLabel: "Markets",
     to: "/markets",
     mega: "markets",
     activePaths: ["/markets", "/market-depth", "/circuit-breaker", "/recent-market-information", "/indices", "/index-methodology", "/pe", "/sectoral-pe", "/holidays", "/data-archives"],
   },
   {
     label: "Companies & Filings",
+    shortLabel: "Companies",
     to: "/companies",
     mega: "companies",
     activePaths: ["/companies", "/company", "/corporate-actions", "/financial-statement-status", "/going-concern", "/actuarial-valuation", "/filings"],
   },
   {
     label: "Instruments & Listing",
+    shortLabel: "Instruments",
     to: "/ipo",
     mega: "instruments",
     activePaths: ["/ipo", "/bonds", "/funds", "/otc", "/listing", "/products"],
   },
   {
     label: "News & Publications",
+    shortLabel: "News",
     to: "/news",
     mega: "news",
     activePaths: ["/news", "/publications", "/reports", "/gallery"],
   },
   {
     label: "Investors",
+    shortLabel: "Investors",
     to: "/learn",
     mega: "investors",
     activePaths: ["/learn", "/faq", "/investor-protection", "/foreign-investors", "/help-desk", "/complaints", "/cdbl", "/downloads", "/dse-mobile"],
   },
   {
     label: "About DSE",
+    shortLabel: "About DSE",
     to: "/about",
     mega: "about",
     activePaths: ["/about", "/members", "/regulations", "/vendors", "/sustainability", "/careers", "/citizen-charter", "/contact"],
