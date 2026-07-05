@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
   Command,
-  ArrowUpRight,
+  
   Menu,
   X,
   ChevronRight,
