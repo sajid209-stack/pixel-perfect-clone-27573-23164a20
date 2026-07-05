@@ -234,6 +234,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   news: {
+    intro: {
+      title: "News & Publications",
+      desc: "Market news, disclosures, weekly and monthly reports, and DSE's publication archive.",
+      cta: { label: "Explore News", to: "/news" },
+    },
+    promo: {
+      tag: "This week",
+      title: "This Week's Market Report",
+      desc: "Weekly turnover, top gainers/losers and sector performance.",
+      to: "/publications/weekly",
+      image: assetUrl(heritageCryout1998Asset),
+    },
     columns: [
       {
         header: "News & Publications",
