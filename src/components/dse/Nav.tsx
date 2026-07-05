@@ -149,6 +149,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   companies: {
+    intro: {
+      title: "Companies & Filings",
+      desc: "Every listed company, sector, corporate action, and regulatory filing on DSE.",
+      cta: { label: "Explore Companies", to: "/companies" },
+    },
+    promo: {
+      tag: "Tool",
+      title: "Stock Screener — all listed companies",
+      desc: "Filter by sector, board, price, and performance.",
+      to: "/companies",
+      image: assetUrl(automation1Asset),
+    },
     columns: [
       {
         header: "Companies",
