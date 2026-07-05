@@ -70,6 +70,9 @@ export function LwCandlestickChart({ data, height = 360 }: { data: LwBar[]; heig
         priceFormat: { type: "volume" },
         priceScaleId: "volume",
       });
+      candles.priceScale().applyOptions({
+        scaleMargins: { top: 0.05, bottom: 0.28 },
+      });
       chart.priceScale("volume").applyOptions({
         scaleMargins: { top: 0.8, bottom: 0 },
         visible: false,
