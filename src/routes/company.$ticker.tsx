@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Area,
   Bar,
-  Cell,
+  
   BarChart,
   ComposedChart,
   Legend,
@@ -21,6 +21,7 @@ import { useLang } from "@/i18n/LanguageContext";
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { LwCandlestickChart } from "@/components/dse/LwCandlestickChart";
 import { StarButton } from "@/components/dse/StarButton";
 import { CategoryBadge } from "@/components/dse/CategoryBadge";
 import { useRecentlyViewed } from "@/lib/userPrefs";
@@ -657,6 +658,7 @@ function buildChartSeries(co: Company, type: ChartType, period: ChartPeriod) {
 // SAMPLE — replace at wiring; series must come from the real daily OHLC table, never computed or synthetic.
 type OhlcBar = {
   t: string;
+  time: string; // YYYY-MM-DD for lightweight-charts
   open: number;
   high: number;
   low: number;
@@ -683,8 +685,10 @@ function buildOhlcSeries(co: Company, period: ChartPeriod): OhlcBar[] {
     const high = +(Math.max(open, close) + span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
     const low = +(Math.min(open, close) - span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
     const volume = Math.round(co.volume * (0.6 + trend * 0.6 + (wave + 1) * 0.25));
+    const iso = d.toISOString().slice(0, 10);
     out.push({
       t: label,
+      time: iso,
       open,
       high,
       low,
@@ -847,72 +851,9 @@ function ChartsCard({ co }: { co: Company }) {
           className="-mx-2"
         >
           {isCandle ? (
-            <>
-              <div className="h-[260px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={ohlc} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                    <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
-                    <YAxis
-                      tick={{ fontSize: 10, fill: "var(--text-muted)" }}
-                      axisLine={false}
-                      tickLine={false}
-                      tickFormatter={(v: number) => `৳${v.toFixed(0)}`}
-                      domain={["dataMin - 2", "dataMax + 2"]}
-                      orientation="right"
-                      width={56}
-                    />
-                    <Tooltip
-                      cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
-                      contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
-                      content={({ active, payload }) => {
-                        if (!active || !payload?.length) return null;
-                        const d = payload[0].payload as OhlcBar;
-                        return (
-                          <div style={{ background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12, padding: "8px 10px", borderRadius: 10 }}>
-                            <div style={{ opacity: 0.7, marginBottom: 4 }}>{d.t}</div>
-                            <div>O ৳{d.open.toFixed(2)} · H ৳{d.high.toFixed(2)}</div>
-                            <div>L ৳{d.low.toFixed(2)} · C ৳{d.close.toFixed(2)}</div>
-                            <div style={{ opacity: 0.7, marginTop: 4 }}>Vol {d.volume.toLocaleString()}</div>
-                          </div>
-                        );
-                      }}
-                    />
-                    <ReferenceLine
-                      y={co.prevClose}
-                      stroke="var(--text-muted)"
-                      strokeDasharray="3 6"
-                      strokeOpacity={0.6}
-                    />
-                    <Bar dataKey="range" shape={<Candlestick />} isAnimationActive={false} />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="h-[90px] mt-1">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={ohlc} margin={{ top: 4, right: 10, left: 0, bottom: 0 }}>
-                    <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
-                    <YAxis
-                      tick={{ fontSize: 10, fill: "var(--text-muted)" }}
-                      axisLine={false}
-                      tickLine={false}
-                      tickFormatter={(v: number) => (v >= 1_000_000 ? `${(v / 1_000_000).toFixed(1)}M` : v >= 1_000 ? `${(v / 1_000).toFixed(0)}K` : `${v}`)}
-                      orientation="right"
-                      width={56}
-                    />
-                    <Tooltip
-                      cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
-                      contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
-                      formatter={(value: number) => [Number(value).toLocaleString(), "Volume"] as [string, string]}
-                    />
-                    <Bar dataKey="volume" isAnimationActive={false}>
-                      {ohlc.map((b, i) => (
-                        <Cell key={i} fill={b.up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </>
+            <div className="px-2">
+              <LwCandlestickChart data={ohlc} height={360} />
+            </div>
           ) : (
             <div className="h-[320px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -1004,8 +945,8 @@ function PriceStatsRow({ co }: { co: Company }) {
       ) : (
         <>
           <Stat label="Open" value={`৳ ${co.open}`} />
-          <Stat label="High" value={`৳ ${co.high}`} accent="var(--green-up)" />
-          <Stat label="Low" value={`৳ ${co.low}`} accent="var(--red-down)" />
+          <Stat label="High" value={`৳ ${co.high}`} />
+          <Stat label="Low" value={`৳ ${co.low}`} />
           <Stat label="Volume" value={formatVolume(co.volume)} />
           <Stat label="52W High" value={`৳ ${co.weekHigh52}`} />
           <Stat label="52W Low" value={`৳ ${co.weekLow52}`} />
