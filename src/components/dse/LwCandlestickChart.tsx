@@ -42,8 +42,16 @@ export function LwCandlestickChart({ data, height = 360 }: { data: LwBar[]; heig
           vertLines: { color: "rgba(120,130,140,0.08)" },
           horzLines: { color: "rgba(120,130,140,0.08)" },
         },
-        rightPriceScale: { borderColor: "rgba(120,130,140,0.15)" },
-        timeScale: { borderColor: "rgba(120,130,140,0.15)", timeVisible: false },
+        rightPriceScale: {
+          borderColor: "rgba(120,130,140,0.15)",
+          scaleMargins: { top: 0.05, bottom: 0.25 },
+        },
+        timeScale: {
+          borderColor: "rgba(120,130,140,0.15)",
+          timeVisible: true,
+          secondsVisible: false,
+          visible: true,
+        },
         crosshair: { mode: lw.CrosshairMode.Normal },
       });
 
@@ -56,16 +64,14 @@ export function LwCandlestickChart({ data, height = 360 }: { data: LwBar[]; heig
         wickDownColor: DOWN,
         priceFormat: { type: "price", precision: 2, minMove: 0.01 },
       });
-      candles.priceScale().applyOptions({
-        scaleMargins: { top: 0.05, bottom: 0.28 },
-      });
 
       const volume = chart.addSeries(lw.HistogramSeries, {
         priceFormat: { type: "volume" },
-        priceScaleId: "vol",
+        priceScaleId: "volume",
       });
-      volume.priceScale().applyOptions({
-        scaleMargins: { top: 0.78, bottom: 0 },
+      chart.priceScale("volume").applyOptions({
+        scaleMargins: { top: 0.8, bottom: 0 },
+        visible: false,
       });
 
       const toTime = (iso: string) =>

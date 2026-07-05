@@ -668,8 +668,13 @@ type OhlcBar = {
   up: boolean;
 };
 function buildOhlcSeries(co: Company, period: ChartPeriod): OhlcBar[] {
+  // SAMPLE — replace at wiring; daily OHLC only, high ≥ open/close ≥ low
   const n = periodPoints(period);
   const seed = co.code.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const rand = (i: number, salt: number) => {
+    const x = Math.sin((seed + i * 13.37 + salt * 7.11)) * 43758.5453;
+    return x - Math.floor(x); // 0..1
+  };
   const out: OhlcBar[] = [];
   const today = new Date();
   let prevClose = co.prevClose * 0.94;
@@ -677,14 +682,27 @@ function buildOhlcSeries(co: Company, period: ChartPeriod): OhlcBar[] {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
     const label = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
-    const trend = (n - i) / n;
-    const wave = Math.sin((seed + i) * 0.21) * 0.6 + Math.cos((seed + i) * 0.07) * 0.4;
-    const open = +(prevClose * (1 + wave * 0.006)).toFixed(2);
-    const close = +(co.prevClose * (0.93 + trend * 0.12 + wave * 0.02)).toFixed(2);
-    const span = Math.max(Math.abs(close - open), co.prevClose * 0.004);
-    const high = +(Math.max(open, close) + span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
-    const low = +(Math.min(open, close) - span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
-    const volume = Math.round(co.volume * (0.6 + trend * 0.6 + (wave + 1) * 0.25));
+
+    // Occasional overnight gap
+    const gap = rand(i, 1) < 0.15 ? (rand(i, 2) - 0.5) * co.prevClose * 0.02 : 0;
+    const open = +(prevClose + gap).toFixed(2);
+
+    // Direction: ~52% up bias with a gentle long-term drift
+    const drift = ((n - i) / n - 0.5) * 0.01;
+    const isUp = rand(i, 3) < 0.52 + drift * 4;
+    // Varied body size (some doji-ish, some large marubozu-ish)
+    const bodyPct = 0.001 + Math.pow(rand(i, 4), 2) * 0.028;
+    const bodyMove = open * bodyPct * (isUp ? 1 : -1);
+    const close = +(open + bodyMove).toFixed(2);
+
+    const bodyAbs = Math.abs(close - open);
+    const upperWick = bodyAbs * (0.2 + rand(i, 5) * 1.6) + open * 0.0008 * rand(i, 6);
+    const lowerWick = bodyAbs * (0.2 + rand(i, 7) * 1.6) + open * 0.0008 * rand(i, 8);
+    const high = +(Math.max(open, close) + upperWick).toFixed(2);
+    const low = +(Math.min(open, close) - lowerWick).toFixed(2);
+
+    const volMult = 0.5 + rand(i, 9) * 1.4 + (bodyAbs / Math.max(open, 1)) * 12;
+    const volume = Math.max(1, Math.round(co.volume * volMult));
     const iso = d.toISOString().slice(0, 10);
     out.push({
       t: label,
