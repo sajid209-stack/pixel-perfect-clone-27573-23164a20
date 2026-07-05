@@ -193,6 +193,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   instruments: {
+    intro: {
+      title: "Instruments & Listing",
+      desc: "IPOs, bonds, mutual funds, OTC, and everything needed to list on DSE.",
+      cta: { label: "Explore Instruments", to: "/ipo" },
+    },
+    promo: {
+      tag: "Live",
+      title: "IPO Centre",
+      desc: "Open subscriptions, upcoming issues, and how to apply.",
+      to: "/ipo",
+      image: assetUrl(automation3Asset),
+    },
     columns: [
       {
         header: "Primary Market",
