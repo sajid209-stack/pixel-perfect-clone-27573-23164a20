@@ -69,7 +69,7 @@ export function LwCandlestickChart({ data, height = 360 }: { data: LwBar[]; heig
       });
 
       const toTime = (iso: string) =>
-        Math.floor(new Date(iso + "T00:00:00Z").getTime() / 1000) as lw.UTCTimestamp;
+        Math.floor(new Date(iso + "T00:00:00Z").getTime() / 1000) as UTCTimestamp;
 
       candles.setData(
         data.map((b) => ({
