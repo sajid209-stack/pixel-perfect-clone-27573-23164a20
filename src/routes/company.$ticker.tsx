@@ -932,6 +932,19 @@ function ChartsCard({ co }: { co: Company }) {
         </motion.div>
       </AnimatePresence>
 
+      <div className="mt-2 text-[11px]" style={{ color: "var(--text-muted)" }}>
+        Charting by{" "}
+        <a
+          href="https://www.tradingview.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:opacity-80"
+        >
+          TradingView
+        </a>
+      </div>
+
+
       <PriceStatsRow co={co} />
       <TableNote id="company.market.note">
         Based on yesterday's closing price and last trading price.
