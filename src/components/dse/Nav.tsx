@@ -273,35 +273,44 @@ const megaContent: Record<string, MegaContent> = {
 
 
 function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
-  const image = content.promo.image ?? assetUrl(heroTowerAsset);
+  const image = content.promo?.image ?? assetUrl(heroTowerAsset);
+  const hasIntro = !!content.intro;
+  const hasPromo = !!content.promo;
+  const gridTemplate = [
+    hasIntro ? "minmax(200px,1fr)" : null,
+    `repeat(${content.columns.length}, minmax(180px,1fr))`,
+    hasPromo ? "minmax(260px,1.2fr)" : null,
+  ].filter(Boolean).join(" ");
   return (
     <div
       className="grid"
       style={{
-        gridTemplateColumns: `minmax(200px,1fr) repeat(${content.columns.length}, minmax(160px,1fr)) minmax(260px,1.2fr)`,
+        gridTemplateColumns: gridTemplate,
         gap: 28,
       }}
     >
       {/* Intro */}
-      <div>
-        <div className="text-[17px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
-          {content.intro.title}
+      {content.intro && (
+        <div>
+          <div className="text-[17px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
+            {content.intro.title}
+          </div>
+          <p
+            className="mt-1.5 text-[12.5px] leading-[1.55]"
+            style={{ color: "var(--text-secondary)", maxWidth: 230 }}
+          >
+            {content.intro.desc}
+          </p>
+          <Link
+            to={content.intro.cta.to}
+            onClick={close}
+            className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold"
+            style={{ color: "var(--brand-600)" }}
+          >
+            {content.intro.cta.label} →
+          </Link>
         </div>
-        <p
-          className="mt-1.5 text-[12.5px] leading-[1.55]"
-          style={{ color: "var(--text-secondary)", maxWidth: 230 }}
-        >
-          {content.intro.desc}
-        </p>
-        <Link
-          to={content.intro.cta.to}
-          onClick={close}
-          className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold"
-          style={{ color: "var(--brand-600)" }}
-        >
-          {content.intro.cta.label} →
-        </Link>
-      </div>
+      )}
 
       {/* Category columns */}
       {content.columns.map((col) => (
@@ -336,35 +345,37 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
       ))}
 
       {/* Promo tile w/ image */}
-      <Link
-        to={content.promo.to}
-        onClick={close}
-        className="flex flex-col group overflow-hidden"
-        style={{ background: "var(--surface-2)", border: "1px solid var(--line)" }}
-      >
-        <div
-          style={{
-            height: 180,
-            backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.35), rgba(24,95,165,0.05)), url("${image}")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="px-3 py-2">
+      {content.promo && (
+        <Link
+          to={content.promo.to}
+          onClick={close}
+          className="flex flex-col group overflow-hidden"
+          style={{ background: "var(--surface-2)", border: "1px solid var(--line)" }}
+        >
           <div
-            className="text-[10px] font-semibold uppercase mb-0.5"
-            style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
-          >
-            {content.promo.tag}
+            style={{
+              height: 180,
+              backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.35), rgba(24,95,165,0.05)), url("${image}")`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+          <div className="px-3 py-2">
+            <div
+              className="text-[10px] font-semibold uppercase mb-0.5"
+              style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
+            >
+              {content.promo.tag}
+            </div>
+            <div className="text-[13px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
+              {content.promo.title}
+            </div>
+            <p className="mt-0.5 text-[11px] leading-[1.4]" style={{ color: "var(--text-secondary)" }}>
+              {content.promo.desc}
+            </p>
           </div>
-          <div className="text-[13px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
-            {content.promo.title}
-          </div>
-          <p className="mt-0.5 text-[11px] leading-[1.4]" style={{ color: "var(--text-secondary)" }}>
-            {content.promo.desc}
-          </p>
-        </div>
-      </Link>
+        </Link>
+      )}
 
       <style>{`
         .mega-link:hover { color: var(--brand-600) !important; }
@@ -372,6 +383,7 @@ function MegaPanel({ content, close }: { content: MegaContent; close: () => void
     </div>
   );
 }
+
 
 type Item = { title: string; desc: string; to?: string; hash?: string; soon?: boolean };
 
