@@ -1,12 +1,4 @@
-import { useEffect, useRef } from "react";
-import {
-  createChart,
-  CandlestickSeries,
-  HistogramSeries,
-  CrosshairMode,
-  type IChartApi,
-  type UTCTimestamp,
-} from "lightweight-charts";
+import { useEffect, useRef, useState } from "react";
 
 export type LwBar = {
   time: string; // YYYY-MM-DD
@@ -23,76 +15,87 @@ const DOWN = "#c0392b";
 
 export function LwCandlestickChart({ data, height = 360 }: { data: LwBar[]; height?: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const chartRef = useRef<IChartApi | null>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!ref.current) return;
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!ready || !ref.current) return;
     const el = ref.current;
-    const chart = createChart(el, {
-      autoSize: true,
-      layout: {
-        background: { color: "transparent" },
-        textColor: "rgba(120,130,140,0.9)",
-        fontSize: 11,
-      },
-      grid: {
-        vertLines: { color: "rgba(120,130,140,0.08)" },
-        horzLines: { color: "rgba(120,130,140,0.08)" },
-      },
-      rightPriceScale: { borderColor: "rgba(120,130,140,0.15)" },
-      timeScale: { borderColor: "rgba(120,130,140,0.15)", timeVisible: false },
-      crosshair: { mode: CrosshairMode.Normal },
-    });
-    chartRef.current = chart;
+    let disposed = false;
+    let cleanup: (() => void) | null = null;
 
-    const candles = chart.addSeries(CandlestickSeries, {
-      upColor: UP,
-      downColor: DOWN,
-      borderUpColor: UP,
-      borderDownColor: DOWN,
-      wickUpColor: UP,
-      wickDownColor: DOWN,
-      priceFormat: { type: "price", precision: 2, minMove: 0.01 },
-    });
-    candles.priceScale().applyOptions({
-      scaleMargins: { top: 0.05, bottom: 0.28 }, // leave room for volume pane
-    });
+    (async () => {
+      const lw = await import("lightweight-charts");
+      if (disposed) return;
+      const chart = lw.createChart(el, {
+        autoSize: true,
+        layout: {
+          background: { color: "transparent" },
+          textColor: "rgba(120,130,140,0.9)",
+          fontSize: 11,
+        },
+        grid: {
+          vertLines: { color: "rgba(120,130,140,0.08)" },
+          horzLines: { color: "rgba(120,130,140,0.08)" },
+        },
+        rightPriceScale: { borderColor: "rgba(120,130,140,0.15)" },
+        timeScale: { borderColor: "rgba(120,130,140,0.15)", timeVisible: false },
+        crosshair: { mode: lw.CrosshairMode.Normal },
+      });
 
-    const volume = chart.addSeries(HistogramSeries, {
-      priceFormat: { type: "volume" },
-      priceScaleId: "vol",
-    });
-    volume.priceScale().applyOptions({
-      scaleMargins: { top: 0.78, bottom: 0 }, // slim histogram at bottom
-    });
+      const candles = chart.addSeries(lw.CandlestickSeries, {
+        upColor: UP,
+        downColor: DOWN,
+        borderUpColor: UP,
+        borderDownColor: DOWN,
+        wickUpColor: UP,
+        wickDownColor: DOWN,
+        priceFormat: { type: "price", precision: 2, minMove: 0.01 },
+      });
+      candles.priceScale().applyOptions({
+        scaleMargins: { top: 0.05, bottom: 0.28 },
+      });
 
-    const toTime = (iso: string): UTCTimestamp =>
-      (Math.floor(new Date(iso + "T00:00:00Z").getTime() / 1000) as UTCTimestamp);
+      const volume = chart.addSeries(lw.HistogramSeries, {
+        priceFormat: { type: "volume" },
+        priceScaleId: "vol",
+      });
+      volume.priceScale().applyOptions({
+        scaleMargins: { top: 0.78, bottom: 0 },
+      });
 
-    candles.setData(
-      data.map((b) => ({
-        time: toTime(b.time),
-        open: b.open,
-        high: b.high,
-        low: b.low,
-        close: b.close,
-      })),
-    );
-    volume.setData(
-      data.map((b) => ({
-        time: toTime(b.time),
-        value: b.volume,
-        color: b.up ? UP + "aa" : DOWN + "aa",
-      })),
-    );
+      const toTime = (iso: string) =>
+        Math.floor(new Date(iso + "T00:00:00Z").getTime() / 1000) as lw.UTCTimestamp;
 
-    chart.timeScale().fitContent();
+      candles.setData(
+        data.map((b) => ({
+          time: toTime(b.time),
+          open: b.open,
+          high: b.high,
+          low: b.low,
+          close: b.close,
+        })),
+      );
+      volume.setData(
+        data.map((b) => ({
+          time: toTime(b.time),
+          value: b.volume,
+          color: b.up ? UP + "aa" : DOWN + "aa",
+        })),
+      );
+
+      chart.timeScale().fitContent();
+      cleanup = () => chart.remove();
+    })();
 
     return () => {
-      chart.remove();
-      chartRef.current = null;
+      disposed = true;
+      if (cleanup) cleanup();
     };
-  }, [data]);
+  }, [ready, data]);
 
   return <div ref={ref} style={{ width: "100%", height }} />;
 }
