@@ -794,7 +794,7 @@ function ChartsCard({ co }: { co: Company }) {
                   key={s}
                   onClick={() => setStyle(s)}
                   className="relative px-3 py-1 text-[12px] rounded-full transition"
-                  style={{ color: active ? "var(--navy-deep)" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
+                  style={{ color: active ? "#fff" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
                 >
                   {active && (
                     <motion.span
@@ -817,7 +817,7 @@ function ChartsCard({ co }: { co: Company }) {
                   key={p}
                   onClick={() => setPeriod(p)}
                   className="relative px-3 py-1 text-[12px] tnum rounded-full transition"
-                  style={{ color: active ? "var(--navy-deep)" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
+                  style={{ color: active ? "#fff" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
                 >
                   {active && (
                     <motion.span
