@@ -261,6 +261,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   investors: {
+    intro: {
+      title: "Investors",
+      desc: "Education, support, and services for retail, foreign, and NRB investors.",
+      cta: { label: "Explore Investor Services", to: "/learn" },
+    },
+    promo: {
+      tag: "Learn",
+      title: "Learn — Investor Education",
+      desc: "Guides, glossary, and training pathways for market participants.",
+      to: "/learn",
+      image: assetUrl(foreignInvestorsAsset),
+    },
     columns: [
       {
         header: "Education",
