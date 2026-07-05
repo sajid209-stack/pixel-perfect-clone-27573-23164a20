@@ -620,6 +620,7 @@ function CompanyDetailsCard({ co }: { co: Company }) {
 
 
 type ChartType = "price" | "trades" | "volume";
+type ChartStyle = "line" | "candle";
 const chartPeriods = ["1M", "3M", "6M", "1Y"] as const;
 type ChartPeriod = (typeof chartPeriods)[number];
 
@@ -650,6 +651,85 @@ function buildChartSeries(co: Company, type: ChartType, period: ChartPeriod) {
     out.push({ t: label, v });
   }
   return out;
+}
+
+// SAMPLE — replace at wiring; series must come from the real daily OHLC table, never computed or synthetic.
+type OhlcBar = {
+  t: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  range: [number, number];
+  up: boolean;
+};
+function buildOhlcSeries(co: Company, period: ChartPeriod): OhlcBar[] {
+  const n = periodPoints(period);
+  const seed = co.code.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const out: OhlcBar[] = [];
+  const today = new Date();
+  let prevClose = co.prevClose * 0.94;
+  for (let i = n - 1; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const label = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+    const trend = (n - i) / n;
+    const wave = Math.sin((seed + i) * 0.21) * 0.6 + Math.cos((seed + i) * 0.07) * 0.4;
+    const open = +(prevClose * (1 + wave * 0.006)).toFixed(2);
+    const close = +(co.prevClose * (0.93 + trend * 0.12 + wave * 0.02)).toFixed(2);
+    const span = Math.max(Math.abs(close - open), co.prevClose * 0.004);
+    const high = +(Math.max(open, close) + span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
+    const low = +(Math.min(open, close) - span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
+    const volume = Math.round(co.volume * (0.6 + trend * 0.6 + (wave + 1) * 0.25));
+    out.push({
+      t: label,
+      open,
+      high,
+      low,
+      close,
+      volume,
+      range: [low, high],
+      up: close >= open,
+    });
+    prevClose = close;
+  }
+  return out;
+}
+
+function Candlestick(props: {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  payload?: OhlcBar;
+  yAxis?: { scale: (v: number) => number };
+}) {
+  const { x = 0, width = 0, payload, yAxis } = props;
+  if (!payload || !yAxis?.scale) return null;
+  const { open, close, high, low, up } = payload;
+  const color = up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)";
+  const yHigh = yAxis.scale(high);
+  const yLow = yAxis.scale(low);
+  const yOpen = yAxis.scale(open);
+  const yClose = yAxis.scale(close);
+  const bodyTop = Math.min(yOpen, yClose);
+  const bodyH = Math.max(1, Math.abs(yClose - yOpen));
+  const cx = x + width / 2;
+  const bodyW = Math.max(2, width * 0.7);
+  return (
+    <g>
+      <line x1={cx} x2={cx} y1={yHigh} y2={yLow} stroke={color} strokeWidth={1} />
+      <rect
+        x={cx - bodyW / 2}
+        y={bodyTop}
+        width={bodyW}
+        height={bodyH}
+        fill={color}
+        stroke={color}
+      />
+    </g>
+  );
 }
 
 function ChartsCard({ co }: { co: Company }) {
