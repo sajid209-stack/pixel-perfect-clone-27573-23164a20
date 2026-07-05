@@ -37,6 +37,7 @@ export function LwCandlestickChart({ data, height = 360 }: { data: LwBar[]; heig
           background: { color: "transparent" },
           textColor: "rgba(120,130,140,0.9)",
           fontSize: 11,
+          attributionLogo: false,
         },
         grid: {
           vertLines: { color: "rgba(120,130,140,0.08)" },
