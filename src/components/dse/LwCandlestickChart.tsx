@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { UTCTimestamp } from "lightweight-charts";
 
 export type LwBar = {
   time: string; // YYYY-MM-DD
