@@ -105,7 +105,6 @@ function LearnPage() {
       </section>
 
       <TrainingAcademySection />
-
       <Footer />
 
     </div>
