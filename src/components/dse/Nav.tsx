@@ -304,6 +304,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   about: {
+    intro: {
+      title: "About DSE",
+      desc: "The exchange, its people, rulebook, directory, and everything in-between.",
+      cta: { label: "Explore About DSE", to: "/about" },
+    },
+    promo: {
+      tag: "Directory",
+      title: "TREC Holders' Directory",
+      desc: "Every licensed broker and their contact details.",
+      to: "/members",
+      image: assetUrl(aboutDseMegaAsset),
+    },
     columns: [
       {
         header: "The Exchange",
