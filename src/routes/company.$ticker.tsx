@@ -760,30 +760,55 @@ function ChartsCard({ co }: { co: Company }) {
     >
       <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
         <div className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "var(--text-muted)" }}>
-          {typeLabels[type]} · {period}
+          {isCandle ? "OHLC · Daily" : typeLabels[type]} · {period}
         </div>
-        <div className="flex gap-1 p-1 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
-          {chartPeriods.map((p) => {
-            const active = p === period;
-            return (
-              <button
-                key={p}
-                onClick={() => setPeriod(p)}
-                className="relative px-3 py-1 text-[12px] tnum rounded-full transition"
-                style={{ color: active ? "var(--navy-deep)" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
-              >
-                {active && (
-                  <motion.span
-                    layoutId="coChartPeriod"
-                    className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--primary)" }}
-                    transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
-                  />
-                )}
-                <span className="relative">{p}</span>
-              </button>
-            );
-          })}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex gap-1 p-1 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
+            {(["line", "candle"] as ChartStyle[]).map((s) => {
+              const active = s === style;
+              return (
+                <button
+                  key={s}
+                  onClick={() => setStyle(s)}
+                  className="relative px-3 py-1 text-[12px] rounded-full transition"
+                  style={{ color: active ? "var(--navy-deep)" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="coChartStyle"
+                      className="absolute inset-0 rounded-full"
+                      style={{ background: "var(--primary)" }}
+                      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
+                    />
+                  )}
+                  <span className="relative">{s === "line" ? "Line" : "Candlestick"}</span>
+                </button>
+              );
+            })}
+          </div>
+          <div className="flex gap-1 p-1 rounded-full" style={{ background: "rgb(var(--ov) / 0.04)" }}>
+            {chartPeriods.map((p) => {
+              const active = p === period;
+              return (
+                <button
+                  key={p}
+                  onClick={() => setPeriod(p)}
+                  className="relative px-3 py-1 text-[12px] tnum rounded-full transition"
+                  style={{ color: active ? "var(--navy-deep)" : "var(--text-secondary)", fontWeight: active ? 600 : 400 }}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="coChartPeriod"
+                      className="absolute inset-0 rounded-full"
+                      style={{ background: "var(--primary)" }}
+                      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.4 }}
+                    />
+                  )}
+                  <span className="relative">{p}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
