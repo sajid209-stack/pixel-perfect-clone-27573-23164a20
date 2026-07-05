@@ -657,6 +657,7 @@ function buildChartSeries(co: Company, type: ChartType, period: ChartPeriod) {
 // SAMPLE — replace at wiring; series must come from the real daily OHLC table, never computed or synthetic.
 type OhlcBar = {
   t: string;
+  time: string; // YYYY-MM-DD for lightweight-charts
   open: number;
   high: number;
   low: number;
