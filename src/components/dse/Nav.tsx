@@ -1008,7 +1008,7 @@ export function Nav() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1 ml-2 relative">
+        <nav className="hidden lg:flex items-center ml-2 relative" style={{ columnGap: 2 }}>
           {links.map((l) => {
             const isActive = activeLabel === l.label;
             const inner = (
