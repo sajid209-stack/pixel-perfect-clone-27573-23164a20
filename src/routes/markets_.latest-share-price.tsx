@@ -160,28 +160,32 @@ function fmt(n: number, digits = 2) {
   });
 }
 
+function normalizeSectorParam(raw: unknown): string | undefined {
+  if (typeof raw !== "string" || !raw) return undefined;
+  const lower = raw.toLowerCase();
+  const match = SECTORS.find((s) => s.slug.toLowerCase() === lower);
+  return match?.slug;
+}
+
 function LatestSharePricePage() {
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
-  const isValidSector = (s: string | undefined): s is string =>
-    !!s && SECTORS.some((x) => x.slug === s);
-  const initialSector = isValidSector(search.sector) ? search.sector : "bank";
+  const normalizedFromUrl = normalizeSectorParam(search?.sector);
   const [sort, setSort] = useState<SortKey>("code");
-  const [view, setView] = useState<ViewMode>(
-    isValidSector(search.sector) ? "sector" : "all",
-  );
+  const [view, setView] = useState<ViewMode>(normalizedFromUrl ? "sector" : "all");
   const [cat, setCat] = useState<(typeof CATS)[number]>("A");
   const [letter, setLetter] = useState<string>("A");
-  const [sector, setSectorState] = useState<string>(initialSector);
+  const [sector, setSectorState] = useState<string>(normalizedFromUrl ?? "bank");
   const [limit, setLimit] = useState<number>(PAGE);
 
   // Sync from URL when user hits back/forward or arrives via ?sector=
   useEffect(() => {
-    if (isValidSector(search.sector)) {
+    const normalized = normalizeSectorParam(search?.sector);
+    if (normalized) {
       setView("sector");
-      setSectorState(search.sector);
+      setSectorState(normalized);
     }
-  }, [search.sector]);
+  }, [search?.sector]);
 
   const setSector = (slug: string) => {
     setSectorState(slug);
