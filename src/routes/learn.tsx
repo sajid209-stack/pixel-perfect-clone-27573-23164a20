@@ -109,9 +109,11 @@ function LearnPage() {
             ))}
           </ul>
         </div>
+        </div>
       </section>
 
       <TrainingAcademySection />
+
       <Footer />
 
     </div>
