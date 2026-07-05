@@ -735,8 +735,11 @@ function Candlestick(props: {
 function ChartsCard({ co }: { co: Company }) {
   const [type, setType] = useState<ChartType>("price");
   const [period, setPeriod] = useState<ChartPeriod>("3M");
+  const [style, setStyle] = useState<ChartStyle>("line");
   const series = useMemo(() => buildChartSeries(co, type, period), [co, type, period]);
+  const ohlc = useMemo(() => buildOhlcSeries(co, period), [co, period]);
   const stroke = "var(--primary)";
+  const isCandle = style === "candle";
 
   const typeLabels: Record<ChartType, string> = {
     price: "Closing Price",
