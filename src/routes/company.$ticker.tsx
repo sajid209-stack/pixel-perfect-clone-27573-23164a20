@@ -21,6 +21,7 @@ import { useLang } from "@/i18n/LanguageContext";
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { LwCandlestickChart } from "@/components/dse/LwCandlestickChart";
 import { StarButton } from "@/components/dse/StarButton";
 import { CategoryBadge } from "@/components/dse/CategoryBadge";
 import { useRecentlyViewed } from "@/lib/userPrefs";
