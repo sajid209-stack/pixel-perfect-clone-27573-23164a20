@@ -789,10 +789,8 @@ function AboutPanel({ close }: { close: () => void }) {
 const megaPanels: Record<string, React.ComponentType<{ close: () => void }>> = {
   markets: ({ close }) => <MegaPanel content={megaContent.markets} close={close} />,
   companies: ({ close }) => <MegaPanel content={megaContent.companies} close={close} />,
-  indices: ({ close }) => <MegaPanel content={megaContent.indices} close={close} />,
-  ipo: ({ close }) => <MegaPanel content={megaContent.ipo} close={close} />,
+  instruments: ({ close }) => <MegaPanel content={megaContent.instruments} close={close} />,
   news: ({ close }) => <MegaPanel content={megaContent.news} close={close} />,
-  learn: ({ close }) => <MegaPanel content={megaContent.learn} close={close} />,
   investors: ({ close }) => <MegaPanel content={megaContent.investors} close={close} />,
   about: ({ close }) => <MegaPanel content={megaContent.about} close={close} />,
 };
