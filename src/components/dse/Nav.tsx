@@ -78,259 +78,199 @@ const links: NavItem[] = [
 type MegaLink = { label: string; to?: string; hash?: string };
 type MegaCol = { header: string; links: MegaLink[] };
 type MegaContent = {
-  intro: { title: string; desc: string; cta: { label: string; to: string } };
+  intro?: { title: string; desc: string; cta: { label: string; to: string } };
   columns: MegaCol[];
-  promo: { tag: string; title: string; desc: string; to: string; image?: string };
+  promo?: { tag: string; title: string; desc: string; to: string; image?: string };
 };
 
 const megaContent: Record<string, MegaContent> = {
   markets: {
-    intro: {
-      title: "Markets",
-      desc: "Live equities, instruments, sector heatmap and trading reports.",
-      cta: { label: "Products & Services", to: "/products" },
-    },
     columns: [
       {
-        header: "Live market",
+        header: "Live Market",
         links: [
-          { label: "Market Updates", to: "/markets" },
-          { label: "Valid Announcements", to: "/news" },
+          { label: "Latest Share Price", to: "/markets/latest-share-price" },
+          { label: "Top Shares", to: "/markets/top-shares" },
+          { label: "Market Depth", to: "/market-depth" },
           { label: "Circuit Breaker", to: "/circuit-breaker" },
-          { label: "Top 10 Gainers", to: "/markets/at-a-glance", hash: "top-gainers" },
-          { label: "Top 10 Losers", to: "/markets/at-a-glance", hash: "top-losers" },
-          { label: "Market Statistics", to: "/markets/at-a-glance" },
-        ],
-      },
-      {
-        header: "Reports & filings",
-        links: [
-          { label: "Companies AGM/EGM and Record Date", to: "/corporate-actions" },
           { label: "Recent Market Information", to: "/recent-market-information" },
-          { label: "Monthly Reviews & Graphs", to: "/publications/monthly" },
-          { label: "Fortnightly Capital Market", to: "/publications/fortnightly" },
-          { label: "Comparison of Market", to: "/markets/comparison" },
         ],
       },
-    ],
-
-    promo: { tag: "Featured", title: "Sector heatmap", desc: "Daily % change across all 10 sectors.", to: "/", image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=70" },
-  },
-  companies: {
-    intro: {
-      title: "Companies",
-      desc: "356 listed issuers — browse by sector, board or performance.",
-      cta: { label: "Browse all companies", to: "/companies" },
-    },
-    columns: [
-      {
-        header: "Browse",
-        links: [
-          { label: "All listed companies", to: "/companies" },
-          { label: "By sector", to: "/companies" },
-          { label: "By board", to: "/companies" },
-          { label: "Newly listed", to: "/companies" },
-          { label: "Going Concern Threat List", to: "/going-concern" },
-          { label: "Financial Statement Submission Status", to: "/financial-statement-status" },
-          { label: "Sectoral Median P/E", to: "/sectoral-pe" },
-          { label: "Actuarial Valuation Status", to: "/actuarial-valuation" },
-        ],
-      },
-      {
-        header: "Data",
-        links: [
-          { label: "Financials", to: "/companies" },
-          { label: "Disclosures", to: "/news" },
-          { label: "Dividends", to: "/news" },
-          { label: "Corporate actions", to: "/corporate-actions" },
-          { label: "Rights Offer Documents", to: "/companies/right-offers" },
-          { label: "Re-listing", to: "/companies/re-listing" },
-          { label: "Direct Listing", to: "/companies/direct-listing" },
-        ],
-      },
-    ],
-    promo: { tag: "Tool", title: "Company screener", desc: "Filter by sector, market cap and yield.", to: "/companies", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=70" },
-  },
-  indices: {
-    intro: {
-      title: "Indices",
-      desc: "DSE benchmark indices, constituents and analytics.",
-      cta: { label: "View index analytics", to: "/indices" },
-    },
-    columns: [
       {
         header: "Indices",
         links: [
-          { label: "DSEX", to: "/indices" },
-          { label: "DS30", to: "/indices" },
-          { label: "DSES", to: "/indices" },
-          { label: "Shariah", to: "/indices" },
+          { label: "All Indices", to: "/indices" },
+          { label: "DSEX", to: "/indices/$code" as string },
+          { label: "DS30", to: "/indices/$code" as string },
+          { label: "DSES", to: "/indices/$code" as string },
+          { label: "Index Methodology", to: "/index-methodology" },
         ],
       },
       {
-        header: "Analytics",
+        header: "Statistics & Analysis",
         links: [
-          { label: "Historical data", to: "/reports" },
-          { label: "Constituents", to: "/indices" },
-          { label: "Methodology", to: "/indices" },
+          { label: "Market Statistics", to: "/markets" },
+          { label: "Performance at a Glance", to: "/markets/at-a-glance" },
+          { label: "Comparison of Market", to: "/markets/comparison" },
+          { label: "P/E at a Glance", to: "/pe" },
+          { label: "Sectoral Median P/E", to: "/sectoral-pe" },
+        ],
+      },
+      {
+        header: "Reference",
+        links: [
+          { label: "Holidays & Trading Sessions", to: "/holidays" },
+          { label: "Data Archives", to: "/data-archives" },
         ],
       },
     ],
-    promo: { tag: "Featured", title: "Index analytics", desc: "Trend, breadth and constituent weights.", to: "/indices", image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=70" },
   },
-  ipo: {
-    intro: {
-      title: "IPO",
-      desc: "Subscription pipeline, application guidance and prospectuses.",
-      cta: { label: "Open the IPO desk", to: "/ipo" },
-    },
+  companies: {
     columns: [
       {
-        header: "Pipeline",
+        header: "Companies",
         links: [
-          { label: "Subscription open", to: "/ipo" },
-          { label: "Upcoming", to: "/ipo" },
-          { label: "Recently listed", to: "/ipo" },
+          { label: "Stock Screener", to: "/companies" },
+          { label: "Sector wise Company List", to: "/companies/sectors" },
+          { label: "Corporate Actions", to: "/corporate-actions" },
         ],
       },
       {
-        header: "Resources",
+        header: "Compliance Status",
         links: [
-          { label: "How to apply", to: "/ipo" },
-          { label: "Prospectuses", to: "/ipo" },
+          { label: "Financial Statement Status", to: "/financial-statement-status" },
+          { label: "Going Concern List", to: "/going-concern" },
+          { label: "Actuarial Valuation", to: "/actuarial-valuation" },
+        ],
+      },
+      {
+        header: "Filings & Documents",
+        links: [
+          { label: "All Filings", to: "/filings" },
+          { label: "Auditor's Opinion and Others", to: "/filings/auditors-opinion" },
+          { label: "PSI and Material Information", to: "/filings/psi" },
+          { label: "Proceeds Utilisation", to: "/filings/proceeds-utilisation" },
+          { label: "Right Offer Documents", to: "/companies/right-offers" },
+          { label: "Direct Listing", to: "/companies/direct-listing" },
+          { label: "Re-listing", to: "/companies/re-listing" },
         ],
       },
     ],
-    promo: { tag: "Tool", title: "IPO calendar", desc: "Open and upcoming subscription windows.", to: "/ipo", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=70" },
+  },
+  instruments: {
+    columns: [
+      {
+        header: "Primary Market",
+        links: [{ label: "IPO Centre", to: "/ipo" }],
+      },
+      {
+        header: "Fixed Income",
+        links: [
+          { label: "Bonds & Debt Board", to: "/bonds" },
+          { label: "Government Securities", to: "/bonds/government-securities" },
+        ],
+      },
+      {
+        header: "Other Markets",
+        links: [
+          { label: "Mutual Funds & ETFs", to: "/funds" },
+          { label: "OTC Market", to: "/otc" },
+        ],
+      },
+      {
+        header: "Listing with DSE",
+        links: [
+          { label: "Listing Requirements", to: "/listing" },
+          { label: "Products & Data Services", to: "/products" },
+        ],
+      },
+    ],
   },
   news: {
-    intro: {
-      title: "News",
-      desc: "Market news, price-sensitive disclosures and official notices.",
-      cta: { label: "Visit the newsroom", to: "/news" },
-    },
     columns: [
       {
-        header: "Newsroom",
+        header: "News & Publications",
         links: [
-          { label: "Latest news", to: "/news" },
-          { label: "Price-sensitive", to: "/news" },
-          { label: "Market commentary", to: "/news" },
-        ],
-      },
-      {
-        header: "Media",
-        links: [
-          { label: "Press releases", to: "/news" },
-          { label: "Notices", to: "/news" },
-          { label: "Gallery", to: "/gallery" },
-        ],
-      },
-    ],
-    promo: { tag: "Stay informed", title: "Subscribe to alerts", desc: "Daily summary and PSI alerts by email.", to: "/news", image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=70" },
-  },
-  learn: {
-    intro: {
-      title: "Learn",
-      desc: "Investor education for beginners and active market participants.",
-      cta: { label: "Open the learning hub", to: "/learn" },
-    },
-    columns: [
-      {
-        header: "Beginners",
-        links: [
-          { label: "What is a stock?", to: "/learn" },
-          { label: "Open a BO account", to: "/learn" },
-          { label: "Glossary", to: "/learn" },
-        ],
-      },
-      {
-        header: "Active traders",
-        links: [
-          { label: "Screener", to: "/companies" },
-          { label: "Heatmap", to: "/" },
-          { label: "Analytics", to: "/indices" },
-        ],
-      },
-    ],
-    promo: { tag: "Featured", title: "Investor education", desc: "BICM-curated courses and primers.", to: "/learn", image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=70" },
-  },
-  about: {
-    intro: {
-      title: "About DSE",
-      desc: "Organisation, governance, listing rules and member directory.",
-      cta: { label: "About the exchange", to: "/about" },
-    },
-    columns: [
-      {
-        header: "Organisation",
-        links: [
-          { label: "Introduction to DSE", to: "/about/introduction" },
-          { label: "Mission and Vision", to: "/about/vision" },
-          { label: "DSE at a Glance", to: "/about/at-a-glance" },
-          { label: "Board of Directors", to: "/about/board" },
-          { label: "Board Committees", to: "/about/committees" },
-          { label: "DSE Management", to: "/about/management" },
-          { label: "DSE Presidents / Chairmen", to: "/about/chairmen" },
-        ],
-      },
-      {
-        header: "Operations",
-        links: [
-          { label: "Legal Control", to: "/about/introduction", hash: "legal-control" },
-          { label: "Function of DSE", to: "/about/introduction", hash: "function" },
-          { label: "Clearing & Settlement", to: "/about/automation", hash: "clearing-settlement" },
-          { label: "DSE Indices", to: "/index-methodology" },
-          { label: "Holidays & Trading Sessions", to: "/holidays" },
-          { label: "Departments of DSE", to: "/about/departments" },
-          { label: "Surveillance", to: "/about/surveillance" },
-        ],
-      },
-      {
-        header: "Directory & Reports",
-        links: [
-          { label: "TREC Holders' Directory", to: "/members" },
-          { label: "Annual Report", to: "/reports" },
+          { label: "News & Announcements", to: "/news" },
+          { label: "Weekly Report", to: "/publications/weekly" },
+          { label: "Publications", to: "/publications" },
+          { label: "Reports & Annual Reports", to: "/reports" },
+          { label: "Picture Gallery", to: "/gallery" },
           { label: "Major Events", to: "/about/major-events" },
-          { label: "Demutualization", to: "/about/demutualization" },
-          { label: "New Automation System", to: "/about/automation" },
         ],
       },
     ],
-
-    promo: { tag: "Heritage", title: "Our history", desc: "From the 1954 founding to today.", to: "/about/introduction", image: assetUrl(aboutDseMegaAsset) },
-
   },
   investors: {
-    intro: {
-      title: "Investor Services",
-      desc: "Help desks, complaints, downloads and FAQs for DSE investors.",
-      cta: { label: "Open Help Desk", to: "/help-desk" },
-    },
     columns: [
       {
-        header: "Help & support",
+        header: "Education",
+        links: [
+          { label: "Learn — Investor Education", to: "/learn" },
+          { label: "FAQ", to: "/faq" },
+          { label: "Investor Protection Fund", to: "/investor-protection" },
+        ],
+      },
+      {
+        header: "Foreign Investors",
+        links: [
+          { label: "Foreign Investor Guide", to: "/foreign-investors" },
+          { label: "General Profile of Bangladesh", to: "/foreign-investors/general-profile" },
+          { label: "Economy of Bangladesh", to: "/foreign-investors/economy" },
+        ],
+      },
+      {
+        header: "Support",
         links: [
           { label: "Help Desk", to: "/help-desk" },
           { label: "NRB Help Desk", to: "/help-desk/nrb" },
           { label: "Complaints", to: "/complaints" },
-        ],
-      },
-      {
-        header: "Resources",
-        links: [
-          { label: "FAQ", to: "/faq" },
-          { label: "Downloads", to: "/downloads" },
-          { label: "Quick Links", to: "/links" },
-          { label: "Panel of Back-Office Software Vendors", to: "/vendors" },
-          { label: "Investors' Protection Fund", to: "/investor-protection" },
           { label: "CDBL", to: "/cdbl" },
+          { label: "Downloads", to: "/downloads" },
+          { label: "DSE-Mobile", to: "/dse-mobile" },
         ],
       },
     ],
-    promo: { tag: "For NRB", title: "NRB Help Desk", desc: "Dedicated assistance for Non-Resident Bangladeshi investors.", to: "/help-desk/nrb", image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=70" },
+  },
+  about: {
+    columns: [
+      {
+        header: "The Exchange",
+        links: [
+          { label: "About", to: "/about" },
+          { label: "Introduction to DSE", to: "/about/introduction" },
+          { label: "Mission & Vision", to: "/about/vision" },
+          { label: "DSE at a Glance", to: "/about/at-a-glance" },
+          { label: "Board of Directors", to: "/about/board" },
+          { label: "Board Committees", to: "/about/committees" },
+          { label: "DSE Management", to: "/about/management" },
+          { label: "Presidents / Chairmen", to: "/about/chairmen" },
+          { label: "Automation", to: "/about/automation" },
+          { label: "Demutualization", to: "/about/demutualization" },
+          { label: "Surveillance", to: "/about/surveillance" },
+        ],
+      },
+      {
+        header: "Directory & Rules",
+        links: [
+          { label: "TREC Holders' Directory", to: "/members" },
+          { label: "Regulations & Rulebook", to: "/regulations" },
+          { label: "Back-Office Software Vendors", to: "/vendors" },
+        ],
+      },
+      {
+        header: "More",
+        links: [
+          { label: "Sustainability", to: "/sustainability" },
+          { label: "Careers", to: "/careers" },
+          { label: "Citizen Charter", to: "/citizen-charter" },
+          { label: "Contact", to: "/contact" },
+        ],
+      },
+    ],
   },
 };
+
 
 function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
   const image = content.promo.image ?? assetUrl(heroTowerAsset);
