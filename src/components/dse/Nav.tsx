@@ -19,6 +19,10 @@ import dseSealAsset from "@/assets/dse-seal.png.asset.json";
 import dseSealCoinAsset from "@/assets/dse-seal-coin.png.asset.json";
 import heroTowerAsset from "@/assets/hero-dse-tower.jpg.asset.json";
 import aboutDseMegaAsset from "@/assets/about-dse-mega.jpg.asset.json";
+import automation1Asset from "@/assets/dse-automation-1.jpg.asset.json";
+import automation3Asset from "@/assets/dse-automation-3.jpg.asset.json";
+import foreignInvestorsAsset from "@/assets/foreign-investors.jpg.asset.json";
+import heritageCryout1998Asset from "@/assets/heritage-cryout-1998.jpg.asset.json";
 const dseLogo = assetUrl(dseSealAsset);
 const dseLogoDark = assetUrl(dseSealCoinAsset);
 import { ThemeToggle } from "./ThemeToggle";
@@ -28,6 +32,7 @@ import { openCommandPalette } from "./CommandPalette";
 
 type NavItem = {
   label: string;
+  shortLabel?: string;
   to?: string;
   href?: string;
   mega?: keyof typeof megaPanels;
@@ -37,36 +42,42 @@ type NavItem = {
 const links: NavItem[] = [
   {
     label: "Markets",
+    shortLabel: "Markets",
     to: "/markets",
     mega: "markets",
     activePaths: ["/markets", "/market-depth", "/circuit-breaker", "/recent-market-information", "/indices", "/index-methodology", "/pe", "/sectoral-pe", "/holidays", "/data-archives"],
   },
   {
     label: "Companies & Filings",
+    shortLabel: "Companies",
     to: "/companies",
     mega: "companies",
     activePaths: ["/companies", "/company", "/corporate-actions", "/financial-statement-status", "/going-concern", "/actuarial-valuation", "/filings"],
   },
   {
     label: "Instruments & Listing",
+    shortLabel: "Instruments",
     to: "/ipo",
     mega: "instruments",
     activePaths: ["/ipo", "/bonds", "/funds", "/otc", "/listing", "/products"],
   },
   {
     label: "News & Publications",
+    shortLabel: "News",
     to: "/news",
     mega: "news",
     activePaths: ["/news", "/publications", "/reports", "/gallery"],
   },
   {
     label: "Investors",
+    shortLabel: "Investors",
     to: "/learn",
     mega: "investors",
     activePaths: ["/learn", "/faq", "/investor-protection", "/foreign-investors", "/help-desk", "/complaints", "/cdbl", "/downloads", "/dse-mobile"],
   },
   {
     label: "About DSE",
+    shortLabel: "About DSE",
     to: "/about",
     mega: "about",
     activePaths: ["/about", "/members", "/regulations", "/vendors", "/sustainability", "/careers", "/citizen-charter", "/contact"],
@@ -85,6 +96,18 @@ type MegaContent = {
 
 const megaContent: Record<string, MegaContent> = {
   markets: {
+    intro: {
+      title: "Markets",
+      desc: "Live prices, indices, statistics, and reference data across every DSE market.",
+      cta: { label: "Explore Markets", to: "/markets" },
+    },
+    promo: {
+      tag: "Featured",
+      title: "Today's Market Statistics",
+      desc: "Turnover, breadth, top movers and index snapshot.",
+      to: "/markets",
+      image: assetUrl(heroTowerAsset),
+    },
     columns: [
       {
         header: "Live Market",
@@ -126,6 +149,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   companies: {
+    intro: {
+      title: "Companies & Filings",
+      desc: "Every listed company, sector, corporate action, and regulatory filing on DSE.",
+      cta: { label: "Explore Companies", to: "/companies" },
+    },
+    promo: {
+      tag: "Tool",
+      title: "Stock Screener — all listed companies",
+      desc: "Filter by sector, board, price, and performance.",
+      to: "/companies",
+      image: assetUrl(automation1Asset),
+    },
     columns: [
       {
         header: "Companies",
@@ -158,6 +193,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   instruments: {
+    intro: {
+      title: "Instruments & Listing",
+      desc: "IPOs, bonds, mutual funds, OTC, and everything needed to list on DSE.",
+      cta: { label: "Explore Instruments", to: "/ipo" },
+    },
+    promo: {
+      tag: "Live",
+      title: "IPO Centre",
+      desc: "Open subscriptions, upcoming issues, and how to apply.",
+      to: "/ipo",
+      image: assetUrl(automation3Asset),
+    },
     columns: [
       {
         header: "Primary Market",
@@ -187,6 +234,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   news: {
+    intro: {
+      title: "News & Publications",
+      desc: "Market news, disclosures, weekly and monthly reports, and DSE's publication archive.",
+      cta: { label: "Explore News", to: "/news" },
+    },
+    promo: {
+      tag: "This week",
+      title: "This Week's Market Report",
+      desc: "Weekly turnover, top gainers/losers and sector performance.",
+      to: "/publications/weekly",
+      image: assetUrl(heritageCryout1998Asset),
+    },
     columns: [
       {
         header: "News & Publications",
@@ -202,6 +261,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   investors: {
+    intro: {
+      title: "Investors",
+      desc: "Education, support, and services for retail, foreign, and NRB investors.",
+      cta: { label: "Explore Investor Services", to: "/learn" },
+    },
+    promo: {
+      tag: "Learn",
+      title: "Learn — Investor Education",
+      desc: "Guides, glossary, and training pathways for market participants.",
+      to: "/learn",
+      image: assetUrl(foreignInvestorsAsset),
+    },
     columns: [
       {
         header: "Education",
@@ -233,6 +304,18 @@ const megaContent: Record<string, MegaContent> = {
     ],
   },
   about: {
+    intro: {
+      title: "About DSE",
+      desc: "The exchange, its people, rulebook, directory, and everything in-between.",
+      cta: { label: "Explore About DSE", to: "/about" },
+    },
+    promo: {
+      tag: "Directory",
+      title: "TREC Holders' Directory",
+      desc: "Every licensed broker and their contact details.",
+      to: "/members",
+      image: assetUrl(aboutDseMegaAsset),
+    },
     columns: [
       {
         header: "The Exchange",
@@ -273,116 +356,148 @@ const megaContent: Record<string, MegaContent> = {
 
 
 function MegaPanel({ content, close }: { content: MegaContent; close: () => void }) {
-  const image = content.promo?.image ?? assetUrl(heroTowerAsset);
-  const hasIntro = !!content.intro;
-  const hasPromo = !!content.promo;
-  const gridTemplate = [
-    hasIntro ? "minmax(200px,1fr)" : null,
-    `repeat(${content.columns.length}, minmax(180px,1fr))`,
-    hasPromo ? "minmax(260px,1.2fr)" : null,
-  ].filter(Boolean).join(" ");
+  const promoImage = content.promo?.image;
+  const useNavyFallback = !promoImage;
   return (
     <div
-      className="grid"
+      className="grid gap-0"
       style={{
-        gridTemplateColumns: gridTemplate,
-        gap: 28,
+        gridTemplateColumns: "22% 1px 53% 25%",
       }}
     >
-      {/* Intro */}
-      {content.intro && (
-        <div>
-          <div className="text-[17px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
-            {content.intro.title}
-          </div>
-          <p
-            className="mt-1.5 text-[12.5px] leading-[1.55]"
-            style={{ color: "var(--text-secondary)", maxWidth: 230 }}
-          >
-            {content.intro.desc}
-          </p>
-          <Link
-            to={content.intro.cta.to}
-            onClick={close}
-            className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold"
-            style={{ color: "var(--brand-600)" }}
-          >
-            {content.intro.cta.label} →
-          </Link>
-        </div>
-      )}
+      {/* LEFT RAIL — full section name, description, Explore hub link */}
+      <div style={{ paddingRight: 24 }}>
+        {content.intro && (
+          <>
+            <div
+              className="text-[10px] font-semibold uppercase mb-2"
+              style={{ letterSpacing: "0.18em", color: "var(--brand-600)" }}
+            >
+              Section
+            </div>
+            <div
+              className="text-[22px] font-semibold tracking-tight leading-[1.15]"
+              style={{ color: "var(--ink)" }}
+            >
+              {content.intro.title}
+            </div>
+            <p
+              className="mt-2 text-[13px] leading-[1.55]"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              {content.intro.desc}
+            </p>
+            <Link
+              to={content.intro.cta.to}
+              onClick={close}
+              className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold"
+              style={{ color: "var(--brand-600)" }}
+            >
+              {content.intro.cta.label} →
+            </Link>
+          </>
+        )}
+      </div>
 
-      {/* Category columns */}
-      {content.columns.map((col) => (
-        <div key={col.header}>
-          <div
-            className="text-[10px] font-semibold uppercase"
-            style={{ letterSpacing: "0.14em", color: "var(--text-muted)", marginBottom: 8 }}
-          >
-            {col.header}
-          </div>
-          <ul>
-            {col.links.map((l, idx) => (
-              <li key={l.label}>
-                <Link
-                  to={l.to}
-                  hash={l.hash}
-                  onClick={close}
-                  className="block text-[13px] mega-link"
-                  style={{
-                    color: "var(--ink)",
-                    paddingTop: 6,
-                    paddingBottom: 6,
-                    borderTop: idx === 0 ? "none" : "1px solid var(--line)",
-                  }}
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {/* Vertical divider */}
+      <div style={{ background: "var(--line)", width: 1, height: "100%" }} />
 
-      {/* Promo tile w/ image */}
+      {/* CENTER — link columns */}
+      <div style={{ paddingLeft: 28, paddingRight: 28 }}>
+        <div
+          className="grid"
+          style={{
+            gridTemplateColumns: `repeat(${Math.min(content.columns.length, 4)}, minmax(0, 1fr))`,
+            columnGap: 24,
+            rowGap: 20,
+          }}
+        >
+          {content.columns.map((col) => (
+            <div key={col.header}>
+              <div
+                className="text-[10px] font-semibold uppercase"
+                style={{ letterSpacing: "0.16em", color: "var(--text-muted)", marginBottom: 10 }}
+              >
+                {col.header}
+              </div>
+              <ul className="space-y-1.5">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      to={l.to}
+                      hash={l.hash}
+                      onClick={close}
+                      className="block text-[13px] leading-[1.5] mega-link"
+                      style={{ color: "var(--ink)", paddingTop: 2, paddingBottom: 2 }}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* RIGHT RAIL — feature card */}
       {content.promo && (
         <Link
           to={content.promo.to}
           onClick={close}
-          className="flex flex-col group overflow-hidden"
-          style={{ background: "var(--surface-2)", border: "1px solid var(--line)" }}
+          className="flex flex-col overflow-hidden group"
+          style={{
+            background: useNavyFallback ? "#0C2C53" : "var(--surface-2)",
+            border: "1px solid var(--line)",
+          }}
         >
           <div
             style={{
-              height: 180,
-              backgroundImage: `linear-gradient(135deg, rgba(24,95,165,0.35), rgba(24,95,165,0.05)), url("${image}")`,
+              height: 160,
+              background: useNavyFallback
+                ? "linear-gradient(135deg, #0C2C53 0%, #123a6c 100%)"
+                : `linear-gradient(180deg, rgba(12,44,83,0.15), rgba(12,44,83,0.55)), url("${promoImage}")`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           />
-          <div className="px-3 py-2">
+          <div className="px-4 py-3">
             <div
-              className="text-[10px] font-semibold uppercase mb-0.5"
-              style={{ letterSpacing: "0.14em", color: "var(--brand-600)" }}
+              className="text-[10px] font-semibold uppercase mb-1"
+              style={{ letterSpacing: "0.16em", color: "var(--brand-600)" }}
             >
               {content.promo.tag}
             </div>
-            <div className="text-[13px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
+            <div
+              className="text-[14px] font-semibold leading-tight"
+              style={{ color: "var(--ink)" }}
+            >
               {content.promo.title}
             </div>
-            <p className="mt-0.5 text-[11px] leading-[1.4]" style={{ color: "var(--text-secondary)" }}>
+            <p
+              className="mt-1 text-[12px] leading-[1.45]"
+              style={{ color: "var(--text-secondary)" }}
+            >
               {content.promo.desc}
             </p>
+            <div
+              className="mt-2 inline-flex items-center gap-1 text-[12px] font-semibold"
+              style={{ color: "var(--brand-600)" }}
+            >
+              Open →
+            </div>
           </div>
         </Link>
       )}
 
       <style>{`
+        .mega-link { transition: color 120ms; }
         .mega-link:hover { color: var(--brand-600) !important; }
       `}</style>
     </div>
   );
 }
+
 
 
 type Item = { title: string; desc: string; to?: string; hash?: string; soon?: boolean };
@@ -825,7 +940,10 @@ export function Nav() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSearchOpen(false);
+      if (e.key === "Escape") {
+        setSearchOpen(false);
+        setOpenMenu(null);
+      }
     };
     const onClick = (e: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
@@ -839,6 +957,13 @@ export function Nav() {
       window.removeEventListener("mousedown", onClick);
     };
   }, []);
+
+  // Close mega on route change
+  useEffect(() => {
+    setOpenMenu(null);
+    setMobileOpen(false);
+  }, [pathname]);
+
 
   const openWith = (label: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -893,23 +1018,23 @@ export function Nav() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1 ml-2 relative">
+        <nav className="hidden lg:flex items-center ml-2 relative" style={{ columnGap: 2 }}>
           {links.map((l) => {
             const isActive = activeLabel === l.label;
             const inner = (
               <>
-                {t(l.label)}
+                {t(l.shortLabel ?? l.label)}
                 {isActive && (
                   <motion.span
                     layoutId="navActive"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    className="absolute left-3 right-3 -bottom-[20px] h-[3px]"
+                    className="absolute left-2 right-2 -bottom-[20px] h-[3px]"
                     style={{ background: "var(--brand-600)" }}
                   />
                 )}
               </>
             );
-            const sharedClass = "relative px-3 py-2 text-[15px] font-medium transition flex items-center gap-1";
+            const sharedClass = "relative px-2.5 py-2 text-[14px] font-medium transition flex items-center gap-1 whitespace-nowrap";
             const sharedStyle = { color: isActive ? "var(--brand-600)" : "var(--ink)" };
             return (
               <div
