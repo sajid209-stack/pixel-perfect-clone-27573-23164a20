@@ -100,9 +100,9 @@ const megaContent: Record<string, MegaContent> = {
         header: "Indices",
         links: [
           { label: "All Indices", to: "/indices" },
-          { label: "DSEX", to: "/indices/$code" as string },
-          { label: "DS30", to: "/indices/$code" as string },
-          { label: "DSES", to: "/indices/$code" as string },
+          { label: "DSEX", to: "/indices/DSEX" },
+          { label: "DS30", to: "/indices/DS30" },
+          { label: "DSES", to: "/indices/DSES" },
           { label: "Index Methodology", to: "/index-methodology" },
         ],
       },
