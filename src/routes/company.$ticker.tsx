@@ -1004,8 +1004,8 @@ function PriceStatsRow({ co }: { co: Company }) {
       ) : (
         <>
           <Stat label="Open" value={`৳ ${co.open}`} />
-          <Stat label="High" value={`৳ ${co.high}`} accent="var(--green-up)" />
-          <Stat label="Low" value={`৳ ${co.low}`} accent="var(--red-down)" />
+          <Stat label="High" value={`৳ ${co.high}`} />
+          <Stat label="Low" value={`৳ ${co.low}`} />
           <Stat label="Volume" value={formatVolume(co.volume)} />
           <Stat label="52W High" value={`৳ ${co.weekHigh52}`} />
           <Stat label="52W Low" value={`৳ ${co.weekLow52}`} />
