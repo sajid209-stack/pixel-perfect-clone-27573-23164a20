@@ -1013,18 +1013,18 @@ export function Nav() {
             const isActive = activeLabel === l.label;
             const inner = (
               <>
-                {t(l.label)}
+                {t(l.shortLabel ?? l.label)}
                 {isActive && (
                   <motion.span
                     layoutId="navActive"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    className="absolute left-3 right-3 -bottom-[20px] h-[3px]"
+                    className="absolute left-2 right-2 -bottom-[20px] h-[3px]"
                     style={{ background: "var(--brand-600)" }}
                   />
                 )}
               </>
             );
-            const sharedClass = "relative px-3 py-2 text-[15px] font-medium transition flex items-center gap-1";
+            const sharedClass = "relative px-2.5 py-2 text-[14px] font-medium transition flex items-center gap-1 whitespace-nowrap";
             const sharedStyle = { color: isActive ? "var(--brand-600)" : "var(--ink)" };
             return (
               <div
