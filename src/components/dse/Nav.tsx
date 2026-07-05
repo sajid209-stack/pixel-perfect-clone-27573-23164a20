@@ -1043,19 +1043,6 @@ export function Nav() {
         >
           <Search className="w-4 h-4" />
         </button>
-        <Link
-          to="/contact"
-          className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 text-[13px] font-semibold transition cursor-pointer"
-          style={{
-            background: "transparent",
-            color: "var(--brand-600, var(--brand))",
-            border: "1px solid var(--brand-600, var(--brand))",
-            borderRadius: 2,
-          }}
-        >
-          {t("Contact")}
-          <ArrowUpRight className="w-3.5 h-3.5" />
-        </Link>
 
         <button
           className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg"
