@@ -940,7 +940,10 @@ export function Nav() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSearchOpen(false);
+      if (e.key === "Escape") {
+        setSearchOpen(false);
+        setOpenMenu(null);
+      }
     };
     const onClick = (e: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
@@ -954,6 +957,13 @@ export function Nav() {
       window.removeEventListener("mousedown", onClick);
     };
   }, []);
+
+  // Close mega on route change
+  useEffect(() => {
+    setOpenMenu(null);
+    setMobileOpen(false);
+  }, [pathname]);
+
 
   const openWith = (label: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
