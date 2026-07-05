@@ -96,6 +96,18 @@ type MegaContent = {
 
 const megaContent: Record<string, MegaContent> = {
   markets: {
+    intro: {
+      title: "Markets",
+      desc: "Live prices, indices, statistics, and reference data across every DSE market.",
+      cta: { label: "Explore Markets", to: "/markets" },
+    },
+    promo: {
+      tag: "Featured",
+      title: "Today's Market Statistics",
+      desc: "Turnover, breadth, top movers and index snapshot.",
+      to: "/markets",
+      image: assetUrl(heroTowerAsset),
+    },
     columns: [
       {
         header: "Live Market",
