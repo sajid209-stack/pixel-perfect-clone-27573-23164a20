@@ -812,90 +812,163 @@ function ChartsCard({ co }: { co: Company }) {
         </div>
       </div>
 
-      {/* Chart type selector */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {(Object.keys(typeLabels) as ChartType[]).map((k) => {
-          const active = k === type;
-          return (
-            <button
-              key={k}
-              onClick={() => setType(k)}
-              className="px-3 py-1.5 text-[12px] rounded-full transition"
-              style={{
-                background: active ? "rgb(var(--brand-tint) / 0.15)" : "rgb(var(--ov) / 0.04)",
-                border: `1px solid ${active ? "var(--primary)" : "rgb(var(--ov) / 0.06)"}`,
-                color: active ? "var(--primary)" : "var(--text-secondary)",
-                fontWeight: active ? 600 : 400,
-              }}
-            >
-              {typeLabels[k]}
-            </button>
-          );
-        })}
-      </div>
+      {/* Chart type selector — hidden in candlestick mode */}
+      {!isCandle && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {(Object.keys(typeLabels) as ChartType[]).map((k) => {
+            const active = k === type;
+            return (
+              <button
+                key={k}
+                onClick={() => setType(k)}
+                className="px-3 py-1.5 text-[12px] rounded-full transition"
+                style={{
+                  background: active ? "rgb(var(--brand-tint) / 0.15)" : "rgb(var(--ov) / 0.04)",
+                  border: `1px solid ${active ? "var(--primary)" : "rgb(var(--ov) / 0.06)"}`,
+                  color: active ? "var(--primary)" : "var(--text-secondary)",
+                  fontWeight: active ? 600 : 400,
+                }}
+              >
+                {typeLabels[k]}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={`${type}-${period}`}
+          key={`${style}-${type}-${period}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="h-[320px] -mx-2"
+          className="-mx-2"
         >
-          <ResponsiveContainer width="100%" height="100%">
-            {type === "price" ? (
-              <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id={`coArea-${co.code}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={stroke} stopOpacity={0.28} />
-                    <stop offset="100%" stopColor={stroke} stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
-                <YAxis
-                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={yFormat}
-                  domain={["dataMin - 2", "dataMax + 2"]}
-                  orientation="right"
-                  width={56}
-                />
-                <Tooltip
-                  cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
-                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
-                  formatter={(value: number) => tipFormat(Number(value))}
-                />
-                <ReferenceLine
-                  y={co.prevClose}
-                  stroke="var(--text-muted)"
-                  strokeDasharray="3 6"
-                  strokeOpacity={0.6}
-                  label={{ value: `Prev close ৳ ${co.prevClose}`, fontSize: 10, fill: "var(--text-muted)", position: "insideTopRight" }}
-                />
-                <Area type="monotone" dataKey="v" stroke={stroke} strokeWidth={1.8} fill={`url(#coArea-${co.code})`} isAnimationActive animationDuration={700} />
-              </ComposedChart>
-            ) : (
-              <BarChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
-                <YAxis
-                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={yFormat}
-                  orientation="right"
-                  width={56}
-                />
-                <Tooltip
-                  cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
-                  contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
-                  formatter={(value: number) => tipFormat(Number(value))}
-                />
-                <Bar dataKey="v" fill={stroke} radius={[3, 3, 0, 0]} isAnimationActive animationDuration={600} />
-              </BarChart>
-            )}
-          </ResponsiveContainer>
+          {isCandle ? (
+            <>
+              <div className="h-[260px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <ComposedChart data={ohlc} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                    <YAxis
+                      tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickFormatter={(v: number) => `৳${v.toFixed(0)}`}
+                      domain={["dataMin - 2", "dataMax + 2"]}
+                      orientation="right"
+                      width={56}
+                    />
+                    <Tooltip
+                      cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
+                      contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                      content={({ active, payload }) => {
+                        if (!active || !payload?.length) return null;
+                        const d = payload[0].payload as OhlcBar;
+                        return (
+                          <div style={{ background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12, padding: "8px 10px", borderRadius: 10 }}>
+                            <div style={{ opacity: 0.7, marginBottom: 4 }}>{d.t}</div>
+                            <div>O ৳{d.open.toFixed(2)} · H ৳{d.high.toFixed(2)}</div>
+                            <div>L ৳{d.low.toFixed(2)} · C ৳{d.close.toFixed(2)}</div>
+                            <div style={{ opacity: 0.7, marginTop: 4 }}>Vol {d.volume.toLocaleString()}</div>
+                          </div>
+                        );
+                      }}
+                    />
+                    <ReferenceLine
+                      y={co.prevClose}
+                      stroke="var(--text-muted)"
+                      strokeDasharray="3 6"
+                      strokeOpacity={0.6}
+                    />
+                    <Bar dataKey="range" shape={<Candlestick />} isAnimationActive={false} />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="h-[90px] mt-1">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={ohlc} margin={{ top: 4, right: 10, left: 0, bottom: 0 }}>
+                    <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                    <YAxis
+                      tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickFormatter={(v: number) => (v >= 1_000_000 ? `${(v / 1_000_000).toFixed(1)}M` : v >= 1_000 ? `${(v / 1_000).toFixed(0)}K` : `${v}`)}
+                      orientation="right"
+                      width={56}
+                    />
+                    <Tooltip
+                      cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
+                      contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                      formatter={(value: number) => [Number(value).toLocaleString(), "Volume"] as [string, string]}
+                    />
+                    <Bar dataKey="volume" isAnimationActive={false}>
+                      {ohlc.map((b, i) => (
+                        <Cell key={i} fill={b.up ? "var(--up, #1d7a3f)" : "var(--down, #c0392b)"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </>
+          ) : (
+            <div className="h-[320px]">
+              <ResponsiveContainer width="100%" height="100%">
+                {type === "price" ? (
+                  <ComposedChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id={`coArea-${co.code}`} x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={stroke} stopOpacity={0.28} />
+                        <stop offset="100%" stopColor={stroke} stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                    <YAxis
+                      tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickFormatter={yFormat}
+                      domain={["dataMin - 2", "dataMax + 2"]}
+                      orientation="right"
+                      width={56}
+                    />
+                    <Tooltip
+                      cursor={{ stroke: "rgb(var(--ov) / 0.12)", strokeDasharray: "3 3" }}
+                      contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                      formatter={(value: number) => tipFormat(Number(value))}
+                    />
+                    <ReferenceLine
+                      y={co.prevClose}
+                      stroke="var(--text-muted)"
+                      strokeDasharray="3 6"
+                      strokeOpacity={0.6}
+                      label={{ value: `Prev close ৳ ${co.prevClose}`, fontSize: 10, fill: "var(--text-muted)", position: "insideTopRight" }}
+                    />
+                    <Area type="monotone" dataKey="v" stroke={stroke} strokeWidth={1.8} fill={`url(#coArea-${co.code})`} isAnimationActive animationDuration={700} />
+                  </ComposedChart>
+                ) : (
+                  <BarChart data={series} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--text-muted)" }} axisLine={false} tickLine={false} minTickGap={20} />
+                    <YAxis
+                      tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickFormatter={yFormat}
+                      orientation="right"
+                      width={56}
+                    />
+                    <Tooltip
+                      cursor={{ fill: "rgb(var(--ov) / 0.04)" }}
+                      contentStyle={{ borderRadius: 10, border: "none", background: "rgba(15,20,18,0.94)", color: "#fff", fontSize: 12 }}
+                      formatter={(value: number) => tipFormat(Number(value))}
+                    />
+                    <Bar dataKey="v" fill={stroke} radius={[3, 3, 0, 0]} isAnimationActive animationDuration={600} />
+                  </BarChart>
+                )}
+              </ResponsiveContainer>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
 
