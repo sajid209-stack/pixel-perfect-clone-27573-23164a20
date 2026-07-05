@@ -684,8 +684,10 @@ function buildOhlcSeries(co: Company, period: ChartPeriod): OhlcBar[] {
     const high = +(Math.max(open, close) + span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
     const low = +(Math.min(open, close) - span * (0.4 + Math.abs(wave) * 0.6)).toFixed(2);
     const volume = Math.round(co.volume * (0.6 + trend * 0.6 + (wave + 1) * 0.25));
+    const iso = d.toISOString().slice(0, 10);
     out.push({
       t: label,
+      time: iso,
       open,
       high,
       low,
