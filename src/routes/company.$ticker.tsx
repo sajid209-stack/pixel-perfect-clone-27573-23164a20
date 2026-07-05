@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Area,
   Bar,
-  Cell,
+  
   BarChart,
   ComposedChart,
   Legend,
