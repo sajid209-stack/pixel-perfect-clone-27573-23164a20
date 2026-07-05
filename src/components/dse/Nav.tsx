@@ -35,14 +35,42 @@ type NavItem = {
 };
 
 const links: NavItem[] = [
-  { label: "Markets", to: "/markets", mega: "markets", activePaths: ["/markets", "/products", "/bonds", "/funds", "/otc", "/filings"] },
-  { label: "Companies", to: "/companies", mega: "companies", activePaths: ["/companies", "/company", "/corporate-actions"] },
-  { label: "Indices", to: "/indices", mega: "indices", activePaths: ["/indices"] },
-  { label: "IPO", to: "/ipo", mega: "ipo", activePaths: ["/ipo"] },
-  { label: "News", to: "/news", mega: "news", activePaths: ["/news"] },
-  { label: "Learn", to: "/learn", mega: "learn", activePaths: ["/learn"] },
-  { label: "Investor Services", to: "/help-desk", mega: "investors", activePaths: ["/help-desk", "/complaints", "/faq", "/downloads"] },
-  { label: "About DSE", to: "/about", mega: "about", activePaths: ["/about", "/listing", "/reports", "/members", "/foreign-investors", "/regulations"] },
+  {
+    label: "Markets",
+    to: "/markets",
+    mega: "markets",
+    activePaths: ["/markets", "/market-depth", "/circuit-breaker", "/recent-market-information", "/indices", "/index-methodology", "/pe", "/sectoral-pe", "/holidays", "/data-archives"],
+  },
+  {
+    label: "Companies & Filings",
+    to: "/companies",
+    mega: "companies",
+    activePaths: ["/companies", "/company", "/corporate-actions", "/financial-statement-status", "/going-concern", "/actuarial-valuation", "/filings"],
+  },
+  {
+    label: "Instruments & Listing",
+    to: "/ipo",
+    mega: "instruments",
+    activePaths: ["/ipo", "/bonds", "/funds", "/otc", "/listing", "/products"],
+  },
+  {
+    label: "News & Publications",
+    to: "/news",
+    mega: "news",
+    activePaths: ["/news", "/publications", "/reports", "/gallery"],
+  },
+  {
+    label: "Investors",
+    to: "/learn",
+    mega: "investors",
+    activePaths: ["/learn", "/faq", "/investor-protection", "/foreign-investors", "/help-desk", "/complaints", "/cdbl", "/downloads", "/dse-mobile"],
+  },
+  {
+    label: "About DSE",
+    to: "/about",
+    mega: "about",
+    activePaths: ["/about", "/members", "/regulations", "/vendors", "/sustainability", "/careers", "/citizen-charter", "/contact"],
+  },
 ];
 
 /* ─────────────── SCB-style mega panel ─────────────── */
