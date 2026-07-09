@@ -73,71 +73,78 @@ function OtcPage() {
         </div>
       </section>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8 grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)] gap-6">
-        {/* Sub-nav */}
-        <aside>
-          {/* Mobile tabs */}
-          <div
-            className="md:hidden inline-flex flex-wrap"
-            style={{ border: "1px solid var(--line)", borderRadius: 2 }}
-          >
-            {SECTIONS.map((s, i) => {
-              const active = sec === s.id;
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => setSec(s.id)}
-                  className="px-3 h-8 text-[12px] font-semibold"
-                  style={{
-                    background: active ? "var(--brand-600)" : "transparent",
-                    color: active ? "#fff" : "var(--ink)",
-                    borderLeft: i !== 0 ? "1px solid var(--line)" : "none",
-                  }}
-                >
-                  {t(s.label)}
-                </button>
-              );
-            })}
-          </div>
-          {/* Desktop left nav */}
-          <nav
-            className="hidden md:flex flex-col"
-            style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
-          >
-            {SECTIONS.map((s, i) => {
-              const active = sec === s.id;
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => setSec(s.id)}
-                  className="text-left px-3 py-2 text-[13px]"
-                  style={{
-                    background: active ? "var(--surface-2)" : "transparent",
-                    color: active ? "var(--brand-600)" : "var(--ink)",
-                    fontWeight: active ? 700 : 500,
-                    borderTop: i !== 0 ? "1px solid var(--line)" : "none",
-                    borderLeft: active ? "3px solid var(--brand-600)" : "3px solid transparent",
-                  }}
-                >
-                  {t(s.label)}
-                </button>
-              );
-            })}
-          </nav>
-        </aside>
+      {sec === "sale" ? (
+        <div className="max-w-[1320px] mx-auto px-4 md:px-6 py-8">
+          <HorizontalSectionNav sec={sec} setSec={setSec} />
+          <SaleOrders />
+        </div>
+      ) : (
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8 grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)] gap-6">
+          {/* Sub-nav */}
+          <aside>
+            {/* Mobile tabs */}
+            <div
+              className="md:hidden inline-flex flex-wrap"
+              style={{ border: "1px solid var(--line)", borderRadius: 2 }}
+            >
+              {SECTIONS.map((s, i) => {
+                const active = sec === s.id;
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => setSec(s.id)}
+                    className="px-3 h-8 text-[12px] font-semibold"
+                    style={{
+                      background: active ? "var(--brand-600)" : "transparent",
+                      color: active ? "#fff" : "var(--ink)",
+                      borderLeft: i !== 0 ? "1px solid var(--line)" : "none",
+                    }}
+                  >
+                    {t(s.label)}
+                  </button>
+                );
+              })}
+            </div>
+            {/* Desktop left nav */}
+            <nav
+              className="hidden md:flex flex-col"
+              style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
+            >
+              {SECTIONS.map((s, i) => {
+                const active = sec === s.id;
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => setSec(s.id)}
+                    className="text-left px-3 py-2 text-[13px]"
+                    style={{
+                      background: active ? "var(--surface-2)" : "transparent",
+                      color: active ? "var(--brand-600)" : "var(--ink)",
+                      fontWeight: active ? 700 : 500,
+                      borderTop: i !== 0 ? "1px solid var(--line)" : "none",
+                      borderLeft: active ? "3px solid var(--brand-600)" : "3px solid transparent",
+                    }}
+                  >
+                    {t(s.label)}
+                  </button>
+                );
+              })}
+            </nav>
+          </aside>
 
-        {/* Main */}
-        <main>
-          {sec === "about" && <About />}
-          {sec === "listing" && <Listing />}
-          {sec === "instruments" && <Instruments />}
-          {sec === "forms" && <Forms />}
-          {sec === "manuals" && <Manuals />}
-          {sec === "breaker" && <Breaker />}
-          {sec === "news" && <News />}
-          {sec === "sale" && <SaleOrders />}
-        </main>
-      </div>
+          {/* Main */}
+          <main>
+            {sec === "about" && <About />}
+            {sec === "listing" && <Listing />}
+            {sec === "instruments" && <Instruments />}
+            {sec === "forms" && <Forms />}
+            {sec === "manuals" && <Manuals />}
+            {sec === "breaker" && <Breaker />}
+            {sec === "news" && <News />}
+          </main>
+        </div>
+      )}
+
 
       <Footer />
     </div>
