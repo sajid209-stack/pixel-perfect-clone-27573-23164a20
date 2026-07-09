@@ -153,6 +153,38 @@ function OtcPage() {
 
 /* ---------- Shared helpers ---------- */
 
+function HorizontalSectionNav({
+  sec,
+  setSec,
+}: {
+  sec: SectionId;
+  setSec: (s: SectionId) => void;
+}) {
+  const { t } = useLang();
+  return (
+    <div className="mb-6 flex flex-wrap gap-1">
+      {SECTIONS.map((s) => {
+        const active = sec === s.id;
+        return (
+          <button
+            key={s.id}
+            onClick={() => setSec(s.id)}
+            className="h-8 px-3 text-[12.5px] font-semibold"
+            style={{
+              border: "1px solid var(--line)",
+              background: active ? "var(--brand-600)" : "var(--surface)",
+              color: active ? "#fff" : "var(--ink)",
+            }}
+          >
+            {t(s.label)}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
