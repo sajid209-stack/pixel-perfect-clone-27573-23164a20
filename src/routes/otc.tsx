@@ -854,9 +854,20 @@ function SaleOrders() {
     return arr.slice(0, visible);
   }, [sort, visible]);
 
-  const COLS = [
-    "Sl No.", "Trade Code", "Qty.", "Rate", "Order Type", "Sale Order Date",
-    "Order Status", "Last Traded Rate", "Last Traded Date", "Inst. Type", "Mem. ID", "Name of the Member Company",
+  // Verbatim headers (unchanged), with optional two-line hints via <br/>.
+  const COLS: { label: React.ReactNode; width: number; align?: "left" | "right"; num?: boolean }[] = [
+    { label: <>Sl<br />No.</>, width: 44, align: "right", num: true },
+    { label: "Trade Code", width: 110 },
+    { label: "Qty.", width: 70, align: "right", num: true },
+    { label: "Rate", width: 60, align: "right", num: true },
+    { label: <>Order<br />Type</>, width: 70 },
+    { label: <>Sale Order<br />Date</>, width: 90, align: "right", num: true },
+    { label: <>Order<br />Status</>, width: 70 },
+    { label: <>Last Traded<br />Rate</>, width: 84, align: "right", num: true },
+    { label: <>Last Traded<br />Date</>, width: 92, align: "right", num: true },
+    { label: <>Inst.<br />Type</>, width: 74 },
+    { label: <>Mem.<br />ID</>, width: 60, align: "right", num: true },
+    { label: <>Name of the<br />Member Company</>, width: 180 },
   ];
 
   return (
@@ -888,47 +899,120 @@ function SaleOrders() {
         })}
       </div>
 
-      <div className="overflow-x-auto" style={{ border: "1px solid var(--line)", background: "var(--surface)" }}>
-        <table className="w-full text-[13px]" style={{ minWidth: 1100 }}>
+      {/* Desktop / tablet table */}
+      <div
+        className="hidden md:block overflow-x-auto"
+        style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
+      >
+        <table className="w-full text-[12px]" style={{ tableLayout: "fixed", minWidth: 1100 }}>
+          <colgroup>
+            {COLS.map((c, i) => (
+              <col key={i} style={{ width: c.width }} />
+            ))}
+          </colgroup>
           <thead>
             <tr style={{ background: "var(--surface-2)", borderBottom: "1px solid var(--line)" }}>
-              {COLS.map((c) => (
+              {COLS.map((c, i) => (
                 <th
-                  key={c}
-                  className="px-3 py-2 text-left text-[11px] font-semibold uppercase whitespace-nowrap"
-                  style={{ letterSpacing: "0.08em", color: "var(--text-secondary)" }}
+                  key={i}
+                  className="px-2 py-2 text-[10.5px] font-semibold uppercase align-bottom leading-[1.15]"
+                  style={{
+                    textAlign: c.align === "right" ? "right" : "left",
+                    letterSpacing: "0.06em",
+                    color: "var(--text-secondary)",
+                  }}
                 >
-                  {c}
+                  {c.label}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {rows.map((r, i) => (
-              <tr
-                key={`${r.code}-${i}`}
-                style={{
-                  borderTop: i === 0 ? "none" : "1px solid var(--line)",
-                  background: i % 2 === 1 ? "rgba(0,0,0,0.018)" : "transparent",
-                }}
-              >
-                <td className="px-3 py-2 tnum" style={{ color: "var(--text-secondary)" }}>{i + 1}</td>
-                <td className="px-3 py-2 font-bold" style={{ color: "var(--brand-600)" }}>{r.code}</td>
-                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.qty.toLocaleString()}</td>
-                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.rate.toFixed(2)}</td>
-                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.orderType}</td>
-                <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--ink)" }}>{r.saleDate}</td>
-                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.status}</td>
-                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.lastRate.toFixed(2)}</td>
-                <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--ink)" }}>{r.lastDate}</td>
-                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.inst}</td>
-                <td className="px-3 py-2 tnum" style={{ color: "var(--ink)" }}>{r.memId}</td>
-                <td className="px-3 py-2" style={{ color: "var(--ink)" }}>{r.member}</td>
-              </tr>
-            ))}
+            {rows.map((r, i) => {
+              const cells: { v: React.ReactNode; num?: boolean; align?: "left" | "right"; wrap?: boolean; brand?: boolean }[] = [
+                { v: i + 1, num: true, align: "right" },
+                { v: r.code, brand: true },
+                { v: r.qty.toLocaleString(), num: true, align: "right" },
+                { v: r.rate.toFixed(2), num: true, align: "right" },
+                { v: r.orderType },
+                { v: r.saleDate, num: true, align: "right" },
+                { v: r.status },
+                { v: r.lastRate.toFixed(2), num: true, align: "right" },
+                { v: r.lastDate, num: true, align: "right" },
+                { v: r.inst },
+                { v: r.memId, num: true, align: "right" },
+                { v: r.member, wrap: true },
+              ];
+              return (
+                <tr
+                  key={`${r.code}-${i}`}
+                  style={{
+                    borderTop: i === 0 ? "none" : "1px solid var(--line)",
+                    background: i % 2 === 1 ? "rgba(0,0,0,0.018)" : "transparent",
+                  }}
+                >
+                  {cells.map((c, j) => (
+                    <td
+                      key={j}
+                      className={`px-2 py-1.5 leading-[1.3] ${c.num ? "tnum" : ""} ${c.wrap ? "" : "truncate"}`}
+                      style={{
+                        textAlign: c.align === "right" ? "right" : "left",
+                        color: c.brand ? "var(--brand-600)" : "var(--ink)",
+                        fontWeight: c.brand ? 700 : undefined,
+                        whiteSpace: c.wrap ? "normal" : "nowrap",
+                        wordBreak: c.wrap ? "break-word" : undefined,
+                      }}
+                    >
+                      {c.v}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
+
+      {/* Mobile: stacked cards */}
+      <ul className="md:hidden space-y-2">
+        {rows.map((r, i) => (
+          <li
+            key={`m-${r.code}-${i}`}
+            className="p-3"
+            style={{ border: "1px solid var(--line)", background: "var(--surface)" }}
+          >
+            <div className="flex items-baseline justify-between gap-2 mb-2 pb-2" style={{ borderBottom: "1px solid var(--line)" }}>
+              <div className="font-bold text-[13.5px] tracking-wide" style={{ color: "var(--brand-600)" }}>
+                {r.code}
+              </div>
+              <div className="text-[12.5px] tnum" style={{ color: "var(--ink)" }}>
+                {r.qty.toLocaleString()} @ <span className="font-semibold">{r.rate.toFixed(2)}</span>
+              </div>
+            </div>
+            <dl className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11.5px]">
+              {[
+                ["Sale Order Date", r.saleDate],
+                ["Order Type", r.orderType || "—"],
+                ["Order Status", r.status || "—"],
+                ["Last Traded Rate", r.lastRate.toFixed(2)],
+                ["Last Traded Date", r.lastDate],
+                ["Inst. Type", r.inst],
+                ["Mem. ID", r.memId],
+                ["Name of the Member Company", r.member],
+              ].map(([k, v]) => (
+                <div key={k as string} className="contents">
+                  <dt className="uppercase" style={{ color: "var(--text-muted)", letterSpacing: "0.04em" }}>
+                    {k}
+                  </dt>
+                  <dd className="tnum text-right" style={{ color: "var(--ink)" }}>
+                    {v}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </li>
+        ))}
+      </ul>
 
       {visible < SALE_ORDERS.length && (
         <div className="mt-3">
@@ -948,3 +1032,4 @@ function SaleOrders() {
     </section>
   );
 }
+
