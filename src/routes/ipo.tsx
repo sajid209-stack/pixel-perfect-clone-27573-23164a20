@@ -514,41 +514,24 @@ function IpoCard({ ipo, i }: { ipo: Ipo; i: number }) {
             {ipo.code} · {ipo.sector}
           </div>
         </div>
-        <div className="text-right shrink-0">
-          <div className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: "var(--text-muted)" }}>
-            {ipo.status === "listed" ? "Listing gain" : "Cutoff price"}
-          </div>
-          {ipo.status === "listed" ? (
+        {ipo.status === "listed" && (
+          <div className="text-right shrink-0">
+            <div className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: "var(--text-muted)" }}>
+              Listing gain
+            </div>
             <div className="text-[22px] font-semibold tnum mt-0.5" style={{ color: gainUp ? "var(--green-up)" : "var(--red-down)" }}>
               {gainUp ? "+" : ""}
               {ipo.listingGain?.toFixed(1)}%
             </div>
-          ) : (
-            <div className="text-[22px] font-semibold tnum mt-0.5">৳ {ipo.cutoffPrice}</div>
-          )}
-        </div>
+          </div>
+        )}
       </header>
 
-      {/* Live progress for open */}
+      {/* Days remaining for open */}
       {ipo.status === "open" && (
-        <div className="mb-5">
-          <div className="flex items-center justify-between text-[11px] mb-1.5" style={{ color: "var(--text-muted)" }}>
-            <span className="flex items-center gap-1.5">
-              <Clock className="w-3 h-3" />
-              {remaining > 0 ? `${remaining} day${remaining === 1 ? "" : "s"} remaining` : "Closing today"}
-            </span>
-            <span className="tnum">
-              {ipo.subscribed?.toFixed(1)}× subscribed
-            </span>
-          </div>
-          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgb(var(--ov) / 0.06)" }}>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              style={{ background: "var(--primary)", height: "100%" }}
-            />
-          </div>
+        <div className="mb-5 flex items-center gap-1.5 text-[11px]" style={{ color: "var(--text-muted)" }}>
+          <Clock className="w-3 h-3" />
+          {remaining > 0 ? `${remaining} day${remaining === 1 ? "" : "s"} remaining` : "Closing today"}
         </div>
       )}
 
@@ -556,10 +539,11 @@ function IpoCard({ ipo, i }: { ipo: Ipo; i: number }) {
       <div className="grid grid-cols-3 gap-px rounded-xl overflow-hidden mb-5" style={{ background: "rgb(var(--ov) / 0.05)" }}>
         <Spec label="Issue size" value={ipo.size} />
         <Spec label="Lot size" value={`${ipo.lotSize} sh`} />
-        <Spec
-          label={ipo.status === "listed" ? "Subscribed" : "Indicative P/E"}
-          value={ipo.status === "listed" ? `${ipo.subscribed?.toFixed(1)}×` : ipo.pe ? `${ipo.pe.toFixed(1)}×` : "—"}
-        />
+        {ipo.status === "listed" ? (
+          <Spec label="Cutoff price" value={`৳ ${ipo.cutoffPrice}`} />
+        ) : (
+          <Spec label="Method" value={ipo.method} />
+        )}
       </div>
 
       {/* Schedule */}
