@@ -73,7 +73,7 @@ function OtcPage() {
         </div>
       </section>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8 grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)] gap-6">
         {/* Sub-nav */}
         <aside>
           {/* Mobile tabs */}
