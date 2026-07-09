@@ -471,7 +471,6 @@ function IpoCard({ ipo, i }: { ipo: Ipo; i: number }) {
   const today = "2026-06-05";
   const total = ipo.status === "open" ? daysBetween(ipo.openDate, ipo.closeDate) : 0;
   const elapsed = ipo.status === "open" ? daysBetween(ipo.openDate, today) : 0;
-  const progress = total > 0 ? Math.min(100, (elapsed / total) * 100) : 0;
   const remaining = ipo.status === "open" ? Math.max(0, total - elapsed) : 0;
 
   const tone =
