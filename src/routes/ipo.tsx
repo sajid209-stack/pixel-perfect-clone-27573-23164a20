@@ -48,6 +48,7 @@ type Ipo = {
   use: string;
 };
 
+// SAMPLE — replace at wiring (ipo table)
 const ipos: Ipo[] = [
   {
     code: "NRBCBANK",
