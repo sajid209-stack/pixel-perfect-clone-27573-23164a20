@@ -214,6 +214,7 @@ export function Footer() {
             <Link to="/terms" className="cursor-pointer hover:opacity-100 opacity-80">{t("Terms & Condition")}</Link>
             <Link to="/disclaimer" className="cursor-pointer hover:opacity-100 opacity-80">{t("Disclaimer")}</Link>
             <Link to="/copyright" className="cursor-pointer hover:opacity-100 opacity-80">{t("Copyright")}</Link>
+            <Link to="/404" className="cursor-pointer hover:opacity-100 opacity-80">{t("404")}</Link>
           </div>
         </div>
       </div>
