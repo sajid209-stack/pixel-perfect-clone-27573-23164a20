@@ -58,6 +58,7 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BondsRouteImport } from './routes/bonds'
 import { Route as ActuarialValuationRouteImport } from './routes/actuarial-valuation'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PublicationsWeeklyRouteImport } from './routes/publications_.weekly'
 import { Route as PublicationsPressRouteImport } from './routes/publications_.press'
@@ -343,6 +344,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -540,6 +546,7 @@ const AboutAtAGlanceRoute = AboutAtAGlanceRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
@@ -629,6 +636,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
@@ -719,6 +727,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/actuarial-valuation': typeof ActuarialValuationRoute
   '/bonds': typeof BondsRoute
@@ -810,6 +819,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/404'
     | '/about'
     | '/actuarial-valuation'
     | '/bonds'
@@ -899,6 +909,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/404'
     | '/about'
     | '/actuarial-valuation'
     | '/bonds'
@@ -988,6 +999,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/404'
     | '/about'
     | '/actuarial-valuation'
     | '/bonds'
@@ -1078,6 +1090,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   ActuarialValuationRoute: typeof ActuarialValuationRoute
   BondsRoute: typeof BondsRoute
@@ -1509,6 +1522,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -1803,6 +1823,7 @@ const IndicesRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R404Route: R404Route,
   AboutRoute: AboutRoute,
   ActuarialValuationRoute: ActuarialValuationRoute,
   BondsRoute: BondsRoute,
@@ -1891,13 +1912,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

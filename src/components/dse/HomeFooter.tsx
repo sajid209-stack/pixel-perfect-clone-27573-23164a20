@@ -203,6 +203,7 @@ export function HomeFooter() {
               { label: "Site Map", to: "/sitemap" as const },
               { label: "Link", to: "/links" as const },
               { label: "Terms & Condition", to: "/terms" as const },
+              { label: "404", to: "/404" as const },
             ].map((l, idx, arr) => (
               <span key={l.label} className="flex items-center gap-3">
                 <Link to={l.to} hash={(l as { hash?: string }).hash} className="hover:opacity-100 opacity-85">
