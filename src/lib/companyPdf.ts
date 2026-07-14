@@ -2,10 +2,10 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { formatBDT, formatVolume, type Company } from "@/data/companies";
 
-const BRAND: [number, number, number] = [16, 122, 74]; // DSE green-ish
-const INK: [number, number, number] = [20, 24, 28];
-const MUTED: [number, number, number] = [110, 118, 128];
-const LINE: [number, number, number] = [220, 225, 230];
+const BRAND: [number, number, number] = [0, 0, 0];
+const INK: [number, number, number] = [0, 0, 0];
+const MUTED: [number, number, number] = [90, 90, 90];
+const LINE: [number, number, number] = [200, 200, 200];
 
 type Doc = jsPDF & { lastAutoTable?: { finalY: number } };
 
