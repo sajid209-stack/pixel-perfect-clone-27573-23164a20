@@ -244,6 +244,23 @@ export function exportCompanyPdf(co: Company) {
     ["Prev. Close / Open", `${money(co.prevClose)} / ${money(co.open)}`],
   ]);
 
+  // Price trend chart (1Y)
+  if (y > 200) { doc.addPage(); y = 20; }
+  y = sectionTitle(doc, "Price Trend (1Y)", y);
+  y = drawLineChart(doc, y, buildSeries(co, "1Y"), { height: 60 });
+
+  // Dividend chart
+  if (co.dividendHistory?.length) {
+    if (y > 210) { doc.addPage(); y = 20; }
+    y = sectionTitle(doc, "Dividend Trend (Cash %)", y);
+    y = drawBarChart(
+      doc,
+      y,
+      co.dividendHistory.map((d) => ({ label: String(d.year), v: d.cash })),
+      { height: 50 }
+    );
+  }
+
   // Basics
   y = sectionTitle(doc, "Company Basics", y);
   y = kvTable(doc, y, [
