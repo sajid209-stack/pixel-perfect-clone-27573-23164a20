@@ -48,7 +48,7 @@ function header(doc: Doc, co: Company) {
   doc.text(`BDT ${money(co.price)}`, w - 14, 34, { align: "right" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9.5);
-  doc.setTextColor(...(up ? ([16, 140, 80] as [number, number, number]) : ([200, 60, 60] as [number, number, number])));
+  doc.setTextColor(...INK);
   doc.text(
     `${up ? "+" : ""}${money(co.change)} (${up ? "+" : ""}${money(co.changePct)}%) today`,
     w - 14,
