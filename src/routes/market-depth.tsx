@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { Search, RefreshCw } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Search, RefreshCw, X, ChevronDown, CornerDownLeft } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
@@ -95,19 +95,58 @@ function nf(n: number) {
   return n.toLocaleString("en-US");
 }
 
+function highlight(text: string, q: string) {
+  if (!q) return text;
+  const i = text.toLowerCase().indexOf(q.toLowerCase());
+  if (i < 0) return text;
+  return (
+    <>
+      {text.slice(0, i)}
+      <mark
+        style={{
+          background: "color-mix(in oklab, var(--brand-600) 20%, transparent)",
+          color: "inherit",
+          padding: 0,
+        }}
+      >
+        {text.slice(i, i + q.length)}
+      </mark>
+      {text.slice(i + q.length)}
+    </>
+  );
+}
+
 function MarketDepthPage() {
   const { t } = useLang();
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [nonce, setNonce] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const matches = useMemo(() => {
     const q = query.trim().toUpperCase();
-    if (!q) return [];
-    return companyIndex
-      .filter((c) => c.code.includes(q) || c.name.toUpperCase().includes(q))
-      .slice(0, 8);
+    const src = q
+      ? companyIndex.filter(
+          (c) => c.code.includes(q) || c.name.toUpperCase().includes(q),
+        )
+      : companyIndex;
+    return src.slice(0, 8);
   }, [query]);
+
+  useEffect(() => {
+    setActiveIdx(0);
+  }, [query, open]);
+
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
 
   const selectedCo = useMemo(
     () => companyIndex.find((c) => c.code === selected) ?? null,
@@ -122,7 +161,33 @@ function MarketDepthPage() {
     [selectedCo, nonce],
   );
 
+  const pick = (code: string) => {
+    setSelected(code);
+    setQuery("");
+    setOpen(false);
+    setNonce((n) => n + 1);
+    inputRef.current?.blur();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setOpen(true);
+      setActiveIdx((i) => Math.min(matches.length - 1, i + 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIdx((i) => Math.max(0, i - 1));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const m = matches[activeIdx];
+      if (m) pick(m.code);
+    } else if (e.key === "Escape") {
+      setOpen(false);
+    }
+  };
+
   const rows = Array.from({ length: 10 }, (_, i) => i);
+
 
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
@@ -168,59 +233,178 @@ function MarketDepthPage() {
         <div className="mt-6 flex flex-col md:flex-row md:items-end gap-3">
           <div className="flex-1">
             <label
-              className="block text-[12px] mb-1.5"
+              htmlFor="md-instrument"
+              className="block text-[12px] mb-1.5 font-medium"
               style={{ color: "var(--text-secondary)" }}
             >
               {t("Please select an instrument")}
             </label>
-            <div className="relative max-w-md">
-              <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"
-                style={{ color: "var(--text-muted)" }}
-              />
-              <input
-                type="text"
-                value={selected && !query ? selected : query}
-                onChange={(e) => {
-                  setSelected(null);
-                  setQuery(e.target.value);
-                }}
-                placeholder={t("Search trading code or company name")}
-                className="w-full pl-9 pr-3 py-2 rounded-md text-[14px] outline-none"
+            <div ref={wrapRef} className="relative max-w-md">
+              <div
+                className="flex items-center rounded-md transition-all"
                 style={{
                   background: "var(--surface-1)",
-                  border: "1px solid var(--border)",
-                  color: "var(--text-primary)",
+                  border: `1px solid ${open ? "var(--brand-600)" : "var(--border)"}`,
+                  boxShadow: open
+                    ? "0 0 0 3px color-mix(in oklab, var(--brand-600) 18%, transparent)"
+                    : "none",
                 }}
-              />
-              {!selected && matches.length > 0 && (
+              >
+                <Search
+                  className="ml-3 w-4 h-4 shrink-0"
+                  style={{ color: open ? "var(--brand-600)" : "var(--text-muted)" }}
+                />
+                <input
+                  id="md-instrument"
+                  ref={inputRef}
+                  type="text"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-controls="md-instrument-list"
+                  aria-autocomplete="list"
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    setOpen(true);
+                  }}
+                  onFocus={() => setOpen(true)}
+                  onKeyDown={onKeyDown}
+                  placeholder={
+                    selectedCo
+                      ? `${selectedCo.code} — ${selectedCo.name}`
+                      : t("Search trading code or company name")
+                  }
+                  className="flex-1 min-w-0 bg-transparent px-2.5 py-2.5 text-[14px] outline-none placeholder:opacity-70"
+                  style={{ color: "var(--text-primary)" }}
+                />
+                {query ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuery("");
+                      inputRef.current?.focus();
+                    }}
+                    aria-label={t("Clear")}
+                    className="mr-1 p-1.5 rounded hover:opacity-70"
+                    style={{ color: "var(--text-muted)" }}
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                ) : (
+                  <ChevronDown
+                    className="mr-2.5 w-4 h-4 transition-transform"
+                    style={{
+                      color: "var(--text-muted)",
+                      transform: open ? "rotate(180deg)" : "none",
+                    }}
+                  />
+                )}
+              </div>
+
+              {open && (
                 <div
-                  className="absolute z-10 mt-1 w-full rounded-md overflow-hidden"
+                  id="md-instrument-list"
+                  role="listbox"
+                  className="absolute z-20 mt-1.5 w-full rounded-md overflow-hidden"
                   style={{
                     background: "var(--surface-1)",
                     border: "1px solid var(--border)",
+                    boxShadow:
+                      "0 10px 30px -12px rgba(0,0,0,0.25), 0 2px 6px rgba(0,0,0,0.06)",
                   }}
                 >
-                  {matches.map((m) => (
-                    <button
-                      key={m.code}
-                      onClick={() => {
-                        setSelected(m.code);
-                        setQuery("");
-                        setNonce((n) => n + 1);
-                      }}
-                      className="block w-full text-left px-3 py-2 text-[13px] hover:opacity-80"
-                      style={{ color: "var(--text-primary)" }}
+                  <div
+                    className="px-3 py-1.5 text-[10px] uppercase tracking-wider flex items-center justify-between"
+                    style={{
+                      color: "var(--text-muted)",
+                      background: "var(--surface-2)",
+                      borderBottom: "1px solid var(--border)",
+                    }}
+                  >
+                    <span>{query ? t("Matches") : t("Popular instruments")}</span>
+                    <span>{matches.length}</span>
+                  </div>
+                  {matches.length === 0 ? (
+                    <div
+                      className="px-3 py-6 text-center text-[13px]"
+                      style={{ color: "var(--text-muted)" }}
                     >
-                      <span className="font-medium">{m.code}</span>
-                      <span
-                        className="ml-2"
-                        style={{ color: "var(--text-secondary)" }}
-                      >
-                        {m.name}
-                      </span>
-                    </button>
-                  ))}
+                      {t("No instruments match")} “{query}”
+                    </div>
+                  ) : (
+                    <ul className="max-h-72 overflow-auto">
+                      {matches.map((m, i) => {
+                        const active = i === activeIdx;
+                        return (
+                          <li key={m.code}>
+                            <button
+                              type="button"
+                              role="option"
+                              aria-selected={active}
+                              onMouseEnter={() => setActiveIdx(i)}
+                              onMouseDown={(e) => e.preventDefault()}
+                              onClick={() => pick(m.code)}
+                              className="w-full text-left px-3 py-2 flex items-center gap-3 transition-colors"
+                              style={{
+                                background: active
+                                  ? "color-mix(in oklab, var(--brand-600) 10%, transparent)"
+                                  : "transparent",
+                              }}
+                            >
+                              <span
+                                className="inline-flex items-center justify-center w-9 h-9 rounded text-[11px] font-bold tabular-nums shrink-0"
+                                style={{
+                                  background: "var(--surface-2)",
+                                  color: "var(--brand-600)",
+                                  border: "1px solid var(--border)",
+                                }}
+                              >
+                                {m.code.slice(0, 2)}
+                              </span>
+                              <span className="flex-1 min-w-0">
+                                <span
+                                  className="block text-[13px] font-semibold truncate"
+                                  style={{ color: "var(--text-primary)" }}
+                                >
+                                  {highlight(m.code, query)}
+                                </span>
+                                <span
+                                  className="block text-[11px] truncate"
+                                  style={{ color: "var(--text-secondary)" }}
+                                >
+                                  {highlight(m.name, query)} · {m.sector}
+                                </span>
+                              </span>
+                              <span
+                                className="text-[12px] tabular-nums font-medium shrink-0"
+                                style={{ color: "var(--text-primary)" }}
+                              >
+                                ৳{m.price.toFixed(1)}
+                              </span>
+                              {active && (
+                                <CornerDownLeft
+                                  className="w-3.5 h-3.5 shrink-0"
+                                  style={{ color: "var(--brand-600)" }}
+                                />
+                              )}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                  <div
+                    className="px-3 py-1.5 text-[10px] flex items-center gap-3"
+                    style={{
+                      color: "var(--text-muted)",
+                      background: "var(--surface-2)",
+                      borderTop: "1px solid var(--border)",
+                    }}
+                  >
+                    <span>↑↓ {t("navigate")}</span>
+                    <span>↵ {t("select")}</span>
+                    <span>esc {t("close")}</span>
+                  </div>
                 </div>
               )}
             </div>
@@ -250,6 +434,7 @@ function MarketDepthPage() {
             </div>
           )}
         </div>
+
 
         {/* Order book */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
