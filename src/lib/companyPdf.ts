@@ -2,10 +2,10 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { formatBDT, formatVolume, type Company } from "@/data/companies";
 
-const BRAND: [number, number, number] = [16, 122, 74]; // DSE green-ish
-const INK: [number, number, number] = [20, 24, 28];
-const MUTED: [number, number, number] = [110, 118, 128];
-const LINE: [number, number, number] = [220, 225, 230];
+const BRAND: [number, number, number] = [0, 0, 0];
+const INK: [number, number, number] = [0, 0, 0];
+const MUTED: [number, number, number] = [90, 90, 90];
+const LINE: [number, number, number] = [200, 200, 200];
 
 type Doc = jsPDF & { lastAutoTable?: { finalY: number } };
 
@@ -48,7 +48,7 @@ function header(doc: Doc, co: Company) {
   doc.text(`BDT ${money(co.price)}`, w - 14, 34, { align: "right" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9.5);
-  doc.setTextColor(...(up ? ([16, 140, 80] as [number, number, number]) : ([200, 60, 60] as [number, number, number])));
+  doc.setTextColor(...INK);
   doc.text(
     `${up ? "+" : ""}${money(co.change)} (${up ? "+" : ""}${money(co.changePct)}%) today`,
     w - 14,
@@ -277,5 +277,10 @@ export function exportCompanyPdf(co: Company) {
   }
 
   footer(doc);
-  doc.save(`${co.code}-company-profile.pdf`);
+  const blobUrl = doc.output("bloburl");
+  const win = window.open(blobUrl, "_blank");
+  if (!win) {
+    // Popup blocked — fall back to saving
+    doc.save(`${co.code}-company-profile.pdf`);
+  }
 }
