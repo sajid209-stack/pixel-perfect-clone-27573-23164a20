@@ -305,12 +305,12 @@ function MarketDepthPage() {
                 <div
                   id="md-instrument-list"
                   role="listbox"
-                  className="absolute z-20 mt-1.5 w-full rounded-md overflow-hidden"
+                  className="absolute left-0 right-0 top-full z-50 mt-1.5 rounded-md overflow-hidden"
                   style={{
                     background: "var(--surface-1)",
                     border: "1px solid var(--border)",
                     boxShadow:
-                      "0 10px 30px -12px rgba(0,0,0,0.25), 0 2px 6px rgba(0,0,0,0.06)",
+                      "0 10px 30px -12px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.12)",
                   }}
                 >
                   <div
