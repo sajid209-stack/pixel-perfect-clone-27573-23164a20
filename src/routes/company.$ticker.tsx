@@ -112,10 +112,23 @@ function CompanyPage() {
   const { push } = useRecentlyViewed();
   useEffect(() => { push(co.code); }, [co.code, push]);
 
+  const [pdfPreview, setPdfPreview] = useState<{ blobUrl: string; filename: string; revoke: () => void } | null>(null);
 
   const handlePrint = () => {
-    exportCompanyPdf(co);
+    if (pdfPreview) pdfPreview.revoke();
+    const pdf = exportCompanyPdf(co);
+    setPdfPreview(pdf);
   };
+
+  const closePreview = () => {
+    if (pdfPreview) pdfPreview.revoke();
+    setPdfPreview(null);
+  };
+
+  useEffect(() => {
+    return () => { if (pdfPreview) pdfPreview.revoke(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   return (
