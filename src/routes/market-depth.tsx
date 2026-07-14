@@ -95,19 +95,58 @@ function nf(n: number) {
   return n.toLocaleString("en-US");
 }
 
+function highlight(text: string, q: string) {
+  if (!q) return text;
+  const i = text.toLowerCase().indexOf(q.toLowerCase());
+  if (i < 0) return text;
+  return (
+    <>
+      {text.slice(0, i)}
+      <mark
+        style={{
+          background: "color-mix(in oklab, var(--brand-600) 20%, transparent)",
+          color: "inherit",
+          padding: 0,
+        }}
+      >
+        {text.slice(i, i + q.length)}
+      </mark>
+      {text.slice(i + q.length)}
+    </>
+  );
+}
+
 function MarketDepthPage() {
   const { t } = useLang();
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [nonce, setNonce] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const matches = useMemo(() => {
     const q = query.trim().toUpperCase();
-    if (!q) return [];
-    return companyIndex
-      .filter((c) => c.code.includes(q) || c.name.toUpperCase().includes(q))
-      .slice(0, 8);
+    const src = q
+      ? companyIndex.filter(
+          (c) => c.code.includes(q) || c.name.toUpperCase().includes(q),
+        )
+      : companyIndex;
+    return src.slice(0, 8);
   }, [query]);
+
+  useEffect(() => {
+    setActiveIdx(0);
+  }, [query, open]);
+
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
 
   const selectedCo = useMemo(
     () => companyIndex.find((c) => c.code === selected) ?? null,
@@ -122,7 +161,33 @@ function MarketDepthPage() {
     [selectedCo, nonce],
   );
 
+  const pick = (code: string) => {
+    setSelected(code);
+    setQuery("");
+    setOpen(false);
+    setNonce((n) => n + 1);
+    inputRef.current?.blur();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setOpen(true);
+      setActiveIdx((i) => Math.min(matches.length - 1, i + 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIdx((i) => Math.max(0, i - 1));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const m = matches[activeIdx];
+      if (m) pick(m.code);
+    } else if (e.key === "Escape") {
+      setOpen(false);
+    }
+  };
+
   const rows = Array.from({ length: 10 }, (_, i) => i);
+
 
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
