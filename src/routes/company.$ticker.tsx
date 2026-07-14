@@ -26,6 +26,7 @@ import { StarButton } from "@/components/dse/StarButton";
 import { CategoryBadge } from "@/components/dse/CategoryBadge";
 import { useRecentlyViewed } from "@/lib/userPrefs";
 import { exportCompanyPdf } from "@/lib/companyPdf";
+import { PdfPreviewModal } from "@/components/dse/PdfPreviewModal";
 import {
   buildSeries,
   companies,
