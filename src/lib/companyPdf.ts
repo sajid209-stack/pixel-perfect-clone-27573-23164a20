@@ -107,6 +107,121 @@ function kvTable(doc: Doc, y: number, rows: [string, string][]) {
   return (doc.lastAutoTable?.finalY ?? y) + 6;
 }
 
+function drawLineChart(
+  doc: Doc,
+  y: number,
+  data: { t: string; v: number }[],
+  opts: { title?: string; height?: number } = {}
+) {
+  const pageW = doc.internal.pageSize.getWidth();
+  const left = 14;
+  const right = pageW - 14;
+  const width = right - left;
+  const h = opts.height ?? 60;
+  const padL = 14; // for y-axis labels
+  const padB = 8;
+  const padT = 4;
+  const plotL = left + padL;
+  const plotR = right - 2;
+  const plotT = y + padT;
+  const plotB = y + h - padB;
+
+  // Frame
+  doc.setDrawColor(...LINE);
+  doc.setLineWidth(0.2);
+  doc.rect(left, y, width, h);
+
+  if (!data.length) return y + h + 4;
+
+  const vs = data.map((d) => d.v);
+  const min = Math.min(...vs);
+  const max = Math.max(...vs);
+  const span = max - min || 1;
+
+  // Gridlines + Y labels (4 steps)
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.setTextColor(...MUTED);
+  for (let i = 0; i <= 4; i++) {
+    const ratio = i / 4;
+    const yy = plotB - (plotB - plotT) * ratio;
+    const val = min + span * ratio;
+    doc.setDrawColor(235, 235, 235);
+    doc.line(plotL, yy, plotR, yy);
+    doc.text(val.toFixed(1), plotL - 1, yy + 1.2, { align: "right" });
+  }
+
+  // X labels (first, mid, last)
+  const xAt = (i: number) => plotL + ((plotR - plotL) * i) / (data.length - 1 || 1);
+  const yAt = (v: number) => plotB - ((v - min) / span) * (plotB - plotT);
+  const marks = [0, Math.floor(data.length / 2), data.length - 1];
+  marks.forEach((i) => {
+    doc.text(String(data[i].t), xAt(i), plotB + 5, { align: "center" });
+  });
+
+  // Line
+  doc.setDrawColor(...INK);
+  doc.setLineWidth(0.5);
+  for (let i = 1; i < data.length; i++) {
+    doc.line(xAt(i - 1), yAt(data[i - 1].v), xAt(i), yAt(data[i].v));
+  }
+
+  return y + h + 6;
+}
+
+function drawBarChart(
+  doc: Doc,
+  y: number,
+  data: { label: string; v: number }[],
+  opts: { height?: number } = {}
+) {
+  const pageW = doc.internal.pageSize.getWidth();
+  const left = 14;
+  const right = pageW - 14;
+  const width = right - left;
+  const h = opts.height ?? 55;
+  const padL = 14;
+  const padB = 8;
+  const padT = 4;
+  const plotL = left + padL;
+  const plotR = right - 2;
+  const plotT = y + padT;
+  const plotB = y + h - padB;
+
+  doc.setDrawColor(...LINE);
+  doc.setLineWidth(0.2);
+  doc.rect(left, y, width, h);
+
+  if (!data.length) return y + h + 4;
+
+  const max = Math.max(...data.map((d) => d.v), 1);
+  const bw = ((plotR - plotL) / data.length) * 0.6;
+  const step = (plotR - plotL) / data.length;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.setTextColor(...MUTED);
+  for (let i = 0; i <= 4; i++) {
+    const ratio = i / 4;
+    const yy = plotB - (plotB - plotT) * ratio;
+    doc.setDrawColor(235, 235, 235);
+    doc.line(plotL, yy, plotR, yy);
+    doc.text((max * ratio).toFixed(1), plotL - 1, yy + 1.2, { align: "right" });
+  }
+
+  data.forEach((d, i) => {
+    const bh = (d.v / max) * (plotB - plotT);
+    const x = plotL + step * i + (step - bw) / 2;
+    doc.setFillColor(60, 60, 60);
+    doc.rect(x, plotB - bh, bw, bh, "F");
+    doc.setTextColor(...MUTED);
+    doc.text(d.label, x + bw / 2, plotB + 5, { align: "center" });
+  });
+
+  return y + h + 6;
+}
+
+
 export function exportCompanyPdf(co: Company) {
   const doc = new jsPDF({ unit: "mm", format: "a4" }) as Doc;
   header(doc, co);
