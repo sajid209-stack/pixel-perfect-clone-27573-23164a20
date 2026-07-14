@@ -134,6 +134,13 @@ function CompanyPage() {
   return (
     <div className={`min-h-screen ${printMode ? "is-printing" : ""}`}>
       <PrintStyles />
+      {pdfPreview && (
+        <PdfPreviewModal
+          blobUrl={pdfPreview.blobUrl}
+          filename={pdfPreview.filename}
+          onClose={closePreview}
+        />
+      )}
       <div className="no-print"><Nav /></div>
 
 
