@@ -113,11 +113,7 @@ function CompanyPage() {
 
 
   const handlePrint = () => {
-    setPrintMode(true);
-    setTimeout(() => {
-      window.print();
-      setTimeout(() => setPrintMode(false), 300);
-    }, 80);
+    exportCompanyPdf(co);
   };
 
 
