@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { Search, RefreshCw } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Search, RefreshCw, X, ChevronDown, CornerDownLeft } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
