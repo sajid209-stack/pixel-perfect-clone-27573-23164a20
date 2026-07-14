@@ -277,5 +277,10 @@ export function exportCompanyPdf(co: Company) {
   }
 
   footer(doc);
-  doc.save(`${co.code}-company-profile.pdf`);
+  const blobUrl = doc.output("bloburl");
+  const win = window.open(blobUrl, "_blank");
+  if (!win) {
+    // Popup blocked — fall back to saving
+    doc.save(`${co.code}-company-profile.pdf`);
+  }
 }
