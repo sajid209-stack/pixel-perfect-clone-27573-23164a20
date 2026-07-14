@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { formatBDT, formatVolume, type Company } from "@/data/companies";
+import { buildSeries, formatBDT, formatVolume, type Company } from "@/data/companies";
 
 const BRAND: [number, number, number] = [0, 0, 0];
 const INK: [number, number, number] = [0, 0, 0];
