@@ -307,7 +307,8 @@ function MarketDepthPage() {
                   role="listbox"
                   className="absolute left-0 right-0 top-full z-50 mt-1.5 rounded-md overflow-hidden"
                   style={{
-                    background: "var(--surface-1)",
+                    background: "var(--surface)",
+                    backdropFilter: "none",
                     border: "1px solid var(--border)",
                     boxShadow:
                       "0 10px 30px -12px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.12)",
