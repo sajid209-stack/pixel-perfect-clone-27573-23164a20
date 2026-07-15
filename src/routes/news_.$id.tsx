@@ -32,7 +32,7 @@ export const Route = createFileRoute("/news_/$id")({
 });
 
 function NewsPostPage() {
-  const { post } = Route.useLoaderData();
+  const { post } = Route.useLoaderData() as { post: Disclosure };
   const meta = typeMeta[post.type];
 
   const related = useMemo(
