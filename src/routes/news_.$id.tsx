@@ -292,15 +292,10 @@ function NewsPostPage() {
       {/* Related posts */}
       <section className="max-w-[1180px] mx-auto px-6 pb-16">
         <div className="pt-10" style={{ borderTop: "1px solid rgb(var(--ov) / 0.08)" }}>
-          <div className="flex items-end justify-between mb-6 gap-3 flex-wrap">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.24em] mb-1" style={{ color: "var(--text-muted)" }}>
-                More from the newsroom
-              </div>
-              <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight">
-                Blogs
-              </h2>
-            </div>
+          <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
+            <h2 className="text-[34px] md:text-[46px] font-semibold leading-none">
+              Blogs
+            </h2>
             <Link
               to="/news"
               className="inline-flex items-center gap-1 text-[12.5px] font-semibold"
