@@ -212,6 +212,14 @@ export function HomeFooter() {
                 {idx < arr.length - 1 && <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>}
               </span>
             ))}
+            <Link
+              to="/news/$id"
+              params={{ id: "x-1" }}
+              className="ml-2 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider"
+              style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "#ffffff" }}
+            >
+              {t("Individual Blog")}
+            </Link>
           </div>
           <div className="text-[11.5px]" style={{ color: "rgba(255,255,255,0.7)" }}>
             {t("© Dhaka Stock Exchange 2020")}

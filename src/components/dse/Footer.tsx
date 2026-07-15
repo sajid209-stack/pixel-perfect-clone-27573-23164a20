@@ -215,6 +215,14 @@ export function Footer() {
             <Link to="/disclaimer" className="cursor-pointer hover:opacity-100 opacity-80">{t("Disclaimer")}</Link>
             <Link to="/copyright" className="cursor-pointer hover:opacity-100 opacity-80">{t("Copyright")}</Link>
             <Link to="/404" className="cursor-pointer hover:opacity-100 opacity-80">{t("404")}</Link>
+            <Link
+              to="/news/$id"
+              params={{ id: "x-1" }}
+              className="cursor-pointer px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider"
+              style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "#ffffff" }}
+            >
+              {t("Individual Blog")}
+            </Link>
           </div>
         </div>
       </div>
