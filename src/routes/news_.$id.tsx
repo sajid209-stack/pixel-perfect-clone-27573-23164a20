@@ -296,31 +296,6 @@ function NewsPostPage() {
 
         {/* Sidebar */}
         <aside className="space-y-5 lg:sticky lg:top-24 self-start">
-          <SidebarCard title="Search Articles">
-            <div className="relative">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "var(--text-muted)" }} />
-              <input
-                type="search"
-                placeholder="Search…"
-                className="w-full h-9 pl-9 pr-3 rounded-lg text-[12.5px] bg-transparent"
-                style={{ border: "1px solid rgb(var(--ov) / 0.12)", color: "var(--text-primary)" }}
-              />
-            </div>
-          </SidebarCard>
-
-          <SidebarCard title="Categories">
-            <ul className="space-y-1.5">
-              {CATEGORIES.map((c) => (
-                <li key={c}>
-                  <a href="#" className="text-[13px] flex items-center justify-between py-1 hover:text-[color:var(--primary)]" style={{ color: "var(--text-secondary)" }}>
-                    <span>{c}</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-60" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </SidebarCard>
-
           <SidebarCard title="Latest Articles">
             <ul className="space-y-3.5">
               {sidebarPosts.slice(0, 3).map((r) => (
