@@ -293,7 +293,10 @@ function NewsPostPage() {
       <section className="max-w-[1180px] mx-auto px-6 pb-16">
         <div className="pt-10" style={{ borderTop: "1px solid rgb(var(--ov) / 0.08)" }}>
           <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
-            <h2 className="text-[34px] md:text-[46px] font-semibold leading-none">
+            <h2
+              className="text-[34px] md:text-[46px] font-semibold leading-none tracking-tight"
+              style={{ color: "var(--text-primary)" }}
+            >
               Blogs
             </h2>
             <Link
