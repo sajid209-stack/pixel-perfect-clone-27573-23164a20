@@ -2,22 +2,18 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowLeft,
   ArrowUpRight,
-  Bookmark,
   Clock,
   Copy,
-  Download,
   Facebook,
-  FileText,
-  Info,
   Linkedin,
   Mail,
   Printer,
-  Search,
   Share2,
   Twitter,
   User,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
