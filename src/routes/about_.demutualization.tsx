@@ -32,7 +32,9 @@ function SchemeDocsSection() {
 }
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
 import { useLang } from "@/i18n/LanguageContext";
+import heroAsset from "@/assets/about-dse-mega.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/demutualization")({
   head: () => ({
