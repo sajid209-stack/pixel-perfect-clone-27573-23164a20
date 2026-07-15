@@ -334,29 +334,7 @@ function NewsPostPage() {
             </ol>
           </SidebarCard>
 
-          <SidebarCard title="Market Snapshot">
-            <ul className="space-y-2">
-              {SNAPSHOT.map((s) => (
-                <li key={s.code} className="flex items-center justify-between text-[12.5px]">
-                  <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{s.code}</span>
-                  <span className="tnum" style={{ color: "var(--text-secondary)" }}>{s.val}</span>
-                  <span className="tnum font-semibold" style={{ color: s.up ? "var(--green-up)" : "var(--red-down)" }}>{s.chg}</span>
-                </li>
-              ))}
-            </ul>
-          </SidebarCard>
 
-          <SidebarCard title="Downloads">
-            <ul className="space-y-2">
-              {["Annual Report", "Market Report", "IPO Prospectus"].map((d) => (
-                <li key={d}>
-                  <a href="#" className="flex items-center gap-2 text-[12.5px] py-1 hover:text-[color:var(--primary)]" style={{ color: "var(--text-secondary)" }}>
-                    <Download className="w-3.5 h-3.5" /> {d}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </SidebarCard>
 
           <div
             className="rounded-xl p-5"
