@@ -166,202 +166,38 @@ function NewsPostPage() {
         </div>
       </div>
 
-      {/* Main grid: TOC | Article | Sidebar */}
-      <div className="max-w-[1240px] mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-[180px_minmax(0,1fr)_300px] gap-10">
-        {/* Floating TOC */}
-        <aside className="hidden lg:block">
-          <div className="sticky top-24">
-            <div className="text-[10.5px] uppercase tracking-[0.2em] mb-3" style={{ color: "var(--text-muted)" }}>
-              On this page
-            </div>
-            <ul className="space-y-2">
-              {TOC.map((t) => (
-                <li key={t.id}>
-                  <a
-                    href={`#${t.id}`}
-                    className="block text-[12.5px] py-1 border-l-2 pl-3 transition"
-                    style={{
-                      borderColor: active === t.id ? "var(--primary)" : "rgb(var(--ov) / 0.1)",
-                      color: active === t.id ? "var(--primary)" : "var(--text-secondary)",
-                      fontWeight: active === t.id ? 600 : 400,
-                    }}
-                  >
-                    {t.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </aside>
-
+      {/* Main grid: Article | Sidebar */}
+      <div className="max-w-[1240px] mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-10">
         {/* Article body */}
-        <article className="min-w-0 max-w-[720px]">
-          <div className="text-[16px] leading-[1.8] space-y-6" style={{ color: "var(--text-secondary)" }}>
-            <section id="introduction">
-              <h2 className="text-[26px] md:text-[30px] font-semibold tracking-tight mb-4" style={{ color: "var(--text-primary)" }}>
-                Introduction
-              </h2>
-              <p>{post.body}</p>
-              <p>
-                This report examines the filing in the wider context of Bangladesh's capital market
-                and its implications for institutional and retail participants over the coming
-                trading sessions.
-              </p>
-            </section>
-
-            <section id="market-overview">
-              <h2 className="text-[26px] md:text-[30px] font-semibold tracking-tight mb-4 mt-4" style={{ color: "var(--text-primary)" }}>
-                Market Overview
-              </h2>
-              <p>
-                The Dhaka Stock Exchange closed the previous session with mixed sentiment. Turnover
-                remained above the 30-day average as investors positioned ahead of upcoming
-                disclosures across the {post.sector.toLowerCase()} sector.
-              </p>
-
-              <h3 className="text-[19px] font-semibold mt-6 mb-3" style={{ color: "var(--text-primary)" }}>
-                Sector positioning
-              </h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Broad-based buying interest across large-cap {post.sector} names</li>
-                <li>Foreign portfolio flows tilted net-positive for the week</li>
-                <li>Bond-market yields held stable in the mid-curve</li>
-              </ul>
-
-              <div
-                className="rounded-lg p-4 mt-6 flex gap-3 items-start"
-                style={{ background: "rgb(var(--primary-rgb, 47 90 62) / 0.06)", border: "1px solid rgb(var(--primary-rgb, 47 90 62) / 0.15)" }}
-              >
-                <Info className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "var(--primary)" }} />
-                <div className="text-[13.5px]" style={{ color: "var(--text-primary)" }}>
-                  <strong>Key takeaway:</strong> This disclosure is filed under BSEC's continuous
-                  disclosure regime — investors should consult the attached PDF before trading.
-                </div>
-              </div>
-            </section>
-
-            <section id="analysis">
-              <h2 className="text-[26px] md:text-[30px] font-semibold tracking-tight mb-4 mt-4" style={{ color: "var(--text-primary)" }}>
-                Analysis
-              </h2>
-              <p>
-                Analysts see the announcement as a directional signal for {post.code} over the
-                medium term. The following table summarises consensus estimates gathered from local
-                brokerage desks.
-              </p>
-
-              <ol className="list-decimal pl-6 space-y-2 mt-4">
-                <li>Review the full filing on the DSE portal</li>
-                <li>Compare against the company's most recent audited statements</li>
-                <li>Assess sector-relative valuation before repositioning</li>
-              </ol>
-
-              <div className="overflow-x-auto mt-6 rounded-lg" style={{ border: "1px solid rgb(var(--ov) / 0.08)" }}>
-                <table className="w-full text-[13px]">
-                  <thead style={{ background: "rgb(var(--ov) / 0.04)" }}>
-                    <tr>
-                      <th className="text-left px-4 py-2.5 font-semibold" style={{ color: "var(--text-primary)" }}>Metric</th>
-                      <th className="text-right px-4 py-2.5 font-semibold" style={{ color: "var(--text-primary)" }}>Previous</th>
-                      <th className="text-right px-4 py-2.5 font-semibold" style={{ color: "var(--text-primary)" }}>Current</th>
-                      <th className="text-right px-4 py-2.5 font-semibold" style={{ color: "var(--text-primary)" }}>Change</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      ["EPS (BDT)", "3.42", "4.11", "+20.2%"],
-                      ["NAV per share", "48.20", "52.75", "+9.4%"],
-                      ["P/E ratio", "14.6x", "12.9x", "-1.7x"],
-                      ["Dividend yield", "2.1%", "2.6%", "+0.5pp"],
-                    ].map((row, i) => (
-                      <tr key={i} style={{ borderTop: "1px solid rgb(var(--ov) / 0.06)" }}>
-                        <td className="px-4 py-2.5" style={{ color: "var(--text-primary)" }}>{row[0]}</td>
-                        <td className="px-4 py-2.5 text-right tnum">{row[1]}</td>
-                        <td className="px-4 py-2.5 text-right tnum">{row[2]}</td>
-                        <td className="px-4 py-2.5 text-right tnum font-semibold" style={{ color: "var(--green-up)" }}>{row[3]}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <figure className="mt-8">
-                <div className="rounded-lg overflow-hidden" style={{ border: "1px solid rgb(var(--ov) / 0.06)" }}>
-                  <img src={IMAGES[(hashCode(post.id) + 1) % IMAGES.length]} alt="Supporting visual" className="w-full object-cover" style={{ aspectRatio: "16/9" }} />
-                </div>
-                <figcaption className="text-[12px] italic mt-2" style={{ color: "var(--text-muted)" }}>
-                  Trading floor activity during the reference session. Source: DSE.
-                </figcaption>
-              </figure>
-
-              <blockquote
-                className="pl-5 py-2 my-8 text-[19px] italic"
-                style={{ borderLeft: "3px solid var(--primary)", color: "var(--text-primary)" }}
-              >
-                "All price-sensitive information must reach the market simultaneously and through
-                official channels."
-                <div className="text-[12px] not-italic mt-1" style={{ color: "var(--text-muted)" }}>
-                  — DSE Listing Regulations
-                </div>
-              </blockquote>
-            </section>
-
-            <section id="key-statistics">
-              <h2 className="text-[26px] md:text-[30px] font-semibold tracking-tight mb-4 mt-4" style={{ color: "var(--text-primary)" }}>
-                Key Statistics
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[
-                  ["Turnover", "৳842 Cr"],
-                  ["Volume", "18.4M"],
-                  ["Trades", "112,347"],
-                  ["Market Cap", "৳7.2L Cr"],
-                ].map(([k, v]) => (
-                  <div key={k} className="rounded-lg p-4" style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)" }}>
-                    <div className="text-[11px] uppercase tracking-wider mb-1" style={{ color: "var(--text-muted)" }}>{k}</div>
-                    <div className="text-[18px] font-semibold tnum" style={{ color: "var(--text-primary)" }}>{v}</div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section id="conclusion">
-              <h2 className="text-[26px] md:text-[30px] font-semibold tracking-tight mb-4 mt-4" style={{ color: "var(--text-primary)" }}>
-                Conclusion
-              </h2>
-              <p>
-                The filing reinforces {post.code}'s adherence to continuous disclosure obligations
-                and provides investors with the information needed to make informed decisions.
-                For the complete document and supplementary exhibits, download the attachment below.
-              </p>
-
-              {/* Download block */}
-              <div
-                className="rounded-xl p-5 mt-6"
-                style={{ background: "rgb(var(--ov) / 0.04)", border: "1px solid rgb(var(--ov) / 0.06)" }}
-              >
-                <div className="text-[11px] uppercase tracking-[0.2em] mb-2" style={{ color: "var(--text-muted)" }}>
-                  Attached document
-                </div>
-                <div className="flex items-center justify-between gap-3 flex-wrap">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <FileText className="w-5 h-5 shrink-0" style={{ color: "var(--primary)" }} />
-                    <div className="min-w-0">
-                      <div className="text-[14px] font-semibold truncate" style={{ color: "var(--text-primary)" }}>
-                        {post.code}_{post.type.replace(/\s+/g, "_")}_{post.date.replace(/\s+/g, "")}.pdf
-                      </div>
-                      <div className="text-[11.5px]" style={{ color: "var(--text-muted)" }}>Official filing · 1.2 MB</div>
-                    </div>
-                  </div>
-                  <button
-                    className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-semibold"
-                    style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
-                  >
-                    <Download className="w-3.5 h-3.5" /> Download
-                  </button>
-                </div>
-              </div>
-            </section>
+        <article className="min-w-0 max-w-[760px]">
+          <div className="text-[16px] leading-[1.8] space-y-5" style={{ color: "var(--text-secondary)" }}>
+            <p>{post.body}</p>
+            <p>
+              This report examines the filing in the wider context of Bangladesh's capital
+              market and its implications for institutional and retail participants over the
+              coming trading sessions.
+            </p>
+            <p>
+              The Dhaka Stock Exchange closed the previous session with mixed sentiment.
+              Turnover remained above the 30-day average as investors positioned ahead of
+              upcoming disclosures across the {post.sector.toLowerCase()} sector, with
+              broad-based buying interest across large-cap names and net-positive foreign
+              portfolio flows for the week.
+            </p>
+            <p>
+              Analysts see the announcement as a directional signal for {post.code} over the
+              medium term. Investors are advised to review the full filing on the DSE portal,
+              compare it against the company's most recent audited statements, and assess
+              sector-relative valuation before repositioning.
+            </p>
+            <p>
+              The filing reinforces {post.code}'s adherence to continuous disclosure
+              obligations and provides investors with the information needed to make
+              informed decisions on their exposure to the {post.sector.toLowerCase()} sector
+              in the sessions ahead.
+            </p>
           </div>
+
 
           {/* Tags */}
           <div className="mt-10 pt-6" style={{ borderTop: "1px solid rgb(var(--ov) / 0.08)" }}>
