@@ -71,6 +71,7 @@ function DemutualizationPage() {
           </p>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE demutualization" />
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-3">
         {DOCS.map((d) => (
           <a
