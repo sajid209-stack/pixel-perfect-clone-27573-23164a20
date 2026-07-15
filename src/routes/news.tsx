@@ -589,7 +589,7 @@ function NewsPage() {
                   {selected.body}
                 </p>
 
-                <div className="mt-7 pt-5 flex items-center justify-between" style={{ borderTop: "1px solid rgb(var(--ov) / 0.06)" }}>
+                <div className="mt-7 pt-5 flex items-center justify-between gap-3 flex-wrap" style={{ borderTop: "1px solid rgb(var(--ov) / 0.06)" }}>
                   <button
                     className="inline-flex items-center gap-1.5 text-[12px] font-medium"
                     style={{ color: "var(--text-secondary)" }}
@@ -597,14 +597,24 @@ function NewsPage() {
                     <FileText className="w-3.5 h-3.5" />
                     Download PDF
                   </button>
-                  <Link
-                    to="/company/$ticker"
-                    params={{ ticker: selected.code }}
-                    className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-semibold"
-                    style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
-                  >
-                    Open {selected.code} <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <Link
+                      to="/news_/$id"
+                      params={{ id: selected.id }}
+                      className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-semibold"
+                      style={{ border: "1px solid rgb(var(--ov) / 0.1)", color: "var(--text-primary)" }}
+                    >
+                      Read full story
+                    </Link>
+                    <Link
+                      to="/company/$ticker"
+                      params={{ ticker: selected.code }}
+                      className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] font-semibold"
+                      style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
+                    >
+                      Open {selected.code} <ArrowUpRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
               </motion.article>
             )}
