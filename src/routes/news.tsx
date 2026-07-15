@@ -461,51 +461,63 @@ function NewsPage() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.18, delay: Math.min(i * 0.012, 0.18) }}
                   >
-                    <button
-                      onClick={() => setSelectedId(d.id)}
-                      className="w-full text-left px-5 py-4 transition flex gap-4 relative"
-                      style={{
-                        background: active ? "rgb(var(--ov) / 0.04)" : "transparent",
-                        borderBottom:
-                          i === filtered.length - 1 ? "none" : "1px solid rgb(var(--ov) / 0.05)",
-                      }}
-                    >
-                      {active && (
-                        <motion.span
-                          layoutId="newsActive"
-                          className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full"
-                          style={{ background: "var(--primary)" }}
-                        />
-                      )}
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0 tnum"
+                    <div className="relative">
+                      <button
+                        onClick={() => setSelectedId(d.id)}
+                        className="w-full text-left px-5 py-4 transition flex gap-4 relative"
                         style={{
-                          background: "rgb(var(--ov) / 0.05)",
-                          border: "1px solid rgb(var(--ov) / 0.06)",
+                          background: active ? "rgb(var(--ov) / 0.04)" : "transparent",
+                          borderBottom:
+                            i === filtered.length - 1 ? "none" : "1px solid rgb(var(--ov) / 0.05)",
                         }}
                       >
-                        {d.code.slice(0, 2)}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span
-                            className="text-[10px] uppercase tracking-[0.16em] font-medium px-1.5 py-0.5 rounded"
-                            style={{ background: meta.bg, color: meta.color }}
-                          >
-                            {d.type}
-                          </span>
-                          <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>
-                            {d.code} · {d.date} · {d.time}
-                          </span>
-                        </div>
+                        {active && (
+                          <motion.span
+                            layoutId="newsActive"
+                            className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full"
+                            style={{ background: "var(--primary)" }}
+                          />
+                        )}
                         <div
-                          className="text-[13.5px] leading-[1.55] line-clamp-2"
-                          style={{ color: "var(--text-primary)" }}
+                          className="w-10 h-10 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0 tnum"
+                          style={{
+                            background: "rgb(var(--ov) / 0.05)",
+                            border: "1px solid rgb(var(--ov) / 0.06)",
+                          }}
                         >
-                          {d.summary}
+                          {d.code.slice(0, 2)}
                         </div>
-                      </div>
-                    </button>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span
+                              className="text-[10px] uppercase tracking-[0.16em] font-medium px-1.5 py-0.5 rounded"
+                              style={{ background: meta.bg, color: meta.color }}
+                            >
+                              {d.type}
+                            </span>
+                            <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+                              {d.code} · {d.date} · {d.time}
+                            </span>
+                          </div>
+                          <div
+                            className="text-[13.5px] leading-[1.55] line-clamp-2"
+                            style={{ color: "var(--text-primary)" }}
+                          >
+                            {d.summary}
+                          </div>
+                          <Link
+                            to="/news_/$id"
+                            params={{ id: d.id }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1 text-[11.5px] font-semibold mt-2"
+                            style={{ color: "var(--primary)" }}
+                          >
+                            Read full story <ArrowUpRight className="w-3 h-3" />
+                          </Link>
+                        </div>
+                      </button>
+                    </div>
+
                   </motion.li>
                 );
               })}
