@@ -43,6 +43,7 @@ function SurveillancePage() {
           </p>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE surveillance" />
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-5">
         {PARAS.map((p, i) => (
           <p key={i} className="text-[15px] leading-relaxed" style={{ color: "var(--ink)" }}>
