@@ -4,6 +4,7 @@ import { FileText, Images } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
+import { PageHero } from "@/components/dse/PageHero";
 import dseTower from "@/assets/dse-automation-4.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/automation")({
