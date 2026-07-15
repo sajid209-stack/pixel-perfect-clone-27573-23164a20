@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
 import { useLang } from "@/i18n/LanguageContext";
+import heroAsset from "@/assets/about-dse-mega.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/at-a-glance")({
   head: () => ({
@@ -48,6 +50,7 @@ function AtAGlancePage() {
           </div>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="Dhaka Stock Exchange at a glance" />
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {METRICS.map((m) => (

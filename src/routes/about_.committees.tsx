@@ -3,7 +3,9 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
+import { PageHero } from "@/components/dse/PageHero";
 import { useLang } from "@/i18n/LanguageContext";
+import heroAsset from "@/assets/about-dse-mega.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/committees")({
   head: () => ({
@@ -101,6 +103,7 @@ function CommitteesPage() {
           </p>
         </div>
       </section>
+      <PageHero src={heroAsset} alt="DSE Board Committees" />
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-3">
         {COMMITTEES.map((c) => <Row key={c.id} c={c} />)}
       </section>

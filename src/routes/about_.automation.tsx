@@ -4,6 +4,7 @@ import { FileText, Images } from "lucide-react";
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
 import { useLang } from "@/i18n/LanguageContext";
+import { PageHero } from "@/components/dse/PageHero";
 import dseTower from "@/assets/dse-automation-4.jpg.asset.json";
 
 export const Route = createFileRoute("/about_/automation")({
@@ -37,6 +38,7 @@ function AutomationPage() {
           </h1>
         </div>
       </section>
+      <PageHero src={dseTower} alt="DSE automation systems" />
 
       <section className="max-w-[960px] mx-auto px-4 md:px-6 py-8 md:py-10 space-y-3">
         <a
