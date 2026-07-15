@@ -295,7 +295,7 @@ function NewsPostPage() {
           <div className="flex items-end justify-between mb-6 gap-3 flex-wrap">
             <div>
               <div className="text-[11px] uppercase tracking-[0.24em] mb-1" style={{ color: "var(--text-muted)" }}>
-                Related posts
+                Blogs
               </div>
               <h2 className="text-[24px] md:text-[28px] font-semibold tracking-tight">
                 More from the newsroom
