@@ -64,6 +64,7 @@ import { Route as PublicationsWeeklyRouteImport } from './routes/publications_.w
 import { Route as PublicationsPressRouteImport } from './routes/publications_.press'
 import { Route as PublicationsMonthlyRouteImport } from './routes/publications_.monthly'
 import { Route as PublicationsFortnightlyRouteImport } from './routes/publications_.fortnightly'
+import { Route as NewsIdRouteImport } from './routes/news_.$id'
 import { Route as MarketsTopSharesRouteImport } from './routes/markets_.top-shares'
 import { Route as MarketsLatestSharePriceRouteImport } from './routes/markets_.latest-share-price'
 import { Route as MarketsComparisonRouteImport } from './routes/markets_.comparison'
@@ -374,6 +375,11 @@ const PublicationsFortnightlyRoute = PublicationsFortnightlyRouteImport.update({
   path: '/publications/fortnightly',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsIdRoute = NewsIdRouteImport.update({
+  id: '/news_/$id',
+  path: '/news/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketsTopSharesRoute = MarketsTopSharesRouteImport.update({
   id: '/markets_/top-shares',
   path: '/markets/top-shares',
@@ -629,6 +635,7 @@ export interface FileRoutesByFullPath {
   '/markets/comparison': typeof MarketsComparisonRoute
   '/markets/latest-share-price': typeof MarketsLatestSharePriceRoute
   '/markets/top-shares': typeof MarketsTopSharesRoute
+  '/news/$id': typeof NewsIdRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -719,6 +726,7 @@ export interface FileRoutesByTo {
   '/markets/comparison': typeof MarketsComparisonRoute
   '/markets/latest-share-price': typeof MarketsLatestSharePriceRoute
   '/markets/top-shares': typeof MarketsTopSharesRoute
+  '/news/$id': typeof NewsIdRoute
   '/publications/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications/monthly': typeof PublicationsMonthlyRoute
   '/publications/press': typeof PublicationsPressRoute
@@ -810,6 +818,7 @@ export interface FileRoutesById {
   '/markets_/comparison': typeof MarketsComparisonRoute
   '/markets_/latest-share-price': typeof MarketsLatestSharePriceRoute
   '/markets_/top-shares': typeof MarketsTopSharesRoute
+  '/news_/$id': typeof NewsIdRoute
   '/publications_/fortnightly': typeof PublicationsFortnightlyRoute
   '/publications_/monthly': typeof PublicationsMonthlyRoute
   '/publications_/press': typeof PublicationsPressRoute
@@ -902,6 +911,7 @@ export interface FileRouteTypes {
     | '/markets/comparison'
     | '/markets/latest-share-price'
     | '/markets/top-shares'
+    | '/news/$id'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -992,6 +1002,7 @@ export interface FileRouteTypes {
     | '/markets/comparison'
     | '/markets/latest-share-price'
     | '/markets/top-shares'
+    | '/news/$id'
     | '/publications/fortnightly'
     | '/publications/monthly'
     | '/publications/press'
@@ -1082,6 +1093,7 @@ export interface FileRouteTypes {
     | '/markets_/comparison'
     | '/markets_/latest-share-price'
     | '/markets_/top-shares'
+    | '/news_/$id'
     | '/publications_/fortnightly'
     | '/publications_/monthly'
     | '/publications_/press'
@@ -1171,6 +1183,7 @@ export interface RootRouteChildren {
   MarketsComparisonRoute: typeof MarketsComparisonRoute
   MarketsLatestSharePriceRoute: typeof MarketsLatestSharePriceRoute
   MarketsTopSharesRoute: typeof MarketsTopSharesRoute
+  NewsIdRoute: typeof NewsIdRoute
   PublicationsFortnightlyRoute: typeof PublicationsFortnightlyRoute
   PublicationsMonthlyRoute: typeof PublicationsMonthlyRoute
   PublicationsPressRoute: typeof PublicationsPressRoute
@@ -1564,6 +1577,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicationsFortnightlyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news_/$id': {
+      id: '/news_/$id'
+      path: '/news/$id'
+      fullPath: '/news/$id'
+      preLoaderRoute: typeof NewsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/markets_/top-shares': {
       id: '/markets_/top-shares'
       path: '/markets/top-shares'
@@ -1904,6 +1924,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketsComparisonRoute: MarketsComparisonRoute,
   MarketsLatestSharePriceRoute: MarketsLatestSharePriceRoute,
   MarketsTopSharesRoute: MarketsTopSharesRoute,
+  NewsIdRoute: NewsIdRoute,
   PublicationsFortnightlyRoute: PublicationsFortnightlyRoute,
   PublicationsMonthlyRoute: PublicationsMonthlyRoute,
   PublicationsPressRoute: PublicationsPressRoute,

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { Nav } from "@/components/dse/Nav";
 import { Footer } from "@/components/dse/Footer";
-import { buildFeed, getDisclosureById, typeMeta } from "@/data/newsFeed";
+import { buildFeed, getDisclosureById, typeMeta, type Disclosure } from "@/data/newsFeed";
 
 export const Route = createFileRoute("/news_/$id")({
   loader: ({ params }) => {
