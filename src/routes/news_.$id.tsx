@@ -69,6 +69,9 @@ export const Route = createFileRoute("/news_/$id")({
       ],
     };
   },
+  component: NewsPostPage,
+});
+
 const TAGS = ["Market", "Investment", "IPO", "Economy", "Trading", "Regulations"];
 
 function NewsPostPage() {
