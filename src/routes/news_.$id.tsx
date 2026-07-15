@@ -69,32 +69,12 @@ export const Route = createFileRoute("/news_/$id")({
       ],
     };
   },
-  component: NewsPostPage,
-});
-
-const TOC = [
-  { id: "introduction", label: "Introduction" },
-  { id: "market-overview", label: "Market Overview" },
-  { id: "analysis", label: "Analysis" },
-  { id: "key-statistics", label: "Key Statistics" },
-  { id: "conclusion", label: "Conclusion" },
-];
-
 const TAGS = ["Market", "Investment", "IPO", "Economy", "Trading", "Regulations"];
-
-const CATEGORIES = ["Market News", "IPO", "Corporate Actions", "Circulars", "Education", "Investor Guide"];
-
-const SNAPSHOT = [
-  { code: "DSEX", val: "5,742.18", chg: "+0.42%", up: true },
-  { code: "DS30", val: "2,108.66", chg: "+0.31%", up: true },
-  { code: "DSES", val: "1,254.03", chg: "-0.11%", up: false },
-];
 
 function NewsPostPage() {
   const { post } = Route.useLoaderData() as { post: Disclosure };
   const meta = typeMeta[post.type];
   const heroImage = imageFor(post);
-  const [active, setActive] = useState(TOC[0].id);
   const [copied, setCopied] = useState(false);
 
   const feed = useMemo(() => buildFeed(), []);
@@ -106,20 +86,6 @@ function NewsPostPage() {
   const relatedCards = useMemo(() => feed.filter((d) => d.id !== post.id).slice(0, 4), [feed, post.id]);
   const readMins = Math.max(3, Math.round(post.body.split(/\s+/).length / 180) + 4);
 
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY + 160;
-      let current = TOC[0].id;
-      for (const t of TOC) {
-        const el = document.getElementById(t.id);
-        if (el && el.offsetTop <= y) current = t.id;
-      }
-      setActive(current);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const copyLink = async () => {
     try {
