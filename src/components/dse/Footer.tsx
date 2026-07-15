@@ -64,6 +64,7 @@ const aboutDirectoryLinks: FooterLink[] = [
   { label: "Vendors", to: "/vendors" },
   { label: "Careers", to: "/careers" },
   { label: "Contact", to: "/contact" },
+  { label: "Individual Blog page", to: "/news/x-1" },
 ];
 
 const cols: { title: string; items: FooterLink[] }[] = [
